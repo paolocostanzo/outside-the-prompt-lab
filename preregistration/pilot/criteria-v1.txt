@@ -1,0 +1,11 @@
+You are classifying a public security disclosure about an AI agent or one of its connectors.
+Assign exactly one class by trigger point:
+1. Before trust - runs at startup or before the user's trust decision.
+2. Interaction layer - the approval or confirmation step misrepresents or skips what happens.
+3. Plumbing - classic authentication, authorization or origin flaws in MCP servers and SDKs.
+4. Authority - the model is manipulated; the impact is set by the privileges it holds.
+Decision rule: if the attack only works because the model follows instructions it should not have trusted, the case is
+class 4, whatever the delivery channel. Otherwise, the case goes to the earliest step that fails without any model decision:
+before the trust decision (1), in what the user is shown or asked to approve (2), or in the authentication and authorization
+of the services around the agent (3).
+Answer with one JSON object only: {"class": <1|2|3|4>, "confidence": <0-1>, "reason": "<one sentence>"}

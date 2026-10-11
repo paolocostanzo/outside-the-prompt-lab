@@ -1,0 +1,297 @@
+{
+  "model": "qwen3.8:27b-q8_0",
+  "started": "2026-10-10T11:51:22+00:00",
+  "runs": 3,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.82, \"reason\": \"The sandbox escape via git worktree path confusion is a classic containment/authorization flaw in the tool's own path-resolution machinery at the sandbox boundary, not a case of model manipulation or a misleading approval step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 914
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.82, \"reason\": \"The sandbox escape via git worktree path confusion is a classic containment/authorization flaw in the tool's own path-resolution machinery at the sandbox boundary, not a case of model manipulation or a misleading approval step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 914
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.82, \"reason\": \"The sandbox escape via git worktree path confusion is a classic containment/authorization flaw in the tool's own path-resolution machinery at the sandbox boundary, not a case of model manipulation or a misleading approval step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 914
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.92, \"reason\": \"The agent's automated background context-gathering runs git against the repository's own .git configuration before any workspace trust prompt is shown, executing attacker code with user privileges prior to the user's trust decision.\"}",
+          "class": 1,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 805
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.92, \"reason\": \"The agent's automated background context-gathering runs git against the repository's own .git configuration before any workspace trust prompt is shown, executing attacker code with user privileges prior to the user's trust decision.\"}",
+          "class": 1,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 805
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.92, \"reason\": \"The agent's automated background context-gathering runs git against the repository's own .git configuration before any workspace trust prompt is shown, executing attacker code with user privileges prior to the user's trust decision.\"}",
+          "class": 1,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 805
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "modal": 1,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.85, \"reason\": \"The prompt was submitted to the model without any user-facing confirmation step, and the fix explicitly restores a 'read and press send' gate, indicating the failure was in the interaction/approval layer rather than in the model's trust of instructions.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 955
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.85, \"reason\": \"The prompt was submitted to the model without any user-facing confirmation step, and the fix explicitly restores a 'read and press send' gate, indicating the failure was in the interaction/approval layer rather than in the model's trust of instructions.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 955
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.85, \"reason\": \"The prompt was submitted to the model without any user-facing confirmation step, and the fix explicitly restores a 'read and press send' gate, indicating the failure was in the interaction/approval layer rather than in the model's trust of instructions.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 955
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C04": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves a command they cannot fully read — the approval step misrepresents the actual action.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 339
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves a command they cannot fully read — the approval step misrepresents the actual action.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 339
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves a command they cannot fully read — the approval step misrepresents the actual action.\"}",
+          "class": 2,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 339
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C05": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.97, \"reason\": \"The MCP bridge endpoints were exposed without authentication in the default deployment, a classic authentication flaw in the MCP server infrastructure with no model involvement at any step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 311
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.97, \"reason\": \"The MCP bridge endpoints were exposed without authentication in the default deployment, a classic authentication flaw in the MCP server infrastructure with no model involvement at any step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 311
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.97, \"reason\": \"The MCP bridge endpoints were exposed without authentication in the default deployment, a classic authentication flaw in the MCP server infrastructure with no model involvement at any step.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 311
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C06": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The missing Host/Origin header validation in the MCP SDK's WebSocket transport is a classic origin-validation (plumbing) flaw that allows cross-site WebSocket hijacking without any model involvement.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 472
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The missing Host/Origin header validation in the MCP SDK's WebSocket transport is a classic origin-validation (plumbing) flaw that allows cross-site WebSocket hijacking without any model involvement.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 472
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The missing Host/Origin header validation in the MCP SDK's WebSocket transport is a classic origin-validation (plumbing) flaw that allows cross-site WebSocket hijacking without any model involvement.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 472
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C07": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The OAuth authorization endpoint fails to validate the identity of the requester, a classic authentication/authorization flaw in the MCP connector's plumbing that lets an unauthenticated attacker obtain an admin-bound bearer token.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 436
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The OAuth authorization endpoint fails to validate the identity of the requester, a classic authentication/authorization flaw in the MCP connector's plumbing that lets an unauthenticated attacker obtain an admin-bound bearer token.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 436
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The OAuth authorization endpoint fails to validate the identity of the requester, a classic authentication/authorization flaw in the MCP connector's plumbing that lets an unauthenticated attacker obtain an admin-bound bearer token.\"}",
+          "class": 3,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 436
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C08": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.85, \"reason\": \"The attack succeeds because the agentic workflow followed instructions planted in a public issue (untrusted content), and the severity was determined by the privileges it held (read private repos + write public comments), making this a model-manipulation case regardless of the delivery channel.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 941
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.85, \"reason\": \"The attack succeeds because the agentic workflow followed instructions planted in a public issue (untrusted content), and the severity was determined by the privileges it held (read private repos + write public comments), making this a model-manipulation case regardless of the delivery channel.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 941
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.85, \"reason\": \"The attack succeeds because the agentic workflow followed instructions planted in a public issue (untrusted content), and the severity was determined by the privileges it held (read private repos + write public comments), making this a model-manipulation case regardless of the delivery channel.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 941
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C09": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.72, \"reason\": \"The agent acted on instructions embedded in PR-description content it should have treated as untrusted data, making this a model-manipulation (prompt-injection) case regardless of the MCP server's failure to apply its content-isolation wrapper to that particular tool.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1656
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.72, \"reason\": \"The agent acted on instructions embedded in PR-description content it should have treated as untrusted data, making this a model-manipulation (prompt-injection) case regardless of the MCP server's failure to apply its content-isolation wrapper to that particular tool.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1656
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.72, \"reason\": \"The agent acted on instructions embedded in PR-description content it should have treated as untrusted data, making this a model-manipulation (prompt-injection) case regardless of the MCP server's failure to apply its content-isolation wrapper to that particular tool.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1656
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C10": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.82, \"reason\": \"The attack mechanism is attacker-controlled workspace content steering the agent into exfiltrating local data, which is model manipulation via untrusted instructions regardless of the workspace-settings delivery channel, and the fact it worked in both trusted and untrusted workspaces confirms the core failure is the agent acting on content it should not have trusted.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1259
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.82, \"reason\": \"The attack mechanism is attacker-controlled workspace content steering the agent into exfiltrating local data, which is model manipulation via untrusted instructions regardless of the workspace-settings delivery channel, and the fact it worked in both trusted and untrusted workspaces confirms the core failure is the agent acting on content it should not have trusted.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1259
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.82, \"reason\": \"The attack mechanism is attacker-controlled workspace content steering the agent into exfiltrating local data, which is model manipulation via untrusted instructions regardless of the workspace-settings delivery channel, and the fact it worked in both trusted and untrusted workspaces confirms the core failure is the agent acting on content it should not have trusted.\"}",
+          "class": 4,
+          "model_digest": "qwen3.8:27b-q8_0",
+          "eval_count": 1259
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    }
+  }
+}

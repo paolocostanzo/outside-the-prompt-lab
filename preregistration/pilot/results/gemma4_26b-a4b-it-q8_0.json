@@ -1,0 +1,297 @@
+{
+  "model": "gemma4:26b-a4b-it-q8_0",
+  "started": "2026-10-10T12:10:01+00:00",
+  "runs": 3,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a sandbox escape caused by improper path resolution in the underlying tool machinery, which is a plumbing/infrastructure flaw.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 487
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a sandbox escape caused by a flaw in path resolution logic within the tool's underlying infrastructure.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 518
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a sandbox escape caused by a flaw in path resolution logic within the tool's underlying infrastructure.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 518
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability occurs during background context gathering before the user is presented with any workspace trust decision or prompt.\"}",
+          "class": 1,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 525
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows code execution during the background context-gathering phase before the user has been prompted to trust the workspace.\"}",
+          "class": 1,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 633
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows code execution during the background context-gathering phase before the user has been prompted to trust the workspace.\"}",
+          "class": 1,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 633
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "modal": 1,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability allows a crafted prompt to be submitted automatically without user confirmation, bypassing the intended interaction layer.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 1424
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability allows a crafted prompt to be submitted automatically without user visibility or confirmation, representing a failure in the interaction layer.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 721
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability allows a crafted prompt to be submitted automatically without user visibility or confirmation, representing a failure in the interaction layer.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 721
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C04": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The confirmation dialog misrepresents the command being executed by hiding part of it in a single-line field, preventing the user from seeing the full intent.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 397
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The confirmation dialog misrepresents the command being executed by truncating the text in a single-line field, preventing the user from seeing the full command they are approving.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 426
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The confirmation dialog misrepresents the command being executed by truncating the text in a single-line field, preventing the user from seeing the full command they are approving.\"}",
+          "class": 2,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 426
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C05": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in the MCP bridge endpoints, with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 415
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in the MCP bridge endpoints, with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 413
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in the MCP bridge endpoints, with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 413
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C06": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin validation flaw in the SDK's WebSocket transport layer.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 387
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin validation flaw in the SDK's WebSocket transport layer.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 395
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin validation flaw in the SDK's WebSocket transport layer.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 395
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C07": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the OAuth implementation of the connector.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 453
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the OAuth implementation where the endpoint fails to validate the identity of the requester.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 374
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the OAuth implementation where the endpoint fails to validate the identity of the requester.\"}",
+          "class": 3,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 374
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C08": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the model follows malicious instructions found in a public issue to exfiltrate private data using its existing privileges.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 536
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the model follows malicious instructions found in a public issue to misuse its existing privileges.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 501
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the model follows malicious instructions found in a public issue to misuse its existing privileges.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 501
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C09": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the agent follows malicious instructions it should not have trusted, which falls directly under the decision rule for class 4.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 733
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the agent follows malicious instructions embedded in a pull-request description that it retrieved.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 718
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack is an indirect prompt injection where the agent follows malicious instructions embedded in a pull-request description that it retrieved.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 718
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C10": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack involves manipulating the model via attacker-controlled workspace content to steer it into performing unauthorized exfiltration using its existing privileges.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 545
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack involves manipulating the model via attacker-controlled workspace content to misuse its existing privileges for data exfiltration.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 574
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack involves manipulating the model via attacker-controlled workspace content to misuse its existing privileges for data exfiltration.\"}",
+          "class": 4,
+          "model_digest": "gemma4:26b-a4b-it-q8_0",
+          "eval_count": 574
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    }
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "model": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+  "started": "2026-10-10T12:14:11+00:00",
+  "runs": 3,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability fails in internal path resolution at the sandbox boundary before the user's trust decision is engaged, with no model manipulation or user interaction involved.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2569
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability fails in internal path resolution at the sandbox boundary before the user's trust decision is engaged, with no model manipulation or user interaction involved.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2569
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability fails in internal path resolution at the sandbox boundary before the user's trust decision is engaged, with no model manipulation or user interaction involved.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2569
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "modal": 1,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability executes during background context gathering before any user trust decision or workspace prompt, representing an earliest-step failure at the trust boundary without model manipulation.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 4129
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability executes during background context gathering before any user trust decision or workspace prompt, representing an earliest-step failure at the trust boundary without model manipulation.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 4129
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability executes during background context gathering before any user trust decision or workspace prompt, representing an earliest-step failure at the trust boundary without model manipulation.\"}",
+          "class": 1,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 4129
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "modal": 1,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.93, \"reason\": \"The attack exploits the interaction layer by submitting a prompt to the desktop app without the user seeing or confirming it, skipping the approval step that the fix addresses.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2840
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.93, \"reason\": \"The attack exploits the interaction layer by submitting a prompt to the desktop app without the user seeing or confirming it, skipping the approval step that the fix addresses.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2840
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.93, \"reason\": \"The attack exploits the interaction layer by submitting a prompt to the desktop app without the user seeing or confirming it, skipping the approval step that the fix addresses.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2840
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C04": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves without fully seeing the content, which is a misrepresentation at the interaction/approval step.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1801
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves without fully seeing the content, which is a misrepresentation at the interaction/approval step.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1801
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The MCP-install confirmation dialog truncates the server command in a single-line field, so the user approves without fully seeing the content, which is a misrepresentation at the interaction/approval step.\"}",
+          "class": 2,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1801
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "modal": 2,
+      "stable": true
+    },
+    "C05": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability results from missing authentication on MCP bridge endpoints in the default docker-compose deployment, which is a plumbing/authentication flaw in the services around the agent with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1194
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability results from missing authentication on MCP bridge endpoints in the default docker-compose deployment, which is a plumbing/authentication flaw in the services around the agent with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1194
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability results from missing authentication on MCP bridge endpoints in the default docker-compose deployment, which is a plumbing/authentication flaw in the services around the agent with no model involvement.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1194
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C06": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The deprecated WebSocket server transport in the MCP Python SDK accepted handshakes without validating Host or Origin headers, constituting a classic plumbing/origin authentication flaw in the SDK's protocol implementation.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1361
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The deprecated WebSocket server transport in the MCP Python SDK accepted handshakes without validating Host or Origin headers, constituting a classic plumbing/origin authentication flaw in the SDK's protocol implementation.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1361
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The deprecated WebSocket server transport in the MCP Python SDK accepted handshakes without validating Host or Origin headers, constituting a classic plumbing/origin authentication flaw in the SDK's protocol implementation.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1361
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C07": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from a missing authorization check in an OAuth endpoint, allowing an unauthenticated attacker to register a client and obtain an administrator-bound token. This is a classic server-side authentication/authorization flaw in the MCP connector's plumbing, with no model manipulation, instruction following, or user deception involved.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1580
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from a missing authorization check in an OAuth endpoint, allowing an unauthenticated attacker to register a client and obtain an administrator-bound token. This is a classic server-side authentication/authorization flaw in the MCP connector's plumbing, with no model manipulation, instruction following, or user deception involved.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1580
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from a missing authorization check in an OAuth endpoint, allowing an unauthenticated attacker to register a client and obtain an administrator-bound token. This is a classic server-side authentication/authorization flaw in the MCP connector's plumbing, with no model manipulation, instruction following, or user deception involved.\"}",
+          "class": 3,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1580
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "modal": 3,
+      "stable": true
+    },
+    "C08": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.94, \"reason\": \"The attack succeeds because the agentic workflow executed instructions from a planted public issue, combining privileged read access with public write capabilities despite those instructions being untrusted, and the resulting impact was determined by the privileges the model held.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2249
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.94, \"reason\": \"The attack succeeds because the agentic workflow executed instructions from a planted public issue, combining privileged read access with public write capabilities despite those instructions being untrusted, and the resulting impact was determined by the privileges the model held.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2249
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.94, \"reason\": \"The attack succeeds because the agentic workflow executed instructions from a planted public issue, combining privileged read access with public write capabilities despite those instructions being untrusted, and the resulting impact was determined by the privileges the model held.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 2249
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C09": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The agent executed a hidden instruction from a pull-request description because the PR-description tool lacked content-isolation defenses, causing the model to follow instructions it should not have trusted, which per the decision rule classifies this as an authority flaw.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1701
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The agent executed a hidden instruction from a pull-request description because the PR-description tool lacked content-isolation defenses, causing the model to follow instructions it should not have trusted, which per the decision rule classifies this as an authority flaw.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1701
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The agent executed a hidden instruction from a pull-request description because the PR-description tool lacked content-isolation defenses, causing the model to follow instructions it should not have trusted, which per the decision rule classifies this as an authority flaw.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1701
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    },
+    "C10": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack succeeds because the AI agent follows attacker-controlled workspace content instructions it should not have trusted, steering it to exfiltrate local data. Per the decision rule, when the model is manipulated via instructions it shouldn't trust, the class is 4 regardless of delivery channel.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1708
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack succeeds because the AI agent follows attacker-controlled workspace content instructions it should not have trusted, steering it to exfiltrate local data. Per the decision rule, when the model is manipulated via instructions it shouldn't trust, the class is 4 regardless of delivery channel.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1708
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack succeeds because the AI agent follows attacker-controlled workspace content instructions it should not have trusted, steering it to exfiltrate local data. Per the decision rule, when the model is manipulated via instructions it shouldn't trust, the class is 4 regardless of delivery channel.\"}",
+          "class": 4,
+          "model_digest": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+          "eval_count": 1708
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "modal": 4,
+      "stable": true
+    }
+  }
+}
