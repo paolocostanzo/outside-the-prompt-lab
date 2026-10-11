@@ -1,0 +1,8 @@
+{
+  "title": "Outside the Prompt — reproducible lab harness",
+  "upload_type": "software",
+  "license": "MIT",
+  "creators": [{"name": "Costanzo, Paolo", "affiliation": "CoDe RTD, Turin, Italy", "orcid": "0009-0005-7205-5945"}],
+  "keywords": ["AI agents", "MCP", "workspace trust", "security measurement", "reproducible lab"],
+  "description": "Harmless canaries, test-repository generators, matrix runners and read-only checks used in the 'Outside the Prompt' series to measure trust boundaries of AI coding agents (which project-declared MCP servers start, under which decision, and what the user is shown). No attack payloads: every component only records that it ran."
+}

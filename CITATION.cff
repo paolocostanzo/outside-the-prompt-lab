@@ -1,0 +1,13 @@
+cff-version: 1.2.0
+message: "If you use this harness, please cite it as below."
+title: "Outside the Prompt — reproducible lab harness"
+authors:
+  - family-names: Costanzo
+    given-names: Paolo
+    orcid: "https://orcid.org/0009-0005-7205-5945"
+    affiliation: "CoDe RTD, Turin, Italy"
+repository-code: "https://github.com/paolocostanzo/outside-the-prompt-lab"
+license: MIT
+date-released: 2026-10-11
+version: 0.2.0
+keywords: [AI agents, MCP, workspace trust, security measurement, reproducible lab]
