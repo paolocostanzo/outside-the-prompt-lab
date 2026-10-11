@@ -5,7 +5,7 @@ authors:
   - family-names: Costanzo
     given-names: Paolo
     orcid: "https://orcid.org/0009-0005-7205-5945"
-    affiliation: "CoDe RTD, Turin, Italy"
+    affiliation: "CoDe RTD"
 repository-code: "https://github.com/paolocostanzo/outside-the-prompt-lab"
 license: MIT
 date-released: 2026-10-11
