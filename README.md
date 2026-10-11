@@ -1,5 +1,7 @@
 # Outside the Prompt — reproducible lab harness
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23300292.svg)](https://doi.org/10.5281/zenodo.23300292)
+
 Companion code for the research series *Outside the Prompt* (https://paolocostanzo.github.io/) and its November 2026 preprint.
 Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
 
@@ -25,7 +27,10 @@ node scripts/check-trust.mjs              # which projects have I already truste
 ```
 
 ## Citing
-See `CITATION.cff`. Releases are archived on Zenodo with a DOI (concept DOI to be added at the first release).
+Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
+Version v0.2.0 (Q5 harness): https://doi.org/10.5281/zenodo.23300293. See also `CITATION.cff`.
+
+> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.2.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
 MIT.
