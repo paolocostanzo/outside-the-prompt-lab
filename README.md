@@ -10,11 +10,13 @@ started and answers a minimal handshake with one no-op tool; the generators writ
 runners drive the clients and record screens and logs. There are no attack payloads and nothing that exfiltrates, modifies or
 reaches the network. The matrix runners edit the clients' trust stores in `$HOME`: run them only in a disposable VM.
 
-| Folder | Measurement | Article |
+| Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
-| `trusting-a-repo/` | Q5 — does a client start a repository-declared MCP server, and under which trust decision? Eight clients, 75 automated cells, 14 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
-| `tool-change/` (coming) | Q3 — does a client notice when an approved tool's definition changes? | part 3 (20 Oct 2026) |
-| `telemetry/` (coming) | Q4 — what default host telemetry shows for each event | part 5 (3 Nov 2026) |
+| `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 14 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
+| `tool-change/` (coming) | Q3 (RQ3) — does a client notice when an approved tool's definition changes? | part 3 (20 Oct 2026) |
+| `defence-coverage/` (coming) | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? | part 3 (20 Oct 2026) |
+| `telemetry/` (coming) | Q4 (RQ5) — what default host telemetry shows for each event | part 4 (27 Oct 2026) |
+| `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
 
 Each folder has its own README with requirements, how to reproduce, the test matrix and the limits of interpretation.
 
