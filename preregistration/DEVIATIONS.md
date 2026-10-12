@@ -90,3 +90,11 @@ Q2 protocol.
 Codex CLI reads a project `.codex/config.toml` after the trust decision. The protocol keeps the original text with a dated
 correction note; results always reflected the measured behaviour.
 **Effect.** None on results.
+
+### D11 · 12 Oct 2026 · header — target journal
+**Change.** The target journal named in the preregistration header, *Transactions on Machine Learning Research* (TMLR), is replaced
+by *Empirical Software Engineering* (Springer).
+**Why.** The study is an empirical measurement of developer tools (configuration, approval dialogs, connectors) and does not
+address learning methods, which is TMLR's stated scope; it falls squarely within the scope of *Empirical Software Engineering*.
+**Effect.** None on research questions, hypotheses, classification criteria, dataset, raters, measurements or analysis plan.
+Review becomes single-blind instead of double-blind, so the paper cites the preregistration with the author's name.
