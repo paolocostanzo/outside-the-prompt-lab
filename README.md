@@ -30,12 +30,12 @@ node scripts/check-trust.mjs              # which projects have I already truste
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
-Version v0.2.0 (Q5 harness): https://doi.org/10.5281/zenodo.23300293. See also `CITATION.cff`.
+Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026): corrections after an external review — see the release notes. See also `CITATION.cff`.
 
 The study design (research questions, hypotheses, criteria, analysis plan, Q3 and Q4 protocols) was preregistered on
 11 October 2026: https://doi.org/10.5281/zenodo.23300369
 
-> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.2.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
+> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.2.1) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
 MIT.
