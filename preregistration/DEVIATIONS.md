@@ -98,3 +98,68 @@ by *Empirical Software Engineering* (Springer).
 address learning methods, which is TMLR's stated scope; it falls squarely within the scope of *Empirical Software Engineering*.
 **Effect.** None on research questions, hypotheses, classification criteria, dataset, raters, measurements or analysis plan.
 Review becomes single-blind instead of double-blind, so the paper cites the preregistration with the author's name.
+
+---
+
+The four entries below follow an external critical review of the project (13 Oct 2026), whose points were checked one by one
+against the code, the specifications and the primary sources before being accepted. All four were written **before any
+confirmatory data** for RQ1, RQ3 or RQ5.
+
+### D12 · 13 Oct 2026 · §6 Q3 protocol — conformance with MCP 2026-07-28 and outcome coding
+**Problem.** The frozen Q3 protocol records the protocol revision "from the handshake" and sends `notifications/tools/list_changed`
+unconditionally. Under the 2026-07-28 specification the modern path has no negotiation handshake (servers implement
+`server/discover`), a server must not send notification types the client has not requested (subscription with acknowledgement),
+and `tools/list` results carry a cache lifetime (`ttlMs`). A notification the client never subscribed to is not evidence that the
+client "ignores" it; a call after the toggle is not evidence that the client saw definition B (it may still use cached A). The four
+outcome categories also overlap and miss outcomes (stale cache, error, timeout).
+**Change.**
+1. A dedicated Q3 server replaces the Q5 canary: legacy path (current legacy revision, `initialize`, `tools.listChanged: true`) and
+   modern path (`server/discover`, `subscriptions/listen` with acknowledgement, `ttlMs: 0` on `tools/list`). It logs every message
+   with a timestamp and which definition (A or B) each `tools/list` served. Revision recorded from the request metadata or the
+   `MCP-Protocol-Version` header.
+2. Delivery check: the list_changed level counts as delivered only if the client subscribed (modern) or declared the capability
+   (legacy); otherwise the cell is coded "signal not deliverable" and excluded from H3's second clause.
+3. Outcomes, coded with this precedence: (1) refused or disconnected; (2) re-approval required; (3) notified without re-approval;
+   (4) silent accept — B served by a `tools/list` after the toggle, the call succeeded, nothing shown to the user; (5) stale — no
+   refetch after the toggle, A still in use; (6) error, no call or timeout.
+4. Aggregation: per-cell counts are always reported. H3 first clause: D7 unchanged (client outcome = modal outcome over primary
+   cells). H3 second clause is evaluated on delivered list_changed cells only; a client "acts on the notification" if it notifies
+   or asks for re-approval in at least 1 of 5 repetitions.
+5. A positive control per client (a change the client is known to surface, where one exists) precedes the primary cells.
+**Effect.** Prevents false "ignored" and "silent accept" results. H3 second clause can only be tested for clients where the signal
+is deliverable; the others are reported as such.
+
+### D13 · 13 Oct 2026 · §1 RQ5/H5 and Q4 protocol — holdout and reporting
+**Change.** (1) Baseline: at least two hours per terminal client (≥ 12 h for six clients), repeated with the local engine where
+supported. (2) Detection rules are written on a development part of the baseline and their files' SHA-256 committed **before**
+they are scored on a separate holdout session (different session and time). (3) Reported per rule: true positives on event runs,
+false-positive windows on the holdout with counts, Wilson 95% intervals and alerts per hour; "≤ 5%" (D6) is an observed rate on
+the holdout, not a population estimate, and consecutive one-minute windows are autocorrelated. (4) H5 is judged on default client
+logging only; added host telemetry is reported separately. (5) Without a holdout, RQ5 is reported as exploratory.
+**Effect.** Separates rule development from rule evaluation; threshold unchanged.
+
+### D14 · 13 Oct 2026 · §2–§3 RQ1 — case C01, disclosure date, summaries, classifier
+**Problem.** Pilot case C01 (CVE-2026-55607, GHSA-7835-87q9-rgvv) was labelled class 1 by R0 and by one model. The vendor advisory
+states that reliable exploitation required a repository containing prompt-injection content run with the agent: under the
+decision rule of §2 the case is class 4. The case summary given to the raters omitted this precondition. The class-1 clarification
+added after the pilot (§2, §7) was motivated by the disagreement on C01, so it was influenced by the author's label. The advisory
+was published on 25 June, one day before the window (26 June); the pilot used the CVE date (29 June).
+**Change.** (1) C01 is relabelled class 4 in all reporting; the pilot share becomes 6/10 (6/9 if C01 is dropped by date). Pilot
+κ values, computed on the original labels, are reported as such and recomputed with the correction. (2) Disclosure date = first
+public advisory or researcher write-up; advisory, CVE and fix dates are recorded separately in `rq1-frame.csv`. (3) Case summaries
+must state every precondition of exploitation, paraphrased without class words (e.g. "instructions planted in files the agent
+reads"); a second human reader checks the summaries of contested cases against the sources where available. (4) The classifier
+(`classify.py`) parses answers as strict JSON, counts invalid answers, treats ties as unresolved, refuses mismatched case sets,
+reports undefined κ as undefined, aborts without a model digest, and writes each run to its own directory; covered by tests.
+**Effect.** H1 is evaluated on the confirmatory set with the corrected rules; the pilot is reported separately with the correction.
+
+### D15 · 13 Oct 2026 · §5 RQ4 (exploratory) — summary statistic, correcting D9
+**Correction.** D9 called the 61% mean "the primary count … as in the Q2 protocol"; the protocol defines neither a primary count
+nor the exclusion of the two small servers (MSSQL, Oracle). **Change.** RQ4 is reported as a range with its inclusion rules: mean
+per-repository coverage 61% over the five servers analysed (partial coverage counted; median 57%), 60–72% depending on including the
+two small servers and on counting partial coverage, and the pooled per-tool share; denominators that are estimates (GitHub, Sentry)
+are marked. The unit of count is the registered tool name; results are given separately per defence mechanism (nonce delimiting,
+character hygiene, provenance marking), which are not equivalent. Azure DevOps is 28/28 read tools at the pinned commit, text
+success paths only. The Q2 protocol's ">95%" for spotlighting refers to Nasr et al.'s adaptive search attack on AgentDojo (one model
+47%) and is quoted that way from now on.
+**Effect.** Exploratory question; reporting only.
