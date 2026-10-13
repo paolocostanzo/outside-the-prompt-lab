@@ -23,7 +23,7 @@ Each folder has its own README with requirements, how to reproduce, the test mat
 ## Quick start (Q5 components, no VM needed)
 ```bash
 cd trusting-a-repo
-npm test                                  # 14 tests, Node >= 22, no dependencies
+npm test                                  # 18 tests, Node >= 22, no dependencies
 node scripts/check-repo.mjs path/to/repo  # which MCP servers would this repository ask my agent to run?
 node scripts/check-trust.mjs              # which projects have I already trusted, client by client?
 ```
