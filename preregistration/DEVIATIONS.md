@@ -259,3 +259,14 @@ recorded, temperature 0, packets without the rule-based outcome and with shuffle
 the rule-based coder; every disagreement is resolved by re-reading the capture and the server log, and the resolution is published.
 (4) The paper states that no blind human coding was done. This entry was written before any answer of the local model was read.
 **Effect.** The reported agreement is model versus rule-based coder instead of author versus model; outcome definitions and precedence unchanged.
+
+### D21 · 15 Oct 2026 · §5 RQ3 and D17 — correction of D20: author coding restored
+**Correction.** D20 assumed that the author had read the rule-based coder's results before examining the evidence. The author states that he
+examined the evidence first and then compared it with the results, finding agreement on every repetition (and on every row of the Q2 spot
+check). D20's premise was the coordinator's assumption, not a fact.
+**Change.** (1) §5 as preregistered applies: the two coders are the author and the local model, and Cohen's κ between them is reported;
+κ of each with the rule-based coder is reported as well. (2) The author did not write a label per packet: his labels are recorded from his
+declaration of agreement on every packet (each row of the coding sheet says so), and the paper states this. (3) Q2 (D17): author spot check of
+the seeded ten-row sample, no disagreement; agreement reported as 10/10 with κ on the protection label. This entry was written before any
+answer of the local model was read.
+**Effect.** Reporting as in §5; D20 is superseded.
