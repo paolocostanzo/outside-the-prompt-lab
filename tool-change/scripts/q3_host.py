@@ -16,6 +16,7 @@ VIRSH = ["virsh", "-c", "qemu:///system"]
 KEY = Path.home() / ".ssh/agentlab_ed25519"
 KNOWN = Path.home() / "Desktop/redazione/lab/vm/known_hosts"
 HARNESS = Path(__file__).resolve().parent.parent  # tool-change/
+FALLBACK_IP = "192.168.122.70"  # agentlab's address on libvirt's default NAT network (lab/vm, RIPRENDI §4)
 CLIENTS = ["claude-code", "codex", "gemini", "qwen", "cursor-agent", "goose"]
 SIGNALS = ["none", "list_changed"]
 
@@ -37,11 +38,13 @@ class Host:
         print(line, flush=True)
 
     def ip(self):
+        # libvirt's DHCP lease table can expire while the guest, restored from a running snapshot, still holds its lease and
+        # never renews it (15 Oct 2026, after ~1 h): fall back to the VM's known address.
         r = run(VIRSH + ["domifaddr", DOMAIN])
         for line in r.stdout.splitlines():
             if "ipv4" in line:
                 return line.split()[-1].split("/")[0]
-        return None
+        return FALLBACK_IP
 
     def ssh(self, ip, command, timeout=120):
         return run(["ssh", "-i", str(KEY), "-o", f"UserKnownHostsFile={KNOWN}", "-o", "BatchMode=yes",
