@@ -111,11 +111,14 @@ CLIENTS = {
 }
 
 def load_overrides(path):
-    """Per-client patterns decided in the set-up runs live in a JSON file next to this script."""
+    """Per-client patterns decided in the set-up runs live in a JSON file next to this script.
+    A client's "noise" list adds (regex, keys) pairs for unrelated screens (answered with their "no")."""
     p = Path(path)
     if p.exists():
         for name, spec in json.loads(p.read_text()).items():
             if name in CLIENTS:
+                for tip, answer in spec.pop("noise", None) or []:
+                    NOISE.append((tip, tuple(answer)))
                 CLIENTS[name].update({k: (tuple(v) if isinstance(v, list) else v) for k, v in spec.items()})
 
 def wait_ready(spec, timeout, caps, tag, outdir, row):
@@ -158,7 +161,7 @@ def ask_and_follow(spec, phase, t_after, timeout, caps, outdir, row):
             break
         time.sleep(1.5)
     row[f"{phase}_approvals"] = len(approvals)
-    row[f"{phase}_notice_seen"] = bool(notices)
+    row[f"{phase}_notice_seen"] = bool(notices) or bool(row.get(f"{phase}_notice_seen"))
     row[f"{phase}_calls"] = len(calls_since(t_after))
     row[f"{phase}_timeout"] = not calls_since(t_after)
     row[f"{phase}_end_at"] = now()  # end of the phase window, before the runner touches the client
@@ -195,6 +198,10 @@ def run(client, signal, change, rep, outroot, reopen=True, dwell_after_flip=12, 
     flip_to_b()
     time.sleep(dwell_after_flip)
     capture(caps, outdir, row, "p2-after-flip")
+    # a change message can appear right after the change, before the second request (e.g. Gemini CLI)
+    if spec.get("notice") and re.search(spec["notice"], screen()):
+        row["p2_notice_seen"] = True
+        capture(caps, outdir, row, "p2-notice")
     ask_and_follow(spec, "p2", row["flip_at"], call_timeout, caps, outdir, row)
     # phase 3 (exploratory)
     if reopen:

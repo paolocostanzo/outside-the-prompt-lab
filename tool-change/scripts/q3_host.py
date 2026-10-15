@@ -58,22 +58,37 @@ class Host:
                 sys.exit(3)
             time.sleep(20)
 
+    def order6_blocks(self):
+        """Free blocks of order >= 6 in zone Normal: libvirt needs one to load the VM's AppArmor profile
+        (15 Oct 2026: 'apparmor_parser: page allocation failure: order:6' when there were none)."""
+        for line in open("/proc/buddyinfo"):
+            if " Normal " in line:
+                return sum(int(x) for x in line.split()[10:])
+        return -1
+
     def fresh_vm(self, snapshot):
-        run(VIRSH + ["destroy", DOMAIN])
-        r = run(VIRSH + ["snapshot-revert", DOMAIN, snapshot], check=False)
-        if r.returncode:
-            self.note(event="revert-failed", stderr=r.stderr.strip())
+        """Restore the clean snapshot. A running snapshot (memory included) restores in seconds; libvirt still starts a
+        new QEMU process, so the AppArmor profile is loaded again: on failure, wait and retry, then stop cleanly."""
+        for attempt in range(1, 6):
+            r = run(VIRSH + ["snapshot-revert", DOMAIN, snapshot])
+            if r.returncode == 0 and "running" not in run(VIRSH + ["domstate", DOMAIN]).stdout and \
+                    "esecuzione" not in run(VIRSH + ["domstate", DOMAIN]).stdout:
+                r = run(VIRSH + ["start", DOMAIN])
+            if r.returncode == 0:
+                break
+            self.note(event="revert-failed", attempt=attempt, stderr=r.stderr.strip()[:300], order6plus=self.order6_blocks())
+            time.sleep(60)
+        else:
+            self.note(event="abort-revert", hint="host memory fragmented: free RAM or reboot, then resume (done cells are skipped)")
             sys.exit(4)
-        r = run(VIRSH + ["start", DOMAIN])
-        if r.returncode:
-            self.note(event="start-failed", stderr=r.stderr.strip())
-            sys.exit(5)
         t0 = time.time()
         while time.time() - t0 < 240:
             ip = self.ip()
             if ip and self.ssh(ip, "true", timeout=15).returncode == 0:
+                # the guest clock comes back with the snapshot: set it to the host's time
+                self.ssh(ip, f"sudo date -s @{int(time.time())} >/dev/null")
                 return ip, round(time.time() - t0)
-            time.sleep(5)
+            time.sleep(3)
         self.note(event="ssh-timeout")
         sys.exit(6)
 
@@ -136,6 +151,7 @@ def main():
             continue
         avail = h.mem_ok()
         t0 = time.time()
+        h.note(event="pre-revert", cell=name, order6plus=h.order6_blocks())
         ip, boot_s = h.fresh_vm(a.snapshot)
         rc, hashes = h.push_harness(ip)
         h.note(event="cell-start", n=i, of=len(cells), cell=name, ip=ip, boot_s=boot_s, host_avail_mb=avail, push_rc=rc)
@@ -144,10 +160,10 @@ def main():
         (out / f"{name}.stdout.txt").write_text(r.stdout + "\n--- stderr ---\n" + r.stderr)
         h.fetch(ip, name, out / name, int(t0) - 5)
         (out / name / "harness-sha256.txt").write_text(hashes)
-        run(VIRSH + ["destroy", DOMAIN])
         h.note(event="cell-end", cell=name, rc=r.returncode, seconds=round(time.time() - t0),
                row=(out / name / "row.json").exists())
     h.note(event="matrix-done", cells=len(cells))
+    run(VIRSH + ["shutdown", DOMAIN])
 
 if __name__ == "__main__":
     main()

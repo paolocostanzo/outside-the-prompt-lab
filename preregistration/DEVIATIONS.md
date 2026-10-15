@@ -212,3 +212,27 @@ share, computed by a published script. The 60–72% figure of D15 is withdrawn. 
 family as the 9 October reading (not an independent second reader); the coordinator checked a sample of claims against the source,
 and the author re-checks a sample before any figure is published.
 **Effect.** Exploratory question; reporting only. The 9 October reading is kept for traceability.
+
+### D18 · 15 Oct 2026 · §6 Q3 protocol — set-up runs before the snapshot, snapshot type, models for Gemini CLI and Qwen Code
+**Problem.** (a) D16 point 8 says the clean snapshot is taken before any Q3 run, set-up runs included. The client logins had to be renewed
+after the set-up runs had started (Claude Code's OAuth session had expired), so the snapshot could not precede them. (b) Restoring a
+powered-off snapshot means booting the VM for every repetition; on the host, loading the VM's AppArmor profile failed when memory was
+fragmented (kernel log: page allocation failure, order 6). (c) The free daily quota of the Gemini API key used by Gemini CLI and Qwen Code
+was exhausted on the default model (gemini-3.8-flash, 20 requests per day) during the set-up runs.
+**Change.** (1) The clean snapshot is taken after the set-up runs, once their residue has been removed by `tool-change/scripts/cleanup_setup.py`
+(tool approvals for q3-lab, server log, control file, set-up outputs, and the session histories those runs wrote); the script's output and a
+listing of every file changed since the configuration step are published with the evidence. Kept on purpose: folder-trust markers (given by
+hand before the runs, D16 point 2) and logins. Left as they are and declared: Codex's SQLite state and prompt-history databases, caches and debug logs, Claude Code's account-synced
+skills and plugins (they come with the login), and `~/.claude/settings.json` = `{"tui": "default"}` (written when an accidental opt-in to
+the full-screen renderer during a set-up run was undone; equal to the default). Client background processes are stopped before the snapshot.
+(2) The snapshot is a running snapshot (memory included); after each restore the guest clock is set to the host's time.
+(3) Gemini CLI and Qwen Code run on `gemini-flash-lite-latest` (the model Goose already used), fixed for all repetitions; the engine is still the
+vendor's (D5). (4) Clients without a persistent per-tool approval: Gemini CLI offers only session approvals by default ("Allow tool for this
+session" is used, D16 point 3); Goose (`auto`) and Qwen Code ("Auto mode") ask no question by default and are marked "no persistent approval".
+For clients with session-only approvals the reopen phase (exploratory, D16 point 6) cannot distinguish a definition change from an expired
+approval and is reported as such.
+(5) Snapshot `q3-base-20261015`, taken 15 Oct 2026 17:51 CEST; client versions at the snapshot: Claude Code 2.1.300, Codex CLI 0.162.1,
+Gemini CLI 0.64.0, Qwen Code 0.25.1, Cursor CLI 2026.10.14-941492e, Goose 1.54.0. Default permission modes observed: Claude Code "auto mode"
+and Qwen Code "Auto mode" ask no question; Codex CLI ("Always allow"), Cursor CLI ("Allowlist MCP Tool") and Gemini CLI (session only)
+ask at the first call.
+**Effect.** No change to outcomes, precedence or aggregation. No primary repetition had been run when this entry was written.
