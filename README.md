@@ -13,7 +13,7 @@ reaches the network. The matrix runners edit the clients' trust stores in `$HOME
 | Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
 | `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 14 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
-| `tool-change/` (coming) | Q3 (RQ3) — does a client notice when an approved tool's definition changes? | part 3 (20 Oct 2026) |
+| `tool-change/` (in progress: components and tests, no data yet) | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), runner, rule-based coder | part 3 (20 Oct 2026) |
 | `defence-coverage/` (coming) | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? | part 3 (20 Oct 2026) |
 | `telemetry/` (coming) | Q4 (RQ5) — what default host telemetry shows for each event | part 4 (27 Oct 2026) |
 | `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
