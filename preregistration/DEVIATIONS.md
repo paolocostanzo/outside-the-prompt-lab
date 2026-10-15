@@ -196,3 +196,19 @@ how the in-session outcome is coded from the records, or how exploratory set-up 
    counts. Every primary repetition restores a clean snapshot taken before any Q3 run, set-up runs included.
 **Effect.** H3's second clause can be evaluated on legacy cells where the notification was in fact delivered; outcome categories
 and precedence are those of D12. No RQ3 data of any kind existed when this entry was written.
+
+### D17 · 15 Oct 2026 · §5 RQ4 (exploratory) — per-tool census replaces the 9 October reading; D15's figure withdrawn
+**Problem.** The 9 October reading counted tools approximately (GitHub ~40 and Sentry ~28 were estimates; GitHub's sub-methods were
+counted as separate surfaces; the Azure DevOps denominator was every read tool), classified borderline cases differently from server
+to server, and did not separate partial from full protection. D15's 60–72% range rests on those counts.
+**Change.** (1) RQ4 is computed from a per-tool census at the same pinned commits: one row per registered tool name, with class,
+protection (full / partial / none), mechanism and file:line evidence; the tables will be published under `defence-coverage/`.
+(2) A tool is class A if it returns free prose written by third parties (titles, descriptions, bodies, comments, messages, file
+contents, logs); names and identifier-like strings do not make it A. (3) Coverage is reported twice: full protection only, and full
+plus partial. (4) Tools whose prose is only vendor-written (documentation, curated advisories) are reported with and without.
+(5) Monorepos: every package is screened for an output-side defence and every server that has one is included; a package whose
+mechanism is unclear is reported as such. (6) Summaries: per-server values, mean and median over servers, and the pooled per-tool
+share, computed by a published script. The 60–72% figure of D15 is withdrawn. (7) The census was made by AI agents of the same model
+family as the 9 October reading (not an independent second reader); the coordinator checked a sample of claims against the source,
+and the author re-checks a sample before any figure is published.
+**Effect.** Exploratory question; reporting only. The 9 October reading is kept for traceability.
