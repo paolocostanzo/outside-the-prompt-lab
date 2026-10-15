@@ -163,3 +163,36 @@ character hygiene, provenance marking), which are not equivalent. Azure DevOps i
 success paths only. The Q2 protocol's ">95%" for spotlighting refers to Nasr et al.'s adaptive search attack on AgentDojo (one model
 47%) and is quoted that way from now on.
 **Effect.** Exploratory question; reporting only.
+
+### D16 · 15 Oct 2026 · §6 Q3 protocol — delivery rule (corrects D12 point 2) and cell procedure
+**Problem.** (a) D12 point 2 counts the legacy list_changed level as delivered if "the client declared the capability". In the
+legacy revisions `tools.listChanged` is a **server** capability (returned in the `initialize` result); clients do not declare it.
+Read literally, legacy cells in which the notification was correctly sent would be excluded as "signal not deliverable". (b) The
+frozen procedure does not say where the server is configured, which answer is given to a client's per-tool permission question,
+how the in-session outcome is coded from the records, or how exploratory set-up runs are separated from the primary ones.
+**Change.**
+1. Delivery (replaces D12 point 2). Legacy: the server declared `tools.listChanged: true` in its `initialize` result and sent
+   `notifications/tools/list_changed` on that initialized connection after the change. Modern (2026-07-28): the client opened
+   `subscriptions/listen` with `toolsListChanged: true`, the server acknowledged it first, and the notification carried that
+   subscription ID. The server records which applied (`signal-delivered`, with the channel) or `signal-not-deliverable`; only the
+   latter codes the cell "signal not deliverable" as in D12.
+2. Configuration. The Q3 server is added to each client's **user-level** MCP configuration, the usual way a user installs a server,
+   and is not declared by the test repository, whose folder is trusted beforehand. This keeps the decision measured here (a changed
+   tool) apart from the repository-trust decision measured in Q5 (RQ2). Goose reads user-level configuration only.
+3. First approval. At the first call the runner gives the client's persistent per-tool approval where one exists ("always allow
+   this tool" or the nearest equivalent), recorded verbatim; otherwise the per-call approval, and the cell is marked "no persistent
+   approval". Outcome 2 of D12 (re-approval required) means the client asks again for the changed tool despite that approval.
+4. One server for both signal levels: `tools.listChanged: true` declared on both paths and `ttlMs: 0` on every modern `tools/list`;
+   the levels differ only in whether the notification is sent after the change.
+5. "Silent accept" (D12 outcome 4) is a protocol-level outcome: B served by a `tools/list` after the change, the call succeeded,
+   nothing shown to the user. That B reached the model is claimed only in local-engine cells, from the recording proxy.
+6. Reopen phase (exploratory). After the in-session call the client is closed, reopened and asked to call the tool once more; coded
+   with the same categories, reported separately and not used for H3.
+7. Coding. A rule-based coder over the server log and the screen captures gives a provisional outcome per repetition; its rules
+   are committed under `tool-change/` before the primary runs. The two preregistered coders (author; one local model on the
+   captures) classify independently of it and of each other. κ is reported between the two preregistered coders; agreement with the
+   rule-based coder is reported separately.
+8. Set-up runs. Exploratory runs used to fix each client's key sequence and positive control are published but excluded from all
+   counts. Every primary repetition restores a clean snapshot taken before any Q3 run, set-up runs included.
+**Effect.** H3's second clause can be evaluated on legacy cells where the notification was in fact delivered; outcome categories
+and precedence are those of D12. No RQ3 data of any kind existed when this entry was written.
