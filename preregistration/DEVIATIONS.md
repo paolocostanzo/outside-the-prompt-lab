@@ -248,3 +248,14 @@ excluded, like `invalid-setup`: the question is caused by the classifier's avail
 (2) An invalid repetition is run again once from the clean snapshot; the failed attempt is kept and published. (3) When a client asks a
 question the runner has no answer for, the runner records it (`unexpected_approval`) and accepts the pre-selected answer instead of stopping.
 **Effect.** One repetition re-run (Qwen Code, signal none, repetition 4). Outcome definitions and aggregation unchanged.
+
+### D20 · 15 Oct 2026 · §5 RQ3 — coders
+**Problem.** §5 asks two coders, the author and one local model, to classify each repetition independently, and reports Cohen's κ between
+them. On 15 October the author read the rule-based coder's results table before looking at the evidence, so a coding by the author done
+afterwards would not be independent of it.
+**Change.** (1) The author's role is verification: the author checked the repetitions against the rule-based outcomes and reported no
+disagreement (recorded verbatim with the evidence). (2) The independent, blind coding is the local model's (`qwen3.8:27b-q8_0`, digest
+recorded, temperature 0, packets without the rule-based outcome and with shuffled identifiers). (3) κ is reported between the local model and
+the rule-based coder; every disagreement is resolved by re-reading the capture and the server log, and the resolution is published.
+(4) The paper states that no blind human coding was done. This entry was written before any answer of the local model was read.
+**Effect.** The reported agreement is model versus rule-based coder instead of author versus model; outcome definitions and precedence unchanged.
