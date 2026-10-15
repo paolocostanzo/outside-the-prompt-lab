@@ -61,7 +61,14 @@ test('clause 2: acting in 1 of 5 delivered repetitions is enough; undelivered si
 test('invalid repetitions are listed and excluded from every count', () => {
   const rows = [rep('c', 'none', 1, 'invalid-setup'), rep('c', 'none', 2, 'stale'), rep('c', 'list_changed', 1, 'silent-accept')];
   const r = analyze(rows);
-  assert.deepEqual(r.invalid, ['c|none|r1']);
+  assert.deepEqual(r.invalid, ['c|none|r1|invalid-setup']);
   assert.equal(r.n_valid, 2);
   assert.deepEqual(r.cells_phase2['c|none'], { stale: 1 });
+});
+
+test('D19: a repetition with the client classifier unavailable is invalid-external and excluded', () => {
+  const rows = [rep('q', 'none', 1, 'invalid-external'), rep('q', 'none', 2, 'stale')];
+  const r = analyze(rows);
+  assert.deepEqual(r.invalid, ['q|none|r1|invalid-external']);
+  assert.deepEqual(r.cells_phase2['q|none'], { stale: 1 });
 });

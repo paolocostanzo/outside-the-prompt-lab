@@ -124,3 +124,8 @@ test('phase 1 without a successful call: the repetition is invalid', async () =>
   assert.equal(r.p1_ok, false);
   assert.equal(r.p2_outcome, 'invalid-setup');
 });
+
+test('D19: a phase-2 question caused by the client classifier being unavailable is invalid-external, not re-approval', async () => {
+  const r = await repetition({ after: [list(10), call(11)], row: { p2_approvals: 1, p2_classifier_unavailable: true } });
+  assert.equal(r.p2_outcome, 'invalid-external');
+});

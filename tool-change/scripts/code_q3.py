@@ -90,6 +90,9 @@ def code(d):
         return out
     p2 = facts(ev, flip, p2_end)
     c, name = outcome(p2, row.get("p2_approvals", 0), row.get("p2_notice_seen", False))
+    if row.get("p2_classifier_unavailable"):
+        # D19: the question came from the client's own classifier being unavailable, not from the change
+        c, name = 0, "invalid-external"
     if row["signal"] == "list_changed":
         delivered = "yes" if p2["signal_delivered"] else ("no" if p2["signal_not_deliverable"] else "unknown")
     else:

@@ -74,6 +74,9 @@ def type_text(text):
     time.sleep(0.6)
     sh(f"tmux send-keys -t {SESSION} Enter")
 
+# A client's own permission classifier was unavailable and it fell back to asking (Qwen Code, 15 Oct 2026, D19).
+CLASSIFIER_UNAVAILABLE = r"couldn't classify this action|[Cc]lassifier stage \d+ unavailable|classifier (?:is )?unavailable"
+
 # First-run screens unrelated to the tool change, answered with their non-default "no" (as in Q5).
 NOISE = [
     (r"Yes, try it", ("Down", "Enter")),
@@ -151,9 +154,16 @@ def ask_and_follow(spec, phase, t_after, timeout, caps, outdir, row):
         answer_noise(s)
         if spec.get("notice") and re.search(spec["notice"], s) and not notices:
             notices.append(capture(caps, outdir, row, f"{phase}-notice"))
+        if re.search(CLASSIFIER_UNAVAILABLE, s):
+            row[f"{phase}_classifier_unavailable"] = True
         if spec.get("approve") and re.search(spec["approve"], s):
             approvals.append(capture(caps, outdir, row, f"{phase}-approval"))
-            keys(*spec["approve_keys"])
+            if spec.get("approve_keys"):
+                keys(*spec["approve_keys"])
+            else:
+                # a question the client does not normally ask (D19): record it and accept the pre-selected answer
+                row[f"{phase}_unexpected_approval"] = True
+                keys("Enter")
             time.sleep(2)
             continue
         if calls_since(t_after):

@@ -53,7 +53,7 @@ def main():
     ap.add_argument("--seed", type=int, required=True)
     a = ap.parse_args()
     dirs = sorted(p.parent for p in Path(a.results).glob("*/row.json"))
-    dirs = [d for d in dirs if code_q3.code(d).get("p2_outcome") != "invalid-setup"]
+    dirs = [d for d in dirs if code_q3.code(d).get("p2_outcome") not in ("invalid-setup", "invalid-external")]
     ids = [f"P{i:03d}" for i in range(1, len(dirs) + 1)]
     random.Random(a.seed).shuffle(ids)
     out = Path(a.out)

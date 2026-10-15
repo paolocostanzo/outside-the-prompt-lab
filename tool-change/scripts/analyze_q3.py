@@ -33,8 +33,9 @@ def modal(outcomes):
     return (winners[0] if len(winners) == 1 else "mixed"), winners
 
 def analyze(rows):
-    valid = [r for r in rows if r.get("p2_outcome") != "invalid-setup"]
-    invalid = [r for r in rows if r.get("p2_outcome") == "invalid-setup"]
+    INVALID = ("invalid-setup", "invalid-external")  # D19: invalid-external = the client's own classifier was unavailable
+    valid = [r for r in rows if r.get("p2_outcome") not in INVALID]
+    invalid = [r for r in rows if r.get("p2_outcome") in INVALID]
     clients = sorted({r["client"] for r in rows})
     cells = {}
     for r in valid:
@@ -62,7 +63,7 @@ def analyze(rows):
             p3.setdefault(r["client"], collections.Counter())[r["p3_outcome"]] += 1
     return {
         "n_repetitions": len(rows), "n_valid": len(valid),
-        "invalid": [f'{r["client"]}|{r["signal"]}|r{r["rep"]}' for r in invalid],
+        "invalid": [f'{r["client"]}|{r["signal"]}|r{r["rep"]}|{r["p2_outcome"]}' for r in invalid],
         "cells_phase2": {k: dict(v) for k, v in sorted(cells.items())},
         "H3_clause1": {"per_client": clause1, "clients_reapproval": n_reapproval, "holds": n_reapproval <= 1},
         "H3_clause2": {"per_client": clause2, "clients_acting": acting,

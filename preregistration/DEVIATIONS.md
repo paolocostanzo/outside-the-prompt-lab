@@ -236,3 +236,15 @@ Gemini CLI 0.64.0, Qwen Code 0.25.1, Cursor CLI 2026.10.14-941492e, Goose 1.54.0
 and Qwen Code "Auto mode" ask no question; Codex CLI ("Always allow"), Cursor CLI ("Allowlist MCP Tool") and Gemini CLI (session only)
 ask at the first call.
 **Effect.** No change to outcomes, precedence or aggregation. No primary repetition had been run when this entry was written.
+
+### D19 · 15 Oct 2026 · §6 Q3 protocol — a client's own classifier unavailable; unexpected questions
+**Event.** In primary repetition `qwen / none / r4` (48th of 60), after the change Qwen Code asked for permission with the message "Auto Mode
+couldn't classify this action (Classifier stage 1 unavailable). Review it manually." Qwen Code's default "Auto mode" decides tool calls with a
+classifier that uses the same rate-limited API key; when the classifier is unavailable it falls back to asking. The runner had no key sequence
+for a Qwen question (none was expected, D18 point 4) and stopped; no outcome was recorded. No other capture of the 60 repetitions contains
+such a message. This entry was written after the matrix ended and **before any outcome of the primary matrix was read**.
+**Change.** (1) A repetition in which the client shows that its own permission classifier was unavailable is coded `invalid-external` and
+excluded, like `invalid-setup`: the question is caused by the classifier's availability, not by the change. It is listed with the reason.
+(2) An invalid repetition is run again once from the clean snapshot; the failed attempt is kept and published. (3) When a client asks a
+question the runner has no answer for, the runner records it (`unexpected_approval`) and accepts the pre-selected answer instead of stopping.
+**Effect.** One repetition re-run (Qwen Code, signal none, repetition 4). Outcome definitions and aggregation unchanged.
