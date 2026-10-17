@@ -298,7 +298,8 @@ class InspectionRound2(unittest.TestCase):
                     return _NS(returncode=0, stdout=_json.dumps({"fingerprints": _FULL_FPS, "unreadable": []}), stderr="")
                 return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
-            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
+            def copy_client_logs(self, *a): return 0
+            def check_client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
             def ssh_bin(self, ip, cmd, dest):  # a real (empty) archive: an unreadable one would stop the secret gate
                 import tarfile as _tf
                 with _tf.open(dest, "w:gz"):
@@ -321,7 +322,8 @@ class InspectionRound2(unittest.TestCase):
                     return _NS(returncode=0, stdout=_json.dumps({"fingerprints": _FULL_FPS, "unreadable": []}), stderr="")
                 return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
-            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
+            def copy_client_logs(self, *a): return 0
+            def check_client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
             def ssh_bin(self, ip, cmd, dest): Path(dest).write_text("log " + leaked); return 0, ""
             def telemetry(self, ip, d, since): return [], True
         notes = []
@@ -350,7 +352,8 @@ class InspectionRound3(unittest.TestCase):
             def ip(self): return "1.2.3.4"
             def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
-            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
+            def copy_client_logs(self, *a): return 0
+            def check_client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
             def ssh_bin(self, ip, cmd, dest): return 255, "connection reset"
             def telemetry(self, ip, d, since): return [], True
         with self.assertRaises(SystemExit) as e:

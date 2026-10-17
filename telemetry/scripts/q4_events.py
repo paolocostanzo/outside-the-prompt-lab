@@ -353,13 +353,16 @@ def secret_problems(h, ip, d):
         new = json.loads(r.stdout)
     except ValueError:
         return [f"secret gate: no fingerprints from the VM (exit {r.returncode})"]
-    if r.returncode != 0 or new.get("unreadable"):
-        return [f"secret gate: secret stores not readable in the VM: {[u.get('source') for u in new.get('unreadable', [])]}"]
-    missing = sorted(set(sg.REQUIRED_KINDS) - {f.get("kind") for f in new.get("fingerprints", [])})
-    if missing:  # a store that vanished would leave its secret unchecked
-        return [f"secret gate: no fingerprint of {missing} in the VM"]
+    bad = sg.fingerprint_problems(new) or ([f"fingerprints exit {r.returncode}"] if r.returncode != 0 else [])
+    if bad:  # a store that vanished, cannot be read, or an entry that can never match would leave a secret unchecked
+        return ["secret gate: fingerprints from the VM not usable: " + "; ".join(bad)]
     fp = STATE / "secret-fingerprints.json"  # host-only state, outside the run folders: never published
-    old = json.loads(fp.read_text()) if fp.exists() else None
+    try:
+        old = json.loads(fp.read_text()) if fp.exists() else None
+    except ValueError:
+        return ["secret gate: the host's fingerprint state is not readable"]
+    if old is not None and sg.fingerprint_problems(old, require_kinds=()):
+        return ["secret gate: the host's fingerprint state is malformed: " + "; ".join(sg.fingerprint_problems(old, ()))]
     merged = sg.merge_fingerprints(old, new)
     write_json_atomic(fp, merged)
     os.chmod(fp, 0o600)
@@ -441,18 +444,20 @@ def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
     if stop.returncode != 0:
         note(event="abort-pending-not-quiescent", folder=str(d), hint="a writer survived in the VM; do not restore; look at it")
         sys.exit(7)
-    check = rn.client_logs(ip, d, client, t0, t1, cc, inv, cand_sha)
+    rc_logs = rn.copy_client_logs(ip, d, t0, t1)
     rc_out, err_out = rn.ssh_bin(ip, gt_command, d / "vm-out.tgz")
+    (d / "copy.stderr.txt").write_text(f"outputs (exit {rc_out}):\n{err_out}\n")
     problems, copied = rn.telemetry(ip, d, t0 - 5)
-    if check.get("collect_rc") != 0 or rc_out != 0 or not copied:
+    if rc_logs != 0 or rc_out != 0 or not copied:
         # pending.json stays: the next invocation tries again; nothing is restored until every copy has succeeded
-        note(event="abort-pending-copy-failed", folder=str(d), collect_rc=check.get("collect_rc"), outputs_rc=rc_out,
+        note(event="abort-pending-copy-failed", folder=str(d), collect_rc=rc_logs, outputs_rc=rc_out,
              telemetry_copied=copied, hint="evidence could not be copied out of the VM; do not restore")
         sys.exit(7)
-    leaks = secret_problems(h, ip, d)
+    leaks = secret_problems(h, ip, d)  # D26: before anything reads what was copied
+    export = None if leaks else rn.check_client_logs(d, client, t0, t1, cc, inv, cand_sha, rc_logs)["export"]
     kept = keep_attempt(d, "secret-found" if leaks else "interrupted-recovered",
-                        {"pending": info, "export": check["export"], "outputs_rc": rc_out, "telemetry_problems": problems,
-                         "secret_problems": leaks})
+                        {"pending": info, "export": export, "outputs_rc": rc_out,
+                         "telemetry_problems": [] if leaks else problems, "secret_problems": leaks})
     if leaks:
         note(event="abort-secret", folder=str(d), problems=leaks, kept=str(kept),
              hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
@@ -574,10 +579,21 @@ class Runner:
         (tel / "status.json").write_text(json.dumps(status, indent=1))
         return problems, all(s["rc"] == 0 for s in status.values())
 
-    def client_logs(self, ip, d, client, t0, t1, cc, inv, cand_sha):
+    def copy_client_logs(self, ip, d, t0, t1):
+        """Copy the client-log archive out of the VM, and nothing else: it is read only after the secret gate (D26)."""
         rc, err = self.ssh_bin(ip, collect_command(t0, t1), d / "client-logs.tgz")
-        check = cc.check(str(d / "client-logs.tgz"), client, t0, t1, inv, cand_sha)
-        check["collect_rc"], check["collect_stderr"] = rc, err
+        (d / "collect.stderr.txt").write_text(f"collect (exit {rc}):\n{err}\n")
+        return rc
+
+    def check_client_logs(self, d, client, t0, t1, cc, inv, cand_sha, rc):
+        """After the secret gate: check the archive and write the collection records. A check that breaks on a malformed
+        archive is a failed export, not a crash."""
+        try:
+            check = cc.check(str(d / "client-logs.tgz"), client, t0, t1, inv, cand_sha)
+        except Exception as exc:
+            check = {"client": client, "start": t0, "end": t1, "export": "failed",
+                     "reason": f"collection check failed: {type(exc).__name__}"}
+        check["collect_rc"] = rc
         if rc != 0 and check["export"] == "ok":
             check["export"], check["reason"] = "failed", f"collect exited {rc}"
         (d / "collection.json").write_text(json.dumps(check, indent=1))  # private: names client files
@@ -648,12 +664,12 @@ def main():
             h.note(event="abort-not-quiescent", run=r["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
         # D26: every copy first; the campaign log gets only exit codes until the secret gate has passed
-        check = rn.client_logs(ip, d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
+        rc_logs = rn.copy_client_logs(ip, d, t0, t1)
         rc_gt, err_gt = rn.ssh_bin(ip, ground_truth_command(r), d / "vm-out.tgz")
         (d / "copy.stderr.txt").write_text(f"ground truth (exit {rc_gt}):\n{err_gt}\n")
         tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
-        if check.get("collect_rc") != 0 or rc_gt != 0 or not copied:  # a copy failed: the VM may hold the rest
-            h.note(event="abort-copy-failed", run=r["name"], collect_rc=check.get("collect_rc"), ground_truth_rc=rc_gt,
+        if rc_logs != 0 or rc_gt != 0 or not copied:  # a copy failed: the VM may hold the rest
+            h.note(event="abort-copy-failed", run=r["name"], collect_rc=rc_logs, ground_truth_rc=rc_gt,
                    telemetry_copied=copied,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
@@ -663,6 +679,7 @@ def main():
             h.note(event="abort-secret", run=r["name"], problems=leaks, kept=str(dest),
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
+        check = rn.check_client_logs(d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"], rc_logs)
         problems = validate_ground_truth(r, (d / "vm-out.tgz").read_bytes()) + tel_problems
         if res.returncode != 0:
             problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")

@@ -158,12 +158,12 @@ def main():
             h.note(event="abort-not-quiescent", session=s["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
         # D26: every copy first; the campaign log gets only exit codes until the secret gate has passed
-        check = rn.client_logs(ip, d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
+        rc_logs = rn.copy_client_logs(ip, d, t0, t1)
         rc_out, err_out = rn.ssh_bin(ip, outputs_command(), d / "vm-out.tgz")
         (d / "copy.stderr.txt").write_text(f"outputs (exit {rc_out}):\n{err_out}\n")
         tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
-        if check.get("collect_rc") != 0 or rc_out != 0 or not copied:  # a copy failed: the VM may hold the rest
-            h.note(event="abort-copy-failed", session=s["name"], collect_rc=check.get("collect_rc"), outputs_rc=rc_out,
+        if rc_logs != 0 or rc_out != 0 or not copied:  # a copy failed: the VM may hold the rest
+            h.note(event="abort-copy-failed", session=s["name"], collect_rc=rc_logs, outputs_rc=rc_out,
                    telemetry_copied=copied,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
@@ -173,6 +173,7 @@ def main():
             h.note(event="abort-secret", session=s["name"], problems=leaks, kept=str(dest),
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
+        check = rn.check_client_logs(d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"], rc_logs)
         sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
         if res.returncode != 0:
             problems.insert(0, f"session exited {res.returncode}")

@@ -300,6 +300,58 @@ class ReviewRound1(unittest.TestCase):
         self.assertEqual(r.returncode, 2)
 
 
+class ReviewRound2(unittest.TestCase):
+    """Codex round 2 on D26: fingerprint entries that can never match, per-name readings of one blob, tags and ref names."""
+
+    def test_entries_that_cannot_match_are_refused(self):  # D26-R7
+        good = full_fps()
+        for bad in ({"sha256": "z" * 64}, {"length": 3}, {"length": 20.0}, {"prefix": "ab"}, {"kind": ""}, {"source": None}):
+            entry = dict(good[0], **bad)
+            self.assertTrue(sg.fingerprint_problems({"fingerprints": [entry] + good[1:], "unreadable": []}), bad)
+        self.assertEqual(sg.fingerprint_problems({"fingerprints": good, "unreadable": []}), [])
+        self.assertTrue(sg.fingerprint_problems({"fingerprints": good, "unreadable": "x"}))
+
+    def git(self, repo, *a):
+        subprocess.run(["git", "-C", str(repo), "-c", "user.email=t@t", "-c", "user.name=t", *a], check=True, capture_output=True)
+
+    def repo(self):
+        r = Path(tempfile.mkdtemp())
+        self.git(r, "init", "-q")
+        return r
+
+    def test_one_blob_two_names_two_readings(self):  # D26-R8
+        r = self.repo()
+        junk = b"PK\x03\x04" + os.urandom(40)  # looks like a zip, is not one
+        (r / "a.txt").write_bytes(junk)
+        self.git(r, "add", "."); self.git(r, "commit", "-qm", "one")
+        (r / "broken.zip").write_bytes(junk)
+        self.git(r, "add", "."); self.git(r, "commit", "-qm", "two")
+        _, failures = sg.scan_git(r, sg.EMPTY_TREE, "HEAD")
+        self.assertTrue(failures, "the corrupt archive is not accepted because the same bytes were seen first as a.txt")
+
+    def test_zip_with_data_in_front(self):
+        z = io.BytesIO()
+        with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("inner/k.txt", ("key " + fake("google") + " ") * 50)
+        d = Path(tempfile.mkdtemp())
+        (d / "installer.bin").write_bytes(b"#!/bin/sh\necho self-extracting\n" + os.urandom(64) + z.getvalue())
+        kinds = {f["kind"] for f in sg.scan_paths([d], full_fps())[0]}
+        self.assertIn("google-api-key", kinds)
+
+    def test_annotated_tag_and_ref_name(self):  # D26-R9
+        r = self.repo()
+        (r / "a.txt").write_text("clean")
+        self.git(r, "add", "."); self.git(r, "commit", "-qm", "clean")
+        self.git(r, "tag", "-a", "v1", "-m", "release note " + fake("google"))
+        findings, failures = sg.scan_git(r, sg.EMPTY_TREE, "v1")
+        self.assertEqual(failures, [])
+        self.assertTrue(any(f["path"].startswith("tag object") for f in findings))
+        v = fake("anthropic")
+        findings, _ = sg.scan_git(r, sg.EMPTY_TREE, "HEAD", ref_names=["refs/heads/x-" + v])
+        self.assertEqual([f["kind"] for f in findings], ["anthropic-token (in a ref name)"])
+        self.assertNotIn(v, json.dumps(findings))
+
+
 class Orchestrator(unittest.TestCase):
     """q4_events.secret_problems: fingerprints come from the VM over ssh; the host state keeps them; findings stop the run."""
 
@@ -330,6 +382,28 @@ class Orchestrator(unittest.TestCase):
         self.assertIn("client-logs.tgz", probs[0])
         self.assertIn("lab-secret", probs[0])
         self.assertNotIn(v, probs[0])
+
+    def test_unusable_fingerprints_from_the_vm_or_state(self):  # D26-R7
+        d = Path(tempfile.mkdtemp())
+        bad = [dict(f, sha256="z" * 64) for f in full_fps()]
+        self.assertIn("not usable", q4.secret_problems(self.host({"fingerprints": bad, "unreadable": []}), "ip", d)[0])
+        st = q4.STATE / "secret-fingerprints.json"
+        st.write_text('{"fingerprints": "nope"}')
+        try:
+            self.assertIn("malformed", q4.secret_problems(self.host({"fingerprints": full_fps(), "unreadable": []}), "ip", d)[0])
+        finally:
+            st.unlink()
+
+    def test_client_logs_are_checked_only_after_the_gate(self):  # D26-R2
+        class CC:
+            def check(self, *a): raise AttributeError("malformed manifest")
+            def public_record(self, rec): return {k: rec[k] for k in ("export", "reason") if k in rec}
+        rn = q4.Runner(None, None)
+        d = Path(tempfile.mkdtemp())
+        rec = rn.check_client_logs(d, "codex", 1, 2, CC(), None, None, 0)
+        self.assertEqual(rec["export"], "failed")
+        self.assertIn("collection check failed", rec["reason"])
+        self.assertTrue((d / "collection-public.json").exists())
 
     def test_fails_closed_without_fingerprints(self):
         d = Path(tempfile.mkdtemp())
