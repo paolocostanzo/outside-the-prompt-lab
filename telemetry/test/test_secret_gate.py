@@ -380,6 +380,93 @@ class ReviewRound3(unittest.TestCase):
         self.assertEqual(sg.scan_blob("l.log.gz", gzip.compress(b"plain"), full_fps()), ([], []))
 
 
+class PrivateArchivesAndRedaction(unittest.TestCase):
+    """Paolo's rule of 17 Oct 2026: token-shaped data in the private raw logs is counted, not blocking; uses go through redaction."""
+
+    def test_socket_is_skipped(self):
+        import socket as _socket
+        d = Path(tempfile.mkdtemp())
+        s = _socket.socket(_socket.AF_UNIX)
+        s.bind(str(d / "worker.sock"))
+        try:
+            self.assertEqual(sg.scan_paths([d], full_fps()), ([], []))
+        finally:
+            s.close()
+
+    def test_exact_and_format_are_told_apart(self):
+        v = fake("opaque")
+        f_exact = {"kind": "codex-login", "path": "p", "member": None, "line": None}
+        f_fmt = {"kind": "jwt (in a member name)", "path": "p", "member": "m", "line": None}
+        self.assertTrue(sg.is_exact(f_exact))
+        self.assertFalse(sg.is_exact(f_fmt))
+        self.assertEqual(sg.base_kind(f_fmt["kind"]), "jwt")
+
+    def test_redacted_text_keeps_its_length_and_is_clean(self):
+        v = fake("opaque")
+        fps = full_fps(sg.fingerprint(v, "lab-secret", "x"))
+        text = ('{"a": "' + fake("jwt") + '", "b": "' + v + '"}\n').encode()
+        body, n = sg.redact_blob("x.jsonl", text, fps)
+        self.assertEqual((len(body), n), (len(text), 2))
+        self.assertEqual(sg.scan_blob("x.jsonl", body, fps), ([], []))
+        self.assertNotIn(v.encode(), body)
+
+    def test_redacted_sqlite_is_still_a_database(self):
+        import sqlite3
+        d = Path(tempfile.mkdtemp())
+        db = d / "logs_2.sqlite"
+        con = sqlite3.connect(db)
+        con.execute("create table logs (id integer, feedback_log_body text)")
+        con.executemany("insert into logs values (?, ?)", [(i, "auth " + fake("jwt") + " ok") for i in range(20)])
+        con.commit(); con.close()
+        body, n = sg.redact_blob(str(db), db.read_bytes(), full_fps())
+        self.assertEqual(n, 20)
+        out = d / "red.sqlite"
+        out.write_bytes(body)
+        rows = sqlite3.connect(out).execute("select count(*), min(length(feedback_log_body)) from logs").fetchone()
+        self.assertEqual(rows[0], 20)
+        self.assertEqual(sg.scan_blob(str(out), body, full_fps()), ([], []))
+
+    def test_redacted_archives_are_rebuilt_clean(self):
+        inner = tgz({"chat/" + fake("anthropic") + ".json": ("tok " + fake("jwt")).encode(), "ok.txt": b"fine"})
+        outer = tgz({"home/.gemini/inner.tgz": inner, "manifest.json": b"{}"})
+        body, n = sg.redact_blob("client-logs.tgz", outer, full_fps())
+        self.assertGreaterEqual(n, 2)
+        self.assertEqual(sg.scan_blob("client-logs.tgz", body, full_fps()), ([], []))
+        names = [m for m, _ in sg._open_archive("client-logs.tgz", body)]
+        self.assertIn("manifest.json", names)
+        z = io.BytesIO()
+        with zipfile.ZipFile(z, "w", zipfile.ZIP_DEFLATED) as zf:
+            zf.writestr("a.txt", "k " + fake("google"))
+        zbody, _ = sg.redact_blob("e.zip", z.getvalue(), full_fps())
+        self.assertEqual(sg.scan_blob("e.zip", zbody, full_fps()), ([], []))
+        gbody, _ = sg.redact_blob("l.log.gz", gzip.compress(fake("jwt").encode()), full_fps())
+        self.assertEqual(sg.scan_blob("l.log.gz", gbody, full_fps()), ([], []))
+
+    def test_ambiguous_archive_is_not_rebuilt(self):
+        zbuf = io.BytesIO()
+        with zipfile.ZipFile(zbuf, "w") as zf:
+            zf.writestr("r.txt", "clean")
+        polyglot = gzip.compress(b"x") + zbuf.getvalue()
+        with self.assertRaises(sg.Unscannable):
+            sg.redact_blob("data.bin", polyglot, full_fps())
+
+    def test_cli_redact(self):
+        d = Path(tempfile.mkdtemp())
+        (d / "run").mkdir()
+        (d / "run" / "a.jsonl").write_text("x " + fake("jwt") + "\n")
+        fp = d / "fp.json"
+        fp.write_text(json.dumps({"fingerprints": full_fps(), "unreadable": []}))
+        out = d / "red"
+        r = subprocess.run([sys.executable, str(SCRIPTS / "secret_gate.py"), "redact", "--fingerprints", str(fp), "--out", str(out),
+                            str(d / "run")], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertEqual(json.loads(r.stdout)["written"][0]["spans"], 1)
+        self.assertEqual(sg.scan_paths([out], full_fps()), ([], []))
+        r = subprocess.run([sys.executable, str(SCRIPTS / "secret_gate.py"), "redact", "--fingerprints", str(fp), "--out", str(out),
+                            str(d / "run")], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 2, "an existing output folder is refused")
+
+
 class Orchestrator(unittest.TestCase):
     """q4_events.secret_problems: fingerprints come from the VM over ssh; the host state keeps them; findings stop the run."""
 
@@ -410,6 +497,33 @@ class Orchestrator(unittest.TestCase):
         self.assertIn("client-logs.tgz", probs[0])
         self.assertIn("lab-secret", probs[0])
         self.assertNotIn(v, probs[0])
+
+    def test_token_shaped_data_in_the_private_archive_is_marked_not_blocking(self):
+        d = Path(tempfile.mkdtemp())
+        jwt = fake("jwt")
+        (d / "client-logs.tgz").write_bytes(tgz({"home/.codex/logs_2.sqlite": ("body " + jwt).encode()}))
+        (d / "cell.stdout.txt").write_text("ok")
+        probs = q4.secret_problems(self.host({"fingerprints": full_fps(), "unreadable": []}), "ip", d)
+        self.assertEqual(probs, [])
+        marks = json.loads((d / "secret-marks.json").read_text())
+        self.assertEqual(marks["token_shaped_by_kind"], {"jwt": 1})
+        self.assertNotIn(jwt, json.dumps(marks))
+
+    def test_lab_secret_in_the_private_archive_still_stops(self):
+        d = Path(tempfile.mkdtemp())
+        v = fake("opaque")
+        (d / "client-logs.tgz").write_bytes(tgz({"home/.claude/projects/x.jsonl": ("env " + v).encode()}))
+        probs = q4.secret_problems(self.host({"fingerprints": full_fps(sg.fingerprint(v, "claude-oauth-token", "x")),
+                                              "unreadable": []}), "ip", d)
+        self.assertTrue(probs and "claude-oauth-token" in probs[0])
+
+    def test_token_shaped_data_outside_the_private_archive_stops(self):
+        d = Path(tempfile.mkdtemp())
+        (d / "client-logs.tgz").write_bytes(tgz({"a.txt": b"fine"}))
+        (d / "telemetry").mkdir()
+        (d / "telemetry" / "journal.txt").write_text("header " + fake("jwt"))
+        probs = q4.secret_problems(self.host({"fingerprints": full_fps(), "unreadable": []}), "ip", d)
+        self.assertTrue(probs and "journal.txt" in probs[0])
 
     def test_unusable_fingerprints_from_the_vm_or_state(self):  # D26-R7
         d = Path(tempfile.mkdtemp())

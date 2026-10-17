@@ -15,8 +15,10 @@ stop every client (tmux), then BEFORE the next restore:
     that they are present and readable. If they are not, the attempt is kept under <run>/attempts/<n>/, nothing is marked
     complete, and the campaign stops with the VM left as it is: without ground truth, "no event" cannot be told from a lost one.
   - scan everything copied out for secrets (secret_gate.py, D26): fresh fingerprints of the VM's secrets, never their values,
-    then exact and format matching over the run folder, archives included. A finding, an unreadable secret store or a file
-    that cannot be scanned keeps the attempt as "secret-found" and stops the campaign (exit 9): that attempt is never published.
+    then exact and format matching over the run folder, archives included. Token-shaped data inside the raw client-log archive
+    (private evidence, D24) is counted in secret-marks.json and does not stop the run; a lab secret found by exact value,
+    token-shaped data anywhere else, an unreadable secret store or a file that cannot be scanned keeps the attempt as
+    "secret-found" and stops the campaign (exit 9): that attempt is never published.
 Whether the event happened is decided later from the ground-truth logs only, never from the client's logs.
 
   python3 q4_events.py --snapshot SNAPSHOT --seed SEED --inventory INVENTORY.json --out OUT
@@ -24,7 +26,7 @@ The list of log locations is always the repository's telemetry/inventory/candida
 harness, and the plan freezes it through the harness commit and its own SHA-256.
   python3 q4_events.py ... --dry-run          # prints the plan and the commands, touches nothing
 """
-import argparse, csv, datetime as dt, fcntl, hashlib, importlib.util, io, json, os, random, shutil, subprocess, sys, tarfile, time
+import argparse, collections, csv, datetime as dt, fcntl, hashlib, importlib.util, io, json, os, random, shutil, subprocess, sys, tarfile, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -55,6 +57,7 @@ def load(path, name):
 
 
 sg = load(HERE / "secret_gate.py", "secret_gate")  # D26: no secret may reach the copied evidence
+PRIVATE_ARCHIVES = {"client-logs.tgz"}  # D24 point 1: raw client logs stay in the private evidence
 
 
 def plan(seed, clients=CLIENTS, events=EVENTS, reps=2):
@@ -367,6 +370,22 @@ def secret_problems(h, ip, d):
     write_json_atomic(fp, merged)
     os.chmod(fp, 0o600)
     findings, failures = sg.scan_paths([d], merged["fingerprints"], skip={"attempts"})
+    # Paolo's rule of 17 Oct 2026: inside the raw client-log archive, which D24 keeps in the private evidence, data that only has
+    # the shape of a token (for instance a client's own short-lived session tokens in its default logs) is counted and marked,
+    # never published, and used only through a redacted copy; it does not stop the run. A lab secret found by exact value,
+    # token-shaped data anywhere else, or anything that cannot be scanned stops the campaign.
+    marked = collections.Counter()
+    stop = []
+    for f in findings:
+        if os.path.relpath(f["path"], d) in PRIVATE_ARCHIVES and not sg.is_exact(f):
+            marked[sg.base_kind(f["kind"])] += 1
+        else:
+            stop.append(f)
+    if marked:
+        write_json_atomic(d / "secret-marks.json", {
+            "private_archives": sorted(PRIVATE_ARCHIVES), "token_shaped_by_kind": dict(sorted(marked.items())),
+            "rule": "private evidence (D24): never published; any use only through `secret_gate.py redact` (D26)"})
+    findings = stop
     problems = []
     if findings:
         where = sorted({(os.path.relpath(f["path"], d), f["member"] or "", f["kind"]) for f in findings})

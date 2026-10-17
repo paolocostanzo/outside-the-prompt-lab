@@ -29,7 +29,7 @@ would make it be read, and a zip is recognised by its end record too (self-extra
 matches) and the kind, never with the value; every reported name or error is redacted first.
 Exit codes: 0 clean, 1 at least one finding, 2 something could not be scanned (and no finding).
 """
-import argparse, bz2, gzip, hashlib, io, json, lzma, os, re, socket, subprocess, sys, tarfile, time, zipfile
+import argparse, bz2, gzip, hashlib, io, json, lzma, os, re, socket, stat, subprocess, sys, tarfile, time, zipfile
 from pathlib import Path
 
 MIN_LEN = 16          # shorter values are not fingerprinted (too many accidental matches, and not secrets)
@@ -51,6 +51,17 @@ FORMATS = [
                    rb"[\"']?(?![\"']?\$)[A-Za-z0-9_\-./+=]{16,}"),
 ]
 FORMATS = [(k, re.compile(p)) for k, p in FORMATS]
+FORMAT_KINDS = {k for k, _ in FORMATS}
+
+
+def base_kind(kind):
+    """'jwt (in a member name)' -> 'jwt'."""
+    return kind.split(" (", 1)[0]
+
+
+def is_exact(finding):
+    """True for a fingerprinted lab secret, False for a match by format only."""
+    return base_kind(finding["kind"]) not in FORMAT_KINDS
 
 # --------------------------------------------------------------------------- fingerprints (inside the VM)
 HOME = Path(os.path.expanduser("~"))
@@ -330,6 +341,13 @@ def scan_paths(paths, fps=(), skip=()):
             continue
         files = [root] if not root.is_dir() else _walk_files(root, skip, failures, fps)
         for p in files:
+            try:
+                mode = p.stat().st_mode  # through a file symlink; a dangling one is a failure below
+            except OSError as exc:
+                failures.append({"path": redact(str(p), fps), "member": None, "error": type(exc).__name__})
+                continue
+            if not stat.S_ISREG(mode) and not stat.S_ISDIR(mode):
+                continue  # socket, fifo or device: no content that a copy or a commit could carry
             for kind, _ in scan_bytes(str(p).encode(errors="surrogateescape"), fps):
                 findings.append({"path": redact(str(p), fps), "member": None, "kind": kind + " (in a file name)", "line": None})
             try:
@@ -471,6 +489,110 @@ def load_fps(path, require_kinds=REQUIRED_KINDS):
     return d["fingerprints"]
 
 
+# --------------------------------------------------------------------------- redacted copies
+FILL = b"*"
+
+
+def redact_bytes(data, fps=()):
+    """Every exact or format match replaced by '*' of the same length (offsets, SQLite pages and record lengths survive)."""
+    spans = sorted(_exact_spans(data, fps) + _format_spans(data))
+    b = bytearray(data)
+    for a, z, _ in spans:
+        b[a:z] = FILL * (z - a)
+    return bytes(b), len(spans)
+
+
+def _compression(data):
+    for magic, mode in ((b"\x1f\x8b", "gz"), (b"\xfd7zXZ\x00", "xz"), (b"BZh", "bz2")):
+        if data.startswith(magic):
+            return mode
+    return ""
+
+
+def redact_blob(name, data, fps=(), depth=0):
+    """(redacted bytes, spans replaced). Plain bytes: same-length replacement. Archives are rebuilt member by member, member names
+    included, only when they have one unambiguous reading: a tar (plain or compressed), an ordinary zip, or a single compressed
+    file. Anything else (data in front of a zip, two readings, an unsupported format) is refused (Unscannable)."""
+    if depth > MAX_DEPTH:
+        raise Unscannable("archives nested too deep")
+    if _open_archive(name, data) is None:  # also raises on anything unreadable or unsupported
+        return redact_bytes(data, fps)
+    comp = _compression(data)
+    try:
+        with tarfile.open(fileobj=io.BytesIO(data), mode="r:*"):
+            is_tar = True
+    except tarfile.TarError:
+        is_tar = False
+    is_zip = zipfile.is_zipfile(io.BytesIO(data))
+    total = 0
+    if is_tar and not is_zip:
+        out = io.BytesIO()
+        with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as src, \
+                tarfile.open(fileobj=out, mode=("w:" + comp) if comp else "w") as dst:
+            for m in src.getmembers():
+                n2, k = redact_bytes(m.name.encode(errors="surrogateescape"), fps)
+                total += k
+                info = tarfile.TarInfo(n2.decode(errors="surrogateescape"))
+                for attr in ("mode", "mtime", "type", "linkname", "uid", "gid", "uname", "gname"):
+                    setattr(info, attr, getattr(m, attr))
+                if m.isfile():
+                    body, k = redact_blob(m.name, src.extractfile(m).read(), fps, depth + 1)
+                    total += k
+                    info.size = len(body)
+                    dst.addfile(info, io.BytesIO(body))
+                else:
+                    dst.addfile(info)
+        return out.getvalue(), total
+    if is_zip and not is_tar and not comp and data.startswith(b"PK\x03\x04"):
+        out = io.BytesIO()
+        with zipfile.ZipFile(io.BytesIO(data)) as src, zipfile.ZipFile(out, "w") as dst:
+            for i in src.infolist():
+                n2, k = redact_bytes(i.filename.encode(errors="surrogateescape"), fps)
+                total += k
+                body, k2 = (b"", 0) if i.is_dir() else redact_blob(i.filename, src.read(i), fps, depth + 1)
+                total += k2
+                zi = zipfile.ZipInfo(n2.decode(errors="replace"), i.date_time)
+                zi.compress_type, zi.external_attr = i.compress_type, i.external_attr
+                dst.writestr(zi, body)
+        return out.getvalue(), total
+    if comp and not is_tar and not is_zip:
+        inner = {"gz": gzip.decompress, "xz": lzma.decompress, "bz2": bz2.decompress}[comp](data)
+        body, k = redact_blob(name.rsplit(".", 1)[0], inner, fps, depth + 1)
+        return {"gz": gzip.compress, "xz": lzma.compress, "bz2": bz2.compress}[comp](body), k
+    raise Unscannable("archive with more than one reading: not rebuilt")
+
+
+def redact_paths(paths, outdir, fps=()):
+    """Redacted copies of files and folders under outdir (a folder keeps its name), each checked clean afterwards.
+    Returns (written [{path, spans}], failures)."""
+    outdir = Path(outdir)
+    written, failures = [], []
+    for root in paths:
+        root = Path(root)
+        base = root.parent
+        files = [root] if root.is_file() else _walk_files(root, (), failures, fps)
+        for p in files:
+            try:
+                if not stat.S_ISREG(p.stat().st_mode):
+                    continue
+                data = p.read_bytes()
+                body, n = redact_blob(str(p), data, fps)
+            except (OSError, Unscannable) as exc:
+                failures.append({"path": redact(str(p), fps), "member": None, "error": redact(str(exc), fps) or type(exc).__name__})
+                continue
+            rel = Path(redact(str(p.relative_to(base)), fps))
+            dest = outdir / rel
+            dest.parent.mkdir(parents=True, exist_ok=True)
+            dest.write_bytes(body)
+            left, bad = scan_blob(str(dest), body, fps)
+            if left or bad:
+                failures.append({"path": str(rel), "member": None, "error": "redacted copy is not clean"})
+                dest.unlink()
+                continue
+            written.append({"path": str(rel), "spans": n})
+    return written, failures
+
+
 def report(findings, failures, out=sys.stdout):
     json.dump({"findings": findings, "failures": failures}, out, indent=1)
     out.write("\n")
@@ -481,7 +603,7 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="mode", required=True)
     sub.add_parser("fingerprints")
-    for name in ("scan", "scan-git"):
+    for name in ("scan", "scan-git", "redact"):
         s = sub.add_parser(name)
         g = s.add_mutually_exclusive_group(required=True)
         g.add_argument("--fingerprints", help="fingerprint file taken in the VM (required for anything that will be published)")
@@ -489,6 +611,9 @@ def main(argv=None):
         s.add_argument("--require-kinds", default=",".join(REQUIRED_KINDS), help="kinds the fingerprint file must contain")
         if name == "scan":
             s.add_argument("--skip", action="append", default=[], help="folder name to skip (repeatable)")
+            s.add_argument("paths", nargs="+")
+        elif name == "redact":
+            s.add_argument("--out", required=True, help="folder for the redacted copies (must not exist yet)")
             s.add_argument("paths", nargs="+")
         else:
             s.add_argument("--repo", default=".")
@@ -504,6 +629,14 @@ def main(argv=None):
     fps = [] if a.formats_only else load_fps(a.fingerprints, [k for k in a.require_kinds.split(",") if k])
     if a.mode == "scan":
         return report(*scan_paths(a.paths, fps, set(a.skip)))
+    if a.mode == "redact":
+        if Path(a.out).exists():
+            sys.stderr.write(f"secret gate: {a.out} exists; refusing to mix redacted copies with other files\n")
+            return 2
+        written, failures = redact_paths(a.paths, a.out, fps)
+        json.dump({"written": written, "failures": failures}, sys.stdout, indent=1)
+        sys.stdout.write("\n")
+        return 2 if failures else 0
     return report(*scan_git(a.repo, a.base, a.head, fps, a.ref_name))
 
 
