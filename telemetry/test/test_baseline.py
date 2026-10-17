@@ -72,3 +72,13 @@ class Baseline(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Workload(unittest.TestCase):
+    CRIT = {"min_done_share": 0.8, "min_known_server_calls_per_cycle": 0.8}
+
+    def test_thresholds(self):
+        self.assertTrue(bs.workload(10, 40, 32, 8, self.CRIT)["ok"])
+        self.assertFalse(bs.workload(10, 40, 31, 8, self.CRIT)["ok"], "too few tasks completed")
+        self.assertFalse(bs.workload(10, 40, 40, 7, self.CRIT)["ok"], "too few calls to the known server")
+        self.assertFalse(bs.workload(0, 0, 0, 0, self.CRIT)["ok"], "a session with no use is not valid")

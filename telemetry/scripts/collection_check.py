@@ -1,56 +1,93 @@
 #!/usr/bin/env python3
 """Collection check for one session (D24 point 2), independent of detection.
 
-Inputs: the archive written by `vm_logs.py collect` (host copy), the client that ran, the session window and the ground truth
-(the lab server's or the canary's log, which alone establishes that the event happened). Output: one JSON record with
-  export: ok | failed (archive unreadable, no manifest, or a file in the manifest missing from the archive / hash mismatch)
-  client_logs: wrote | wrote-nothing-in-session | no-default-logs   (from the inventory: no candidate location exists)
-  coverage: whether the files written in the session span the event's time (first/last mtime against the ground-truth event)
+Inputs: the archive written by `vm_logs.py collect` (host copy), the client that ran, the session window, the inventory taken on
+the clean snapshot (frozen patterns per client) and the SHA-256 of the frozen candidates file. Output: one JSON record with
+  export: ok | failed. Failed when the archive or its manifest cannot be read; the manifest lacks the client, does not account
+          for every frozen pattern of the client, or was made from another candidates file; a listed file is missing from the
+          archive or its hash differs; a file could not be read in the VM; a database could not be opened from its copy, or its
+          consolidated copy is missing.
+  client_logs: wrote | wrote-nothing-in-session | no-default-logs
+          wrote = a file was modified in the session window, or a record with a timestamp inside it was exported;
+          no-default-logs = no frozen location of the client exists, in the inventory or in this export.
+  record_coverage: per exported file, whether its records' timestamps reach into the session window, or "unknown" when the file
+          has no recognisable timestamps; and the session's logging configuration as recorded in the VM.
+Coverage with respect to the event itself is computed in the analysis, from the ground-truth time (score.py), never here.
 A session is excluded only when export is "failed"; a client that logs nothing for the event is a valid negative observation.
 
-  python3 collection_check.py ARCHIVE.tgz CLIENT START END --event-time T [--inventory INVENTORY.json]
+  python3 collection_check.py ARCHIVE.tgz CLIENT START END --inventory INVENTORY.json --candidates-sha256 HEX
 """
-import argparse, hashlib, io, json, sys, tarfile
+import argparse, hashlib, json, sys, tarfile
 
 
-def check(archive_path, client, start, end, event_time=None, inventory=None):
-    rec = {"client": client, "start": start, "end": end, "event_time": event_time}
+def failed(rec, reason):
+    return rec | {"export": "failed", "reason": reason}
+
+
+def in_window(rng, start, end):
+    if not isinstance(rng, dict) or rng.get("first") is None:
+        return "unknown"
+    return rng["first"] <= end + 5 and rng["last"] >= start
+
+
+def check(archive_path, client, start, end, inventory, candidates_sha256):
+    rec = {"client": client, "start": start, "end": end}
     try:
         tar = tarfile.open(archive_path, "r:gz")
         manifest = json.load(tar.extractfile("manifest.json"))
-    except (OSError, tarfile.TarError, KeyError, ValueError) as exc:
-        return rec | {"export": "failed", "reason": f"archive or manifest unreadable: {exc}"}
-    files = manifest.get("clients", {}).get(client, [])
-    members = {m.name: m for m in tar.getmembers()}
+        members = {m.name: m for m in tar.getmembers()}
+    except (OSError, tarfile.TarError, KeyError, ValueError, TypeError) as exc:
+        return failed(rec, f"archive or manifest unreadable: {exc}")
+    if not isinstance(manifest, dict) or not isinstance(manifest.get("clients"), dict) or not isinstance(manifest.get("patterns"), dict):
+        return failed(rec, "manifest without clients/patterns")
+    if manifest.get("candidates_sha256") != candidates_sha256:
+        return failed(rec, f"manifest made from another candidates file: {manifest.get('candidates_sha256')}")
+    if client not in manifest["clients"] or client not in manifest["patterns"]:
+        return failed(rec, f"manifest has no entry for {client}")
+    frozen = inventory["clients"][client]["patterns"]
+    looked = {p.get("pattern") for p in manifest["patterns"][client]}
+    if set(frozen) - looked:
+        return failed(rec, f"manifest does not account for {sorted(set(frozen) - looked)}")
+    errs = [e for e in manifest.get("errors", []) if e.get("client") == client]
+    if errs:
+        return failed(rec, f"files not readable in the VM: {errs[:3]}")
+    files = manifest["clients"][client]
     for f in files:
         m = members.get("home/" + f["path"])
         if m is None:
-            return rec | {"export": "failed", "reason": f"missing from archive: {f['path']}"}
+            return failed(rec, f"missing from archive: {f['path']}")
         if hashlib.sha256(tar.extractfile(m).read()).hexdigest() != f["sha256"]:
-            return rec | {"export": "failed", "reason": f"hash mismatch: {f['path']}"}
-    inv_files = (inventory or {}).get("clients", {}).get(client, {}).get("files")
-    written = [f for f in files if start <= f["mtime"] <= end + 5]  # this session's window, not the one used at collection
-    if inventory is not None and not inv_files and not files:
+            return failed(rec, f"hash mismatch: {f['path']}")
+        db = manifest.get("sqlite", {}).get(f["path"])
+        if db is not None:
+            if not db.get("ok"):
+                return failed(rec, f"database not readable from its copy: {f['path']}: {db.get('error') or db.get('quick_check')}")
+            if "sqlite-consolidated/" + f["path"] not in members:
+                return failed(rec, f"consolidated copy missing: {f['path']}")
+    ranges = manifest.get("record_ranges", {})
+    cov = {f["path"]: in_window(ranges.get(f["path"]), start, end) for f in files if f["path"] in ranges}
+    modified = [f for f in files if start <= f["mtime"] <= end + 5]
+    inv_files = inventory["clients"][client].get("files")
+    if not inv_files and not files:
         status = "no-default-logs"
-    elif written:
+    elif modified or any(v is True for v in cov.values()):
         status = "wrote"
     else:
         status = "wrote-nothing-in-session"
-    rec |= {"export": "ok", "client_logs": status, "files": len(files), "files_written_in_session": len(written)}
-    if written and event_time is not None:
-        rec["coverage"] = {"first_mtime": min(f["mtime"] for f in written), "last_mtime": max(f["mtime"] for f in written),
-                           "after_event": max(f["mtime"] for f in written) >= event_time}
-    return rec
+    return rec | {"export": "ok", "client_logs": status, "files": len(files), "files_modified_in_session": len(modified),
+                  "record_coverage": {"files_with_records_in_session": sum(v is True for v in cov.values()),
+                                      "files_with_known_range": sum(v != "unknown" for v in cov.values()),
+                                      "files_without_timestamps": sum(v == "unknown" for v in cov.values()), "per_file": cov},
+                  "patterns": manifest["patterns"][client], "logging_config": manifest.get("logging_config", {}).get(client)}
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("archive"); ap.add_argument("client"); ap.add_argument("start", type=int); ap.add_argument("end", type=int)
-    ap.add_argument("--event-time", type=int)
-    ap.add_argument("--inventory")
+    ap.add_argument("--inventory", required=True)
+    ap.add_argument("--candidates-sha256", required=True)
     a = ap.parse_args()
-    inv = json.load(open(a.inventory)) if a.inventory else None
-    json.dump(check(a.archive, a.client, a.start, a.end, a.event_time, inv), sys.stdout, indent=1)
+    json.dump(check(a.archive, a.client, a.start, a.end, json.load(open(a.inventory)), a.candidates_sha256), sys.stdout, indent=1)
 
 
 if __name__ == "__main__":

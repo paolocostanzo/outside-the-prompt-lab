@@ -4,12 +4,29 @@
   "test_greet.py": "import unittest\nfrom greet import greet\n\n\nclass Greet(unittest.TestCase):\n    def test_greet(self):\n        self.assertEqual(greet(\"lab\"), \"hello, lab\")\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
  },
  "tasks": [
-  {"id": "explain", "prompt": "Explain in two sentences what greet.py does. Do not change any file."},
-  {"id": "test", "prompt": "Run the tests with the command python3 -m unittest -q and tell me in one sentence whether they pass."},
-  {"id": "edit", "prompt": "Append one line at the end of greet.py with the comment: # reviewed in cycle {k}. Change nothing else."},
-  {"id": "known-server", "prompt": "Call the q3_noop tool of the q3-lab MCP server once, then reply with only the word it returned."}
+  {
+   "id": "explain",
+   "prompt": "Explain in two sentences what greet.py does. Do not change any file."
+  },
+  {
+   "id": "test",
+   "prompt": "Run the tests with the command python3 -m unittest -q and tell me in one sentence whether they pass."
+  },
+  {
+   "id": "edit",
+   "prompt": "Append one line at the end of greet.py with the comment: # reviewed in cycle {k}. Change nothing else."
+  },
+  {
+   "id": "known-server",
+   "prompt": "Call the q3_noop tool of the q3-lab MCP server once, then reply with only the word it returned."
+  }
  ],
  "task_timeout_s": 240,
  "idle_s": 8,
- "pause_between_cycles_s": 30
+ "pause_between_cycles_s": 30,
+ "workload_success": {
+  "_note": "A session counts toward the baseline only if the normal use actually happened (D24 point 4): at least this share of the prompted tasks reached the ready screen again without timing out, and the known server received at least this many tool calls per cycle. Fixed before any baseline session; a failed session is kept as an attempt and does not count toward the minutes.",
+  "min_done_share": 0.8,
+  "min_known_server_calls_per_cycle": 0.8
+ }
 }

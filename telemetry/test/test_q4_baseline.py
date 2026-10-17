@@ -39,3 +39,41 @@ class BaselinePlan(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+import io as _io, tarfile as _tarfile
+
+
+def _tgz(files):
+    buf = _io.BytesIO()
+    with _tarfile.open(fileobj=buf, mode="w:gz") as tar:
+        for name, data in files.items():
+            info = _tarfile.TarInfo(name); info.size = len(data)
+            tar.addfile(info, _io.BytesIO(data))
+    return buf.getvalue()
+
+
+class BaselineOutputs(unittest.TestCase):
+    S = {"client": "codex", "part": "dev", "name": "baseline__codex__dev"}
+
+    def files(self, session):
+        b = "q4-out/baseline__codex__dev/"
+        return {b + "session.json": json.dumps(session).encode(), b + "timeline.jsonl": b"", "q3-server.log": b""}
+
+    def test_valid_session_passes_and_invalid_is_not_counted(self):
+        good = {"valid": True, "workload": {"ok": True}}
+        sess, problems = qb.check_outputs(self.S, _tgz(self.files(good)))
+        self.assertEqual(problems, [])
+        _, problems = qb.check_outputs(self.S, _tgz(self.files({"valid": False, "workload": {"ok": False}})))
+        self.assertTrue(problems)
+        f = self.files(good); f.pop("q3-server.log")
+        self.assertTrue(qb.check_outputs(self.S, _tgz(f))[1])
+
+    def test_local_parts_do_not_exist(self):
+        with self.assertRaises(SystemExit):
+            qb.plan(1, parts=("local-dev", "local-holdout"))
+
+    def test_holdout_without_a_valid_dev_session_stops(self):
+        out = Path(tempfile.mkdtemp())
+        with self.assertRaises(SystemExit):
+            qb.wait_for_gap(out, {"client": "qwen", "part": "holdout", "name": "x"}, 6, print, lambda s: None)

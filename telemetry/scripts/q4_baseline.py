@@ -1,25 +1,33 @@
 #!/usr/bin/env python3
 """Host-side orchestration of the Q4 baseline (D13 points 1-3, D24 point 4): scripted normal use per terminal client.
 
-Plan (written to plan.json before the first session): one development session per client, in a random order fixed by --seed,
-then one holdout session per client in the same order. A holdout session starts only when at least --gap-hours (default 6) have
-passed since the end of that client's development session; the runner waits otherwise. Every session starts from the clean
-snapshot and gets the same export as the event runs (q4_events.py): client-log archive for the session window, outputs and the
-lab server's log, host telemetry, collection check. Sessions with a run.json are skipped when the runner is restarted.
+Plan: one development session per client, in a random order fixed by --seed, then one holdout session per client in the same
+order. plan.json is written before the first session and is what every later invocation executes; a restart with other
+arguments or inputs (snapshot, seed, minutes, gap, clients, parts, inventory, candidates, harness commit) is refused.
+A holdout session starts only when at least --gap-hours (default 6) have passed since the end of that client's VALID
+development session; the runner waits otherwise. Every session starts from the clean snapshot and gets the same export as the
+event runs (q4_events.py). A session counts only if its session.json says valid (definition A only, no change, the normal use
+happened: baseline/tasks.json "workload_success") and the outputs and the lab server's log were copied; otherwise the attempt
+is kept under <session>/attempts/<n>/ and the campaign stops, so that a person looks at it before more quota is spent.
+The local-engine repetition (D13 point 1) is not implemented and is reported as not done.
 
   python3 q4_baseline.py --snapshot q3-base-20261015 --seed SEED --inventory INVENTORY.json --out OUT [--minutes 60] [--dry-run]
   python3 q4_baseline.py ... --parts setup --minutes 6      # exploratory set-up sessions (not part of the baseline)
 """
-import argparse, importlib.util, json, random, time
+import argparse, importlib.util, io, json, random, sys, tarfile, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 _spec = importlib.util.spec_from_file_location("q4_events", HERE / "q4_events.py")
 ev = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(ev)
+PARTS = ("setup", "dev", "holdout")
 
 
 def plan(seed, clients=ev.CLIENTS, parts=("dev", "holdout")):
+    bad = [p for p in parts if p not in PARTS]
+    if bad:
+        raise SystemExit(f"unknown part(s) {bad}: only {PARTS} exist (the local-engine repetition is not implemented)")
     order = list(clients)
     random.Random(seed).shuffle(order)
     return [{"client": c, "part": p, "name": f"baseline__{c}__{p}"} for p in parts for c in order]
@@ -30,11 +38,41 @@ def session_command(s, minutes):
             f"--minutes {minutes} --out ~/q4-out")
 
 
+def outputs_command():
+    return "cd ~ && tar -czf - q4-out q3-server.log"  # required files only: tar fails if one is missing
+
+
+def check_outputs(s, tgz_bytes):
+    """(session.json or None, problems)."""
+    try:
+        tar = tarfile.open(fileobj=io.BytesIO(tgz_bytes), mode="r:gz")
+        names = set(tar.getnames())
+    except (tarfile.TarError, OSError, EOFError) as exc:
+        return None, [f"outputs archive unreadable: {exc}"]
+    base = f"q4-out/{s['name']}"
+    problems = [f"{base}/{f} missing" for f in ("session.json", "timeline.jsonl") if f"{base}/{f}" not in names]
+    if "q3-server.log" not in names:
+        problems.append("q3-server.log missing")
+    if problems:
+        return None, problems
+    try:
+        sess = json.load(tar.extractfile(f"{base}/session.json"))
+    except ValueError as exc:
+        return None, [f"session.json unreadable: {exc}"]
+    if not sess.get("valid"):
+        problems.append(f"session not valid: definitions {sess.get('definitions_served')}, changed {sess.get('definition_changed')}, "
+                        f"workload {sess.get('workload')}")
+    return sess, problems
+
+
 def wait_for_gap(out, s, gap_hours, note, sleep=time.sleep):
-    """Holdout sessions start at least gap_hours after the end of the same client's development session."""
+    """Holdout sessions start at least gap_hours after the end of the same client's valid development session."""
     if s["part"] != "holdout":
         return 0
-    dev = json.loads((out / f"baseline__{s['client']}__dev" / "run.json").read_text())
+    f = out / f"baseline__{s['client']}__dev" / "run.json"
+    if not f.exists():
+        raise SystemExit(f"{s['name']}: no valid development session for {s['client']} yet")
+    dev = json.loads(f.read_text())
     wait = dev["t1"] + gap_hours * 3600 - time.time()
     if wait > 0:
         note(event="holdout-wait", session=s["name"], wait_s=round(wait))
@@ -47,6 +85,7 @@ def main():
     ap.add_argument("--snapshot", required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--inventory", required=True)
+    ap.add_argument("--candidates", default=str(ev.LAB / "telemetry/inventory/candidates.json"))
     ap.add_argument("--out", required=True)
     ap.add_argument("--minutes", type=float, default=60)
     ap.add_argument("--gap-hours", type=float, default=6)
@@ -61,15 +100,15 @@ def main():
         return
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
+    frozen = {"snapshot": a.snapshot, "seed": a.seed, "minutes": a.minutes, "gap_hours": a.gap_hours,
+              "clients": a.clients.split(","), "parts": a.parts.split(","), "inventory_sha256": ev.sha_file(a.inventory),
+              "candidates_sha256": ev.sha_file(a.candidates), "harness": ev.harness_identity()}
+    sessions = ev.load_or_create_plan(out, frozen, sessions)
     q3 = ev.load(ev.LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = ev.load(HERE / "collection_check.py", "collection_check")
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = ev.Runner(h, q3)
-    pf = out / "plan.json"
-    if not pf.exists():
-        pf.write_text(json.dumps({"created": ev.now(), "snapshot": a.snapshot, "seed": a.seed, "minutes": a.minutes,
-                                  "gap_hours": a.gap_hours, "sessions": sessions}, indent=2))
     for i, s in enumerate(sessions, 1):
         d = out / s["name"]
         if (d / "run.json").exists():
@@ -86,19 +125,25 @@ def main():
         res = h.ssh(ip, session_command(s, a.minutes), timeout=int(a.minutes * 60) + 900)
         t1 = int(time.time())
         (d / "session.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
-        rc_logs, err_logs = rn.ssh_bin(ip, ev.collect_command(t0, t1), d / "client-logs.tgz")
-        rc_out, err_out = rn.ssh_bin(ip, "cd ~ && tar -czf - --ignore-failed-read q4-out q3-server.log", d / "vm-out.tgz")
+        h.ssh(ip, ev.STOP_CLIENTS)
+        check = rn.client_logs(ip, d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
+        rc_out, err_out = rn.ssh_bin(ip, outputs_command(), d / "vm-out.tgz")
+        sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
+        if rc_out != 0:
+            problems.insert(0, f"outputs copy exited {rc_out}: {err_out}")
+        if res.returncode != 0:
+            problems.insert(0, f"session exited {res.returncode}")
         rn.telemetry(ip, d, t0 - 5)
-        check = cc.check(str(d / "client-logs.tgz"), s["client"], t0, t1, inventory=inv)
-        check["collect_rc"], check["collect_stderr"] = rc_logs, err_logs
-        if rc_logs != 0:
-            check["export"], check["reason"] = "failed", f"collect exited {rc_logs}"
-        (d / "collection.json").write_text(json.dumps(check, indent=1))
+        if problems:
+            dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
+            h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
+                   hint="VM left as it is; look at the attempt, fix the cause, then rerun the same command (the plan is kept)")
+            sys.exit(5)
         (d / "run.json").write_text(json.dumps({**s, "t0": t0, "t1": t1, "waited_s": waited, "session_rc": res.returncode,
-                                                "push_rc": rc_push, "vm_out_rc": rc_out, "vm_out_stderr": err_out,
-                                                "export": check["export"], "client_logs": check.get("client_logs")}, indent=1))
-        h.note(event="session-end", session=s["name"], rc=res.returncode, seconds=t1 - t0, export=check["export"])
-    h.note(event="baseline-done", sessions=len(sessions))
+                                                "push_rc": rc_push, "export": check["export"], "export_reason": check.get("reason"),
+                                                "client_logs": check.get("client_logs"), "workload": sess["workload"]}, indent=1))
+        h.note(event="session-end", session=s["name"], seconds=t1 - t0, export=check["export"], workload_ok=sess["workload"]["ok"])
+    h.note(event="baseline-done", sessions=len(sessions), local_engine_repetition="not implemented, not done")
     q3.run(q3.VIRSH + ["shutdown", q3.DOMAIN])
 
 

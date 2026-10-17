@@ -11,7 +11,10 @@ timeline.jsonl, which the analysis uses to place the one-minute windows; every s
   python3 baseline_session.py --client codex --part setup --minutes 6 --out ~/q4-out    # exploratory set-up session
 
 The q3-lab server is set to definition A with no signal before the first cycle, and checked again at the end: a session in which
-the server log shows any definition other than A is invalid for the baseline.
+the server log shows any definition other than A is invalid for the baseline. A session is also invalid unless the normal use
+actually happened (tasks.json "workload_success": share of tasks completed, known-server calls per cycle). session.json records
+both checks; the host keeps an invalid session as an attempt and does not count it. The local-engine repetition (D13 point 1)
+is not implemented here: there is no part for it, and it is reported as not done unless a later, reviewed change adds it.
 """
 import argparse, importlib.util, json, re, time
 from pathlib import Path
@@ -56,6 +59,7 @@ class Session:
         return None
 
     def do_task(self, cycle, task, timeout, idle_s):
+        """True when the client is back at its ready screen with a stable screen before the timeout."""
         prompt = task["prompt"].replace("{k}", str(cycle))
         q3.type_text(prompt)
         self.log(action="prompt", cycle=cycle, task=task["id"])
@@ -80,22 +84,37 @@ class Session:
         return False
 
     def run(self, minutes, cfg):
+        """Returns (cycles, tasks prompted, tasks done). A cycle whose client never gets ready counts all its tasks as failed."""
         deadline = time.time() + minutes * 60
-        cycle = 0
+        cycle = prompted = done = 0
         while time.time() < deadline:
             cycle += 1
             q3.launch(self.spec["cmd"])
             self.log(action="open", cycle=cycle)
-            if not q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle}):
+            ready = q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
+            if not ready:
                 self.log(action="not-ready", cycle=cycle)
             for task in self.tasks:
                 if time.time() >= deadline:
                     break
-                self.do_task(cycle, task, cfg["task_timeout_s"], cfg["idle_s"])
+                prompted += 1
+                if ready and self.do_task(cycle, task, cfg["task_timeout_s"], cfg["idle_s"]):
+                    done += 1
+                elif not ready:
+                    self.log(action="skipped-not-ready", cycle=cycle, task=task["id"])
             q3.kill()
             self.log(action="close", cycle=cycle)
             time.sleep(cfg["pause_between_cycles_s"])
-        return cycle
+        return cycle, prompted, done
+
+
+def workload(cycles, prompted, done, calls, crit):
+    """Whether the normal use happened: share of tasks done and known-server calls per cycle, against fixed thresholds."""
+    share = done / prompted if prompted else 0.0
+    per_cycle = calls / cycles if cycles else 0.0
+    return {"cycles": cycles, "tasks_prompted": prompted, "tasks_done": done, "done_share": share, "known_server_calls": calls,
+            "known_server_calls_per_cycle": per_cycle,
+            "ok": share >= crit["min_done_share"] and per_cycle >= crit["min_known_server_calls_per_cycle"]}
 
 
 def validity(events):
@@ -108,7 +127,7 @@ def validity(events):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--client", required=True, choices=list(q3.CLIENTS))
-    ap.add_argument("--part", required=True, choices=["setup", "dev", "holdout", "local-dev", "local-holdout"])
+    ap.add_argument("--part", required=True, choices=["setup", "dev", "holdout"])
     ap.add_argument("--minutes", type=float, required=True)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
@@ -124,13 +143,16 @@ def main():
     t_start = time.time()
     s.log(action="session-start", client=a.client, part=a.part, minutes=a.minutes,
           version=q3.sh(q3.CLIENTS[a.client]["version"] + " 2>&1 | head -1").stdout.strip())
-    cycles = s.run(a.minutes, cfg)
-    served, changed = validity(q3.events())
-    s.log(action="session-end", cycles=cycles, definitions_served=served, definition_changed=changed)
+    cycles, prompted, done = s.run(a.minutes, cfg)
+    events = q3.events()
+    served, changed = validity(events)
+    calls = sum(1 for e in events if e.get("event") == "tools/call" and e.get("cell") == f"baseline-{a.client}-{a.part}")
+    w = workload(cycles, prompted, done, calls, cfg["workload_success"])
+    s.log(action="session-end", cycles=cycles, definitions_served=served, definition_changed=changed, workload=w)
     (outdir / "session.json").write_text(json.dumps({"client": a.client, "part": a.part, "minutes": a.minutes, "t_start": t_start,
-                                                     "t_end": time.time(), "cycles": cycles, "definitions_served": served,
-                                                     "definition_changed": changed,
-                                                     "valid": served in ([], ["A"]) and not changed}, indent=1))
+                                                     "t_end": time.time(), "definitions_served": served,
+                                                     "definition_changed": changed, "workload": w,
+                                                     "valid": served in ([], ["A"]) and not changed and w["ok"]}, indent=1))
 
 
 if __name__ == "__main__":

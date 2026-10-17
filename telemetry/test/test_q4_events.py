@@ -55,3 +55,59 @@ class Plan(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+import io as _io, json as _json, tarfile as _tarfile, tempfile as _tempfile
+
+
+def _tgz(files):
+    buf = _io.BytesIO()
+    with _tarfile.open(fileobj=buf, mode="w:gz") as tar:
+        for name, data in files.items():
+            info = _tarfile.TarInfo(name); info.size = len(data)
+            tar.addfile(info, _io.BytesIO(data))
+    return buf.getvalue()
+
+
+class GroundTruthAndPlan(unittest.TestCase):
+    def test_q3_ground_truth(self):
+        run = {"client": "codex", "event": "q3-silent", "rep": 2}
+        row = "q4-out/codex__none__description__r2/row.json"
+        log = b'{"event":"out","state":"A"}\n{"event":"definition-changed","state":"B"}\n'
+        self.assertEqual(q4.validate_ground_truth(run, _tgz({row: b"{}", "q3-server.log": log})), [])
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({row: b"{}"})), "server log missing")
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({row: b"{}", "q3-server.log": b'{"event":"out"}\n'})),
+                        "the change itself must be documented")
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({"q3-server.log": log})), "row.json missing")
+        self.assertTrue(q4.validate_ground_truth(run, b"not a tar"))
+
+    def test_q5_ground_truth(self):
+        run = {"client": "goose", "event": "q5-start", "rep": 1}
+        csv_ok = b"client,cell\ngoose,open-in-repo\n"
+        self.assertEqual(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok, "canary-start.log": b""})), [],
+                         "an empty canary log is a valid 'no event', as long as it was copied")
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok})))
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": b"client,cell\ncodex,after-decision\n",
+                                                             "canary-start.log": b""})))
+
+    def test_required_files_only(self):
+        self.assertNotIn("ignore-failed-read", q4.ground_truth_command({"event": "q3-silent"}))
+        self.assertIn("canary-start.log", q4.ground_truth_command({"event": "q5-start"}))
+
+    def test_persisted_plan_is_executed_and_changed_inputs_refused(self):
+        out = Path(_tempfile.mkdtemp())
+        frozen = {"seed": 1, "snapshot": "s"}
+        first = q4.load_or_create_plan(out, frozen, q4.plan(1))
+        self.assertEqual(q4.load_or_create_plan(out, frozen, q4.plan(999)), first, "a restart runs the published order")
+        with self.assertRaises(SystemExit):
+            q4.load_or_create_plan(out, {"seed": 2, "snapshot": "s"}, q4.plan(2))
+
+    def test_failed_attempt_is_kept_and_run_stays_incomplete(self):
+        d = Path(_tempfile.mkdtemp()) / "run"
+        d.mkdir()
+        (d / "cell.stdout.txt").write_text("x")
+        dest = q4.keep_attempt(d, "ground-truth-unavailable", {"problems": ["p"]})
+        self.assertTrue((dest / "cell.stdout.txt").exists())
+        self.assertEqual(_json.loads((dest / "attempt.json").read_text())["status"], "ground-truth-unavailable")
+        self.assertFalse((d / "run.json").exists())
+        self.assertEqual(q4.keep_attempt(d, "again", {}).name, "2")
