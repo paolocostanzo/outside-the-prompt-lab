@@ -1,0 +1,15 @@
+{
+ "_note": "Scripted normal use for the Q4 baseline (D13 points 1-3, D24 point 4), fixed before any baseline session. One cycle = open the client in the trusted test folder ~/q3-repo, run the four tasks in this order, close the client. Cycles repeat until the session's minutes are over. {k} is the cycle number. The q3-lab server keeps definition A for the whole session (no change, no notification): calling it is normal use of a known, approved server.",
+ "setup_files": {
+  "test_greet.py": "import unittest\nfrom greet import greet\n\n\nclass Greet(unittest.TestCase):\n    def test_greet(self):\n        self.assertEqual(greet(\"lab\"), \"hello, lab\")\n\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+ },
+ "tasks": [
+  {"id": "explain", "prompt": "Explain in two sentences what greet.py does. Do not change any file."},
+  {"id": "test", "prompt": "Run the tests with the command python3 -m unittest -q and tell me in one sentence whether they pass."},
+  {"id": "edit", "prompt": "Append one line at the end of greet.py with the comment: # reviewed in cycle {k}. Change nothing else."},
+  {"id": "known-server", "prompt": "Call the q3_noop tool of the q3-lab MCP server once, then reply with only the word it returned."}
+ ],
+ "task_timeout_s": 240,
+ "idle_s": 8,
+ "pause_between_cycles_s": 30
+}
