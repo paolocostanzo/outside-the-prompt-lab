@@ -31,7 +31,7 @@ node scripts/check-trust.mjs              # which projects have I already truste
 ## Quick start (Q3 components, no VM needed)
 ```bash
 cd tool-change
-npm test                                  # 57 tests, Node >= 22 and Python >= 3.11, no dependencies
+npm test                                  # 60 tests, Node >= 22 and Python >= 3.11, no dependencies
 node scripts/check-approvals.mjs          # which MCP tools have I approved permanently, and in which file?
 ```
 
