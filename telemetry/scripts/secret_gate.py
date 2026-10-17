@@ -45,10 +45,10 @@ FORMATS = [
     ("github-token", rb"(?<![A-Za-z0-9_])(?:ghp|gho|ghu|ghs|ghr)_[A-Za-z0-9]{36}|github_pat_[A-Za-z0-9_]{60,}"),
     ("private-key", rb"-----BEGIN (?:[A-Z]+ )*PRIVATE KEY-----"),
     ("token-field", rb"[\"'](?:access_token|refresh_token|id_token|accessToken|refreshToken|idToken|api_key|apiKey|"
-                    rb"client_secret|clientSecret)[\"']\s*:\s*[\"'][^\"'\s]{16,}[\"']"),
+                    rb"client_secret|clientSecret)[\"']\s*:\s*[\"'](?P<v>(?!\*+[\"'])[^\"'\s]{16,})[\"']"),
     ("secret-env", rb"(?<![A-Za-z0-9_])(?:CLAUDE_CODE_OAUTH_TOKEN|ANTHROPIC_API_KEY|ANTHROPIC_AUTH_TOKEN|GEMINI_API_KEY|"
                    rb"GOOGLE_API_KEY|OPENAI_API_KEY|CODEX_ACCESS_TOKEN|DASHSCOPE_API_KEY|OPENROUTER_API_KEY)\s*[=:]\s*"
-                   rb"[\"']?(?![\"']?\$)[A-Za-z0-9_\-./+=]{16,}"),
+                   rb"[\"']?(?![\"']?\$)(?P<v>[A-Za-z0-9_\-./+=]{16,})"),
 ]
 FORMATS = [(k, re.compile(p)) for k, p in FORMATS]
 FORMAT_KINDS = {k for k, _ in FORMATS}
@@ -180,7 +180,13 @@ def _exact_spans(data, fps):
 
 
 def _format_spans(data):
-    return [(m.start(), m.end(), kind) for kind, rx in FORMATS for m in rx.finditer(data)]
+    """Spans of format matches: only the value where a pattern names it (group v), so that redaction keeps keys and syntax."""
+    out = []
+    for kind, rx in FORMATS:
+        for m in rx.finditer(data):
+            a, z = m.span("v") if "v" in rx.groupindex else m.span()
+            out.append((a, z, kind))
+    return out
 
 
 def scan_bytes(data, fps=()):
@@ -219,10 +225,32 @@ def _unsupported(data):
     return None
 
 
+TAR_STREAM = "<whole tar stream>"
+
+
+def _tar_stream(data):
+    """The complete decompressed tar stream (every gzip, xz or bzip2 member, not only the first)."""
+    comp = _compression(data)
+    return {"gz": gzip.decompress, "xz": lzma.decompress, "bz2": bz2.decompress}[comp](data) if comp else data
+
+
+def _tar_members(raw):
+    """Parsed members of an uncompressed tar stream; anything but zero padding after the end of the archive is refused."""
+    with tarfile.open(fileobj=io.BytesIO(raw), mode="r:") as t:
+        members = t.getmembers()
+        out = [(m, t.extractfile(m).read() if m.isfile() else b"") for m in members]
+        end = t.offset
+    if raw[end:].strip(b"\0"):
+        raise Unscannable("data after the end of the tar archive")
+    return out
+
+
 def _read_tar(name, data):
-    with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as t:
-        # names of directories and links are published too, so they are kept (with no content)
-        return [(m.name, t.extractfile(m).read() if m.isfile() else b"") for m in t.getmembers()]
+    raw = _tar_stream(data)
+    members = _tar_members(raw)
+    # names of directories and links are published too, so they are kept (with no content); the whole stream is also scanned
+    # flat, so that headers (link targets, owner names, pax records) are checked as well
+    return [(m.name, body) for m, body in members] + [(TAR_STREAM, raw)]
 
 
 def _read_zip(name, data):
@@ -297,14 +325,25 @@ def scan_blob(path, data, fps=(), member=None, depth=0):
     try:
         members = _open_archive(member or path, data)
     except Unscannable as exc:
+        if _compression(data):  # refused anyway; report what the whole decompressed stream holds, as far as it decompresses
+            try:
+                for kind, line in scan_bytes(_tar_stream(data), fps):
+                    findings.append({"path": rp, "member": redact((member + "/" if member else "") + TAR_STREAM, fps),
+                                     "kind": kind, "line": line})
+            except (OSError, EOFError, lzma.LZMAError, ValueError):
+                pass
         return findings, failures + [{"path": rp, "member": rm, "error": redact(str(exc), fps)}]
     if members is not None:
         if depth >= MAX_DEPTH:
             return findings, failures + [{"path": rp, "member": rm, "error": "archives nested too deep"}]
         for mname, mdata in members:
             full = (member + "/" if member else "") + mname
-            for kind, _ in scan_bytes(mname.encode(errors="surrogateescape"), fps):
+            for kind, _ in ([] if mname == TAR_STREAM else scan_bytes(mname.encode(errors="surrogateescape"), fps)):
                 findings.append({"path": rp, "member": redact(full, fps), "kind": kind + " (in a member name)", "line": None})
+            if mname == TAR_STREAM:  # scanned as bytes only: opening it again as an archive would never end
+                for kind, line in scan_bytes(mdata, fps):
+                    findings.append({"path": rp, "member": redact(full, fps), "kind": kind, "line": line})
+                continue
             f2, e2 = scan_blob(path, mdata, fps, full, depth + 1)
             findings += f2
             failures += e2
@@ -509,50 +548,106 @@ def _compression(data):
     return ""
 
 
+def _json_ok(name, data):
+    """True when name says JSON/JSON Lines and data parses as such; None when the name says nothing about JSON."""
+    low = name.lower()
+    try:
+        if low.endswith(".json"):
+            json.loads(data.decode("utf-8"))
+            return True
+        if low.endswith(".jsonl"):
+            for line in data.decode("utf-8").splitlines():
+                if line.strip():
+                    json.loads(line)
+            return True
+    except (ValueError, UnicodeDecodeError):
+        return False
+    return None
+
+
+def _redact_plain(name, data, fps):
+    body, n = redact_bytes(data, fps)
+    if _json_ok(name, data) and not _json_ok(name, body):
+        raise Unscannable("redaction would break JSON")
+    return body, n
+
+
+def _rstr(text, fps):
+    b, n = redact_bytes(text.encode(errors="surrogateescape"), fps)
+    return b.decode(errors="surrogateescape"), n
+
+
 def redact_blob(name, data, fps=(), depth=0):
-    """(redacted bytes, spans replaced). Plain bytes: same-length replacement. Archives are rebuilt member by member, member names
-    included, only when they have one unambiguous reading: a tar (plain or compressed), an ordinary zip, or a single compressed
-    file. Anything else (data in front of a zip, two readings, an unsupported format) is refused (Unscannable)."""
+    """(redacted bytes, spans replaced). Plain bytes: same-length replacement (JSON and JSON Lines must stay parseable). Archives
+    are rebuilt member by member, with names, link targets, owner names and pax records redacted too, only when they have one
+    unambiguous reading: a tar (plain or compressed, the whole decompressed stream), an ordinary zip, or a single compressed
+    file. Anything else (data in front of a zip or after a tar, two readings, an unsupported format, two names that redaction
+    would make equal) is refused (Unscannable)."""
     if depth > MAX_DEPTH:
         raise Unscannable("archives nested too deep")
     if _open_archive(name, data) is None:  # also raises on anything unreadable or unsupported
-        return redact_bytes(data, fps)
+        return _redact_plain(name, data, fps)
     comp = _compression(data)
     try:
-        with tarfile.open(fileobj=io.BytesIO(data), mode="r:*"):
-            is_tar = True
-    except tarfile.TarError:
+        members = _tar_members(_tar_stream(data))
+        is_tar = True
+    except (tarfile.TarError, OSError, EOFError, lzma.LZMAError, ValueError):
         is_tar = False
     is_zip = zipfile.is_zipfile(io.BytesIO(data))
-    total = 0
+    total, seen = 0, set()
+
+    def unique(n2):
+        if n2 in seen:
+            raise Unscannable("redaction would make two member names equal")
+        seen.add(n2)
+        return n2
     if is_tar and not is_zip:
         out = io.BytesIO()
-        with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as src, \
-                tarfile.open(fileobj=out, mode=("w:" + comp) if comp else "w") as dst:
-            for m in src.getmembers():
-                n2, k = redact_bytes(m.name.encode(errors="surrogateescape"), fps)
+        with tarfile.open(fileobj=out, mode=("w:" + comp) if comp else "w", format=tarfile.PAX_FORMAT) as dst:
+            for m, body in members:
+                n2, k = _rstr(m.name, fps)
                 total += k
-                info = tarfile.TarInfo(n2.decode(errors="surrogateescape"))
-                for attr in ("mode", "mtime", "type", "linkname", "uid", "gid", "uname", "gname"):
+                info = tarfile.TarInfo(unique(n2))
+                for attr in ("mode", "mtime", "type", "uid", "gid"):
                     setattr(info, attr, getattr(m, attr))
-                if m.isfile():
-                    body, k = redact_blob(m.name, src.extractfile(m).read(), fps, depth + 1)
+                for attr in ("linkname", "uname", "gname"):
+                    v, k = _rstr(getattr(m, attr) or "", fps)
                     total += k
-                    info.size = len(body)
-                    dst.addfile(info, io.BytesIO(body))
+                    setattr(info, attr, v)
+                pax = {}
+                for key, val in (m.pax_headers or {}).items():
+                    if key in ("path", "linkpath", "uname", "gname", "size", "mtime", "atime", "ctime"):
+                        continue  # rewritten from the fields above
+                    k2, a = _rstr(key, fps)
+                    v2, b = _rstr(val, fps)
+                    total += a + b
+                    pax[k2] = v2
+                info.pax_headers = pax
+                if m.isfile():
+                    body2, k = redact_blob(m.name, body, fps, depth + 1)
+                    total += k
+                    info.size = len(body2)
+                    dst.addfile(info, io.BytesIO(body2))
                 else:
                     dst.addfile(info)
         return out.getvalue(), total
     if is_zip and not is_tar and not comp and data.startswith(b"PK\x03\x04"):
         out = io.BytesIO()
         with zipfile.ZipFile(io.BytesIO(data)) as src, zipfile.ZipFile(out, "w") as dst:
+            if src.comment:
+                c2, k = redact_bytes(src.comment, fps)
+                total += k
+                dst.comment = c2
             for i in src.infolist():
-                n2, k = redact_bytes(i.filename.encode(errors="surrogateescape"), fps)
+                n2, k = _rstr(i.filename, fps)
                 total += k
                 body, k2 = (b"", 0) if i.is_dir() else redact_blob(i.filename, src.read(i), fps, depth + 1)
                 total += k2
-                zi = zipfile.ZipInfo(n2.decode(errors="replace"), i.date_time)
+                zi = zipfile.ZipInfo(unique(n2), i.date_time)
                 zi.compress_type, zi.external_attr = i.compress_type, i.external_attr
+                if i.comment:
+                    zi.comment, k3 = redact_bytes(i.comment, fps)
+                    total += k3
                 dst.writestr(zi, body)
         return out.getvalue(), total
     if comp and not is_tar and not is_zip:
@@ -562,34 +657,60 @@ def redact_blob(name, data, fps=(), depth=0):
     raise Unscannable("archive with more than one reading: not rebuilt")
 
 
+def redact_obj(obj, fps=()):
+    """A JSON-like structure with every key and string value redacted (records written from private archives)."""
+    if isinstance(obj, dict):
+        return {redact(str(k), fps) if isinstance(k, str) else k: redact_obj(v, fps) for k, v in obj.items()}
+    if isinstance(obj, list):
+        return [redact_obj(v, fps) for v in obj]
+    if isinstance(obj, str):
+        return redact(obj, fps)
+    return obj
+
+
 def redact_paths(paths, outdir, fps=()):
-    """Redacted copies of files and folders under outdir (a folder keeps its name), each checked clean afterwards.
-    Returns (written [{path, spans}], failures)."""
+    """Redacted copies of files and folders: input number i goes under outdir/NN/ (inputs never overwrite each other). Every
+    destination is planned first and any collision, including one made by redacting names, is refused before anything is
+    written; every copy is checked clean afterwards. Returns (written [{path, spans}], failures)."""
     outdir = Path(outdir)
-    written, failures = [], []
-    for root in paths:
+    plan, failures = [], []
+    for idx, root in enumerate(paths, 1):
         root = Path(root)
-        base = root.parent
+        if not root.exists():
+            failures.append({"path": redact(str(root), fps), "member": None, "error": "does not exist"})
+            continue
         files = [root] if root.is_file() else _walk_files(root, (), failures, fps)
         for p in files:
             try:
                 if not stat.S_ISREG(p.stat().st_mode):
                     continue
-                data = p.read_bytes()
-                body, n = redact_blob(str(p), data, fps)
-            except (OSError, Unscannable) as exc:
-                failures.append({"path": redact(str(p), fps), "member": None, "error": redact(str(exc), fps) or type(exc).__name__})
+            except OSError as exc:
+                failures.append({"path": redact(str(p), fps), "member": None, "error": type(exc).__name__})
                 continue
-            rel = Path(redact(str(p.relative_to(base)), fps))
-            dest = outdir / rel
-            dest.parent.mkdir(parents=True, exist_ok=True)
-            dest.write_bytes(body)
-            left, bad = scan_blob(str(dest), body, fps)
-            if left or bad:
-                failures.append({"path": str(rel), "member": None, "error": "redacted copy is not clean"})
-                dest.unlink()
-                continue
-            written.append({"path": str(rel), "spans": n})
+            rel = Path(root.name) if p == root else Path(root.name) / p.relative_to(root)
+            plan.append((p, Path(f"{idx:02d}") / redact(str(rel), fps)))
+    dests = [d for _, d in plan]
+    clashes = sorted({str(d) for d in dests if dests.count(d) > 1})
+    if clashes:
+        return [], failures + [{"path": c, "member": None, "error": "two inputs would be written to the same copy"} for c in clashes]
+    if failures:
+        return [], failures
+    written = []
+    for p, rel in plan:
+        try:
+            body, n = redact_blob(str(p), p.read_bytes(), fps)
+        except (OSError, Unscannable) as exc:
+            failures.append({"path": str(rel), "member": None, "error": redact(str(exc), fps) or type(exc).__name__})
+            continue
+        dest = outdir / rel
+        dest.parent.mkdir(parents=True, exist_ok=True)
+        dest.write_bytes(body)
+        left, bad = scan_blob(str(dest), body, fps)
+        if left or bad:
+            failures.append({"path": str(rel), "member": None, "error": "redacted copy is not clean"})
+            dest.unlink()
+            continue
+        written.append({"path": str(rel), "spans": n})
     return written, failures
 
 

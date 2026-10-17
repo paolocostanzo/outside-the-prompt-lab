@@ -174,6 +174,11 @@ def main():
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
         check = rn.check_client_logs(d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"], rc_logs)
+        if check.get("secret_problems"):  # D26: a record written from the private archive is not clean
+            dest = ev.keep_attempt(d, "secret-found", {"problems": check["secret_problems"], "t0": t0, "t1": t1})
+            h.note(event="abort-secret", session=s["name"], problems=check["secret_problems"], kept=str(dest),
+                   hint="a secret reached a collection record: never publish this attempt; tell the author")
+            sys.exit(9)
         sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
         if res.returncode != 0:
             problems.insert(0, f"session exited {res.returncode}")

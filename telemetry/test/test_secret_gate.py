@@ -110,7 +110,8 @@ class Fingerprints(unittest.TestCase):
         (run / "clean.txt").write_text("nothing here")
         findings, failures = sg.scan_paths([run], fps)
         self.assertEqual(failures, [])
-        self.assertEqual([(f["kind"], f["member"]) for f in findings], [("codex-login", "client-logs.tgz/logs/session.jsonl")])
+        self.assertEqual({f["kind"] for f in findings}, {"codex-login"})
+        self.assertIn("client-logs.tgz/logs/session.jsonl", [f["member"] for f in findings])  # plus the whole tar streams
         self.assertEqual(sg.scan_paths([run], [])[0], [], "an opaque value is found only by its fingerprint")
 
     def test_unreadable_store_is_reported_and_refused(self):
@@ -467,6 +468,65 @@ class PrivateArchivesAndRedaction(unittest.TestCase):
         self.assertEqual(r.returncode, 2, "an existing output folder is refused")
 
 
+class ReviewRound4(unittest.TestCase):
+    """Codex round 4 on D26: whole compressed tar streams, tar metadata, JSON-safe redaction, no colliding copies."""
+
+    def tar_bytes(self, members, comp=""):
+        buf = io.BytesIO()
+        with tarfile.open(fileobj=buf, mode=("w:" + comp) if comp else "w") as t:
+            for name, data in members.items():
+                info = tarfile.TarInfo(name); info.size = len(data)
+                t.addfile(info, io.BytesIO(data))
+        return buf.getvalue()
+
+    def test_secret_after_the_end_of_a_compressed_tar(self):  # R11
+        blob = self.tar_bytes({"ok.txt": b"fine"}, "gz") + gzip.compress(("tok " + fake("anthropic")).encode())
+        findings, failures = sg.scan_blob("evidence.tgz", blob, full_fps())
+        self.assertTrue(failures, "trailing data after the tar end is refused")
+        self.assertIn("anthropic-token", {f["kind"] for f in findings}, "and the whole stream is scanned")
+
+    def test_secret_in_tar_metadata_is_found_and_redacted(self):  # R11
+        v = fake("anthropic")
+        buf = io.BytesIO()
+        with tarfile.open(fileobj=buf, mode="w:gz", format=tarfile.PAX_FORMAT) as t:
+            info = tarfile.TarInfo("link"); info.type = tarfile.SYMTYPE; info.linkname = "/tmp/" + v
+            info.uname = "user"
+            t.addfile(info)
+        blob = buf.getvalue()
+        self.assertIn("anthropic-token", {f["kind"] for f in sg.scan_blob("m.tgz", blob, full_fps())[0]})
+        body, n = sg.redact_blob("m.tgz", blob, full_fps())
+        self.assertGreaterEqual(n, 1)
+        self.assertEqual(sg.scan_blob("m.tgz", body, full_fps()), ([], []))
+
+    def test_json_stays_parseable_and_keys_stay(self):  # R13
+        rec = {"tokens": {"access_token": fake("opaque") + "Z" * 8, "id": 1}, "note": "x " + fake("jwt")}
+        data = json.dumps(rec).encode()
+        self.assertTrue(sg.scan_blob("auth.json", data, full_fps())[0])
+        body, n = sg.redact_blob("auth.json", data, full_fps())
+        out = json.loads(body)
+        self.assertIn("access_token", out["tokens"])
+        self.assertTrue(set(out["tokens"]["access_token"]) == {"*"})
+        self.assertEqual(sg.scan_blob("auth.json", body, full_fps()), ([], []), "masking placeholders are not findings")
+        lines = (json.dumps(rec) + "\n" + json.dumps({"a": 1}) + "\n").encode()
+        lbody, _ = sg.redact_blob("s.jsonl", lines, full_fps())
+        self.assertEqual(len([json.loads(l) for l in lbody.decode().splitlines()]), 2)
+
+    def test_same_names_from_two_inputs_do_not_collide(self):  # R14
+        d = Path(tempfile.mkdtemp())
+        for run in ("run1", "run2"):
+            (d / run).mkdir()
+            (d / run / "client-logs.tgz").write_bytes(tgz({"a.txt": (run + " " + fake("jwt")).encode()}))
+        written, failures = sg.redact_paths([d / "run1" / "client-logs.tgz", d / "run2" / "client-logs.tgz"], d / "out", full_fps())
+        self.assertEqual(failures, [])
+        self.assertEqual(sorted(w["path"] for w in written), ["01/client-logs.tgz", "02/client-logs.tgz"])
+
+    def test_redaction_that_makes_names_equal_is_refused(self):  # R14
+        a, b = fake("anthropic"), fake("anthropic")
+        blob = tgz({"x-" + a + ".log": b"1", "x-" + b + ".log": b"2"})
+        with self.assertRaises(sg.Unscannable):
+            sg.redact_blob("c.tgz", blob, full_fps())
+
+
 class Orchestrator(unittest.TestCase):
     """q4_events.secret_problems: fingerprints come from the VM over ssh; the host state keeps them; findings stop the run."""
 
@@ -508,6 +568,9 @@ class Orchestrator(unittest.TestCase):
         marks = json.loads((d / "secret-marks.json").read_text())
         self.assertEqual(marks["token_shaped_by_kind"], {"jwt": 1})
         self.assertNotIn(jwt, json.dumps(marks))
+        red = (d / "client-logs.redacted.tgz").read_bytes()  # R12: the copy every later reader uses
+        self.assertEqual(sg.scan_blob("client-logs.redacted.tgz", red, full_fps()), ([], []))
+        self.assertEqual(marks["redacted_copy"]["redacted_sha256"], __import__("hashlib").sha256(red).hexdigest())
 
     def test_lab_secret_in_the_private_archive_still_stops(self):
         d = Path(tempfile.mkdtemp())
@@ -535,6 +598,16 @@ class Orchestrator(unittest.TestCase):
             self.assertIn("malformed", q4.secret_problems(self.host({"fingerprints": full_fps(), "unreadable": []}), "ip", d)[0])
         finally:
             st.unlink()
+
+    def test_collection_records_are_redacted_and_rescanned(self):  # R12
+        jwt = fake("jwt")
+        class CC:
+            def check(self, *a): return {"export": "ok", "client_logs": "wrote", "pattern_of": {"home/.x/" + jwt + ".log": ["p"]}}
+            def public_record(self, rec): return {k: rec[k] for k in ("export", "client_logs")}
+        d = Path(tempfile.mkdtemp())
+        rec = q4.Runner(None, None).check_client_logs(d, "codex", 1, 2, CC(), None, None, 0)
+        self.assertNotIn(jwt, (d / "collection.json").read_text())
+        self.assertFalse(rec.get("secret_problems"))
 
     def test_client_logs_are_checked_only_after_the_gate(self):  # D26-R2
         class CC:

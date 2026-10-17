@@ -347,6 +347,16 @@ def vm_lock(note):
     return fh
 
 
+def state_fingerprints():
+    """The host's fingerprint state (D26), or [] when there is none yet or it is malformed (format matching still applies)."""
+    fp = STATE / "secret-fingerprints.json"
+    try:
+        d = json.loads(fp.read_text())
+    except (OSError, ValueError):
+        return []
+    return [] if sg.fingerprint_problems(d, require_kinds=()) else d["fingerprints"]
+
+
 def secret_problems(h, ip, d):
     """D26: take fresh fingerprints of the VM's secrets (never their values) into the host state, then scan everything copied out
     for this run or session, archives included, by exact value and by format. Returns problems that name only files and kinds;
@@ -374,18 +384,35 @@ def secret_problems(h, ip, d):
     # the shape of a token (for instance a client's own short-lived session tokens in its default logs) is counted and marked,
     # never published, and used only through a redacted copy; it does not stop the run. A lab secret found by exact value,
     # token-shaped data anywhere else, or anything that cannot be scanned stops the campaign.
-    marked = collections.Counter()
+    marked, in_stream = collections.Counter(), collections.Counter()
     stop = []
     for f in findings:
         if os.path.relpath(f["path"], d) in PRIVATE_ARCHIVES and not sg.is_exact(f):
-            marked[sg.base_kind(f["kind"])] += 1
+            # the flat scan of a whole tar stream finds member contents a second time: counted apart
+            (in_stream if (f["member"] or "").endswith(sg.TAR_STREAM) else marked)[sg.base_kind(f["kind"])] += 1
         else:
             stop.append(f)
-    if marked:
-        write_json_atomic(d / "secret-marks.json", {
-            "private_archives": sorted(PRIVATE_ARCHIVES), "token_shaped_by_kind": dict(sorted(marked.items())),
-            "rule": "private evidence (D24): never published; any use only through `secret_gate.py redact` (D26)"})
+    marks = {"private_archives": sorted(PRIVATE_ARCHIVES), "token_shaped_by_kind": dict(sorted(marked.items())),
+             "token_shaped_in_whole_tar_streams_by_kind": dict(sorted(in_stream.items())),
+             "rule": "private evidence (D24): never published; every later reader uses the redacted copy (D26)"}
     findings = stop
+    raw = d / "client-logs.tgz"
+    if not findings and not failures and raw.exists():
+        # the redacted derivative every later reader uses, with its provenance; checked clean before it is written
+        try:
+            data = raw.read_bytes()
+            body, n = sg.redact_blob(raw.name, data, merged["fingerprints"])
+            left, bad = sg.scan_blob(raw.name, body, merged["fingerprints"])
+        except (OSError, sg.Unscannable) as exc:
+            return [f"secret gate: no redacted copy of client-logs.tgz ({sg.redact(str(exc), merged['fingerprints'])})"]
+        if left or bad:
+            return ["secret gate: the redacted copy of client-logs.tgz is not clean"]
+        (d / "client-logs.redacted.tgz").write_bytes(body)
+        marks["redacted_copy"] = {"file": "client-logs.redacted.tgz", "spans_replaced": n,
+                                  "raw_sha256": hashlib.sha256(data).hexdigest(),
+                                  "redacted_sha256": hashlib.sha256(body).hexdigest()}
+    if raw.exists():
+        write_json_atomic(d / "secret-marks.json", marks)
     problems = []
     if findings:
         where = sorted({(os.path.relpath(f["path"], d), f["member"] or "", f["kind"]) for f in findings})
@@ -473,7 +500,10 @@ def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
              telemetry_copied=copied, hint="evidence could not be copied out of the VM; do not restore")
         sys.exit(7)
     leaks = secret_problems(h, ip, d)  # D26: before anything reads what was copied
-    export = None if leaks else rn.check_client_logs(d, client, t0, t1, cc, inv, cand_sha, rc_logs)["export"]
+    export = None
+    if not leaks:
+        rec = rn.check_client_logs(d, client, t0, t1, cc, inv, cand_sha, rc_logs)
+        export, leaks = rec["export"], rec.get("secret_problems") or []
     kept = keep_attempt(d, "secret-found" if leaks else "interrupted-recovered",
                         {"pending": info, "export": export, "outputs_rc": rc_out,
                          "telemetry_problems": [] if leaks else problems, "secret_problems": leaks})
@@ -605,18 +635,25 @@ class Runner:
         return rc
 
     def check_client_logs(self, d, client, t0, t1, cc, inv, cand_sha, rc):
-        """After the secret gate: check the archive and write the collection records. A check that breaks on a malformed
+        """After the secret gate: check the archive and write the collection records. The integrity check reads the raw archive
+        (it compares file hashes with the manifest) as part of the gate's own trusted handling (D26); what it writes is redacted
+        first and scanned after, and a finding is returned in check["secret_problems"]. A check that breaks on a malformed
         archive is a failed export, not a crash."""
+        fps = state_fingerprints()
         try:
             check = cc.check(str(d / "client-logs.tgz"), client, t0, t1, inv, cand_sha)
         except Exception as exc:
             check = {"client": client, "start": t0, "end": t1, "export": "failed",
                      "reason": f"collection check failed: {type(exc).__name__}"}
+        check = sg.redact_obj(check, fps)
         check["collect_rc"] = rc
         if rc != 0 and check["export"] == "ok":
             check["export"], check["reason"] = "failed", f"collect exited {rc}"
         (d / "collection.json").write_text(json.dumps(check, indent=1))  # private: names client files
         (d / "collection-public.json").write_text(json.dumps(cc.public_record(check), indent=1))
+        found, bad = sg.scan_paths([d / "collection.json", d / "collection-public.json"], fps)
+        if found or bad:
+            check["secret_problems"] = [f"secret gate: collection records not clean ({len(found)} finding(s), {len(bad)} unscanned)"]
         return check
 
 
@@ -699,6 +736,11 @@ def main():
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
         check = rn.check_client_logs(d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"], rc_logs)
+        if check.get("secret_problems"):  # D26: a record written from the private archive is not clean
+            dest = keep_attempt(d, "secret-found", {"problems": check["secret_problems"], "t0": t0, "t1": t1})
+            h.note(event="abort-secret", run=r["name"], problems=check["secret_problems"], kept=str(dest),
+                   hint="a secret reached a collection record: never publish this attempt; tell the author")
+            sys.exit(9)
         problems = validate_ground_truth(r, (d / "vm-out.tgz").read_bytes()) + tel_problems
         if res.returncode != 0:
             problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")
