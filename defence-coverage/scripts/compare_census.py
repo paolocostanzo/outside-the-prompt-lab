@@ -32,6 +32,15 @@ def flag(r, field):
     return "true" if v in ("true", "1", "yes") else "false"
 
 
+def cls(r):
+    """Class agreement is on A versus not-A: the first reading also used B and C for different kinds of non-A tools (D22)."""
+    return "A" if (r.get("class") or "").strip() == "A" else "not-A"
+
+
+def prot(r):
+    return (r.get("protection") or "").strip() if cls(r) == "A" else "n-a"
+
+
 def compare(first, second):
     dup1 = sorted(k for k, v in first.items() if len(v) > 1)
     dup2 = sorted(k for k, v in second.items() if len(v) > 1)
@@ -41,8 +50,8 @@ def compare(first, second):
     out = {"n_first": len(first), "n_second": len(second), "n_joined": len(common),
            "missing_in_second": [list(k) for k in only1], "missing_in_first": [list(k) for k in only2],
            "duplicates_first": [list(k) for k in dup1], "duplicates_second": [list(k) for k in dup2]}
-    for name, get1, get2 in [("class", lambda r: r["class"], lambda r: r["class"]),
-                             ("protection", lambda r: r["protection"], lambda r: r["protection"]),
+    for name, get1, get2 in [("class", cls, cls),
+                             ("protection", prot, prot),
                              ("vendor_only", lambda r: flag(r, "contested"), lambda r: flag(r, "vendor_only"))]:
         a = [get1(first[k][0]).strip() for k in common]
         b = [get2(second[k][0]).strip() for k in common]
@@ -50,12 +59,14 @@ def compare(first, second):
         out[name] = {"kappa": agr.kappa(a, b), "raw_agreement": (agree / len(common)) if common else None, "n": len(common)}
     out["to_adjudicate"] = [
         {"server": k[0], "tool": k[1],
-         "first": {"class": first[k][0]["class"], "protection": first[k][0]["protection"]},
+         "first": {"class": first[k][0]["class"], "protection": first[k][0]["protection"],
+                   "vendor_only": flag(first[k][0], "contested"), "evidence": first[k][0].get("evidence", "")},
          "second": {"class": second[k][0]["class"], "protection": second[k][0]["protection"],
-                    "evidence": second[k][0].get("evidence", "")}}
+                    "vendor_only": flag(second[k][0], "vendor_only"), "evidence": second[k][0].get("evidence", "")}}
         for k in common
-        if "A" in (first[k][0]["class"], second[k][0]["class"])
-        and (first[k][0]["class"], first[k][0]["protection"]) != (second[k][0]["class"], second[k][0]["protection"])]
+        if "A" in (cls(first[k][0]), cls(second[k][0]))
+        and (cls(first[k][0]), prot(first[k][0]), flag(first[k][0], "contested"))
+        != (cls(second[k][0]), prot(second[k][0]), flag(second[k][0], "vendor_only"))]
     return out
 
 

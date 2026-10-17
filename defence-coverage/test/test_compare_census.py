@@ -30,32 +30,37 @@ class Compare(unittest.TestCase):
             {"server": "s", "tool": "c", "class": "B", "protection": "n-a", "contested": "False"},
             {"server": "s", "tool": "d", "class": "A", "protection": "full", "contested": "True"},
             {"server": "s", "tool": "only-first", "class": "B", "protection": "n-a", "contested": "False"},
+            {"server": "s", "tool": "e", "class": "C", "protection": "n-a", "contested": "False"},
+            {"server": "s", "tool": "f", "class": "A", "protection": "full", "contested": "False"},
         ], FIRST))
         self.second = cc.read(write([
             {"server": "s", "tool": "a", "class": "A", "protection": "full", "vendor_only": "false", "evidence": "x:1", "valid": "True"},
             {"server": "s", "tool": "b", "class": "A", "protection": "partial", "vendor_only": "false", "evidence": "x:2", "valid": "True"},
             {"server": "s", "tool": "c", "class": "B", "protection": "n-a", "vendor_only": "false", "evidence": "x:3", "valid": "True"},
             {"server": "s", "tool": "d", "class": "A", "protection": "full", "vendor_only": "true", "evidence": "x:4", "valid": "True"},
+            {"server": "s", "tool": "e", "class": "B", "protection": "n-a", "vendor_only": "false", "evidence": "x:6", "valid": "True"},
+            {"server": "s", "tool": "f", "class": "A", "protection": "full", "vendor_only": "true", "evidence": "x:7", "valid": "True"},
             {"server": "s", "tool": "only-second", "class": "A", "protection": "none", "vendor_only": "false", "evidence": "x:5", "valid": "True"},
             {"server": "s", "tool": "from-invalid", "class": "A", "protection": "none", "vendor_only": "false", "evidence": "", "valid": "False"},
         ], SECOND), valid_only=True)
 
     def test_join_and_missing(self):
         r = cc.compare(self.first, self.second)
-        self.assertEqual(r["n_joined"], 4)
+        self.assertEqual(r["n_joined"], 6)
         self.assertEqual(r["missing_in_second"], [["s", "only-first"]])
         self.assertEqual(r["missing_in_first"], [["s", "only-second"]])
         self.assertNotIn(["s", "from-invalid"], r["missing_in_first"], "rows from invalid sessions are dropped")
 
     def test_agreement_uses_untouched_second_labels(self):
         r = cc.compare(self.first, self.second)
-        self.assertEqual(r["class"]["raw_agreement"], 1.0)
-        self.assertEqual(r["protection"]["raw_agreement"], 0.75)
-        self.assertEqual(r["vendor_only"]["raw_agreement"], 1.0)
+        self.assertEqual(r["class"]["raw_agreement"], 1.0, "C in the first reading and B in the second are both not-A")
+        self.assertAlmostEqual(r["protection"]["raw_agreement"], 5 / 6)
+        self.assertAlmostEqual(r["vendor_only"]["raw_agreement"], 5 / 6)
 
     def test_adjudication_lists_class_a_disagreements_only(self):
         r = cc.compare(self.first, self.second)
-        self.assertEqual([(x["server"], x["tool"]) for x in r["to_adjudicate"]], [("s", "b")])
+        self.assertEqual([(x["server"], x["tool"]) for x in r["to_adjudicate"]], [("s", "b"), ("s", "f")],
+                         "a vendor-only disagreement on a class-A tool is adjudicated too")
         self.assertEqual(r["to_adjudicate"][0]["second"]["evidence"], "x:2")
 
     def test_duplicates_are_reported_and_left_out(self):

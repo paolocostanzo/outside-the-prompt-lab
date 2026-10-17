@@ -6,12 +6,15 @@ container of ../../tool-change/scripts/isolated_codex.py with the clone mounted 
 verbatim and returns one row per registered tool name. The first census is never mounted or quoted. A reading counts only if the
 isolation probe and the initial-context check pass.
 
-  python3 census_codex.py --config CONFIG.json --clones DIR --auth ~/.codex/auth.json --out OUT_DIR [--model gpt-6.1-sol --effort medium]
+  python3 census_codex.py --config CONFIG.json --pinned pinned-commits.csv --auth ~/.codex/auth.json --out OUT_DIR
+                          [--model gpt-6.1-sol --effort medium]
 
-CONFIG.json: [{"repo": "owner/name", "url": "https://github.com/owner/name.git", "commit": "<sha>",
-               "servers": [{"name": "<server>", "path": "<folder in the repo>"}]}]
+CONFIG.json: [{"repo": "owner/name", "pinned_name": "<name in pinned-commits.csv>", "url": "https://github.com/owner/name.git",
+               "commit": "<sha>", "servers": [{"name": "<server>", "path": "<folder in the repo>"}]}]
+Every source is a fresh fetch of exactly the pinned commit into OUT_DIR/sources (never an existing checkout); the working tree
+must be clean, with no untracked or ignored files, and a manifest with the SHA-256 of every mounted file is kept.
 """
-import argparse, csv, importlib.util, json, subprocess, sys
+import argparse, csv, hashlib, importlib.util, json, subprocess, sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -58,20 +61,37 @@ SCHEMA = {"type": "object", "additionalProperties": False, "properties": {"rows"
 FIELDS = ["repo", "commit", "server", "tool", "registered_at", "class", "class_reason", "protection", "mechanism", "vendor_only", "evidence"]
 
 
-def clone_at(url, commit, dest: Path):
-    if not dest.exists():
-        subprocess.run(["git", "init", "-q", str(dest)], check=True)
-        subprocess.run(["git", "-C", str(dest), "fetch", "-q", "--depth", "1", url, commit], check=True)
-        subprocess.run(["git", "-C", str(dest), "-c", "advice.detachedHead=false", "checkout", "-q", "FETCH_HEAD"], check=True)
+def fresh_source(url, commit, dest: Path) -> list[dict]:
+    """Fetch exactly `commit` into a new directory, check it and return the manifest of the files that will be mounted."""
+    if dest.exists():
+        sys.exit(f"{dest} already exists: sources must be fresh")
+    subprocess.run(["git", "init", "-q", str(dest)], check=True)
+    subprocess.run(["git", "-C", str(dest), "fetch", "-q", "--depth", "1", url, commit], check=True)
+    subprocess.run(["git", "-C", str(dest), "-c", "advice.detachedHead=false", "checkout", "-q", "FETCH_HEAD"], check=True)
     head = subprocess.run(["git", "-C", str(dest), "rev-parse", "HEAD"], capture_output=True, text=True, check=True).stdout.strip()
     if head != commit:
         sys.exit(f"{dest}: HEAD {head} is not the pinned commit {commit}")
+    dirty = subprocess.run(["git", "-C", str(dest), "status", "--porcelain", "--untracked-files=all", "--ignored"],
+                           capture_output=True, text=True, check=True).stdout
+    if dirty.strip():
+        sys.exit(f"{dest}: working tree not clean:\n{dirty[:500]}")
+    manifest = []
+    for f in sorted(x for x in dest.rglob("*") if x.is_file() and ".git" not in x.relative_to(dest).parts[:1]):
+        manifest.append({"path": str(f.relative_to(dest)), "sha256": hashlib.sha256(f.read_bytes()).hexdigest()})
+    return manifest
+
+
+def check_pinned(cfg, pinned_csv):
+    pinned = {r["repo"]: r["commit"] for r in csv.DictReader(open(pinned_csv, newline=""))}
+    for entry in cfg:
+        if pinned.get(entry.get("pinned_name")) != entry["commit"]:
+            sys.exit(f"{entry['repo']}: commit {entry['commit']} is not the pinned commit for {entry.get('pinned_name')!r}")
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", required=True)
-    ap.add_argument("--clones", required=True)
+    ap.add_argument("--pinned", required=True, help="pinned-commits.csv of the census")
     ap.add_argument("--auth", required=True)
     ap.add_argument("--out", required=True)
     ap.add_argument("--model", default="gpt-6.1-sol")
@@ -79,37 +99,56 @@ def main():
     ap.add_argument("--timeout", type=int, default=3600)
     a = ap.parse_args()
     cfg = json.loads(Path(a.config).read_text())
+    check_pinned(cfg, a.pinned)
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=False)
-    rows, sessions = [], []
-    for entry in cfg:
-        src = Path(a.clones) / entry["repo"].replace("/", "__")
-        clone_at(entry["url"], entry["commit"], src)
-        servers = "\n".join(f"- {s['name']}: folder {s['path']}" for s in entry["servers"])
-        prompt = TASK.format(commit=entry["commit"], servers=servers, rules=RULES)
-        root = out / "sessions" / entry["repo"].replace("/", "__")
-        rec = iso.run_session(prompt, root, Path(a.auth), a.model, a.effort, SCHEMA, ro_binds=((src, "/work/src"),),
-                              timeout=a.timeout)
-        ctx = (iso.check_context(root / rec["rollouts"][0], prompt) if rec.get("rollouts")
-               else {"ok": False, "problems": ["no rollout"], "developer_tags": []})
-        got = []
-        try:
-            got = json.loads(rec.get("reply") or "")["rows"]
-        except (json.JSONDecodeError, KeyError, TypeError):
-            pass
-        valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and bool(got)
-        for r in got:
-            rows.append({"repo": entry["repo"], "commit": entry["commit"], **r, "vendor_only": str(r.get("vendor_only")).lower(),
-                         "valid": valid})
-        sessions.append({"repo": entry["repo"], "commit": entry["commit"], "status": rec.get("status"), "probe": rec["probe"],
-                         "context": ctx, "valid": valid, "n_rows": len(got), "rollouts": rec.get("rollouts", [])})
-        print(entry["repo"], len(got), "rows", "valid" if valid else "INVALID", flush=True)
+    empty_src = out / "sources" / "_reference"
+    empty_src.mkdir(parents=True)
+    ref = iso.reference_session(out / "sessions" / "_reference", Path(a.auth), a.model, a.effort, SCHEMA,
+                                ro_binds=((empty_src, "/work/src"),))
+    meta = {"model": a.model, "effort": a.effort, "rules": RULES, "schema": SCHEMA, "reference": ref, "sessions": []}
+    (out / "second-reading.json").write_text(json.dumps(meta, indent=2))
+    if not ref["ok"]:
+        sys.exit(f"reference session failed, nothing read: {ref['context']['problems'] or ref['record'].get('status')}")
     with open(out / "second-reading.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=FIELDS + ["valid"], extrasaction="ignore")
         w.writeheader()
-        w.writerows(rows)
-    (out / "second-reading.json").write_text(json.dumps({"model": a.model, "effort": a.effort, "rules": RULES, "schema": SCHEMA,
-                                                         "sessions": sessions}, indent=2))
+        for entry in cfg:
+            name = entry["repo"].replace("/", "__")
+            src = out / "sources" / name
+            manifest = fresh_source(entry["url"], entry["commit"], src)
+            (out / "sources" / f"{name}.manifest.json").write_text(json.dumps(manifest, indent=1))
+            servers = "\n".join(f"- {s['name']}: folder {s['path']}" for s in entry["servers"])
+            prompt = TASK.format(commit=entry["commit"], servers=servers, rules=RULES)
+            root = out / "sessions" / name
+            rec = iso.run_session(prompt, root, Path(a.auth), a.model, a.effort, SCHEMA, ro_binds=((src, "/work/src"),),
+                                  timeout=a.timeout)
+            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"]) if rec.get("rollouts")
+                   else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
+            got = []
+            try:
+                got = json.loads(rec.get("reply") or "")["rows"]
+            except (json.JSONDecodeError, KeyError, TypeError):
+                pass
+            unchanged = fresh_manifest_matches(src, manifest)
+            valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and bool(got) and unchanged
+            for r in got:
+                w.writerow({"repo": entry["repo"], "commit": entry["commit"], **r,
+                            "vendor_only": str(r.get("vendor_only")).lower(), "valid": valid})
+            fh.flush()  # checkpoint after every repository
+            meta["sessions"].append({"repo": entry["repo"], "commit": entry["commit"], "status": rec.get("status"),
+                                     "probe": rec["probe"], "context": ctx, "source_unchanged": unchanged, "valid": valid,
+                                     "n_rows": len(got), "n_files_mounted": len(manifest), "rollouts": rec.get("rollouts", [])})
+            (out / "second-reading.json").write_text(json.dumps(meta, indent=2))
+            print(entry["repo"], len(got), "rows", "valid" if valid else "INVALID", flush=True)
+
+
+def fresh_manifest_matches(src: Path, manifest: list[dict]) -> bool:
+    """The mounted source is read-only in the container; checked again on the host after the session."""
+    now = sorted(x for x in src.rglob("*") if x.is_file() and ".git" not in x.relative_to(src).parts[:1])
+    if [str(f.relative_to(src)) for f in now] != [m["path"] for m in manifest]:
+        return False
+    return all(hashlib.sha256(f.read_bytes()).hexdigest() == m["sha256"] for f, m in zip(now, manifest))
 
 
 if __name__ == "__main__":

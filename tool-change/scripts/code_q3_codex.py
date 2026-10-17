@@ -4,7 +4,9 @@
 Same system instruction, closing request and labels as the local model (code_q3_llm.py); the packet text goes in the prompt;
 each session runs in a bubblewrap container (isolated_codex.py) that cannot see the project or the real home directory.
 A coding counts only if the isolation probe failed to see the host paths and the initial context passes check_context().
-Writes OUT/codex-coding.csv (id, outcome, reason, valid) and OUT/codex-coding.json (per packet: settings, probe, argv, validity).
+A reference session on a synthetic prompt runs first; its developer blocks are the batch baseline for check_context().
+Writes OUT/codex-coding.csv (id, outcome, reason, valid) and OUT/codex-coding.json (reference and per-packet records),
+both checkpointed after every packet.
 
   python3 code_q3_codex.py PACKETS_DIR --auth ~/.codex/auth.json --out OUT_DIR [--model gpt-6.1-sol --effort medium]
 """
@@ -60,33 +62,36 @@ def main():
         packets = [p for p in packets if p.stem in keep]
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=False)
-    rows, records = [], []
-    for p in packets:
-        text = p.read_text()
-        prompt = prompt_for(text)
-        root = out / "sessions" / p.stem
-        rec = iso.run_session(prompt, root, Path(a.auth), a.model, a.effort, SCHEMA)
-        outcome, reason = "INVALID", ""
-        try:
-            ans = json.loads(rec.get("reply") or "")
-            if ans.get("outcome") in llm.LABELS:
-                outcome, reason = ans["outcome"], (ans.get("reason") or "")[:300]
-        except (json.JSONDecodeError, AttributeError):
-            pass
-        ctx = (iso.check_context(root / rec["rollouts"][0], prompt) if rec.get("rollouts")
-               else {"ok": False, "problems": ["no rollout"], "developer_tags": []})
-        valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and outcome != "INVALID"
-        rows.append({"id": p.stem, "outcome": outcome if valid else "INVALID", "reason": reason, "valid": valid})
-        records.append({"id": p.stem, "packet_sha256": hashlib.sha256(p.read_bytes()).hexdigest(), "status": rec.get("status"),
-                        "exit_code": rec.get("exit_code"), "probe": rec["probe"], "context": ctx, "valid": valid,
-                        "raw_reply": rec.get("reply"), "rollouts": rec.get("rollouts", [])})
-        print(p.stem, outcome, "valid" if valid else "INVALID", flush=True)
+    ref = iso.reference_session(out / "sessions" / "_reference", Path(a.auth), a.model, a.effort, SCHEMA)
+    meta = {"model": a.model, "effort": a.effort, "packet_set_sha256": set_hash, "schema": SCHEMA, "reference": ref, "sessions": []}
+    (out / "codex-coding.json").write_text(json.dumps(meta, indent=2))
+    if not ref["ok"]:
+        sys.exit(f"reference session failed, nothing coded: {ref['context']['problems'] or ref['record'].get('status')}")
     with open(out / "codex-coding.csv", "w", newline="") as fh:
         w = csv.DictWriter(fh, fieldnames=["id", "outcome", "reason", "valid"])
         w.writeheader()
-        w.writerows(rows)
-    (out / "codex-coding.json").write_text(json.dumps({"model": a.model, "effort": a.effort, "packet_set_sha256": set_hash,
-                                                       "schema": SCHEMA, "sessions": records}, indent=2))
+        for p in packets:
+            text = p.read_text()
+            prompt = prompt_for(text)
+            root = out / "sessions" / p.stem
+            rec = iso.run_session(prompt, root, Path(a.auth), a.model, a.effort, SCHEMA)
+            outcome, reason = "INVALID", ""
+            try:
+                ans = json.loads(rec.get("reply") or "")
+                if ans.get("outcome") in llm.LABELS:
+                    outcome, reason = ans["outcome"], (ans.get("reason") or "")[:300]
+            except (json.JSONDecodeError, AttributeError):
+                pass
+            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"]) if rec.get("rollouts")
+                   else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
+            valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and outcome != "INVALID"
+            w.writerow({"id": p.stem, "outcome": outcome if valid else "INVALID", "reason": reason, "valid": valid})
+            fh.flush()  # checkpoint after every packet
+            meta["sessions"].append({"id": p.stem, "packet_sha256": hashlib.sha256(p.read_bytes()).hexdigest(),
+                                     "status": rec.get("status"), "exit_code": rec.get("exit_code"), "probe": rec["probe"],
+                                     "context": ctx, "valid": valid, "raw_reply": rec.get("reply"), "rollouts": rec.get("rollouts", [])})
+            (out / "codex-coding.json").write_text(json.dumps(meta, indent=2))
+            print(p.stem, outcome, "valid" if valid else "INVALID", flush=True)
 
 
 if __name__ == "__main__":

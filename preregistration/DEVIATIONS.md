@@ -313,8 +313,10 @@ the CLI or any child process, whatever the command or symlink. Before each batch
 paths of the project and of the real `~/.codex` and must fail; the probe output and the exact `bwrap` argument list are kept. For
 each session we keep the complete prompt, the session rollout (initial context), the packet or repository hashes, model,
 effort, the `--json` event stream and the answer. Allowed initial context: the CLI's own built-in instructions and tool
-definitions, the minimal configuration, and our prompt; no user or project instruction file. A coding is valid only if the
-container argument list matches the recorded one, the probe failed as required, and the rollout contains no other instructions.
+definitions, the minimal configuration, and our prompt; no user or project instruction file. The CLI's own blocks are fixed
+for each batch by a reference session on a synthetic prompt, run first in the same container; every coding session's developer
+blocks must be byte-identical to the reference ones, with exactly one environment block (working directory `/work`) and exactly one
+user message equal to the prompt sent. A coding is valid only if the probe failed as required and the rollout passes this check.
 Any violation is reported and that session's coding is excluded.
 (4) Order. This deviation is committed and pushed before Codex receives any packet or repository. The scripts, with their prompts
 and schemas, are committed with it: `tool-change/scripts/isolated_codex.py` (container, probe, context check),

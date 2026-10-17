@@ -45,24 +45,44 @@ function rollout(messages) {
 const PROMPT = 'You are a careful research assistant.\n\n# Packet P900\n...';
 const ENV = '<environment_context>\n  <cwd>/work</cwd>\n</environment_context>';
 
-test('a clean isolated context passes', () => {
+test('a clean isolated context passes, and matches its reference developer blocks', () => {
   const f = rollout([['developer', '<skills_instructions>## Skills ...'], ['developer', '<multi_agent_role>You are /root'],
     ['user', ENV], ['user', PROMPT], ['assistant', '{"outcome":"stale"}'], ['user', 'later turns are not checked']]);
   const r = call('m.check_context(Path(sys.argv[2]), sys.argv[3])', f, PROMPT);
   assert.equal(r.ok, true, JSON.stringify(r.problems));
+  const again = call('m.check_context(Path(sys.argv[2]), sys.argv[3], json.loads(sys.argv[4]))', f, PROMPT, JSON.stringify(r.developer_hashes));
+  assert.equal(again.ok, true, JSON.stringify(again.problems));
 });
 
-test('AGENTS.md, a stray user message, an unknown developer block or a host path make the coding invalid', () => {
+test('invalid contexts: AGENTS.md, stray user text, unknown block, host path, missing prompt, two environments, extra text in an allowed block', () => {
+  const ref = call('m.check_context(Path(sys.argv[2]), sys.argv[3])',
+    rollout([['developer', '<skills_instructions>## Skills ...'], ['user', ENV], ['user', PROMPT]]), PROMPT).developer_hashes;
   const cases = [
     [['user', '# AGENTS.md instructions for /work\n<INSTRUCTIONS>x'], ['user', ENV], ['user', PROMPT]],
     [['user', ENV], ['user', 'here are the earlier results: ...'], ['user', PROMPT]],
     [['developer', '<memories>the author found that'], ['user', ENV], ['user', PROMPT]],
     [['developer', `<skills_instructions> ${os.homedir()}/.agents/skills/x`], ['user', ENV], ['user', PROMPT]],
+    [['developer', '<skills_instructions>## Skills ...'], ['user', ENV]],
+    [['developer', '<skills_instructions>## Skills ...'], ['user', ENV], ['user', ENV], ['user', PROMPT]],
+    [['developer', '<skills_instructions>## Skills ... Earlier census results: get_x is none'], ['user', ENV], ['user', PROMPT]],
+    [['developer', '<skills_instructions>## Skills ...'], ['user', '<environment_context>\n  <cwd>/home/x</cwd>\n</environment_context>'], ['user', PROMPT]],
+    [['system', 'extra'], ['developer', '<skills_instructions>## Skills ...'], ['user', ENV], ['user', PROMPT]],
   ];
   for (const c of cases) {
-    const r = call('m.check_context(Path(sys.argv[2]), sys.argv[3])', rollout(c), PROMPT);
-    assert.equal(r.ok, false, JSON.stringify(c[0]));
+    const r = call('m.check_context(Path(sys.argv[2]), sys.argv[3], json.loads(sys.argv[4]))', rollout(c), PROMPT, JSON.stringify(ref));
+    assert.equal(r.ok, false, JSON.stringify(c));
   }
+});
+
+test('run_session deletes the copied credential even when the probe fails', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'iso-'));
+  const auth = path.join(dir, 'auth.json');
+  fs.writeFileSync(auth, '{"token":"test"}');
+  // a vendor path that does not exist makes bwrap fail, so the probe fails
+  const rec = call('m.run_session("p", Path(sys.argv[2])/"root", Path(sys.argv[3]), "m", "low", vendor=Path("/nonexistent-vendor"))', dir, auth);
+  assert.equal(rec.status, 'probe-failed');
+  assert.equal(fs.existsSync(path.join(dir, 'root', 'codex-home', 'auth.json')), false);
+  assert.equal(fs.existsSync(auth), true, 'the original credential is untouched');
 });
 
 test('the minimal configuration has the model and effort and nothing that loads user content', () => {

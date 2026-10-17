@@ -3,15 +3,23 @@
 
 The container holds only: read-only /usr and /etc (and the usual /bin, /lib links), a private /tmp, /proc and /dev, the native
 Codex executable (read-only, /opt/codex), a fresh CODEX_HOME with a copy of the authentication file and a minimal configuration,
-and the working directory (/work). The environment is cleared. Nothing else of the host filesystem is mounted, so neither the CLI
-nor any child process can read the project, earlier Codex sessions, global AGENTS.md, memories, skills or hooks.
+and the working directory (/work), plus any explicit read-only source mount. The environment is cleared. Nothing else of the host
+filesystem is mounted, so neither the CLI nor any child process can read the project, earlier Codex sessions, global AGENTS.md,
+memories, skills or hooks. The copied credential is deleted on every exit path.
 
-Used by code_q3_codex.py (RQ3) and by the RQ4 second reading. Requires bwrap (bubblewrap) and the native Codex binary.
+Initial-context check (D22 point 3): before the first assistant message the rollout may contain only (a) developer blocks that
+are byte-identical to those of a reference session run in the same batch on a synthetic prompt (the CLI's own built-in texts for
+this version and container), (b) exactly one <environment_context> block whose fields are the expected ones, with cwd /work, and
+(c) exactly one user message equal to the prompt. Anything else makes the session invalid.
+
+Used by code_q3_codex.py (RQ3) and by defence-coverage/scripts/census_codex.py (RQ4). Requires bwrap and the native Codex binary.
 """
 from __future__ import annotations
 
+import hashlib
 import json
 import os
+import re
 import shutil
 import subprocess
 from pathlib import Path
@@ -22,13 +30,14 @@ INNER_HOME = "/home/coder"
 INNER_CODEX_HOME = f"{INNER_HOME}/.codex"
 # Developer blocks that Codex CLI 0.162.0 sends on its own (observed in an isolated session on 17 Oct 2026): the bundled skills
 # list (with the permissions and collaboration-mode sections), and two fixed multi-agent texts that it still sends with the
-# multi_agent feature disabled. None of them carries user or project content.
+# multi_agent feature disabled. The tags are a first filter; the binding check is the byte-identity with the reference session.
 ALLOWED_DEVELOPER_TAGS = {"permissions instructions", "collaboration_mode", "apps_instructions", "skills_instructions",
                           "multi_agent_role", "multi_agent_mode"}
+ENV_FIELDS = {"cwd", "shell", "current_date", "timezone", "filesystem"}
 
 
 def minimal_config(model: str, effort: str) -> str:
-    # multi-agent off, so no team-role instructions; no MCP servers, no profiles, no project trust entries.
+    # multi-agent off; no MCP servers, no profiles, no project trust entries.
     return f'model = "{model}"\nmodel_reasoning_effort = "{effort}"\n\n[features]\nmulti_agent = false\n'
 
 
@@ -71,8 +80,11 @@ def probe(codex_home: Path, workdir: Path, ro_binds=(), vendor: Path = VENDOR) -
     """Inside the same container, the host home, the project and the real ~/.codex must not exist."""
     targets = [HOST_HOME, f"{HOST_HOME}/Desktop/redazione", f"{HOST_HOME}/.codex", f"{HOST_HOME}/.claude", "/run/user"]
     script = "for p in " + " ".join(f"'{t}'" for t in targets) + "; do if [ -e \"$p\" ]; then echo \"VISIBLE $p\"; fi; done; echo done"
-    r = subprocess.run(bwrap_argv(codex_home, workdir, ro_binds, vendor) + ["/bin/sh", "-c", script],
-                       capture_output=True, text=True, timeout=60)
+    try:
+        r = subprocess.run(bwrap_argv(codex_home, workdir, ro_binds, vendor) + ["/bin/sh", "-c", script],
+                           capture_output=True, text=True, timeout=60)
+    except (OSError, subprocess.SubprocessError) as exc:
+        return {"ok": False, "visible": [], "returncode": None, "stdout": "", "stderr": str(exc)}
     visible = [l[len("VISIBLE "):] for l in r.stdout.splitlines() if l.startswith("VISIBLE ")]
     ok = r.returncode == 0 and r.stdout.strip().endswith("done") and not visible
     return {"ok": ok, "visible": visible, "returncode": r.returncode, "stdout": r.stdout, "stderr": r.stderr[-2000:]}
@@ -80,51 +92,84 @@ def probe(codex_home: Path, workdir: Path, ro_binds=(), vendor: Path = VENDOR) -
 
 def run_session(prompt: str, root: Path, auth: Path, model: str, effort: str, schema: dict | None = None,
                 ro_binds=(), timeout: int = 900, vendor: Path = VENDOR) -> dict:
-    """One fresh session. Returns the record; the caller decides validity with check_context()."""
+    """One fresh session. Never raises for a failed session: returns a record with status probe-failed, timeout, error,
+    failed or completed. The caller decides validity with check_context()."""
     workdir = root / "work"
     workdir.mkdir(parents=True)
-    codex_home = make_codex_home(root, auth, model, effort)
-    if schema is not None:
-        (workdir / "schema.json").write_text(json.dumps(schema))
-    pr = probe(codex_home, workdir, ro_binds, vendor)
-    record = {"probe": pr, "model": model, "effort": effort, "prompt": prompt}
-    if not pr["ok"]:
-        record["status"] = "probe-failed"
-        return record
-    argv = bwrap_argv(codex_home, workdir, ro_binds, vendor) + codex_exec_args(model, effort, "/work/schema.json" if schema else None)
-    record["argv"] = argv
-    (root / "argv.json").write_text(json.dumps(argv, indent=1))
-    with open(root / "events.jsonl", "wb") as out, open(root / "stderr.txt", "wb") as err:
-        p = subprocess.run(argv, input=prompt.encode(), stdout=out, stderr=err, timeout=timeout)
-    record["exit_code"] = p.returncode
-    reply = workdir / "reply.txt"
-    record["reply"] = reply.read_text() if reply.exists() else None
-    rollouts = sorted(codex_home.glob("sessions/*/*/*/rollout-*.jsonl"))
-    record["rollouts"] = [str(r.relative_to(root)) for r in rollouts]
-    (codex_home / "auth.json").unlink(missing_ok=True)  # never keep a credential copy next to the evidence
-    record["status"] = "completed" if p.returncode == 0 and record["reply"] else "failed"
+    record = {"model": model, "effort": effort, "prompt": prompt, "rollouts": []}
+    codex_home = None
+    try:
+        codex_home = make_codex_home(root, auth, model, effort)
+        if schema is not None:
+            (workdir / "schema.json").write_text(json.dumps(schema))
+        pr = probe(codex_home, workdir, ro_binds, vendor)
+        record["probe"] = pr
+        if not pr["ok"]:
+            record["status"] = "probe-failed"
+            return record
+        argv = bwrap_argv(codex_home, workdir, ro_binds, vendor) + codex_exec_args(model, effort, "/work/schema.json" if schema else None)
+        record["argv"] = argv
+        (root / "argv.json").write_text(json.dumps(argv, indent=1))
+        with open(root / "events.jsonl", "wb") as out, open(root / "stderr.txt", "wb") as err:
+            p = subprocess.run(argv, input=prompt.encode(), stdout=out, stderr=err, timeout=timeout)
+        record["exit_code"] = p.returncode
+        reply = workdir / "reply.txt"
+        record["reply"] = reply.read_text() if reply.exists() else None
+        record["status"] = "completed" if p.returncode == 0 and record["reply"] else "failed"
+    except subprocess.TimeoutExpired:
+        record["status"] = "timeout"
+    except (OSError, subprocess.SubprocessError) as exc:
+        record["status"] = "error"
+        record["error"] = str(exc)
+    finally:
+        if codex_home is not None:
+            (codex_home / "auth.json").unlink(missing_ok=True)  # never keep a credential copy next to the evidence
+            record["rollouts"] = [str(r.relative_to(root)) for r in sorted(codex_home.glob("sessions/*/*/*/rollout-*.jsonl"))]
+        record.setdefault("probe", {"ok": False, "visible": [], "returncode": None, "stdout": "", "stderr": "not run"})
     return record
 
 
-def _messages(rollout: Path):
+def initial_messages(rollout: Path) -> list[tuple[str, str]]:
+    """(role, text) of every message before the first assistant message."""
+    out = []
     for line in rollout.read_text(encoding="utf-8").splitlines():
         if not line.strip():
             continue
         d = json.loads(line)
         p = d.get("payload")
         if d.get("type") == "response_item" and isinstance(p, dict) and p.get("type") == "message":
+            if p.get("role") == "assistant":
+                break
             text = "".join(c.get("text", "") for c in p.get("content", []) if isinstance(c, dict))
-            yield p.get("role"), text
+            out.append((p.get("role"), text))
+    return out
 
 
-def check_context(rollout: Path, prompt: str) -> dict:
-    """Allowed initial context: the CLI's own developer instructions (allowlisted tags), one <environment_context> block,
-    and our prompt. Rejected: any AGENTS.md block, any other user message, any developer block outside the allowlist,
-    any reference to the host home directory."""
-    problems, tags, users = [], [], 0
-    for role, text in _messages(rollout):
-        if role == "assistant":
-            break
+def developer_hashes(rollout: Path) -> list[str]:
+    return [hashlib.sha256(t.encode()).hexdigest() for role, t in initial_messages(rollout) if role == "developer"]
+
+
+def _env_ok(text: str) -> list[str]:
+    problems = []
+    m = re.fullmatch(r"\s*<environment_context>(.*)</environment_context>\s*", text, re.S)
+    if not m:
+        return ["environment block is not a single <environment_context> element"]
+    body = m.group(1)
+    fields = re.findall(r"^\s*<([a-z_]+)>", body, re.M)
+    if set(fields) - ENV_FIELDS:
+        problems.append(f"unexpected environment fields: {sorted(set(fields) - ENV_FIELDS)}")
+    cwd = re.search(r"<cwd>(.*?)</cwd>", body)
+    if not cwd or cwd.group(1) != "/work":
+        problems.append("environment cwd is not /work")
+    return problems
+
+
+def check_context(rollout: Path, prompt: str, expected_developer: list[str] | None = None) -> dict:
+    """See the module docstring. With expected_developer=None only the structural checks run (used for the reference session
+    itself); a coding session must pass expected_developer from the batch's reference session."""
+    msgs = initial_messages(rollout)
+    problems, tags, envs, prompts = [], [], 0, 0
+    for role, text in msgs:
         if HOST_HOME in text:
             problems.append(f"{role} message mentions the host home directory")
         if "AGENTS.md instructions" in text:
@@ -136,11 +181,34 @@ def check_context(rollout: Path, prompt: str) -> dict:
             if tag not in ALLOWED_DEVELOPER_TAGS:
                 problems.append(f"developer block not allowlisted: {tag or head[:40]!r}")
         elif role == "user":
-            users += 1
             if text.lstrip().startswith("<environment_context>"):
-                continue
-            if text.strip() != prompt.strip():
+                envs += 1
+                problems += _env_ok(text)
+            elif text.strip() == prompt.strip():
+                prompts += 1
+            else:
                 problems.append("user message other than the prompt and the environment context")
-    if users == 0:
-        problems.append("no user message found")
-    return {"ok": not problems, "problems": problems, "developer_tags": tags}
+        else:
+            problems.append(f"unexpected role before the first answer: {role!r}")
+    if envs != 1:
+        problems.append(f"expected exactly one environment block, found {envs}")
+    if prompts != 1:
+        problems.append(f"expected exactly one prompt message, found {prompts}")
+    hashes = [hashlib.sha256(t.encode()).hexdigest() for role, t in msgs if role == "developer"]
+    if expected_developer is not None and hashes != expected_developer:
+        problems.append("developer blocks differ from the reference session of this batch")
+    return {"ok": not problems, "problems": problems, "developer_tags": tags, "developer_hashes": hashes}
+
+
+def reference_session(root: Path, auth: Path, model: str, effort: str, schema: dict | None, ro_binds=(),
+                      vendor: Path = VENDOR) -> dict:
+    """A session on a synthetic prompt, in the same container layout, whose developer blocks become the batch baseline."""
+    prompt = ("Reference session for an isolation check. There is no task. "
+              + ('Return {"outcome": "stale", "reason": "reference"}.' if schema and "outcome" in json.dumps(schema)
+                 else 'Return {"rows": []}.'))
+    rec = run_session(prompt, root, auth, model, effort, schema, ro_binds, timeout=600, vendor=vendor)
+    ctx = (check_context(root / rec["rollouts"][0], prompt) if rec.get("rollouts")
+           else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
+    return {"record": {k: v for k, v in rec.items() if k != "prompt"}, "context": ctx,
+            "ok": rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"],
+            "developer_hashes": ctx["developer_hashes"]}
