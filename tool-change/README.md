@@ -7,8 +7,10 @@ the user, ask for approval again, accept the change silently, or refuse the serv
 no-op tool switches from definition A to definition B on a local control file, and records, message by message, what the client
 asked for and what it was served.
 
-**Status (15 October 2026): components written and tested; no client measured yet.** The procedure follows the frozen protocol as
-amended by deviations D5, D12 and D16 (`../preregistration/DEVIATIONS.md`), all written before any RQ3 data.
+**Status (17 October 2026): primary matrix done, 60/60 valid repetitions; preregistered coding done (author per D21, local model on
+blind packets; agreement and its cause under Results). The two graphical clients (VS Code with Copilot, Cursor IDE) are run by hand and
+added separately.** The procedure follows the frozen protocol as amended by deviations D5, D12, D16, D18 and D19, and the coding by D20
+and D21 (`../preregistration/DEVIATIONS.md`), all written before the outcomes they govern were read.
 
 ## Safety boundary
 
@@ -31,7 +33,28 @@ amended by deviations D5, D12 and D16 (`../preregistration/DEVIATIONS.md`), all 
 | `scripts/q3-clients.json` | Per-client screen patterns and keys, fixed in the set-up runs and frozen before the primary runs |
 | `scripts/code_q3.py` | Rule-based provisional coder: outcome per phase from the server log and the runner's observations |
 | `scripts/q3_host.py` | Host-side orchestration: clean snapshot per repetition, randomised blocked order, raw telemetry export |
-| `test/` | `node:test` suite (server, coder with the real server, configuration writer, run plan) |
+| `scripts/isolated_codex.py`, `scripts/code_q3_codex.py` | Additional post hoc coder (D22): Codex CLI in a bubblewrap container that cannot see the project, with an isolation probe and an initial-context check against a reference session |
+| `scripts/agreement_q3_three.py` | Agreement with the additional coder: preregistered κ first, then Codex vs author and vs local model, Fleiss' κ, confusion tables |
+| `scripts/check-approvals.mjs` | **For readers:** lists, read-only, the MCP tools you approved permanently in each client (see below) |
+| `test/` | `node:test` suite (server, coder with the real server, configuration writer, run plan, analysis, agreement, check-approvals) |
+
+## Check your own setup
+
+```
+node scripts/check-approvals.mjs                 # stores in your home directory
+node scripts/check-approvals.mjs --project DIR   # also the project-level stores inside DIR
+node scripts/check-approvals.mjs --json
+```
+
+It reads, and never writes, the stores where the six terminal clients keep permanent MCP tool approvals (with `--project`, also the
+project-level stores of Claude Code, Codex CLI, Cursor CLI, Gemini CLI and Qwen Code): Claude Code
+(`~/.claude.json`, `~/.claude/settings*.json`), Codex CLI (`~/.codex/config.toml` and the project's `.codex/config.toml`,
+`approval_mode = "approve"`), Cursor CLI (`~/.cursor/cli-config.json` and the project's `.cursor/cli.json`), Gemini CLI (`~/.gemini/policies/auto-saved.toml`, plus servers marked `trust: true`), Goose
+(`~/.config/goose/permission.yaml`, and the `GOOSE_MODE` in `config.yaml`) and Qwen Code (`~/.qwen/settings.json`). These are the
+locations the lab observed, and cleaned between repetitions (`scripts/cleanup_setup.py`), with the versions measured on 15 October
+2026. In those versions every approval is keyed by server and tool name only: a server that changes the tool keeps it. Session
+approvals live in memory and are not listed. An empty list is not proof that nothing is approved: modes that approve every call
+need no entry, server-wide entries cover tools added later, and VS Code and Cursor IDE keep approvals in their own storage.
 
 ## How the server behaves
 
@@ -57,11 +80,59 @@ only where a recording proxy shows it (local-engine cells).
 
 ## Requirements and tests
 
-Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (30 tests on 15 October 2026).
+Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (57 tests on 17 October 2026).
 
 ## Interpretation limits
 
 - Measures client behaviour on a definition change, not what a model does with a changed description.
 - Results are per client version; clients update themselves (Cursor CLI, Codex's background component).
-- One OS (Debian 13 in a VM); graphical clients by hand.
+- One OS (Debian 13 in a VM); graphical clients by hand, one repetition per signal.
 - The server is configured at user level and the test folder is trusted beforehand (D16 point 2): repository trust is RQ2's question.
+
+## Results (measured 15 October 2026; labels are the rule-based coder's, confirmed by the author per D21)
+
+Six terminal clients, current releases, user-level server, folder trusted, first call approved with the client's own option; then the
+description changed (A to B) with and without the protocol's notification; five repetitions per cell from a clean snapshot; random order.
+
+| Client | Protocol spoken | First call (default) | Change, no signal | Change + notification | After restart (exploratory) |
+|---|---|---|---|---|---|
+| Claude Code 2.1.300 | 2026-07-28 (subscribes) | no question ("auto mode") | stale 5/5 | silent accept 5/5 (fetched B) | silent accept |
+| Codex CLI 0.162.1 | 2025-06-18 | asked; "Always allow" | stale 5/5 | stale 5/5 (delivered, ignored) | silent accept |
+| Cursor CLI 2026.10.14 | 2025-11-25 | asked; "Allowlist MCP Tool" | stale 5/5 | stale 5/5 (delivered, ignored) | silent accept |
+| Gemini CLI 0.64.0 | 2025-06-18 | asked; "Allow tool for this session" | stale 5/5 | notified 5/5 ("Tools updated for server") | asked again (session approval) |
+| Goose 1.54.0 | 2026-07-28 (no subscription) | no question (`auto`) | stale 5/5 | stale 5/5 (not deliverable) | silent accept |
+| Qwen Code 0.25.1 | 2025-11-25 | no question ("Auto mode") | stale 5/5 | stale 5/5 (delivered, ignored) | silent accept |
+
+H3, first clause (at most one client requires re-approval): holds — none does. Second clause (no client acts on the notification):
+does not hold — Gemini CLI shows a notice in 5/5 delivered repetitions (it does not ask again); Goose cannot be evaluated (no subscription).
+Coders (§5, D21): the author (labels recorded from his declaration of agreement on every repetition) and a local model coding blind
+packets (`qwen3.8:27b-q8_0`, temperature 0). Preregistered Cohen's κ author vs local model = **0.115** (14/60 agreement). 45 of the 46
+disagreements share one cause, a wording error in the packets: the line "definition in force at the call: B" gives the server's state, and the
+model read it as "B was served" even where the packet also said that no tool list was fetched after the change. All 46 were resolved by
+re-reading the server log and the screens, in favour of the author's label (`evidence/primary-20261015/coding/disagreements-resolved.csv`).
+
+**Additional coder (D22, post hoc, published before it saw any packet).** Codex CLI 0.162.0 (`gpt-6.1-sol`, effort medium) coded the
+same 60 packets, one fresh session per packet in a bubblewrap container without the project or the real home directory. A reference
+session ran first and all 60 sessions passed the isolation probe and the initial-context check. Cohen's κ Codex vs author = **1.00**
+(60/60); Codex vs local model = 0.115; Fleiss' κ over the three = 0.066; all 46 earlier disagreements coded like the author. The
+instruction text is the local model's, but it sits inside the single `codex exec` prompt instead of a separate system message (D22).
+Results: `evidence/primary-20261015/coding/codex/` (`codex-coding.csv`, `codex-coding.json`, `agreement-three.json`). The session
+rollouts are not published; their SHA-256 hashes are in `sessions-SHA256SUMS`.
+
+Evidence (terminal clients): `evidence/` (captures, server logs, plan, analysis, blind coding packets, set-up runs, conformance check;
+`SHA256SUMS`).
+Raw host telemetry is not included here (1.4 GB; kept for Q4 and the archived release).
+
+## Results — graphical clients (17 October 2026, by hand, one repetition per signal)
+
+Driven with `xdotool` inside the VM while the author watched the console; same server, sentence and phases; clean snapshot and VM clock
+set from the host before each run. Fewer repetitions than the terminal cells, as D5 allows.
+
+| Client | Protocol | First call (default) | Change, no signal | Change + notification | After restart (exploratory) |
+|---|---|---|---|---|---|
+| VS Code 1.139.1 + Copilot Chat | legacy | asked ("Run q3_noop", six scopes); "Always Allow" | stale | silent accept, 2 repetitions of phases 1–2 (B fetched 4–5 ms after the notification) | silent accept after the no-signal run; not observed after the notification runs (VM display froze, `[TTM] Buffer eviction failed`) |
+| Cursor IDE 3.22.7 | legacy | no question (settings in the snapshot) | stale | silent accept (B fetched 6 ms after) | silent accept |
+
+Evidence: `evidence/gui-20261017/` (one folder per run with `LOG.md`, screenshots, server logs and `SHA256SUMS`; `SUMMARY.md`). Host
+telemetry and editor logs of these runs (audit, journal, client logs) are kept for Q4 and listed in each `SHA256SUMS`; verify the
+published files with `sha256sum -c --ignore-missing SHA256SUMS`.
