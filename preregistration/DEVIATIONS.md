@@ -281,8 +281,11 @@ and the author's 10/10 spot check; it has no independent second reader (D17 poin
 `medium`, read-only sandbox, apps, plugins and MCP servers disabled. It replaces no preregistered coder and no preregistered analysis:
 the author-versus-local-model κ stays the primary agreement statistic and is reported first, with its cause.
 (1) RQ3. Codex codes the same 60 blind packets as the local model, without any change to their wording (packet set SHA-256
-`2aa0e318fee2db8b1832840553e4d6cc9e1cdff31cae325e8b960e60537825e6`), with the same system instruction, the same closing request and
-the same answer schema (`outcome` from the six labels, `reason`) as `scripts/code_q3_llm.py`. One fresh session per packet, packet
+`2aa0e318fee2db8b1832840553e4d6cc9e1cdff31cae325e8b960e60537825e6`), with the same instruction text, the same closing request and
+the same answer schema (`outcome` from the six labels, `reason`) as `scripts/code_q3_llm.py`. One difference in delivery is
+declared as a limitation of the comparison: `codex exec` takes a single prompt, so the instruction that the local model received
+as a separate system message is placed at the top of the same prompt as the packet, below the CLI's own built-in instructions.
+The comparison therefore changes both the model family and where the instruction sits. One fresh session per packet, packet
 order P001–P060, the packet text inside the prompt, the working directory an empty folder. Reported: Cohen's κ Codex vs author and
 Codex vs local model, Fleiss' κ over the three, the confusion tables, and how many of the 46 earlier disagreements Codex resolves
 like the author.
