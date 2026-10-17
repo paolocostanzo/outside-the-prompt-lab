@@ -14,8 +14,8 @@ reaches the network. The matrix runners edit the clients' trust stores in `$HOME
 |---|---|---|
 | `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 14 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
 | `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes | *You approved the tool. Then it changed.* (20 Oct 2026) |
-| `defence-coverage/` (scripts only; census coming) | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Second-reading and comparison scripts (D22) | part 4 (27 Oct 2026) |
-| `telemetry/` (coming) | Q4 (RQ5) — what default host telemetry shows for each event | part 4 (27 Oct 2026) |
+| `defence-coverage/` (scripts; census tables after adjudication) | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Second-reading and comparison scripts (D22), final census and coverage tables for an explicit list of servers (D17, D23), 28 tests | part 4 (27 Oct 2026) |
+| `telemetry/` (in preparation, no run yet) | Q4 (RQ5) — what default client logs and host telemetry show for each event (D24): inventory of default log locations, exporter run inside the VM, collection check, event and baseline orchestrators, scoring, 42 tests | part 4 (27 Oct 2026) |
 | `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
 
 Each folder has its own README with requirements, how to reproduce, the test matrix and the limits of interpretation.
@@ -34,6 +34,15 @@ cd tool-change
 npm test                                  # 61 tests, Node >= 22 and Python >= 3.11, no dependencies
 node scripts/check-approvals.mjs          # which MCP tools have I approved permanently, and in which file?
 ```
+
+## Quick start (Q4 and Q2 components, no VM needed)
+```bash
+python3 -m unittest discover -s telemetry/test          # 42 tests, Python >= 3.11, no dependencies
+python3 -m unittest discover -s defence-coverage/test   # 28 tests
+python3 telemetry/scripts/vm_logs.py inventory telemetry/inventory/candidates.json   # read-only: which agent logs are on this machine?
+```
+The event and baseline orchestrators run on the host and drive the disposable VM; the scripts that stop or reset clients refuse to
+run outside it.
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.

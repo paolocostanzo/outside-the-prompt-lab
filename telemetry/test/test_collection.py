@@ -240,7 +240,7 @@ class StopClients(unittest.TestCase):
         self.assertNotRegex(text, r"/(usr/)?s?bin/(pkill|pgrep|tmux|kill)\b", "absolute paths would bypass the stubs")
 
     def test_refuses_outside_the_vm(self):
-        cases = {"no flag": ({}, False, True), "no marker": ({}, True, False), "another user": ({"user": "brainonion"}, True, True),
+        cases = {"no flag": ({}, False, True), "no marker": ({}, True, False), "another user": ({"user": "someone"}, True, True),
                  "hostname fails": ({"host_rc": 1}, True, True), "the lab host": ({"host": "parrot"}, True, True)}
         for why, (stub, flag, marker) in cases.items():
             d, log = self.stub_path(**stub)

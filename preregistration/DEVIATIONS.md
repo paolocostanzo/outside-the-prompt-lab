@@ -331,3 +331,99 @@ inputs: one invented packet and one invented repository.
 **Effect.** Adds a robustness check from an independent model family. Preregistered analyses and their reporting order are unchanged.
 Codex belongs to the vendor of one measured client (Codex CLI); its role is coding captures and reading server code, not judging
 products.
+
+### D23 · 17 Oct 2026 · §5 RQ4 (D17 point 5) — what counts as an output-side defence
+**Problem.** D17 point 5 puts every server that has an output-side defence against untrusted content into the RQ4 set, but it does
+not say what counts as a defence. In one server of the census the only candidate is a pair of delimiter lines that one tool places
+around uploaded content. Those lines present the content as workflow guidance for the agent to follow, subject to the agent's
+safety guidelines and tool policies, not as untrusted data. A source check on 17 October 2026 found no sanitiser, untrusted-data boundary or provenance marking anywhere else in
+that server. The first reading coded that tool as fully protected, which brought the server into the set. The second reading (D22)
+coded it as partially protected.
+**Change.** For RQ4, an output-side defence is a mechanism that marks or neutralises third-party content as data that the model
+should not follow: delimitation together with an instruction to treat the delimited text as untrusted data, character hygiene, or
+provenance marking. Delimiters that present the content as instructions to follow do not count. The server above therefore has no
+output-side defence: it moves to the servers without one, and its tools leave the coverage figures. The set of servers with a defence
+goes from eight to seven. Agreement between the readings (D22) is computed on the original labels of both readings, as they were
+frozen and returned, without the recoding of this deviation: on the eight-server set and, filtering the same labels, on the
+seven-server set, so the change cannot hide a disagreement. The rule applies to the coverage figures only; labels recoded under it
+are kept in separate derived files, and the original tables and their SHA-256 are unchanged.
+**Effect.** Exploratory question; the rule is fixed before any coverage figure from the per-tool census (D17) is published. The
+server is named, with file and line evidence, in the census evidence when it is released. Decided by the author.
+
+### D24 · 17 Oct 2026 · §1 RQ5/H5, Q4 protocol, D6, D13 — default client logs, new event runs, baseline and holdout
+**Problem.** The Q4 protocol lists each client's own logs, at default and at maximum verbosity, among its data sources, and D13
+point 4 judges H5 on default client logging only. The Q3 primary runs exported host telemetry (audit, journal, nftables rules) but
+not the clients' own logs. The virtual machine returns to a clean snapshot after every repetition, so those logs are lost: the Q3
+primary runs cannot serve the H5 judgement. No baseline session has been recorded yet.
+
+**Change.**
+1. *Export.* After every event run and every baseline session, the runner stops every client and then, before the snapshot is
+   restored, copies:
+   - each client's default log locations; SQLite databases together with their write-ahead-log files, opened from a private
+     copy (never the original), checked and also saved as a consolidated copy, so that committed records still in the log are
+     kept;
+   - the host telemetry, as in the Q3 runs.
+   The default log locations are fixed by an inventory on the clean snapshot before any new run. The inventory, with each
+   source's format, retention and how its record times are read, is committed with this deviation's implementation
+   (`telemetry/inventory/`).
+   Raw client logs, and the paths of some of them, can name services connected to the lab accounts. They stay in the private
+   evidence, with the full collection records; the public evidence holds the inventory counts, the manifests' SHA-256, a public
+   collection record per session (counts per frozen location, no file path, failure reasons by category only) and the derived
+   detection records. The list of locations is the one committed with the harness; no other list can be used.
+2. *Collection check, independent of detection.* For every session the runner records:
+   - the client's logging configuration at collection time (hashes of its settings files, names of logging variables);
+   - for every frozen location, whether it is absent or was looked at, how many files it held and any error met while reading
+     it, and every exported file with size and SHA-256;
+   - the time range of the exported records, compared with the session's start and end, where record times can be read, and
+     "unknown" otherwise.
+
+   An export fails when the archive or its manifest cannot be read, the manifest does not account for every frozen location of
+   the client or was made from another list of locations, a location or file could not be read, a file is missing or differs
+   from its hash, or a database cannot be opened from its copy. An absent location is not a failure.
+
+   Whether an event happened is established only by ground truth: the canary's log (Q5 events) or the lab server's log (Q3
+   events), never by the client's log. An event that does not appear in the client's default logs is a valid negative observation
+   and is kept. A client that does not log a kind of event by default is distinguished from a failed export. No session is
+   excluded because the event is missing from its logs; a session is excluded only if its export failed, with the reason.
+   A run in which the ground truth shows that the event did not happen (for example Goose, which does not start servers
+   declared by a repository) is reported as "no event": it enters neither the true positives nor the misses.
+3. *New event runs.* Before the baseline, we run a series of event runs on the six terminal clients, from the clean snapshot,
+   with the export above:
+   - Q5 events: a repository-declared server starts after the folder is trusted;
+   - Q3 events: an approved tool's definition changes, with the notification (one event type) and without it (another).
+
+   There are two runs per event type and client (three types, 36 runs), in a random order fixed by a seed and written, with the
+   hashes of the inventory, of the list of locations and of the harness commit, before the first run. A restart executes that
+   plan and refuses other inputs. The ground-truth log of every run is copied and checked before the next restore: every record
+   must be well formed and timed; a Q3 run needs exactly one A-to-B change record for its own cell, and a Q5 run a canary log,
+   which may be empty (no event). If the check fails, the attempt is kept and does not count, and the runs stop until the cause
+   is fixed. They are the
+   confirmatory events of RQ5 (D6), recorded after the freeze under the Q4 telemetry configuration. Earlier Q3 and Q5 captures
+   remain exploratory for RQ5.
+4. *Baseline and holdout* (D13 points 1–3). For each terminal client:
+   - scripted normal use for at least two hours with the vendor's engine, split into a development part (the first hour) and a
+     holdout part (the second hour);
+   - the holdout part runs as a separate session, at least six hours after the development part;
+   - the scripts are fixed in advance: open the test repository, ask for an explanation of a file, run the tests, edit a file,
+     approve a known server; command and edit questions are answered "allow once";
+   - a session counts only if the normal use happened: at least 80% of the prompted tasks completed with evidence that the action
+     took place (the tests ran, the edit is in the file, the known server logged the call; a refused action does not count) and
+     at least 0.8 calls per cycle to the known server, whose definition stays the same for the whole session; and only if its
+     client logs were exported. A session that fails these checks is kept as an attempt, does not count toward the two hours,
+     and stops the baseline until it is looked at. A holdout session needs a counted development session of the same client.
+
+   Detection rules are written on the development part only. Their files' SHA-256 are committed before they are scored on the
+   holdout. The local-engine repetition of the baseline (D13 point 1) is not implemented at the time of this deviation; it is
+   reported as not done unless a later, reviewed change adds it.
+5. *Reporting* (D6, D13 point 3).
+   - H5 is judged on default client logs only; host telemetry is reported separately.
+   - A rule detects an event run if it fires between the ground-truth time of the event and the end of the run, when the
+     logs are copied; hits before the event do not count. Holdout windows start at the session's start; a trailing window
+     shorter than one minute is dropped. Latency from the event to the first hit is reported.
+   - For each rule: true positives on the event runs; false-positive one-minute windows on the holdout, with counts, Wilson 95%
+     intervals and alerts per hour.
+   - "≤ 5%" is an observed rate on the holdout, not a population estimate.
+   - Without a holdout, RQ5 is reported as exploratory.
+
+**Effect.** RQ5 keeps its confirmatory status, on new event runs and a held-out baseline. Q3 primary results (RQ3) are unaffected.
+The order is fixed: this deviation and the exporter are published before any new run.
