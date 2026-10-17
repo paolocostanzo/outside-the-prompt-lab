@@ -148,16 +148,17 @@ class PlanPhase04(unittest.TestCase):
 
     def test_complete_telemetry(self):
         rn, d = self.runner({})
-        self.assertEqual(rn.telemetry("ip", d, 100), [])
+        self.assertEqual(rn.telemetry("ip", d, 100), ([], True))
         self.assertEqual(sorted(_json.loads((d / "telemetry/status.json").read_text())), sorted(n for n, _, _ in q4.TELEMETRY))
 
     def test_failed_or_empty_telemetry_is_a_problem(self):
         rn, d = self.runner({"audit.log": (1, "", "sudo: a password is required"), "journalctl": (0, "", "")})
-        problems = rn.telemetry("ip", d, 100)
+        problems, copied = rn.telemetry("ip", d, 100)
         self.assertEqual(len(problems), 2, problems)
+        self.assertFalse(copied, "the audit copy failed")
         self.assertIn("password", (d / "telemetry/audit.log.stderr").read_text())
         rn, d = self.runner({"nft list": (0, "", "")})
-        self.assertEqual(rn.telemetry("ip", d, 100), [], "an empty nft ruleset is allowed; audit and journal are not")
+        self.assertEqual(rn.telemetry("ip", d, 100), ([], True), "an empty nft ruleset is allowed; audit and journal are not")
 
     def test_quota_in_run_captures(self):
         qm = q4.load(SCRIPTS / "quota.py", "quota")
@@ -202,8 +203,9 @@ class InspectionRound1(unittest.TestCase):
                     raise subprocess.TimeoutExpired(cmd="ssh", timeout=timeout)
                 return _NS(returncode=0, stdout="x\n", stderr="")
         d = Path(_tempfile.mkdtemp())
-        problems = q4.Runner(H(), None).telemetry("ip", d, 1)
+        problems, copied = q4.Runner(H(), None).telemetry("ip", d, 1)
         self.assertTrue(any("audit.log" in p and "124" in p for p in problems), problems)
+        self.assertFalse(copied)
         self.assertTrue((d / "telemetry/status.json").exists())
 
     def test_interrupted_attempt_is_kept_before_a_rerun(self):
@@ -281,9 +283,9 @@ class InspectionRound2(unittest.TestCase):
             def ip(self): return "1.2.3.4"
             def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
-            def client_logs(self, *a): return {"export": "ok"}
+            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
             def ssh_bin(self, ip, cmd, dest): Path(dest).write_bytes(b"tgz"); return 0, ""
-            def telemetry(self, ip, d, since): return []
+            def telemetry(self, ip, d, since): return [], True
         kept = q4.recover_pending(d, H(), Rn(), None, None, None, "codex", "tar", lambda **k: None)
         self.assertTrue((kept / "vm-out.tgz").exists())
         self.assertEqual(_json.loads((kept / "attempt.json").read_text())["status"], "interrupted-recovered")
@@ -293,5 +295,36 @@ class InspectionRound2(unittest.TestCase):
         class H:
             def ssh(self, ip, cmd, timeout=120):
                 return _NS(returncode=0, stdout="-- No entries --\n" if "journalctl" in cmd else "x\n", stderr="")
-        problems = q4.Runner(H(), None).telemetry("ip", Path(_tempfile.mkdtemp()), 1)
+        problems, copied = q4.Runner(H(), None).telemetry("ip", Path(_tempfile.mkdtemp()), 1)
         self.assertEqual(problems, ["telemetry journal.txt: empty"])
+        self.assertTrue(copied, "copied, but empty: safe to restore, not usable")
+
+
+class InspectionRound3(unittest.TestCase):
+    def test_failed_copy_during_recovery_keeps_the_obligation(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        class H:
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="x\n", stderr="")
+        class Rn:
+            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
+            def ssh_bin(self, ip, cmd, dest): return 255, "connection reset"
+            def telemetry(self, ip, d, since): return [], True
+        with self.assertRaises(SystemExit) as e:
+            q4.recover_pending(d, H(), Rn(), None, None, None, "codex", "tar", lambda **k: None)
+        self.assertEqual(e.exception.code, 7)
+        self.assertTrue((d / "pending.json").exists(), "the next invocation must try the copy again before any restore")
+        self.assertFalse((d / "attempts").exists())
+
+    def test_writer_that_survives_recovery_stops_it(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        class H:
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120):
+                return _NS(returncode=1 if "stop_clients" in cmd else 0, stdout="still running: 42", stderr="")
+        with self.assertRaises(SystemExit) as e:
+            q4.recover_pending(d, H(), None, None, None, None, "codex", "tar", lambda **k: None)
+        self.assertEqual(e.exception.code, 7)
+        self.assertTrue((d / "pending.json").exists())

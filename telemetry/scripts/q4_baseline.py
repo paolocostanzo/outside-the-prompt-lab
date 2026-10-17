@@ -136,9 +136,9 @@ def main():
         t1 = int(time.time())
         (d / "session.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
         stop = ev.safe(h.ssh, ip, ev.STOP_CLIENTS)
-        if stop.returncode != 0:
-            dest = ev.keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
-            h.note(event="abort-not-quiescent", session=s["name"], kept=str(dest), hint="a writer survived; VM left as it is")
+        if stop.returncode != 0:  # nothing copied yet: pending.json stays, so a rerun recovers before any restore
+            (d / "stop.stdout.txt").write_text(stop.stdout[-4000:] + "\n--- stderr ---\n" + (stop.stderr or ""))
+            h.note(event="abort-not-quiescent", session=s["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
         check = rn.client_logs(ip, d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_out, err_out = rn.ssh_bin(ip, outputs_command(), d / "vm-out.tgz")
@@ -149,8 +149,13 @@ def main():
             problems.insert(0, f"session exited {res.returncode}")
         if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
             problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
-        problems += rn.telemetry(ip, d, t0 - 5)
-        if problems:
+        tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
+        problems += tel_problems
+        if check.get("collect_rc") != 0 or rc_out != 0 or not copied:  # a copy failed: the VM may hold the rest
+            h.note(event="abort-copy-failed", session=s["name"], problems=problems,
+                   hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
+            sys.exit(5)
+        if problems:  # everything was copied, but the session does not count: keep it as an attempt and stop
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is; look at the attempt, fix the cause, then rerun the same command (the plan is kept)")

@@ -268,11 +268,19 @@ def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
         sys.exit(7)
     t0, t1 = int(info.get("t0") or 0), int(time.time())
     stop = safe(h.ssh, ip, STOP_CLIENTS)
+    if stop.returncode != 0:
+        note(event="abort-pending-not-quiescent", folder=str(d), hint="a writer survived in the VM; do not restore; look at it")
+        sys.exit(7)
     check = rn.client_logs(ip, d, client, t0, t1, cc, inv, cand_sha)
     rc_out, err_out = rn.ssh_bin(ip, gt_command, d / "vm-out.tgz")
-    problems = rn.telemetry(ip, d, t0 - 5)
-    return keep_attempt(d, "interrupted-recovered", {"pending": info, "stop_rc": stop.returncode, "export": check["export"],
-                                                     "outputs_rc": rc_out, "outputs_stderr": err_out, "telemetry_problems": problems})
+    problems, copied = rn.telemetry(ip, d, t0 - 5)
+    if check.get("collect_rc") != 0 or rc_out != 0 or not copied:
+        # pending.json stays: the next invocation tries again; nothing is restored until every copy has succeeded
+        note(event="abort-pending-copy-failed", folder=str(d), collect_rc=check.get("collect_rc"), outputs_rc=rc_out,
+             telemetry_copied=copied, hint="evidence could not be copied out of the VM; do not restore")
+        sys.exit(7)
+    return keep_attempt(d, "interrupted-recovered", {"pending": info, "export": check["export"], "outputs_rc": rc_out,
+                                                     "telemetry_problems": problems})
 
 
 def preserve_interrupted(d):
@@ -368,7 +376,8 @@ class Runner:
         return (rc if h.returncode == 0 else (rc or h.returncode)), h.stdout
 
     def telemetry(self, ip, d, since):
-        """Copy the host telemetry; returns the problems (empty list = complete). Every source keeps its stderr and exit code."""
+        """Copy the host telemetry. Returns (problems, copied): problems is empty when complete; copied is False when a copy
+        itself failed (the VM may still hold what was not copied). Every source keeps its stderr and exit code."""
         tel = d / "telemetry"
         tel.mkdir(exist_ok=True)
         problems, status = [], {}
@@ -382,7 +391,7 @@ class Runner:
             elif nonempty and (not r.stdout.strip() or r.stdout.strip() == "-- No entries --"):
                 problems.append(f"telemetry {name}: empty")
         (tel / "status.json").write_text(json.dumps(status, indent=1))
-        return problems
+        return problems, all(s["rc"] == 0 for s in status.values())
 
     def client_logs(self, ip, d, client, t0, t1, cc, inv, cand_sha):
         rc, err = self.ssh_bin(ip, collect_command(t0, t1), d / "client-logs.tgz")
@@ -447,19 +456,24 @@ def main():
         t1 = int(time.time())
         (d / "cell.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
         stop = safe(h.ssh, ip, STOP_CLIENTS)  # databases and logs are closed before they are copied
-        if stop.returncode != 0:
-            dest = keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
-            h.note(event="abort-not-quiescent", run=r["name"], kept=str(dest), hint="a writer survived; VM left as it is")
+        if stop.returncode != 0:  # nothing copied yet: pending.json stays, so a rerun recovers before any restore
+            (d / "stop.stdout.txt").write_text(stop.stdout[-4000:] + "\n--- stderr ---\n" + (stop.stderr or ""))
+            h.note(event="abort-not-quiescent", run=r["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
         check = rn.client_logs(ip, d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_gt, err_gt = rn.ssh_bin(ip, ground_truth_command(r), d / "vm-out.tgz")
         problems = ([f"ground-truth copy exited {rc_gt}: {err_gt}"] if rc_gt != 0 else []) + \
             validate_ground_truth(r, (d / "vm-out.tgz").read_bytes())
-        problems += rn.telemetry(ip, d, t0 - 5)
+        tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
+        problems += tel_problems
+        if check.get("collect_rc") != 0 or rc_gt != 0 or not copied:  # a copy failed: the VM may hold the rest
+            h.note(event="abort-copy-failed", run=r["name"], problems=problems,
+                   hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
+            sys.exit(5)
         q = quota_in_outputs(r["client"], (d / "vm-out.tgz").read_bytes(), qm) or qm.find(r["client"], res.stdout)
         if q:
             problems.append(f"quota or rate limit reached: {q} (stop: Paolo's rule)")
-        if problems:
+        if problems:  # everything was copied, but the run is not usable: keep it as an attempt and stop
             dest = keep_attempt(d, "not-usable", {"problems": problems, "t0": t0, "t1": t1, "cell_rc": res.returncode})
             h.note(event="abort-run", run=r["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is for inspection; fix the cause, then rerun the same command (the plan is kept)")

@@ -65,7 +65,10 @@ class Session:
         """Answer a permission question on screen, if any. Returns the kind answered, or None.
         The frozen Q3 MCP approval is used only for a question that names the lab tool; command and edit questions are always
         answered "allow once", so that nothing is allowed permanently (D24 point 4)."""
-        lines = s.splitlines()[-QUESTION_LINES:]
+        # tmux captures the whole pane: drop the blank lines below the last drawn line first (a 50-line pane can end with
+        # 20+ empty lines, which would push the question out of the window)
+        drawn = s.rstrip().splitlines()
+        lines = drawn[-QUESTION_LINES:]
         bottom = "\n".join(lines)
         if self.spec.get("approve"):
             hits = [i for i, l in enumerate(lines) if re.search(self.spec["approve"], l)]
@@ -79,7 +82,7 @@ class Session:
         if self.perm.get("allow") and re.search(self.perm["allow"], bottom):
             q3.keys(*self.perm["allow_keys"])
             return "allow-once"
-        if self.generic and re.search(self.generic, "\n".join(s.splitlines()[-12:])):  # bottom of the screen only
+        if self.generic and re.search(self.generic, "\n".join(drawn[-12:])):  # bottom of the drawn screen only
             q3.keys("Enter")
             return "unexpected-question"
         return None

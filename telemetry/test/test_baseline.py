@@ -220,3 +220,35 @@ class PositiveMcpIdentification(OverlappingQuestions):
     def test_lab_tool_without_mcp_marker_is_not_trusted(self):
         screen = "Something about q3_noop\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again"
         self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][3]), "allow-once")
+
+
+class FullPaneCaptures(unittest.TestCase):
+    """tmux captures the whole 50-line pane: the question can sit at line 20-24 with blank lines below (setup captures of
+    15 Oct 2026, Gemini CLI and Cursor CLI). Synthetic replicas of those layouts."""
+    def setUp(self):
+        saved = bs.q3.keys
+        self.addCleanup(lambda: setattr(bs.q3, "keys", saved))
+        self.sent = []
+        bs.q3.keys = lambda *k: self.sent.append(k)
+        bs.q3.load_overrides(SCRIPTS.parent.parent / "tool-change/scripts/q3-clients.json")
+
+    def session(self, client):
+        out = Path(tempfile.mkdtemp()); (out / "screens").mkdir()
+        return bs.Session(client, "dev", out, CFG["tasks"], PERMS)
+
+    def test_gemini_question_above_blank_lines(self):
+        head = ["", "", "", "", "", "", "", " > Call the q3_noop tool of the q3-lab MCP server once.", "", "",
+                "  Calling q3_noop.", "", "", "", "", "", "│ ?  q3_noop (q3-lab MCP Server)", "│", "│ MCP Server: q3-lab",
+                "│ Tool: q3_noop", "│", "│ MCP Tool Details:", "│ (press Ctrl+O to expand MCP tool details)",
+                '│ Allow execution of MCP tool "q3_noop" from server "q3-lab"?', "│", "│ ● 1. Allow once", "│   2. Allow tool for this session"]
+        screen = "\n".join(head + [""] * (50 - len(head)))
+        self.assertEqual(self.session("gemini").answer_questions(screen, 1, CFG["tasks"][3]), "mcp-approval")
+        self.assertEqual(self.sent[-1], ("2", "Enter"))
+
+    def test_cursor_question_above_blank_lines(self):
+        head = [""] * 7 + ["  Call the q3_noop tool of the q3-lab MCP server once.", "", "", "  I'll call q3_noop.", "",
+                "    Explored available MCP tools q3-lab · q3_noop", "", "    q3-lab q3_noop", "", "", " q3-lab: q3_noop", "",
+                " Run this MCP tool?", "", "    Allowlist MCP Tool (tab)", "    Run (y)", "    Skip (n)"]
+        screen = "\n".join(head + [""] * (50 - len(head)))
+        self.assertEqual(self.session("cursor-agent").answer_questions(screen, 1, CFG["tasks"][3]), "mcp-approval")
+        self.assertEqual(self.sent[-1], ("Tab",))
