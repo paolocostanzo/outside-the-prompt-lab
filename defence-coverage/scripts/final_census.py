@@ -41,22 +41,58 @@ def second_label(r):
     return {"class": cmpc.cls(r), "protection": cmpc.prot_second(r), "vendor_only": cmpc.flag(r, "vendor_only")}
 
 
+def needs_decision(f_row, s_row):
+    """The adjudication rule of compare_census.compare: an inconsistent second-reading row, or a disagreement on a tool that
+    either reading puts in class A."""
+    if cmpc.inconsistent(s_row):
+        return True
+    f, s = first_label(f_row), second_label(s_row)
+    return "A" in (f["class"], s["class"]) and f != s
+
+
 def final_rows(first, second, decisions, servers):
-    rows, missing = [], []
-    keys = sorted(k for k in set(first) | set(second) if k[0] in servers)
-    for k in keys:
-        if k in decisions and decisions[k] is not None:
-            rows.append({"server": k[0], "tool": k[1], **decisions[k], "source": "adjudicated"})
-            continue
-        if k in first and k in second:
-            f, s = first_label(first[k][0]), second_label(second[k][0])
-            if f == s or (f["class"] == s["class"] == "not-A"):  # non-A rows: the comparison does not adjudicate them
-                rows.append({"server": k[0], "tool": k[1], **f, "source": "agreed"})
-                continue
-        missing.append(k)
+    """Agreed tools keep the readings' common label; every other tool takes the author's decision. Stops on duplicate rows, on a
+    missing decision, and on a decision for a tool the readings agree on (a stale or misapplied sheet)."""
+    dup = sorted({k for src in (first, second) for k, v in src.items() if k[0] in servers and len(v) > 1})
+    if dup:
+        raise SystemExit(f"duplicate rows in the readings for {dup[:3]}: resolve them in the inputs first")
+    rows, missing, stale = [], [], []
+    for k in sorted(k for k in set(first) | set(second) if k[0] in servers):
+        need = not (k in first and k in second) or needs_decision(first[k][0], second[k][0])
+        dec = decisions.get(k)
+        if need:
+            if dec is None:
+                missing.append(k)
+            else:
+                rows.append({"server": k[0], "tool": k[1], **dec, "source": "adjudicated"})
+        elif dec is not None:
+            stale.append(k)
+        else:
+            rows.append({"server": k[0], "tool": k[1], **first_label(first[k][0]), "source": "agreed"})
+    if stale:
+        raise SystemExit(f"{len(stale)} decision(s) for tools the two readings agree on, e.g. {stale[:3]}: remove them")
     if missing:
         raise SystemExit(f"{len(missing)} tool(s) need a decision in the adjudication sheet, e.g. {missing[:3]}")
     return rows
+
+
+def read_decisions(path, servers):
+    out = {}
+    for r in csv.DictReader(open(path, newline="")):
+        k = (r["server"].strip(), r["tool"].strip())
+        if k[0] not in servers:
+            continue
+        if k in out:
+            raise SystemExit(f"duplicate adjudication rows for {k}")
+        out[k] = norm_decision(r)
+    return out
+
+
+def agreement(first, second, servers):
+    f = {k: v for k, v in first.items() if k[0] in servers}
+    s = {k: v for k, v in second.items() if k[0] in servers}
+    c = cmpc.compare(f, s)
+    return {"servers": sorted(servers), **{k: c[k] for k in ("n_joined", "class", "protection", "vendor_only")}}
 
 
 def coverage(rows, servers, exclude_vendor_only=False):
@@ -92,8 +128,7 @@ def main():
     servers = [s for s in a.servers.split(",") if s]
     first = {k: v for k, v in cmpc.read(a.first).items() if k[0] in servers}
     second = {k: v for k, v in cmpc.read(a.second, valid_only=True).items() if k[0] in servers}
-    decisions = {(r["server"].strip(), r["tool"].strip()): norm_decision(r)
-                 for r in csv.DictReader(open(a.adjudication, newline="")) if r["server"].strip() in servers}
+    decisions = read_decisions(a.adjudication, set(servers))
     rows = final_rows(first, second, decisions, set(servers))
     out = Path(a.out)
     out.mkdir(parents=True, exist_ok=True)
@@ -103,9 +138,11 @@ def main():
         w.writerows(rows)
     cov_set = [s for s in servers if s not in a.no_defence]
     res = {"inputs_sha256": {"first": sha(a.first), "second": sha(a.second), "adjudication": sha(a.adjudication)},
-           "servers": servers, "no_defence_D23": a.no_defence,
-           "agreement_before_adjudication": {k: v for k, v in cmpc.compare(first, second).items()
-                                             if k in ("n_joined", "class", "protection", "vendor_only")},
+           "servers": servers, "no_defence_D23": [s for s in a.no_defence if s in servers],  # never a server outside --servers
+           # D22/D23: agreement on the original labels, before adjudication and without D23 recoding, on the listed servers and,
+           # filtering the same labels, on the servers that stay in the coverage figures
+           "agreement_before_adjudication": {"listed_servers": agreement(first, second, set(servers)),
+                                             "coverage_servers": agreement(first, second, set(cov_set))},
            "adjudicated": sum(r["source"] == "adjudicated" for r in rows),
            "all_A": coverage(rows, cov_set), "without_vendor_only": coverage(rows, cov_set, exclude_vendor_only=True)}
     (out / "coverage.json").write_text(json.dumps(res, indent=1))
@@ -120,9 +157,12 @@ def main():
         if m["servers"]:
             md += ["", f"Mean over servers {pct(m['mean_full'])} / {pct(m['mean_any'])}; median {pct(m['median_full'])} / "
                    f"{pct(m['median_any'])}; pooled {m['pooled_full'][0]}/{m['pooled_full'][1]} / {m['pooled_any'][0]}/{m['pooled_any'][1]}.", ""]
-    ag = res["agreement_before_adjudication"]
-    md += [f"Agreement between the readings before adjudication, on these servers (n = {ag['n_joined']}): class κ = "
-           f"{ag['class']['kappa']}, protection κ = {ag['protection']['kappa']}. Adjudicated tools: {res['adjudicated']}.", ""]
+    for label, key in [("listed servers", "listed_servers"), ("servers in the coverage figures", "coverage_servers")]:
+        ag = res["agreement_before_adjudication"][key]
+        md += [f"Agreement between the readings before adjudication, original labels, {label} ({', '.join(ag['servers'])}; "
+               f"n = {ag['n_joined']}): class κ = {ag['class']['kappa']}, protection κ = {ag['protection']['kappa']}, "
+               f"vendor-only κ = {ag['vendor_only']['kappa']}.", ""]
+    md += [f"Adjudicated tools: {res['adjudicated']}.", ""]
     (out / "COVERAGE.md").write_text("\n".join(md))
     print("\n".join(md))
 

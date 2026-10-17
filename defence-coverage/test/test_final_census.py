@@ -80,3 +80,48 @@ class FinalCensus(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class FinalCensusEdges(FinalCensus):
+    def test_excluded_server_outside_the_list_is_never_written(self):
+        r = self.run_(self.adj, "--servers", "s1", "--no-defence", "hidden")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        text = (self.d / "out/coverage.json").read_text() + (self.d / "out/COVERAGE.md").read_text()
+        self.assertNotIn("hidden", text)
+
+    def test_both_agreement_sets(self):
+        r = self.run_(self.adj, "--servers", "s1,s2", "--no-defence", "s2")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        ag = json.loads((self.d / "out/coverage.json").read_text())["agreement_before_adjudication"]
+        self.assertEqual(ag["listed_servers"]["servers"], ["s1", "s2"])
+        self.assertEqual(ag["coverage_servers"]["servers"], ["s1"])
+        self.assertEqual((ag["listed_servers"]["n_joined"], ag["coverage_servers"]["n_joined"]), (4, 3))
+
+    def test_duplicates_stop(self):
+        with open(self.d / "second.csv", "a", newline="") as fh:
+            csv.DictWriter(fh, fieldnames=S_HDR, extrasaction="ignore").writerow(
+                {"server": "s1", "tool": "a1", "class": "A", "protection": "none", "vendor_only": "false", "valid": "True"})
+        r = self.run_(self.adj, "--servers", "s1")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("duplicate rows", r.stderr)
+
+    def test_duplicate_adjudication_rows_stop(self):
+        r = self.run_(self.adj + [self.adj[0] | {"n": 3}], "--servers", "s1")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("duplicate adjudication", r.stderr)
+
+    def test_inconsistent_second_row_needs_a_decision(self):
+        rows = list(csv.DictReader(open(self.d / "second.csv", newline="")))
+        for x in rows:
+            if x["tool"] == "b1":
+                x["protection"] = "full"  # B with a protection: contradicts its own class
+        write(self.d / "second.csv", S_HDR, rows)
+        r = self.run_(self.adj, "--servers", "s1")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("need a decision", r.stderr)
+
+    def test_decision_for_an_agreed_tool_stops(self):
+        stale = {"n": 9, "server": "s1", "tool": "a1", "decision_class": "A", "decision_protection": "none", "decision_vendor_only": "false"}
+        r = self.run_(self.adj + [stale], "--servers", "s1")
+        self.assertNotEqual(r.returncode, 0)
+        self.assertIn("agree on", r.stderr)
