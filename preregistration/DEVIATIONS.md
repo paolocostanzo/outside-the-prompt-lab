@@ -427,3 +427,41 @@ primary runs cannot serve the H5 judgement. No baseline session has been recorde
 
 **Effect.** RQ5 keeps its confirmatory status, on new event runs and a held-out baseline. Q3 primary results (RQ3) are unaffected.
 The order is fixed: this deviation and the exporter are published before any new run.
+
+### D25 · 17 Oct 2026 · D24 points 3–4 — seeds, set-up sessions and pipeline check before the Q4 campaign
+**Problem.** D24 fixes the order of the new event runs and of the baseline sessions with a seed, but does not give the seeds. The
+orchestrators and the baseline driver have never run against the virtual machine. The patterns for command and edit questions in
+`telemetry/baseline/clients.json`, and the lines that identify the lab tool's MCP approval dialog, are provisional: Claude Code
+never asked a question in Q3, so its dialog has not been seen.
+**Change.**
+1. *Seeds.* Event runs: 20261018. Baseline: 20261019. Both are fixed here, before any run, and were not chosen by looking at the
+   order they produce. The orchestrators generate the plans from them and write them to `plan.json` before the first run.
+2. *Set-up sessions (exploratory).* One six-minute session of scripted use per terminal client (`q4_baseline.py --parts setup
+   --minutes 6`), in a separate folder, before the baseline. They serve only to see each client's permission questions and to
+   correct `baseline/clients.json`. A set-up session whose only problem is that the scripted use did not work is recorded and the
+   set-up goes on to the next client; any quota, copy, export or telemetry problem stops it, as in the baseline. Each revision of
+   `baseline/clients.json` gets its own folder (`setup-r1`, `setup-r2`, …) with its own frozen plan, and re-runs only the
+   clients whose questions changed. No folder is reused or overwritten. `setup-lineage.md` records, for each folder, the commit
+   and the SHA-256 of `clients.json` it used, and why the next revision was made. The final file is then frozen in a commit,
+   with its SHA-256, before the first baseline session. These sessions are not part of the baseline and are published as set-up
+   evidence.
+3. *Pipeline check (exploratory).* One run per event type on Gemini CLI (`q4_events.py --clients gemini --reps 1`: three runs), in a
+   separate folder, before the 36 event runs. It checks end to end:
+   - the client-log export and its check;
+   - the copy of the ground truth;
+   - the host telemetry.
+
+   These runs are not part of RQ5 and are published as set-up evidence. A code change that follows is reviewed and committed
+   before the campaign, whose plan freezes the new commit.
+4. *Snapshot.* If a client's login in `q3-base-20261015` has expired, the logins are renewed and a new clean snapshot is taken,
+   after the clean-up of D18 point 1, with its listing published. The campaign then uses that snapshot, and its name is in the
+   frozen plan.
+5. *Quotas.* The clients use the author's accounts. Next to every run and session, an observer (`telemetry/scripts/quota_watch.py`)
+   reads the client's terminal every second, read-only, and records any quota or rate-limit message, even one the client recovers
+   from before the next saved screen. It also records a heartbeat every ten seconds, any failure to read the terminal, and an
+   orderly end. Any quota message stops the campaign, and so does an observer that did not watch the whole run: no record, no
+   orderly end, a gap of more than 30 seconds, or a read failure. The attempt is kept and does not count. The Q3 and Q5 runners
+   are used as they ran.
+
+**Effect.** RQ5 stays confirmatory. The set-up sessions and the pipeline check are exploratory and excluded, like the set-up runs of
+Q3 (D16 point 8).
