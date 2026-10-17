@@ -57,7 +57,8 @@ class FinalCensus(unittest.TestCase):
         s1 = cov["all_A"]["per_server"]["s1"]
         self.assertEqual((s1["A"], s1["full"], s1["partial"], s1["none"]), (2, 1, 1, 0))
         self.assertEqual(cov["all_A"]["summary"]["pooled_any"], [2, 3])
-        self.assertNotIn("s2", cov["without_vendor_only"]["per_server"], "s2's only A tool is vendor-only")
+        self.assertEqual(cov["without_vendor_only"]["per_server"]["s2"]["A"], 0, "s2's only A tool is vendor-only")
+        self.assertIsNone(cov["without_vendor_only"]["per_server"]["s2"]["cov_full"])
 
     def test_missing_decision_stops(self):
         r = self.run_([self.adj[1] | {"server": "s1", "tool": "a2"}], "--servers", "s1")
@@ -125,3 +126,24 @@ class FinalCensusEdges(FinalCensus):
         r = self.run_(self.adj + [stale], "--servers", "s1")
         self.assertNotEqual(r.returncode, 0)
         self.assertIn("agree on", r.stderr)
+
+
+class FinalCensusSelection(FinalCensus):
+    def test_unknown_or_empty_server_selection_stops(self):
+        for sel in ("s1,misspelled", "nothing", ""):
+            r = self.run_(self.adj, "--servers", sel)
+            self.assertNotEqual(r.returncode, 0, sel)
+
+    def test_server_without_qualifying_tools_is_explicit(self):
+        rows = list(csv.DictReader(open(self.d / "first.csv", newline="")))
+        rows.append({"server": "s3", "tool": "b", "class": "B", "protection": "n-a", "contested": "False"})
+        write(self.d / "first.csv", F_HDR, rows)
+        rows = list(csv.DictReader(open(self.d / "second.csv", newline="")))
+        rows.append({"server": "s3", "tool": "b", "class": "B", "protection": "n-a", "vendor_only": "false", "valid": "True"})
+        write(self.d / "second.csv", S_HDR, rows)
+        r = self.run_(self.adj, "--servers", "s1,s3")
+        self.assertEqual(r.returncode, 0, r.stderr)
+        cov = json.loads((self.d / "out/coverage.json").read_text())["all_A"]
+        self.assertEqual(cov["per_server"]["s3"]["A"], 0)
+        self.assertIsNone(cov["per_server"]["s3"]["cov_full"])
+        self.assertEqual(cov["summary"]["servers"], 1, "a server with no qualifying tool is not averaged in")
