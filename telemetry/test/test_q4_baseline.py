@@ -77,3 +77,10 @@ class BaselineOutputs(unittest.TestCase):
         out = Path(tempfile.mkdtemp())
         with self.assertRaises(SystemExit):
             qb.wait_for_gap(out, {"client": "qwen", "part": "holdout", "name": "x"}, 6, print, lambda s: None)
+
+
+class QuotaStops(BaselineOutputs):
+    def test_quota_session_is_not_counted(self):
+        _, problems = qb.check_outputs(self.S, _tgz(self.files({"valid": False, "quota_exhausted": True,
+                                                                 "quota_message": "usage limit", "workload": {"ok": True}})))
+        self.assertTrue(any("quota" in p for p in problems))

@@ -35,6 +35,12 @@ Q5_CELL = {"claude-code": "after-decision", "codex": "after-decision", "gemini":
            "cursor-agent": "after-decision", "goose": "open-in-repo"}
 Q3_SIGNAL = {"q3-announced": "list_changed", "q3-silent": "none"}
 CANDIDATES = LAB / "telemetry/inventory/candidates.json"
+# Host telemetry copied after every run and session: name -> (command in the VM, must be non-empty)
+TELEMETRY = [("audit.log", "sync; sleep 1; sudo cat /var/log/audit/audit.log", True),
+             ("journal.txt", "sudo journalctl -o short-iso-precise --since @{since} --no-pager", True),
+             ("nft-ruleset.txt", "sudo nft list ruleset", False),
+             ("auditctl-rules.txt", "sudo auditctl -l", False)]
+MIN_AVAIL_MB, MIN_ORDER6, MEM_WAIT_S = 1024, 20, 900  # plan of 17 Oct 2026, phase 0.4
 STOP_CLIENTS = "Q4_IN_VM=1 bash ~/lab/telemetry/scripts/stop_clients.sh"  # exits non-zero if a client, daemon or lab server survives
 
 
@@ -145,6 +151,37 @@ def validate_ground_truth(run, tgz_bytes):
     return problems
 
 
+def quota_in_outputs(client, tgz_bytes, quota_mod):
+    """The first quota or rate-limit message in the run's screen captures and stdout, or None (plan phase 0.4)."""
+    try:
+        tar = tarfile.open(fileobj=io.BytesIO(tgz_bytes), mode="r:gz")
+    except (tarfile.TarError, OSError, EOFError):
+        return None
+    for m in tar.getmembers():
+        if m.isfile() and m.name.startswith("q4-out/") and m.name.endswith(".txt"):
+            msg = quota_mod.find(client, tar.extractfile(m).read().decode("utf-8", "replace"))
+            if msg:
+                return f"{m.name}: {msg}"
+    return None
+
+
+def wait_for_memory(note, sleep=time.sleep, now=time.time, meminfo="/proc/meminfo", buddyinfo="/proc/buddyinfo",
+                    min_mb=MIN_AVAIL_MB, min_order6=MIN_ORDER6, wait_s=MEM_WAIT_S):
+    """Before a restore: at least min_mb available and min_order6 free blocks of order >= 6 in zone Normal (libvirt needs one to
+    load the VM's AppArmor profile). Waits up to wait_s, then stops the campaign cleanly (exit 4)."""
+    t0 = now()
+    while True:
+        avail = int(next(l for l in open(meminfo) if l.startswith("MemAvailable")).split()[1]) // 1024
+        order6 = next((sum(int(x) for x in l.split()[10:]) for l in open(buddyinfo) if " Normal " in l), 0)
+        if avail >= min_mb and order6 >= min_order6:
+            return avail, order6
+        if now() - t0 > wait_s:
+            note(event="abort-memory", avail_mb=avail, order6plus=order6, need_mb=min_mb, need_order6=min_order6,
+                 hint="close heavy applications on the host (or compact memory), then rerun the same command")
+            sys.exit(4)
+        sleep(30)
+
+
 def sha_file(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
@@ -216,13 +253,21 @@ class Runner:
         return p2.returncode, h.stdout
 
     def telemetry(self, ip, d, since):
+        """Copy the host telemetry; returns the problems (empty list = complete). Every source keeps its stderr and exit code."""
         tel = d / "telemetry"
         tel.mkdir(exist_ok=True)
-        for name, rcmd in [("audit.log", "sync; sleep 1; sudo cat /var/log/audit/audit.log"),
-                           ("journal.txt", f"sudo journalctl -o short-iso-precise --since @{since} --no-pager"),
-                           ("nft-ruleset.txt", "sudo nft list ruleset"),
-                           ("auditctl-rules.txt", "sudo auditctl -l")]:
-            (tel / name).write_text(self.h.ssh(ip, rcmd, timeout=120).stdout)
+        problems, status = [], {}
+        for name, rcmd, nonempty in TELEMETRY:
+            r = self.h.ssh(ip, rcmd.format(since=since), timeout=120)
+            (tel / name).write_text(r.stdout)
+            (tel / (name + ".stderr")).write_text(r.stderr or "")
+            status[name] = {"rc": r.returncode, "bytes": len(r.stdout.encode())}
+            if r.returncode != 0:
+                problems.append(f"telemetry {name}: exit {r.returncode}: {(r.stderr or '').strip()[:200]}")
+            elif nonempty and not r.stdout.strip():
+                problems.append(f"telemetry {name}: empty")
+        (tel / "status.json").write_text(json.dumps(status, indent=1))
+        return problems
 
     def client_logs(self, ip, d, client, t0, t1, cc, inv, cand_sha):
         rc, err = self.ssh_bin(ip, collect_command(t0, t1), d / "client-logs.tgz")
@@ -242,9 +287,10 @@ def main():
     ap.add_argument("--inventory", required=True, help="inventory.json taken on the clean snapshot (D24 point 1)")
     ap.add_argument("--out", required=True)
     ap.add_argument("--clients", default=",".join(CLIENTS))
+    ap.add_argument("--reps", type=int, default=2, help="repetitions per client and event (D24: 2; 1 for the pipeline check)")
     ap.add_argument("--dry-run", action="store_true")
     a = ap.parse_args()
-    runs = plan(a.seed, a.clients.split(","))
+    runs = plan(a.seed, a.clients.split(","), reps=a.reps)
     if a.dry_run:
         for i, r in enumerate(runs, 1):
             print(f"{i:2} {r['name']:32} {cell_command(r)}")
@@ -252,11 +298,12 @@ def main():
         return
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
-    frozen = {"snapshot": a.snapshot, "seed": a.seed, "clients": a.clients.split(","), "q5_cell": Q5_CELL,
+    frozen = {"snapshot": a.snapshot, "seed": a.seed, "clients": a.clients.split(","), "reps": a.reps, "q5_cell": Q5_CELL,
               "inventory_sha256": sha_file(a.inventory), "candidates_sha256": sha_file(CANDIDATES), "harness": harness_identity()}
     runs = load_or_create_plan(out, frozen, runs)
     q3 = load(LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = load(HERE / "collection_check.py", "collection_check")
+    qm = load(HERE / "quota.py", "quota")
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = Runner(h, q3)
@@ -265,8 +312,8 @@ def main():
         if (d / "run.json").exists():
             continue
         d.mkdir(exist_ok=True)
-        avail = h.mem_ok()
-        h.note(event="pre-revert", run=r["name"], order6plus=h.order6_blocks())
+        avail, order6 = wait_for_memory(h.note)
+        h.note(event="pre-revert", run=r["name"], avail_mb=avail, order6plus=order6)
         ip, boot_s = h.fresh_vm(a.snapshot)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
@@ -285,10 +332,13 @@ def main():
         rc_gt, err_gt = rn.ssh_bin(ip, ground_truth_command(r), d / "vm-out.tgz")
         problems = ([f"ground-truth copy exited {rc_gt}: {err_gt}"] if rc_gt != 0 else []) + \
             validate_ground_truth(r, (d / "vm-out.tgz").read_bytes())
-        rn.telemetry(ip, d, t0 - 5)
+        problems += rn.telemetry(ip, d, t0 - 5)
+        q = quota_in_outputs(r["client"], (d / "vm-out.tgz").read_bytes(), qm) or qm.find(r["client"], res.stdout)
+        if q:
+            problems.append(f"quota or rate limit reached: {q} (stop: Paolo's rule)")
         if problems:
-            dest = keep_attempt(d, "ground-truth-unavailable", {"problems": problems, "t0": t0, "t1": t1, "cell_rc": res.returncode})
-            h.note(event="abort-ground-truth", run=r["name"], problems=problems, kept=str(dest),
+            dest = keep_attempt(d, "not-usable", {"problems": problems, "t0": t0, "t1": t1, "cell_rc": res.returncode})
+            h.note(event="abort-run", run=r["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is for inspection; fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
         (d / "run.json").write_text(json.dumps({**r, "t0": t0, "t1": t1, "cell_rc": res.returncode, "push_rc": rc_push,

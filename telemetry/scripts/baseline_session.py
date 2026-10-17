@@ -24,6 +24,13 @@ TEL = HERE.parent
 _spec = importlib.util.spec_from_file_location("run_q3_cell", TEL.parent / "tool-change/scripts/run_q3_cell.py")
 q3 = importlib.util.module_from_spec(_spec)
 _spec.loader.exec_module(q3)
+_qspec = importlib.util.spec_from_file_location("quota", HERE / "quota.py")
+quota = importlib.util.module_from_spec(_qspec)
+_qspec.loader.exec_module(quota)
+# The lab's known tool. Only a question that names it gets the frozen Q3 MCP approval; every other question (commands, edits)
+# gets "allow once". For Claude Code both questions read "Do you want to proceed?", and the Q3 keys give "don't ask again".
+LAB_TOOL = re.compile(r"q3_noop|q3-lab")
+QUESTION_LINES = 25  # the bottom of the screen, where the clients draw their questions
 
 
 class Session:
@@ -35,6 +42,7 @@ class Session:
         self.generic = perms.get("_generic")
         self.timeline = open(outdir / "timeline.jsonl", "a")
         self.n_caps = 0
+        self.quota_message = None
 
     def log(self, **kw):
         self.timeline.write(json.dumps({"ts": q3.now(), "epoch": round(time.time(), 3), **kw}) + "\n")
@@ -47,17 +55,28 @@ class Session:
         return name
 
     def answer_questions(self, s, cycle, task):
-        """Answer a permission question on screen, if any. Returns the kind answered, or None."""
-        if self.spec.get("approve") and re.search(self.spec["approve"], s):
+        """Answer a permission question on screen, if any. Returns the kind answered, or None.
+        The frozen Q3 MCP approval is used only for a question that names the lab tool; command and edit questions are always
+        answered "allow once", so that nothing is allowed permanently (D24 point 4)."""
+        bottom = "\n".join(s.splitlines()[-QUESTION_LINES:])
+        if self.spec.get("approve") and re.search(self.spec["approve"], bottom) and LAB_TOOL.search(bottom):
             q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
             return "mcp-approval"
-        if self.perm.get("allow") and re.search(self.perm["allow"], s):
+        if self.perm.get("allow") and re.search(self.perm["allow"], bottom):
             q3.keys(*self.perm["allow_keys"])
             return "allow-once"
         if self.generic and re.search(self.generic, "\n".join(s.splitlines()[-12:])):  # bottom of the screen only
             q3.keys("Enter")
             return "unexpected-question"
         return None
+
+    def quota_hit(self, s, cycle, task_id):
+        """True (and the session ends) when the screen shows a quota or rate-limit message."""
+        msg = quota.find(self.client, s)
+        if msg and not self.quota_message:
+            self.quota_message = msg
+            self.log(action="quota", cycle=cycle, task=task_id, message=msg, screen=self.capture("quota"))
+        return bool(msg)
 
     def server_calls(self):
         return sum(1 for e in q3.events() if e.get("event") == "tools/call" and e.get("cell") == self.cell)
@@ -88,6 +107,8 @@ class Session:
         while time.time() - t0 < timeout:
             time.sleep(1.5)
             s = q3.screen()
+            if self.quota_hit(s, cycle, task["id"]):
+                return False
             if q3.answer_noise(s):
                 continue
             kind = self.answer_questions(s, cycle, task)
@@ -116,8 +137,9 @@ class Session:
             ready = q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
             if not ready:
                 self.log(action="not-ready", cycle=cycle)
+                self.quota_hit(q3.screen(), cycle, None)
             for task in self.tasks:
-                if time.time() >= deadline:
+                if time.time() >= deadline or self.quota_message:
                     break
                 prompted += 1
                 if ready and self.do_task(cycle, task, cfg["task_timeout_s"], cfg["idle_s"]):
@@ -126,6 +148,8 @@ class Session:
                     self.log(action="skipped-not-ready", cycle=cycle, task=task["id"])
             q3.kill()
             self.log(action="close", cycle=cycle)
+            if self.quota_message:
+                break  # stop spending: the session is not valid anyway
             time.sleep(cfg["pause_between_cycles_s"])
         return cycle, prompted, done
 
@@ -174,7 +198,9 @@ def main():
     (outdir / "session.json").write_text(json.dumps({"client": a.client, "part": a.part, "minutes": a.minutes, "t_start": t_start,
                                                      "t_end": time.time(), "definitions_served": served,
                                                      "definition_changed": changed, "workload": w,
-                                                     "valid": served in ([], ["A"]) and not changed and w["ok"]}, indent=1))
+                                                     "quota_exhausted": bool(s.quota_message), "quota_message": s.quota_message,
+                                                     "valid": served in ([], ["A"]) and not changed and w["ok"]
+                                                     and not s.quota_message}, indent=1))
 
 
 if __name__ == "__main__":

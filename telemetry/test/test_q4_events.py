@@ -127,3 +127,60 @@ class GroundTruthAndPlan(unittest.TestCase):
         self.assertEqual(_json.loads((dest / "attempt.json").read_text())["status"], "ground-truth-unavailable")
         self.assertFalse((d / "run.json").exists())
         self.assertEqual(q4.keep_attempt(d, "again", {}).name, "2")
+
+
+from types import SimpleNamespace as _NS
+
+
+class PlanPhase04(unittest.TestCase):
+    """Fixes of the plan review of 17 Oct 2026 (phase 0.4): host telemetry checked, quota stops, memory before restore, --reps."""
+    class FakeHost:
+        def __init__(self, answers):
+            self.answers = answers  # substring of the command -> (rc, stdout, stderr)
+        def ssh(self, ip, cmd, timeout=120):
+            for key, (rc, out, err) in self.answers.items():
+                if key in cmd:
+                    return _NS(returncode=rc, stdout=out, stderr=err)
+            return _NS(returncode=0, stdout="x\n", stderr="")
+
+    def runner(self, answers):
+        return q4.Runner(self.FakeHost(answers), None), Path(_tempfile.mkdtemp())
+
+    def test_complete_telemetry(self):
+        rn, d = self.runner({})
+        self.assertEqual(rn.telemetry("ip", d, 100), [])
+        self.assertEqual(sorted(_json.loads((d / "telemetry/status.json").read_text())), sorted(n for n, _, _ in q4.TELEMETRY))
+
+    def test_failed_or_empty_telemetry_is_a_problem(self):
+        rn, d = self.runner({"audit.log": (1, "", "sudo: a password is required"), "journalctl": (0, "", "")})
+        problems = rn.telemetry("ip", d, 100)
+        self.assertEqual(len(problems), 2, problems)
+        self.assertIn("password", (d / "telemetry/audit.log.stderr").read_text())
+        rn, d = self.runner({"nft list": (0, "", "")})
+        self.assertEqual(rn.telemetry("ip", d, 100), [], "an empty nft ruleset is allowed; audit and journal are not")
+
+    def test_quota_in_run_captures(self):
+        qm = q4.load(SCRIPTS / "quota.py", "quota")
+        tgz = _tgz({"q4-out/codex__none__description__r1/codex__none__r1__03-p2-end.txt": b"You've hit your usage limit."})
+        self.assertIn("usage limit", q4.quota_in_outputs("codex", tgz, qm))
+        self.assertIsNone(q4.quota_in_outputs("codex", _tgz({"q4-out/x/a.txt": b"ok"}), qm))
+
+    def test_memory_wait(self):
+        d = Path(_tempfile.mkdtemp())
+        mem, buddy = d / "meminfo", d / "buddyinfo"
+        buddy.write_text("Node 0, zone   Normal  100 50 20 10 5 4 15 10 0 0 0\n")
+        mem.write_text("MemAvailable:    2048000 kB\n")
+        self.assertEqual(q4.wait_for_memory(print, meminfo=mem, buddyinfo=buddy), (2000, 25))
+        mem.write_text("MemAvailable:     500000 kB\n")
+        clock = iter(range(0, 10000, 60))
+        notes = []
+        with self.assertRaises(SystemExit) as e:
+            q4.wait_for_memory(lambda **k: notes.append(k), sleep=lambda s: None, now=lambda: next(clock), meminfo=mem, buddyinfo=buddy)
+        self.assertEqual(e.exception.code, 4)
+        self.assertEqual(notes[-1]["event"], "abort-memory")
+
+    def test_reps_option(self):
+        self.assertEqual(len(q4.plan(1, ["gemini"], reps=1)), 3)
+        r = subprocess.run([sys.executable, "-I", str(SCRIPTS / "q4_events.py"), "--snapshot", "x", "--seed", "1", "--inventory", "/x",
+                            "--out", "/nonexistent-dir", "--clients", "gemini", "--reps", "1", "--dry-run"], capture_output=True, text=True, check=True)
+        self.assertEqual(len([l for l in r.stdout.splitlines() if "__r" in l]), 3)

@@ -122,3 +122,59 @@ class Evidence(unittest.TestCase):
         r = subprocess.run([sys.executable, "-m", "unittest", "-q"], cwd=self.repo, capture_output=True, text=True)
         self.assertEqual(r.returncode, 0, r.stderr)
         self.assertTrue((self.repo / ".q4-test-runs").read_text().strip())
+
+
+class OverlappingQuestions(unittest.TestCase):
+    """Claude Code asks "Do you want to proceed?" both for a command and for an MCP tool; only the tool question may get the
+    frozen Q3 approval (option 2, "don't ask again"), every command gets "allow once"."""
+    def setUp(self):
+        saved = {n: getattr(bs.q3, n) for n in ("keys",)}
+        self.addCleanup(lambda: [setattr(bs.q3, n, f) for n, f in saved.items()])
+        self.sent = []
+        bs.q3.keys = lambda *k: self.sent.append(k)
+        bs.q3.load_overrides(SCRIPTS.parent.parent / "tool-change/scripts/q3-clients.json")
+        out = Path(tempfile.mkdtemp()); (out / "screens").mkdir()
+        self.s = bs.Session("claude-code", "dev", out, CFG["tasks"], PERMS)
+
+    def test_command_question_is_answered_once(self):
+        screen = ("Bash command\n\n  python3 -m unittest -q\n  Run the tests\n\nDo you want to proceed?\n"
+                  " ❯ 1. Yes\n   2. Yes, and don't ask again for python3 commands in /home/lab/q3-repo\n   3. No")
+        self.assertEqual(self.s.answer_questions(screen, 1, CFG["tasks"][1]), "allow-once")
+        self.assertEqual(self.sent[-1], ("Enter",), "option 1, never option 2")
+
+    def test_lab_tool_question_gets_the_frozen_approval(self):
+        screen = ("Tool use\n\n  q3-lab - q3_noop() (MCP)\n\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again for q3-lab - q3_noop\n   3. No")
+        self.assertEqual(self.s.answer_questions(screen, 1, CFG["tasks"][3]), "mcp-approval")
+        self.assertEqual(self.sent[-1], ("2",))
+
+    def test_old_lab_tool_text_above_does_not_count(self):
+        screen = "earlier: q3_noop returned ok\n" + "\n".join(f"line {i}" for i in range(40)) + \
+                 "\nBash command\n  python3 -m unittest -q\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again"
+        self.assertEqual(self.s.answer_questions(screen, 2, CFG["tasks"][1]), "allow-once")
+
+
+class Quota(unittest.TestCase):
+    def setUp(self):
+        out = Path(tempfile.mkdtemp()); (out / "screens").mkdir()
+        self.s = bs.Session("codex", "dev", out, CFG["tasks"], PERMS)
+        saved = bs.q3.screen
+        self.addCleanup(lambda: setattr(bs.q3, "screen", saved))
+        bs.q3.screen = lambda: "x"
+
+    def test_messages_are_recognised(self):
+        for client, text in [("codex", "■ You've hit your usage limit. Upgrade or try again at 9:41 PM."),
+                             ("claude-code", "Claude usage limit reached. Your limit will reset at 7pm"),
+                             ("gemini", "API Error: [429] Quota exceeded for metric generate_content_free_tier_requests"),
+                             ("qwen", "RESOURCE_EXHAUSTED"), ("goose", "Request failed: HTTP 429 Too Many Requests")]:
+            self.assertIsNotNone(bs.quota.find(client, text), text)
+
+    def test_ordinary_text_is_not_a_quota_message(self):
+        for text in ["greet.py returns a greeting for the given name.", "Ran 1 test in 0.001s\n\nOK", "line 429 of the log",
+                     "the function has a limit on the name length", "# reviewed in cycle 4"]:
+            self.assertIsNone(bs.quota.find("codex", text), text)
+
+    def test_session_stops_and_records_the_message(self):
+        self.assertTrue(self.s.quota_hit("You've hit your usage limit", 3, "edit"))
+        self.assertEqual(self.s.quota_message, "You've hit your usage limit")
+        lines = [json.loads(l) for l in (self.s.out / "timeline.jsonl").read_text().splitlines()]
+        self.assertEqual(lines[-1]["action"], "quota")

@@ -60,6 +60,8 @@ def check_outputs(s, tgz_bytes):
         sess = json.load(tar.extractfile(f"{base}/session.json"))
     except ValueError as exc:
         return None, [f"session.json unreadable: {exc}"]
+    if sess.get("quota_exhausted"):
+        problems.append(f"quota or rate limit reached: {sess.get('quota_message')!r} (stop: Paolo's rule)")
     if not sess.get("valid"):
         problems.append(f"session not valid: definitions {sess.get('definitions_served')}, changed {sess.get('definition_changed')}, "
                         f"workload {sess.get('workload')}")
@@ -115,7 +117,7 @@ def main():
             continue
         waited = wait_for_gap(out, s, a.gap_hours, h.note)
         d.mkdir(exist_ok=True)
-        avail = h.mem_ok()
+        avail, _ = ev.wait_for_memory(h.note)
         ip, boot_s = h.fresh_vm(a.snapshot)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
@@ -139,7 +141,7 @@ def main():
             problems.insert(0, f"session exited {res.returncode}")
         if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
             problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
-        rn.telemetry(ip, d, t0 - 5)
+        problems += rn.telemetry(ip, d, t0 - 5)
         if problems:
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
