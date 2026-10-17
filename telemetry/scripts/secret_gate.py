@@ -208,36 +208,61 @@ def _unsupported(data):
     return None
 
 
+def _read_tar(name, data):
+    with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as t:
+        # names of directories and links are published too, so they are kept (with no content)
+        return [(m.name, t.extractfile(m).read() if m.isfile() else b"") for m in t.getmembers()]
+
+
+def _read_zip(name, data):
+    with zipfile.ZipFile(io.BytesIO(data)) as z:
+        return [(i.filename, b"" if i.is_dir() else z.read(i)) for i in z.infolist()]
+
+
+def _single(suffix, label, fn):
+    def read(name, data):
+        return [(name[:-len(suffix)] if name.lower().endswith(suffix) else name + label, fn(data))]
+    return read
+
+
+READERS = {"tar": _read_tar, "zip": _read_zip, "gz": _single(".gz", "!gunzip", gzip.decompress),
+           "xz": _single(".xz", "!unxz", lzma.decompress), "bz2": _single(".bz2", "!bunzip2", bz2.decompress)}
+
+
 def _open_archive(name, data):
-    """Members of an archive as (member name, bytes), or None if data is not an archive. A known but unsupported compressed
-    format, whatever the file is called, raises Unscannable."""
-    low = name.lower()
+    """Members of every archive reading that applies to these bytes, or None if none applies. Readings come from the name's
+    suffix, from leading signatures and from a zip end record (a zip with data in front, or self-extracting). Every applicable
+    reading is opened, so data hidden in front of a clean archive is not skipped; if any of them cannot be opened, or a known but
+    unsupported format applies, the blob is Unscannable."""
+    kinds = set()
+    key = archive_key(name)
+    if key:
+        kinds.add(key)
+    if len(data) > 262 and data[257:262] == b"ustar":
+        kinds.add("tar")
+    for magic, k in ((b"PK\x03\x04", "zip"), (b"\x1f\x8b", "gz"), (b"\xfd7zXZ\x00", "xz"), (b"BZh", "bz2")):
+        if data.startswith(magic):
+            kinds.add(k)
+    if _unsupported(data):
+        kinds.add("unsupported")
     try:
-        if low.endswith((".tar", ".tgz", ".tar.gz", ".tar.xz", ".tar.bz2", ".txz", ".tbz2")) or (
-                len(data) > 262 and data[257:262] == b"ustar"):
-            with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as t:
-                out = []
-                for m in t.getmembers():
-                    if m.isfile():
-                        out.append((m.name, t.extractfile(m).read()))
-                    else:  # names of directories and links are published too
-                        out.append((m.name, b""))
-                return out
-        if low.endswith(".zip") or data[:4] == b"PK\x03\x04" or zipfile.is_zipfile(io.BytesIO(data)):  # prepended data too
-            with zipfile.ZipFile(io.BytesIO(data)) as z:
-                return [(i.filename, b"" if i.is_dir() else z.read(i)) for i in z.infolist()]
-        if low.endswith(".gz") or data[:2] == b"\x1f\x8b":
-            return [(name[:-3] if low.endswith(".gz") else name + "!gunzip", gzip.decompress(data))]
-        if low.endswith(".xz") or data[:6] == b"\xfd7zXZ\x00":
-            return [(name[:-3] if low.endswith(".xz") else name + "!unxz", lzma.decompress(data))]
-        if low.endswith(".bz2") or data[:3] == b"BZh":
-            return [(name[:-4] if low.endswith(".bz2") else name + "!bunzip2", bz2.decompress(data))]
-    except (tarfile.TarError, zipfile.BadZipFile, OSError, EOFError, lzma.LZMAError, ValueError) as exc:
-        raise Unscannable(f"{type(exc).__name__}") from exc
-    kind = _unsupported(data)
-    if kind or low.endswith((".7z", ".zst", ".zstd", ".rar", ".lz4", ".lz", ".z", ".cab")):
-        raise Unscannable(f"archive format not supported: {kind or 'by suffix'}")
-    return None
+        if zipfile.is_zipfile(io.BytesIO(data)):
+            kinds.add("zip")
+    except (OSError, ValueError):
+        pass
+    if not kinds:
+        return None
+    if "unsupported" in kinds:
+        raise Unscannable(f"archive format not supported: {_unsupported(data) or 'by suffix'}")
+    if "tar" in kinds:  # the tar reader opens compressed tars itself; a gzip that is not a tar then fails there
+        kinds -= {"gz", "xz", "bz2"}
+    members = []
+    for k in sorted(kinds):
+        try:
+            members += READERS[k](name, data)
+        except (tarfile.TarError, zipfile.BadZipFile, OSError, EOFError, lzma.LZMAError, ValueError, KeyError) as exc:
+            raise Unscannable(f"{k}: {type(exc).__name__}") from exc
+    return members
 
 
 def archive_key(name):

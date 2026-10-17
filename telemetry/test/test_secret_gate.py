@@ -352,6 +352,34 @@ class ReviewRound2(unittest.TestCase):
         self.assertNotIn(v, json.dumps(findings))
 
 
+class ReviewRound3(unittest.TestCase):
+    """Codex round 3 on D26: data hidden in front of a clean zip is not skipped."""
+
+    def clean_zip(self):
+        z = io.BytesIO()
+        with zipfile.ZipFile(z, "w") as zf:
+            zf.writestr("readme.txt", "nothing here")
+        return z.getvalue()
+
+    def test_gzip_secret_in_front_of_a_clean_zip(self):
+        blob = gzip.compress(("token " + fake("anthropic")).encode()) + self.clean_zip()
+        for name in ("data.bin", "data.gz", "data.zip"):
+            findings, failures = sg.scan_blob(name, blob, full_fps())
+            self.assertTrue(findings or failures, name)  # found, or refused: never a clean pass
+
+    def test_unsupported_archive_in_front_of_a_clean_zip(self):
+        blob = b"\x28\xb5\x2f\xfd" + os.urandom(64) + self.clean_zip()
+        findings, failures = sg.scan_blob("capture.bin", blob, full_fps())
+        self.assertTrue(failures)
+
+    def test_ordinary_archives_still_pass(self):
+        inner = tgz({"a/b.txt": b"fine"})
+        outer = tgz({"inner.tgz": inner, "x.txt": b"fine"})
+        self.assertEqual(sg.scan_blob("run/client-logs.tgz", outer, full_fps()), ([], []))
+        self.assertEqual(sg.scan_blob("e.zip", self.clean_zip(), full_fps()), ([], []))
+        self.assertEqual(sg.scan_blob("l.log.gz", gzip.compress(b"plain"), full_fps()), ([], []))
+
+
 class Orchestrator(unittest.TestCase):
     """q4_events.secret_problems: fingerprints come from the VM over ssh; the host state keeps them; findings stop the run."""
 
