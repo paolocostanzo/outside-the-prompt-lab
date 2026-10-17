@@ -72,13 +72,25 @@ def _tgz(files):
 class GroundTruthAndPlan(unittest.TestCase):
     def test_q3_ground_truth(self):
         run = {"client": "codex", "event": "q3-silent", "rep": 2}
-        row = "q4-out/codex__none__description__r2/row.json"
-        log = b'{"event":"out","state":"A"}\n{"event":"definition-changed","state":"B"}\n'
-        self.assertEqual(q4.validate_ground_truth(run, _tgz({row: b"{}", "q3-server.log": log})), [])
-        self.assertTrue(q4.validate_ground_truth(run, _tgz({row: b"{}"})), "server log missing")
-        self.assertTrue(q4.validate_ground_truth(run, _tgz({row: b"{}", "q3-server.log": b'{"event":"out"}\n'})),
-                        "the change itself must be documented")
-        self.assertTrue(q4.validate_ground_truth(run, _tgz({"q3-server.log": log})), "row.json missing")
+        row_name = "q4-out/codex__none__description__r2/row.json"
+        row = _json.dumps({"client": "codex", "signal": "none", "rep": 2}).encode()
+        cell = "codex:none:description:r2"
+        ts = '"ts":"2026-10-18T10:00:00.000Z"'
+        good = (f'{{{ts},"event":"out","cell":"{cell}","state":"A"}}\n'
+                f'{{{ts},"event":"definition-changed","cell":"{cell}","state":"B","from":"A","to":"B"}}\n').encode()
+        self.assertEqual(q4.validate_ground_truth(run, _tgz({row_name: row, "q3-server.log": good})), [])
+        bad_cases = {
+            "server log missing": {row_name: row},
+            "no change record": {row_name: row, "q3-server.log": f'{{{ts},"event":"out","cell":"{cell}"}}\n'.encode()},
+            "change of another cell": {row_name: row, "q3-server.log": good.replace(cell.encode(), b"gemini:none:description:r1")},
+            "truncated record": {row_name: row, "q3-server.log": good + b'{"ts":"2026-10-18T10:00:01Z","event":"defin'},
+            "record without ts": {row_name: row, "q3-server.log": good + f'{{"event":"x","cell":"{cell}"}}\n'.encode()},
+            "row.json missing": {"q3-server.log": good},
+            "row.json of another cell": {row_name: _json.dumps({"client": "codex", "signal": "none", "rep": 1}).encode(),
+                                         "q3-server.log": good},
+        }
+        for why, files in bad_cases.items():
+            self.assertTrue(q4.validate_ground_truth(run, _tgz(files)), why)
         self.assertTrue(q4.validate_ground_truth(run, b"not a tar"))
 
     def test_q5_ground_truth(self):
@@ -86,6 +98,10 @@ class GroundTruthAndPlan(unittest.TestCase):
         csv_ok = b"client,cell\ngoose,open-in-repo\n"
         self.assertEqual(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok, "canary-start.log": b""})), [],
                          "an empty canary log is a valid 'no event', as long as it was copied")
+        start = b'{"ts":"2026-10-18T10:00:00.000Z","event":"start","client":"goose","source":"x"}\n'
+        self.assertEqual(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok, "canary-start.log": start})), [])
+        self.assertTrue(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok, "canary-start.log": b'{"event":"st'})),
+                        "a non-empty but malformed canary log is not usable ground truth")
         self.assertTrue(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": csv_ok})))
         self.assertTrue(q4.validate_ground_truth(run, _tgz({"q4-out/x/matrix.csv": b"client,cell\ncodex,after-decision\n",
                                                              "canary-start.log": b""})))

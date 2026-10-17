@@ -34,6 +34,36 @@ def expand(pattern):
     return sorted(f for f in glob.glob(p, recursive=True) if os.path.isfile(f) and not os.path.islink(f))
 
 
+def static_prefix(pattern):
+    """The part of a pattern before its first wildcard component, e.g. ~/.claude/projects for ~/.claude/projects/**/*.jsonl."""
+    parts = []
+    for comp in os.path.expanduser(pattern).split(os.sep):
+        if any(ch in comp for ch in "*?["):
+            break
+        parts.append(comp)
+    return os.sep.join(parts) or os.sep
+
+
+def inspect_location(pattern):
+    """'absent' when the fixed part of the pattern does not exist; otherwise 'present' with every error met while walking it
+    (glob silently skips directories it cannot read, so an unreadable location would look empty without this check)."""
+    base = static_prefix(pattern)
+    if not os.path.lexists(base):
+        return {"location": "absent", "errors": []}
+    errors = []
+    if os.path.isdir(base):
+        if not os.access(base, os.R_OK | os.X_OK):
+            errors.append(f"{os.path.relpath(base, HOME)}: not readable")
+        for root, dirs, files in os.walk(base, onerror=lambda e: errors.append(f"{os.path.relpath(e.filename, HOME)}: {e.strerror}")):
+            for f in files:
+                fp = os.path.join(root, f)
+                if not os.path.islink(fp) and not os.access(fp, os.R_OK):
+                    errors.append(f"{os.path.relpath(fp, HOME)}: not readable")
+    elif not os.access(base, os.R_OK):
+        errors.append(f"{os.path.relpath(base, HOME)}: not readable")
+    return {"location": "present", "errors": errors}
+
+
 def sha256(path):
     h = hashlib.sha256()
     with open(path, "rb") as fh:
@@ -167,7 +197,10 @@ def collect(candidates, start, end, stream, candidates_sha256=None):
             files = set()
             for pat in patterns:
                 found = expand(pat)
-                manifest["patterns"][client].append({"pattern": pat, "matches": len(found)})
+                loc = inspect_location(pat)
+                manifest["patterns"][client].append({"pattern": pat, "matches": len(found), "location": loc["location"],
+                                                     "errors": len(loc["errors"])})
+                manifest["errors"] += [{"client": client, "pattern": pat, "error": e} for e in loc["errors"]]
                 files |= set(found)
             for f in sorted(files):  # sidecars of databases travel with them
                 if f.endswith(SQLITE_EXT):

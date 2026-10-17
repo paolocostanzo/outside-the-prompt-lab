@@ -70,6 +70,9 @@ class Collection(unittest.TestCase):
         self.assertEqual(r["record_coverage"]["files_with_records_in_session"], 1)
         self.assertEqual([p["matches"] for p in r["patterns"]], [1, 1, 0], "every frozen pattern is accounted for, empty ones too")
         self.assertIn("settings_sha256", r["logging_config"])
+        pub = cc.public_record(r)
+        self.assertNotIn("rollout-x", json.dumps(pub), "the public record names no file")
+        self.assertEqual([(p["files"], p["with_records_in_session"]) for p in pub["patterns"]], [(1, 1), (1, 0), (0, 0)])
 
     def test_negative_observation_and_no_default_logs_are_distinguished(self):
         arc = self.collect()
@@ -82,7 +85,7 @@ class Collection(unittest.TestCase):
         bad = self.home / "bad.tgz"
         bad.write_bytes(b"not a tar")
         self.assertEqual(cc.check(str(bad), "codex", self.start, self.end, self.inv, CAND_SHA)["export"], "failed")
-        ok_patterns = {"codex": [{"pattern": p, "matches": 0} for p in CANDIDATES["codex"]]}
+        ok_patterns = {"codex": [{"pattern": p, "matches": 0, "location": "absent"} for p in CANDIDATES["codex"]]}
         cases = {
             "no entry for codex": {"candidates_sha256": CAND_SHA, "clients": {}, "patterns": {}},
             "does not account": {"candidates_sha256": CAND_SHA, "clients": {"codex": []}, "patterns": {"codex": ok_patterns["codex"][:1]}},
@@ -98,6 +101,25 @@ class Collection(unittest.TestCase):
             r = cc.check(str(p), "codex", self.start, self.end, self.inv, CAND_SHA)
             self.assertEqual(r["export"], "failed", reason)
             self.assertIn(reason, r["reason"])
+
+    def test_unreadable_location_is_a_failed_export_not_an_empty_one(self):
+        if os.geteuid() == 0:
+            self.skipTest("root reads everything")
+        locked = self.home / ".gemini/tmp/secret"
+        locked.mkdir(parents=True)
+        (locked / "logs.json").write_text("[]")
+        os.chmod(locked, 0)
+        try:
+            arc = self.collect()
+        finally:
+            os.chmod(locked, 0o755)
+        r = cc.check(str(arc), "gemini", self.start, self.end, self.inv, CAND_SHA)
+        self.assertEqual(r["export"], "failed")
+        self.assertIn("not readable", r["reason"])
+        self.assertEqual(cc.public_record(r)["reason"], "files not readable in the VM", "the public reason carries no path")
+        absent = cc.check(str(arc), "goose", self.start, self.end, self.inv, CAND_SHA)
+        self.assertEqual((absent["export"], absent["client_logs"]), ("ok", "no-default-logs"))
+        self.assertEqual(absent["patterns"][0]["location"], "absent")
 
     def test_sqlite_records_still_in_the_wal_are_exported(self):
         db = self.home / ".codex/logs_2.sqlite"

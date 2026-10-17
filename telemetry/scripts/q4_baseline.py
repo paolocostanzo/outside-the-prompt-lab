@@ -7,7 +7,8 @@ arguments or inputs (snapshot, seed, minutes, gap, clients, parts, inventory, ca
 A holdout session starts only when at least --gap-hours (default 6) have passed since the end of that client's VALID
 development session; the runner waits otherwise. Every session starts from the clean snapshot and gets the same export as the
 event runs (q4_events.py). A session counts only if its session.json says valid (definition A only, no change, the normal use
-happened: baseline/tasks.json "workload_success") and the outputs and the lab server's log were copied; otherwise the attempt
+happened: baseline/tasks.json "workload_success"), its client logs were exported (collection check ok), and the outputs and the
+lab server's log were copied; otherwise the attempt
 is kept under <session>/attempts/<n>/ and the campaign stops, so that a person looks at it before more quota is spent.
 The local-engine repetition (D13 point 1) is not implemented and is reported as not done.
 
@@ -85,7 +86,6 @@ def main():
     ap.add_argument("--snapshot", required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--inventory", required=True)
-    ap.add_argument("--candidates", default=str(ev.LAB / "telemetry/inventory/candidates.json"))
     ap.add_argument("--out", required=True)
     ap.add_argument("--minutes", type=float, default=60)
     ap.add_argument("--gap-hours", type=float, default=6)
@@ -102,7 +102,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     frozen = {"snapshot": a.snapshot, "seed": a.seed, "minutes": a.minutes, "gap_hours": a.gap_hours,
               "clients": a.clients.split(","), "parts": a.parts.split(","), "inventory_sha256": ev.sha_file(a.inventory),
-              "candidates_sha256": ev.sha_file(a.candidates), "harness": ev.harness_identity()}
+              "candidates_sha256": ev.sha_file(ev.CANDIDATES), "harness": ev.harness_identity()}
     sessions = ev.load_or_create_plan(out, frozen, sessions)
     q3 = ev.load(ev.LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = ev.load(HERE / "collection_check.py", "collection_check")
@@ -133,6 +133,8 @@ def main():
             problems.insert(0, f"outputs copy exited {rc_out}: {err_out}")
         if res.returncode != 0:
             problems.insert(0, f"session exited {res.returncode}")
+        if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
+            problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
         rn.telemetry(ip, d, t0 - 5)
         if problems:
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})

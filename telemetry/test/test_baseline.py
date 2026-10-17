@@ -1,6 +1,6 @@
 """baseline_session.py without a VM: question answering, task completion, session validity (D24 point 4).
 Run: python3 -m unittest discover -s telemetry/test"""
-import importlib.util, json, tempfile, unittest
+import importlib.util, json, subprocess, sys, tempfile, unittest
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
@@ -54,6 +54,7 @@ class Baseline(unittest.TestCase):
 
     def test_task_done_when_screen_is_stable_and_ready(self):
         s = self.session("codex")
+        s.evidence = lambda task, cycle, t, c: True
         ready = "greet.py defines greet().\n› Ask Codex to do anything"
         fake = FakeTmux(["working...", "working...", ready])
         clock = iter(range(0, 1000, 5))
@@ -82,3 +83,42 @@ class Workload(unittest.TestCase):
         self.assertFalse(bs.workload(10, 40, 31, 8, self.CRIT)["ok"], "too few tasks completed")
         self.assertFalse(bs.workload(10, 40, 40, 7, self.CRIT)["ok"], "too few calls to the known server")
         self.assertFalse(bs.workload(0, 0, 0, 0, self.CRIT)["ok"], "a session with no use is not valid")
+
+
+class Evidence(unittest.TestCase):
+    def setUp(self):
+        self.repo = Path(tempfile.mkdtemp())
+        self.saved = (bs.q3.REPO, bs.q3.events)
+        bs.q3.REPO = self.repo
+        self.addCleanup(lambda: (setattr(bs.q3, "REPO", self.saved[0]), setattr(bs.q3, "events", self.saved[1])))
+        out = Path(tempfile.mkdtemp()); (out / "screens").mkdir()
+        self.s = bs.Session("codex", "dev", out, CFG["tasks"], PERMS)
+        self.task = {t["id"]: t for t in CFG["tasks"]}
+
+    def test_edit_needs_the_line_in_the_file(self):
+        (self.repo / "greet.py").write_text("def greet(n):\n    return n\n")
+        self.assertFalse(self.s.evidence(self.task["edit"], 3, 0, 0), "a refused edit leaves the file as it was")
+        (self.repo / "greet.py").write_text("def greet(n):\n    return n\n# reviewed in cycle 3\n")
+        self.assertTrue(self.s.evidence(self.task["edit"], 3, 0, 0))
+        self.assertFalse(self.s.evidence(self.task["edit"], 4, 0, 0))
+
+    def test_tests_need_a_run_after_the_prompt(self):
+        self.assertFalse(self.s.evidence(self.task["test"], 1, 100.0, 0))
+        (self.repo / ".q4-test-runs").write_text("50.0\n")
+        self.assertFalse(self.s.evidence(self.task["test"], 1, 100.0, 0), "an older run does not count")
+        (self.repo / ".q4-test-runs").write_text("50.0\n100.5\n")
+        self.assertTrue(self.s.evidence(self.task["test"], 1, 100.0, 0))
+
+    def test_known_server_needs_a_new_call_of_this_session(self):
+        bs.q3.events = lambda: [{"event": "tools/call", "cell": "baseline-codex-dev"}, {"event": "tools/call", "cell": "other"}]
+        self.assertEqual(self.s.server_calls(), 1)
+        self.assertFalse(self.s.evidence(self.task["known-server"], 1, 0, 1))
+        self.assertTrue(self.s.evidence(self.task["known-server"], 1, 0, 0))
+
+    def test_instrumented_test_file_writes_its_marker(self):
+        files = CFG["setup_files"]
+        (self.repo / "greet.py").write_text('def greet(name):\n    return f"hello, {name}"\n')
+        (self.repo / "test_greet.py").write_text(files["test_greet.py"])
+        r = subprocess.run([sys.executable, "-m", "unittest", "-q"], cwd=self.repo, capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertTrue((self.repo / ".q4-test-runs").read_text().strip())

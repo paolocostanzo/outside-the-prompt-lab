@@ -16,7 +16,9 @@ stop every client (tmux), then BEFORE the next restore:
     complete, and the campaign stops with the VM left as it is: without ground truth, "no event" cannot be told from a lost one.
 Whether the event happened is decided later from the ground-truth logs only, never from the client's logs.
 
-  python3 q4_events.py --snapshot q3-base-20261015 --seed SEED --inventory INVENTORY.json --candidates CANDIDATES.json --out OUT
+  python3 q4_events.py --snapshot q3-base-20261015 --seed SEED --inventory INVENTORY.json --out OUT
+The list of log locations is always the repository's telemetry/inventory/candidates.json: it is what the VM receives with the
+harness, and the plan freezes it through the harness commit and its own SHA-256.
   python3 q4_events.py ... --dry-run          # prints the plan and the commands, touches nothing
 """
 import argparse, csv, datetime as dt, hashlib, importlib.util, io, json, random, shutil, subprocess, sys, tarfile, time
@@ -32,6 +34,7 @@ EVENTS = ["q5-start", "q3-announced", "q3-silent"]
 Q5_CELL = {"claude-code": "after-decision", "codex": "after-decision", "gemini": "after-decision", "qwen": "after-decision",
            "cursor-agent": "after-decision", "goose": "open-in-repo"}
 Q3_SIGNAL = {"q3-announced": "list_changed", "q3-silent": "none"}
+CANDIDATES = LAB / "telemetry/inventory/candidates.json"
 STOP_CLIENTS = "tmux kill-server 2>/dev/null; pkill -f q3-server.mjs; pkill -f marker-server.mjs; sleep 3; true"
 
 
@@ -73,6 +76,29 @@ def ground_truth_command(run):
     return f"cd ~ && tar -czf - q4-out {gt}"
 
 
+def parse_jsonl(text, required):
+    """Records of a JSON Lines log; problems for every line that is not a JSON object with the required fields and a valid ts."""
+    recs, problems = [], []
+    for n, line in enumerate(text.splitlines(), 1):
+        if not line.strip():
+            continue
+        try:
+            r = json.loads(line)
+        except ValueError:
+            problems.append(f"line {n} is not JSON")
+            continue
+        if not isinstance(r, dict) or any(k not in r for k in required):
+            problems.append(f"line {n} lacks {[k for k in required if not isinstance(r, dict) or k not in r]}")
+            continue
+        try:
+            dt.datetime.fromisoformat(str(r["ts"]).replace("Z", "+00:00"))
+        except ValueError:
+            problems.append(f"line {n} has no valid ts")
+            continue
+        recs.append(r)
+    return recs, problems
+
+
 def validate_ground_truth(run, tgz_bytes):
     """Problems with the copied outputs and ground truth of one run (empty list = usable). Does not decide the event."""
     try:
@@ -84,6 +110,9 @@ def validate_ground_truth(run, tgz_bytes):
     if run["event"] == "q5-start":
         if "canary-start.log" not in names:
             problems.append("canary-start.log missing")
+        else:  # empty is a valid "no event"; anything written must be well formed
+            _, bad = parse_jsonl(tar.extractfile("canary-start.log").read().decode("utf-8", "replace"), ("ts", "event", "client"))
+            problems += [f"canary-start.log: {b}" for b in bad]
         mats = [n for n in names if n.startswith("q4-out/") and n.endswith("/matrix.csv")]
         if len(mats) != 1:
             problems.append(f"expected one matrix.csv, found {len(mats)}")
@@ -93,21 +122,26 @@ def validate_ground_truth(run, tgz_bytes):
                 problems.append(f"matrix.csv does not hold exactly this cell: {[(r['client'], r['cell']) for r in rows]}")
     else:
         cell = f"q4-out/{run['client']}__{Q3_SIGNAL[run['event']]}__description__r{run['rep']}/row.json"
+        cell_id = f"{run['client']}:{Q3_SIGNAL[run['event']]}:description:r{run['rep']}"  # as run_q3_cell.py names it
         if cell not in names:
             problems.append(f"{cell} missing")
         else:
             try:
-                json.load(tar.extractfile(cell))
-            except ValueError as exc:
+                row = json.load(tar.extractfile(cell))
+                if (row.get("client"), row.get("signal"), row.get("rep")) != (run["client"], Q3_SIGNAL[run["event"]], run["rep"]):
+                    problems.append(f"row.json belongs to another cell: {row.get('client')}/{row.get('signal')}/r{row.get('rep')}")
+            except (ValueError, AttributeError) as exc:
                 problems.append(f"row.json unreadable: {exc}")
         if "q3-server.log" not in names:
             problems.append("q3-server.log missing")
         else:
-            lines = tar.extractfile("q3-server.log").read().decode("utf-8", "replace").splitlines()
-            if not lines:
+            recs, bad = parse_jsonl(tar.extractfile("q3-server.log").read().decode("utf-8", "replace"), ("ts", "event", "cell"))
+            problems += [f"q3-server.log: {b}" for b in bad]
+            changes = [r for r in recs if r["event"] == "definition-changed" and r["cell"] == cell_id and r.get("to") == "B"]
+            if not recs:
                 problems.append("q3-server.log empty")
-            elif not any('"definition-changed"' in l for l in lines):
-                problems.append("q3-server.log has no definition-changed record: the change itself is not documented")
+            elif len(changes) != 1:
+                problems.append(f"q3-server.log: expected one A->B change for {cell_id}, found {len(changes)}")
     return problems
 
 
@@ -196,7 +230,8 @@ class Runner:
         check["collect_rc"], check["collect_stderr"] = rc, err
         if rc != 0 and check["export"] == "ok":
             check["export"], check["reason"] = "failed", f"collect exited {rc}"
-        (d / "collection.json").write_text(json.dumps(check, indent=1))
+        (d / "collection.json").write_text(json.dumps(check, indent=1))  # private: names client files
+        (d / "collection-public.json").write_text(json.dumps(cc.public_record(check), indent=1))
         return check
 
 
@@ -205,7 +240,6 @@ def main():
     ap.add_argument("--snapshot", required=True)
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--inventory", required=True, help="inventory.json taken on the clean snapshot (D24 point 1)")
-    ap.add_argument("--candidates", default=str(LAB / "telemetry/inventory/candidates.json"))
     ap.add_argument("--out", required=True)
     ap.add_argument("--clients", default=",".join(CLIENTS))
     ap.add_argument("--dry-run", action="store_true")
@@ -219,7 +253,7 @@ def main():
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
     frozen = {"snapshot": a.snapshot, "seed": a.seed, "clients": a.clients.split(","), "q5_cell": Q5_CELL,
-              "inventory_sha256": sha_file(a.inventory), "candidates_sha256": sha_file(a.candidates), "harness": harness_identity()}
+              "inventory_sha256": sha_file(a.inventory), "candidates_sha256": sha_file(CANDIDATES), "harness": harness_identity()}
     runs = load_or_create_plan(out, frozen, runs)
     q3 = load(LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = load(HERE / "collection_check.py", "collection_check")

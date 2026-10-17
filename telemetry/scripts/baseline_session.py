@@ -27,8 +27,9 @@ _spec.loader.exec_module(q3)
 
 
 class Session:
-    def __init__(self, client, part, outdir, tasks, perms):
+    def __init__(self, client, part, outdir, tasks, perms, cell=None):
         self.client, self.part, self.out = client, part, outdir
+        self.cell = cell or f"baseline-{client}-{part}"
         self.spec = q3.CLIENTS[client]
         self.tasks, self.perm = tasks, perms.get(client, {})
         self.generic = perms.get("_generic")
@@ -58,9 +59,29 @@ class Session:
             return "unexpected-question"
         return None
 
+    def server_calls(self):
+        return sum(1 for e in q3.events() if e.get("event") == "tools/call" and e.get("cell") == self.cell)
+
+    def evidence(self, task, cycle, t_prompt, calls_before):
+        """Whether the action the task asked for really happened (tasks.json "evidence"); the ready screen alone is not enough."""
+        kind = task.get("evidence", "answered")
+        if kind == "answered":
+            return True
+        if kind == "test-run":
+            f = q3.REPO / ".q4-test-runs"
+            return f.exists() and any(float(x) >= t_prompt - 1 for x in f.read_text().split() if x.replace(".", "", 1).isdigit())
+        if kind == "file-contains":
+            f = q3.REPO / task["file"]
+            return f.exists() and task["contains"].replace("{k}", str(cycle)) in f.read_text()
+        if kind == "server-call":
+            return self.server_calls() > calls_before
+        raise ValueError(f"unknown evidence {kind}")
+
     def do_task(self, cycle, task, timeout, idle_s):
-        """True when the client is back at its ready screen with a stable screen before the timeout."""
+        """True when the client is back at its ready screen with a stable screen before the timeout AND the task's evidence is
+        there (a refused edit or a failed command returns to the ready screen too)."""
         prompt = task["prompt"].replace("{k}", str(cycle))
+        t_prompt, calls_before = time.time(), self.server_calls()
         q3.type_text(prompt)
         self.log(action="prompt", cycle=cycle, task=task["id"])
         t0, last, stable_since = time.time(), None, time.time()
@@ -77,9 +98,10 @@ class Session:
             if s != last:
                 last, stable_since = s, time.time()
             elif time.time() - stable_since >= idle_s and re.search(self.spec["ready"], s):
-                self.log(action="done", cycle=cycle, task=task["id"], seconds=round(time.time() - t0, 1),
+                ok = self.evidence(task, cycle, t_prompt, calls_before)
+                self.log(action="done" if ok else "no-evidence", cycle=cycle, task=task["id"], seconds=round(time.time() - t0, 1),
                          screen=self.capture(f"c{cycle}-{task['id']}"))
-                return True
+                return ok
         self.log(action="timeout", cycle=cycle, task=task["id"], screen=self.capture(f"c{cycle}-{task['id']}-timeout"))
         return False
 
@@ -139,7 +161,7 @@ def main():
     for name, text in cfg["setup_files"].items():
         (q3.REPO / name).write_text(text)
     q3.flip_init("none", "description", f"baseline-{a.client}-{a.part}")  # definition A, no signal, for the whole session
-    s = Session(a.client, a.part, outdir, cfg["tasks"], perms)
+    s = Session(a.client, a.part, outdir, cfg["tasks"], perms, cell=f"baseline-{a.client}-{a.part}")
     t_start = time.time()
     s.log(action="session-start", client=a.client, part=a.part, minutes=a.minutes,
           version=q3.sh(q3.CLIENTS[a.client]["version"] + " 2>&1 | head -1").stdout.strip())
