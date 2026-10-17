@@ -72,11 +72,12 @@ class Session:
         bottom = "\n".join(lines)
         if self.spec.get("approve"):
             hits = [i for i, l in enumerate(lines) if re.search(self.spec["approve"], l)]
-            if hits:  # the active dialog = the lines just above the last question line, the question included
-                dialog = "\n".join(lines[max(0, hits[-1] - DIALOG_LINES):hits[-1] + 1])
-                # persistent approval only with positive evidence: an MCP marker and the lab tool in the active dialog, and no
-                # command or edit heading anywhere at the bottom of the screen (a long command can push its heading up)
-                if MCP_DIALOG.search(dialog) and LAB_TOOL.search(dialog) and not COMMAND_DIALOG.search(bottom):
+            header = self.perm.get("mcp_header")
+            if hits and header:  # the active dialog = the lines just above the last question line, the question included
+                window = lines[max(0, hits[-1] - DIALOG_LINES):hits[-1] + 1]
+                # persistent approval only on positive identification: the client's exact MCP dialog line for the lab tool
+                # (baseline/clients.json "mcp_header") inside the active dialog, and no command or edit heading at the bottom
+                if any(re.search(header, l) for l in window) and not COMMAND_DIALOG.search(bottom):
                     q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
                     return "mcp-approval"
         if self.perm.get("allow") and re.search(self.perm["allow"], bottom):

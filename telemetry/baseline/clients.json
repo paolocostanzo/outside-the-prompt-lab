@@ -1,10 +1,10 @@
 {
- "_note": "PROVISIONAL. Permission questions for shell commands and file edits during the baseline, and the keys that allow ONCE (normal use: the user approves each action; nothing is allowed permanently, so the clients' stores do not change between cycles). To be confirmed in exploratory set-up sessions (baseline_session.py --setup) and frozen, with this file's SHA-256, before the first baseline session. MCP tool approvals and the ready patterns come from tool-change/scripts/q3-clients.json (frozen for Q3). A question that matches no pattern but looks like a permission question is answered with the preselected option and recorded as unexpected (as D19 does for Q3).",
- "claude-code": {"allow": "Do you want to proceed\\?|Do you want to make this edit|Do you want to create", "allow_keys": ["Enter"]},
- "codex": {"allow": "Would you like to run the following command\\?|Would you like to make the following edits\\?|Allow command\\?", "allow_keys": ["Enter"]},
- "gemini": {"allow": "Allow execution of|Apply this change\\?", "allow_keys": ["Enter"]},
- "qwen": {"allow": "Allow execution of|Apply this change\\?|Yes, allow once", "allow_keys": ["Enter"]},
- "cursor-agent": {"allow": "Run this command\\?|Accept this edit|Apply this change", "allow_keys": ["Enter"]},
- "goose": {"allow": null, "allow_keys": null},
+ "_note": "PROVISIONAL. Permission questions for shell commands and file edits during the baseline, and the keys that allow ONCE (normal use: the user approves each action; nothing is allowed permanently, so the clients' stores do not change between cycles). To be confirmed in exploratory set-up sessions (baseline_session.py --setup) and frozen, with this file's SHA-256, before the first baseline session. MCP tool approvals and the ready patterns come from tool-change/scripts/q3-clients.json (frozen for Q3). A question that matches no pattern but looks like a permission question is answered with the preselected option and recorded as unexpected (as D19 does for Q3). mcp_header: the exact line that identifies the lab tool's MCP approval dialog, taken from the Q3 captures of 15 Oct 2026 (Codex CLI, Gemini CLI, Qwen Code, Cursor CLI); Claude Code's never asked in Q3, so its header is provisional too. Only a dialog with this line within the lines above its question gets the frozen MCP approval; everything else gets allow once.",
+ "claude-code": {"allow": "Do you want to proceed\\?|Do you want to make this edit|Do you want to create", "allow_keys": ["Enter"], "mcp_header": "q3-lab - q3_noop\\(.*\\) \\(MCP\\)"},
+ "codex": {"allow": "Would you like to run the following command\\?|Would you like to make the following edits\\?|Allow command\\?", "allow_keys": ["Enter"], "mcp_header": "Allow the q3-lab MCP server to run tool \"q3_noop\"\\?"},
+ "gemini": {"allow": "Allow execution of|Apply this change\\?", "allow_keys": ["Enter"], "mcp_header": "Allow execution of MCP tool \"q3_noop\" from server \"q3-lab\"\\?"},
+ "qwen": {"allow": "Allow execution of|Apply this change\\?|Yes, allow once", "allow_keys": ["Enter"], "mcp_header": "Allow execution of MCP tool \"q3_noop\" from server \"q3-lab\"\\?"},
+ "cursor-agent": {"allow": "Run this command\\?|Accept this edit|Apply this change", "allow_keys": ["Enter"], "mcp_header": "^\\s*q3-lab: q3_noop\\s*$"},
+ "goose": {"allow": null, "allow_keys": null, "mcp_header": null},
  "_generic": "Do you want to|Allow|Approve|\\(y/n\\)|\\[y/N\\]|Yes, allow once|Proceed\\?"
 }

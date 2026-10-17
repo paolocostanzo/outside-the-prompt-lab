@@ -21,7 +21,7 @@ The list of log locations is always the repository's telemetry/inventory/candida
 harness, and the plan freezes it through the harness commit and its own SHA-256.
   python3 q4_events.py ... --dry-run          # prints the plan and the commands, touches nothing
 """
-import argparse, csv, datetime as dt, hashlib, importlib.util, io, json, random, shutil, subprocess, sys, tarfile, time
+import argparse, csv, datetime as dt, fcntl, hashlib, importlib.util, io, json, os, random, shutil, subprocess, sys, tarfile, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -247,9 +247,74 @@ def clock_skew(h, ip):
         return None
 
 
+STATE = Path.home() / ".agentlab-q4"  # VM-wide state, shared by every campaign and output folder on this host
+
+
+def write_json_atomic(path, obj):
+    """Completion and state records are written to a temporary file and renamed, so an interruption never leaves a truncated one."""
+    tmp = path.with_name(path.name + ".tmp")
+    tmp.write_text(json.dumps(obj, indent=1))
+    os.replace(tmp, path)
+
+
+def vm_lock(note):
+    """One campaign at a time drives the VM: an exclusive lock held for the life of the process (released on exit)."""
+    STATE.mkdir(exist_ok=True)
+    fh = open(STATE / "vm.lock", "w")
+    try:
+        fcntl.flock(fh, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        note(event="abort-locked", hint="another Q4 campaign is driving the VM")
+        sys.exit(8)
+    return fh
+
+
 def mark_pending(d, **info):
-    """Written before any remote work of a run or session; removed only when run.json is written or the attempt is kept."""
-    (d / "pending.json").write_text(json.dumps({"at": now(), **info}, indent=1))
+    """Written before any remote work of a run or session, in the run folder and in the VM-wide record; cleared only when the
+    run is complete or its attempt is kept after every copy out of the VM succeeded."""
+    rec = {"at": now(), "folder": str(d.resolve()), **info}
+    write_json_atomic(d / "pending.json", rec)
+    STATE.mkdir(exist_ok=True)
+    write_json_atomic(STATE / "pending.json", rec)
+
+
+def clear_pending(d):
+    (d / "pending.json").unlink(missing_ok=True)
+    g = STATE / "pending.json"
+    if g.exists() and json.loads(g.read_text()).get("folder") == str(d.resolve()):
+        g.unlink()
+
+
+def guard_vm(d, note):
+    """Before restoring for folder d: the VM must not hold the evidence of an attempt recorded for another folder."""
+    g = STATE / "pending.json"
+    if not g.exists():
+        return
+    rec = json.loads(g.read_text())
+    other = Path(rec.get("folder", ""))
+    if other == d.resolve():
+        return  # this folder's own attempt: recover_pending() handles it
+    if (other / "pending.json").exists():
+        note(event="abort-vm-holds-other-evidence", folder=str(other),
+             hint="the VM holds an interrupted attempt of another campaign: rerun that campaign first, it recovers before restoring")
+        sys.exit(7)
+    note(event="stale-vm-pending-cleared", folder=str(other))  # that folder already kept its attempt
+    g.unlink()
+
+
+def completed(d):
+    """True when d/run.json is a complete record; a malformed one is set aside so that the run goes through recovery."""
+    f = d / "run.json"
+    if not f.exists():
+        return False
+    try:
+        rec = json.loads(f.read_text())
+        if isinstance(rec, dict) and "t1" in rec:
+            return True
+    except ValueError:
+        pass
+    os.replace(f, d / f"run.json.malformed-{int(time.time())}")
+    return False
 
 
 def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
@@ -320,7 +385,8 @@ def load_or_create_plan(out, frozen, runs):
 
 
 def keep_attempt(d, status, extra):
-    """Move whatever a failed attempt left into d/attempts/<n>/ with a status file; the run stays not complete."""
+    """Move whatever a failed attempt left into d/attempts/<n>/ with a status file; the run stays not complete. Called only
+    when nothing is left in the VM that was not copied, so it also clears the VM-wide pending record for d."""
     att = d / "attempts"
     att.mkdir(exist_ok=True)
     n = len([p for p in att.iterdir() if p.is_dir()]) + 1
@@ -330,6 +396,9 @@ def keep_attempt(d, status, extra):
         if p.name != "attempts":
             shutil.move(str(p), str(dest / p.name))
     (dest / "attempt.json").write_text(json.dumps({"status": status, "at": now(), **extra}, indent=1))
+    g = STATE / "pending.json"
+    if g.exists() and json.loads(g.read_text()).get("folder") == str(d.resolve()):
+        g.unlink()
     return dest
 
 
@@ -431,10 +500,13 @@ def main():
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = Runner(h, q3)
+    lock = vm_lock(h.note)  # noqa: F841 (held until the process exits)
     for i, r in enumerate(runs, 1):
         d = out / r["name"]
-        if (d / "run.json").exists():
+        if completed(d):
             continue
+        d.mkdir(exist_ok=True)
+        guard_vm(d, h.note)
         kept = recover_pending(d, h, rn, cc, inv, frozen["candidates_sha256"], r["client"], ground_truth_command(r), h.note) \
             or preserve_interrupted(d)
         if kept:
@@ -466,6 +538,8 @@ def main():
             validate_ground_truth(r, (d / "vm-out.tgz").read_bytes())
         tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
         problems += tel_problems
+        if res.returncode != 0:
+            problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")
         if check.get("collect_rc") != 0 or rc_gt != 0 or not copied:  # a copy failed: the VM may hold the rest
             h.note(event="abort-copy-failed", run=r["name"], problems=problems,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
@@ -478,11 +552,10 @@ def main():
             h.note(event="abort-run", run=r["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is for inspection; fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
-        (d / "run.json").write_text(json.dumps({**r, "t0": t0, "t1": t1, "clock_skew_s": skew, "cell_rc": res.returncode, "push_rc": rc_push,
-                                                "export": check["export"], "export_reason": check.get("reason"),
-                                                "client_logs": check.get("client_logs"), "ground_truth": "copied and checked"},
-                                               indent=1))
-        (d / "pending.json").unlink()
+        write_json_atomic(d / "run.json", {**r, "t0": t0, "t1": t1, "clock_skew_s": skew, "cell_rc": res.returncode,
+                                            "push_rc": rc_push, "export": check["export"], "export_reason": check.get("reason"),
+                                            "client_logs": check.get("client_logs"), "ground_truth": "copied and checked"})
+        clear_pending(d)
         h.note(event="run-end", run=r["name"], rc=res.returncode, seconds=t1 - t0, export=check["export"],
                client_logs=check.get("client_logs"))
     h.note(event="events-done", runs=len(runs))

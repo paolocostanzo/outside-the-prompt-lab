@@ -252,3 +252,16 @@ class FullPaneCaptures(unittest.TestCase):
         screen = "\n".join(head + [""] * (50 - len(head)))
         self.assertEqual(self.session("cursor-agent").answer_questions(screen, 1, CFG["tasks"][3]), "mcp-approval")
         self.assertEqual(self.sent[-1], ("Tab",))
+
+
+class ExactMcpHeaders(OverlappingQuestions):
+    def test_very_long_command_with_mcp_text_in_its_body(self):
+        body = "\n".join(f"  echo step {i}" for i in range(30))
+        screen = f"Bash command\n\n{body}\n  echo 'q3_noop (MCP)'\n\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again\n   3. No"
+        self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][1]), "allow-once", "heading cropped, no exact MCP header")
+
+    def test_every_client_with_an_approval_has_an_exact_header(self):
+        for client, spec in PERMS.items():
+            if client.startswith("_") or client == "goose":
+                continue
+            self.assertTrue(spec.get("mcp_header"), client)

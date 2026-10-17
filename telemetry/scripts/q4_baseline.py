@@ -72,10 +72,10 @@ def wait_for_gap(out, s, gap_hours, note, sleep=time.sleep):
     """Holdout sessions start at least gap_hours after the end of the same client's valid development session."""
     if s["part"] != "holdout":
         return 0
-    f = out / f"baseline__{s['client']}__dev" / "run.json"
-    if not f.exists():
+    dd = out / f"baseline__{s['client']}__dev"
+    if not ev.completed(dd):
         raise SystemExit(f"{s['name']}: no valid development session for {s['client']} yet")
-    dev = json.loads(f.read_text())
+    dev = json.loads((dd / "run.json").read_text())
     wait = dev["t1"] + gap_hours * 3600 - time.time()
     if wait > 0:
         note(event="holdout-wait", session=s["name"], wait_s=round(wait))
@@ -111,15 +111,18 @@ def main():
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = ev.Runner(h, q3)
+    lock = ev.vm_lock(h.note)  # noqa: F841 (held until the process exits)
     for i, s in enumerate(sessions, 1):
         d = out / s["name"]
-        if (d / "run.json").exists():
+        if ev.completed(d):
             continue
-        waited = wait_for_gap(out, s, a.gap_hours, h.note)
+        d.mkdir(exist_ok=True)
+        ev.guard_vm(d, h.note)
         kept = ev.recover_pending(d, h, rn, cc, inv, frozen["candidates_sha256"], s["client"], outputs_command(), h.note) \
             or ev.preserve_interrupted(d)
         if kept:
             h.note(event="interrupted-attempt-kept", session=s["name"], kept=str(kept))
+        waited = wait_for_gap(out, s, a.gap_hours, h.note)
         d.mkdir(exist_ok=True)
         ip, boot_s, skew = ev.fresh_vm_checked(h, q3, a.snapshot, h.note)
         rc_push, hashes = rn.push(ip)
@@ -160,10 +163,11 @@ def main():
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is; look at the attempt, fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
-        (d / "run.json").write_text(json.dumps({**s, "t0": t0, "t1": t1, "clock_skew_s": skew, "waited_s": waited, "session_rc": res.returncode,
-                                                "push_rc": rc_push, "export": check["export"], "export_reason": check.get("reason"),
-                                                "client_logs": check.get("client_logs"), "workload": sess["workload"]}, indent=1))
-        (d / "pending.json").unlink()
+        ev.write_json_atomic(d / "run.json", {**s, "t0": t0, "t1": t1, "clock_skew_s": skew, "waited_s": waited,
+                                               "session_rc": res.returncode, "push_rc": rc_push, "export": check["export"],
+                                               "export_reason": check.get("reason"), "client_logs": check.get("client_logs"),
+                                               "workload": sess["workload"]})
+        ev.clear_pending(d)
         h.note(event="session-end", session=s["name"], seconds=t1 - t0, export=check["export"], workload_ok=sess["workload"]["ok"])
     h.note(event="baseline-done", sessions=len(sessions), local_engine_repetition="not implemented, not done")
     q3.run(q3.VIRSH + ["shutdown", q3.DOMAIN])

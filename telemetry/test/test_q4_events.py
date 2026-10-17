@@ -6,6 +6,8 @@ SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
 spec = importlib.util.spec_from_file_location("q4_events", SCRIPTS / "q4_events.py")
 q4 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(q4)
+import tempfile as _tmpstate
+q4.STATE = Path(_tmpstate.mkdtemp())  # never the real ~/.agentlab-q4 of the host
 
 
 class Plan(unittest.TestCase):
@@ -328,3 +330,43 @@ class InspectionRound3(unittest.TestCase):
             q4.recover_pending(d, H(), None, None, None, None, "codex", "tar", lambda **k: None)
         self.assertEqual(e.exception.code, 7)
         self.assertTrue((d / "pending.json").exists())
+
+
+class InspectionRound4(unittest.TestCase):
+    def setUp(self):
+        q4.STATE = Path(_tempfile.mkdtemp())
+
+    def test_vm_wide_pending_blocks_another_folder(self):
+        a, b = Path(_tempfile.mkdtemp()) / "events-run", Path(_tempfile.mkdtemp()) / "baseline-session"
+        a.mkdir(); b.mkdir()
+        q4.mark_pending(a, run="x", t0=1)
+        notes = []
+        with self.assertRaises(SystemExit) as e:
+            q4.guard_vm(b, lambda **k: notes.append(k))
+        self.assertEqual(e.exception.code, 7)
+        q4.guard_vm(a, print)  # the folder that owns the attempt may proceed to its recovery
+
+    def test_stale_vm_record_is_cleared_once_the_folder_kept_its_attempt(self):
+        a, b = Path(_tempfile.mkdtemp()) / "r1", Path(_tempfile.mkdtemp()) / "r2"
+        a.mkdir(); b.mkdir()
+        q4.mark_pending(a, run="x", t0=1)
+        q4.keep_attempt(a, "not-usable", {})
+        self.assertFalse((q4.STATE / "pending.json").exists())
+        q4.guard_vm(b, print)
+
+    def test_lock_is_exclusive(self):
+        fh = q4.vm_lock(print)
+        r = subprocess.run([sys.executable, "-c", f"import fcntl; f=open({str(q4.STATE / 'vm.lock')!r},'w');"
+                            "import sys\ntry:\n fcntl.flock(f, fcntl.LOCK_EX|fcntl.LOCK_NB); print('got')\nexcept BlockingIOError: print('busy')"],
+                           capture_output=True, text=True)
+        self.assertEqual(r.stdout.strip(), "busy")
+        fh.close()
+
+    def test_malformed_completion_record_goes_through_recovery(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        (d / "run.json").write_text('{"rep": 1, "t0"')
+        self.assertFalse(q4.completed(d))
+        self.assertTrue(list(d.glob("run.json.malformed-*")))
+        q4.write_json_atomic(d / "run.json", {"t1": 5})
+        self.assertTrue(q4.completed(d))
+        self.assertFalse((d / "run.json.tmp").exists())

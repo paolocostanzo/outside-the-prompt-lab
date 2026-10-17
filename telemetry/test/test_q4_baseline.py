@@ -6,6 +6,7 @@ SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
 spec = importlib.util.spec_from_file_location("q4_baseline", SCRIPTS / "q4_baseline.py")
 qb = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(qb)
+qb.ev.STATE = Path(tempfile.mkdtemp())  # never the real ~/.agentlab-q4 of the host
 
 
 class BaselinePlan(unittest.TestCase):
@@ -26,7 +27,7 @@ class BaselinePlan(unittest.TestCase):
     def test_holdout_waits_for_the_gap(self):
         out = Path(tempfile.mkdtemp())
         (out / "baseline__codex__dev").mkdir()
-        (out / "baseline__codex__dev" / "run.json").write_text(json.dumps({"t1": time.time() - 3600}))
+        (out / "baseline__codex__dev" / "run.json").write_text(json.dumps({"t1": time.time() - 3600}))  # complete record
         slept, notes = [], []
         w = qb.wait_for_gap(out, {"client": "codex", "part": "holdout", "name": "x"}, 6, lambda **k: notes.append(k), slept.append)
         self.assertAlmostEqual(w, 5 * 3600, delta=5)
