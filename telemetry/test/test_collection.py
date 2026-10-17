@@ -190,55 +190,84 @@ class Edges(unittest.TestCase):
 
 
 class StopClients(unittest.TestCase):
-    """stop_clients.sh kills processes: these tests NEVER let it reach the real pkill, pgrep or tmux. They run it with a PATH
-    that holds only stub commands (which record their arguments) and the few harmless tools it needs, so the real ones are
-    unreachable, and they check first that the script refuses to start outside the VM."""
-    REAL = ["bash", "seq", "sort", "sleep", "id", "tr", "cat", "hostname"]
+    """stop_clients.sh kills processes: these tests NEVER let it reach the real pkill, pgrep, tmux, ps, hostname or id. They run
+    it with a PATH that holds only stubs for those (which record their arguments and answer as told) plus a few harmless tools,
+    so the real ones are unreachable; the guard and every failure path are checked with stubs only."""
+    REAL = ["bash", "seq", "sleep", "tr", "cat"]
+    STUBBED = ["pkill", "pgrep", "tmux", "ps", "hostname", "id"]
 
-    def stub_path(self, alive_rounds=0):
+    def stub_path(self, host="agentlab", host_rc=0, user="lab", pgrep="none", alive_rounds=0):
         d = Path(tempfile.mkdtemp())
         log = d / "calls.log"
+        rec = lambda name: f'echo "{name} $*" >> "{log}"'  # the name is fixed: basename is not on the restricted PATH
         for name in ("pkill", "tmux", "ps"):
-            (d / name).write_text(f'#!/bin/sh\necho "{name} $*" >> "{log}"\n')
-        # pgrep reports a survivor for the first alive_rounds calls, then nothing
-        (d / "pgrep").write_text(f'#!/bin/sh\nn=$(cat "{d}/n" 2>/dev/null || echo 0); echo $((n+1)) > "{d}/n"\n'
-                                 f'echo "pgrep $*" >> "{log}"\n[ "$n" -lt {alive_rounds} ] && echo 4242\nexit 0\n')
-        for name in ("pkill", "tmux", "ps", "pgrep"):
+            (d / name).write_text(f"#!/bin/sh\n{rec(name)}\n")
+        (d / "hostname").write_text(f"#!/bin/sh\n{rec('hostname')}\n[ {host_rc} -eq 0 ] && echo {host}\nexit {host_rc}\n")
+        (d / "id").write_text(f'#!/bin/sh\n{rec("id")}\n[ "$1" = "-un" ] && echo {user} || echo 1001\n')
+        if pgrep == "error":
+            body = "exit 2"
+        else:  # report a survivor for the first alive_rounds calls (-1 = always), then nothing
+            body = (f'n=$(cat "{d}/n" 2>/dev/null || echo 0); echo $((n+1)) > "{d}/n"\n'
+                    f'if [ {alive_rounds} -lt 0 ] || [ "$n" -lt {alive_rounds} ]; then echo 4242; exit 0; fi\nexit 1')
+        (d / "pgrep").write_text(f"#!/bin/sh\n{rec('pgrep')}\n{body}\n")
+        for name in self.STUBBED:
             os.chmod(d / name, 0o755)
         for name in self.REAL:
             real = shutil.which(name)
             if real is None:
                 self.skipTest(f"{name} not found")
             os.symlink(real, d / name)
-        self.assertEqual(shutil.which("pkill", path=str(d)), str(d / "pkill"))
+        for name in self.STUBBED:
+            self.assertEqual(shutil.which(name, path=str(d)), str(d / name), f"{name} must resolve to the stub")
+        self.assertIsNone(shutil.which("kill", path=str(d)))
         return d, log
 
-    def run_script(self, d, env_extra, home):
-        env = {"PATH": str(d), "HOME": str(home), **env_extra}  # only the stub directory: the real pkill cannot be found
+    def run_script(self, d, home, flag=True):
+        env = {"PATH": str(d), "HOME": str(home), **({"Q4_IN_VM": "1"} if flag else {})}  # only the stub directory
         return subprocess.run([str(d / "bash"), str(SCRIPTS / "stop_clients.sh")], capture_output=True, text=True, env=env, timeout=60)
 
-    def test_refuses_outside_the_vm(self):
-        d, log = self.stub_path()
+    def vm_home(self, marker=True):
         home = Path(tempfile.mkdtemp())
-        for env in ({}, {"Q4_IN_VM": "1"}):  # no flag; flag but no VM marker file
-            r = self.run_script(d, env, home)
-            self.assertEqual(r.returncode, 3, r.stdout + r.stderr)
-            self.assertIn("refusing to run", r.stderr)
-        self.assertFalse(log.exists(), "nothing was called")
+        if marker:
+            (home / ".agentlab_env").write_text("")
+        return home
+
+    def killed(self, log):
+        return log.exists() and any(l.split()[0] in ("pkill", "tmux") for l in log.read_text().splitlines())
+
+    def test_script_calls_tools_by_name_only(self):
+        text = (SCRIPTS / "stop_clients.sh").read_text()
+        self.assertNotRegex(text, r"/(usr/)?s?bin/(pkill|pgrep|tmux|kill)\b", "absolute paths would bypass the stubs")
+
+    def test_refuses_outside_the_vm(self):
+        cases = {"no flag": ({}, False, True), "no marker": ({}, True, False), "another user": ({"user": "brainonion"}, True, True),
+                 "hostname fails": ({"host_rc": 1}, True, True), "the lab host": ({"host": "parrot"}, True, True)}
+        for why, (stub, flag, marker) in cases.items():
+            d, log = self.stub_path(**stub)
+            r = self.run_script(d, self.vm_home(marker), flag=flag)
+            self.assertEqual(r.returncode, 3, f"{why}: {r.stdout}{r.stderr}")
+            self.assertIn("refusing to run", r.stderr, why)
+            self.assertFalse(self.killed(log), f"{why}: nothing may be killed")
 
     def test_inside_the_vm_stops_and_waits(self):
-        if subprocess.run(["hostname"], capture_output=True, text=True).stdout.strip() == "parrot":
-            # the guard also refuses on the lab host by name: check the refusal, not the kill path
-            d, log = self.stub_path()
-            home = Path(tempfile.mkdtemp()); (home / ".agentlab_env").write_text("")
-            r = self.run_script(d, {"Q4_IN_VM": "1"}, home)
-            self.assertEqual(r.returncode, 3)
-            self.assertFalse(log.exists())
-            return
         d, log = self.stub_path(alive_rounds=8)  # survivors for a while, then gone
-        home = Path(tempfile.mkdtemp()); (home / ".agentlab_env").write_text("")
-        r = self.run_script(d, {"Q4_IN_VM": "1"}, home)
+        r = self.run_script(d, self.vm_home())
         self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        self.assertIn("clients stopped", r.stdout)
         calls = log.read_text()
         self.assertIn("tmux kill-server", calls)
-        self.assertIn("pkill -TERM", calls)
+        self.assertIn("pkill -TERM -u 1001 -f [c]laude", calls)
+        self.assertNotIn("-KILL", calls)
+
+    def test_survivors_are_killed_and_reported(self):
+        d, log = self.stub_path(alive_rounds=-1)
+        r = self.run_script(d, self.vm_home())
+        self.assertEqual(r.returncode, 1)
+        self.assertIn("still running", r.stdout)
+        self.assertIn("pkill -KILL", log.read_text())
+
+    def test_enumeration_error_fails_closed(self):
+        d, log = self.stub_path(pgrep="error")
+        r = self.run_script(d, self.vm_home())
+        self.assertEqual(r.returncode, 1, r.stdout + r.stderr)
+        self.assertIn("cannot tell", r.stdout)
