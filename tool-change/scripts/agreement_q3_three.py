@@ -10,8 +10,9 @@ Reports, in this order:
     like the local model, how many differently.
 Codex rows count only when its session was valid (column `valid` = true); excluded packets are listed.
 
-  python3 agreement_q3_three.py --author coding-sheet.csv --local llm/llm-coding.csv --codex codex-coding.csv \
+  python3 agreement_q3_three.py --key key.csv --author coding-sheet.csv --local llm/llm-coding.csv --codex codex-coding.csv \
       --disagreements disagreements-resolved.csv --out agreement-three.json
+Excluded = missing from the coder's file, or present with an invalid label or an invalid session.
 """
 import argparse, collections, csv, importlib.util, json
 from pathlib import Path
@@ -23,11 +24,20 @@ _spec.loader.exec_module(agr)
 VALID_LABELS = {"refused-or-disconnected", "re-approval-required", "notified", "silent-accept", "stale", "error-no-call-timeout"}
 
 
-def labels(path, require_valid=False):
+def labels(path, universe, require_valid=False):
+    """Labels of one coder over the expected packet ids. Duplicate ids are refused; ids of the universe with no row are
+    reported as missing, rows outside the universe as unexpected."""
     rows = list(csv.DictReader(open(path, newline="")))
     if require_valid and rows and "valid" not in rows[0]:
         raise SystemExit(f"{path}: no 'valid' column")
-    out, excluded = {}, []
+    ids = [r["id"] for r in rows]
+    dup = sorted({i for i in ids if ids.count(i) > 1})
+    if dup:
+        raise SystemExit(f"{path}: duplicate packet ids {dup}")
+    unexpected = sorted(set(ids) - set(universe))
+    if unexpected:
+        raise SystemExit(f"{path}: ids not in the packet set {unexpected}")
+    out, excluded = {}, sorted(set(universe) - set(ids))
     for r in rows:
         ok = (r.get("outcome") or "").strip() in VALID_LABELS
         if require_valid:
@@ -36,7 +46,7 @@ def labels(path, require_valid=False):
             out[r["id"]] = r["outcome"].strip()
         else:
             excluded.append(r["id"])
-    return out, excluded
+    return out, sorted(excluded)
 
 
 def fleiss(table):
@@ -88,11 +98,13 @@ def main():
     ap.add_argument("--local", required=True)
     ap.add_argument("--codex", required=True)
     ap.add_argument("--disagreements", required=True)
+    ap.add_argument("--key", required=True, help="key.csv of the blind packets: the 60 expected ids")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    author, ex_a = labels(a.author)
-    local, ex_l = labels(a.local)
-    codex, ex_c = labels(a.codex, require_valid=True)
+    universe = [r["id"] for r in csv.DictReader(open(a.key, newline=""))]
+    author, ex_a = labels(a.author, universe)
+    local, ex_l = labels(a.local, universe)
+    codex, ex_c = labels(a.codex, universe, require_valid=True)
     dis = list(csv.DictReader(open(a.disagreements, newline="")))
     res = analyse(author, local, codex, dis, agr.pair(agr.read(a.author), agr.read(a.local)))
     res["excluded"] = {"author": ex_a, "local_model": ex_l, "codex": ex_c}

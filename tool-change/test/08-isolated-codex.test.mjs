@@ -108,6 +108,15 @@ test('a credential copied before a failed set-up is removed', () => {
   assert.equal(fs.existsSync(path.join(dir, 'root', 'codex-home', 'auth.json')), false);
 });
 
+test('a truncated rollout is an invalid context, not a crash', () => {
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'rollout-'));
+  const f = path.join(dir, 'r.jsonl');
+  fs.writeFileSync(f, '{"type": "response_item", "payload": {"type": "message", "role": "user", "content": [{"text": "<environment_conte');
+  const r = call('m.check_context(Path(sys.argv[2]), sys.argv[3])', f, PROMPT);
+  assert.equal(r.ok, false);
+  assert.match(r.problems[0], /unreadable rollout/);
+});
+
 test('the minimal configuration has the model and effort and nothing that loads user content', () => {
   const cfg = call('m.minimal_config("gpt-6.1-sol", "medium")');
   assert.match(cfg, /model = "gpt-6.1-sol"/);

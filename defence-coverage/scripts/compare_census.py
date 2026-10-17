@@ -39,8 +39,14 @@ def cls(r):
     return "A" if (r.get("class") or "").strip() == "A" else "not-A"
 
 
-def prot(r):
+def prot_first(r):
+    """The first reading's non-A rows (B or C) all carry n-a; its labels are compared as frozen."""
     return (r.get("protection") or "").strip() if cls(r) == "A" else "n-a"
+
+
+def prot_second(r):
+    """The second reading's protection label exactly as returned (rows contradicting their class are already invalid)."""
+    return (r.get("protection") or "").strip()
 
 
 def compare(first, second):
@@ -53,7 +59,7 @@ def compare(first, second):
            "missing_in_second": [list(k) for k in only1], "missing_in_first": [list(k) for k in only2],
            "duplicates_first": [list(k) for k in dup1], "duplicates_second": [list(k) for k in dup2]}
     for name, get1, get2 in [("class", cls, cls),
-                             ("protection", prot, prot),
+                             ("protection", prot_first, prot_second),
                              ("vendor_only", lambda r: flag(r, "contested"), lambda r: flag(r, "vendor_only"))]:
         a = [get1(first[k][0]).strip() for k in common]
         b = [get2(second[k][0]).strip() for k in common]
@@ -67,8 +73,8 @@ def compare(first, second):
                     "vendor_only": flag(second[k][0], "vendor_only"), "evidence": second[k][0].get("evidence", "")}}
         for k in common
         if "A" in (cls(first[k][0]), cls(second[k][0]))
-        and (cls(first[k][0]), prot(first[k][0]), flag(first[k][0], "contested"))
-        != (cls(second[k][0]), prot(second[k][0]), flag(second[k][0], "vendor_only"))]
+        and (cls(first[k][0]), prot_first(first[k][0]), flag(first[k][0], "contested"))
+        != (cls(second[k][0]), prot_second(second[k][0]), flag(second[k][0], "vendor_only"))]
     return out
 
 

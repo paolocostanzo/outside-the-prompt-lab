@@ -73,6 +73,15 @@ class Compare(unittest.TestCase):
         self.assertEqual(r["n_joined"], 0)
 
 
+class SecondLabelsUntouched(unittest.TestCase):
+    def test_second_protection_is_not_rewritten(self):
+        first = cc.read(write([{"server": "s", "tool": "x", "class": "B", "protection": "n-a", "contested": "False"}], FIRST))
+        second = cc.read(write([{"server": "s", "tool": "x", "class": "B", "protection": "full", "vendor_only": "false",
+                                 "evidence": "", "valid": "True"}], SECOND), valid_only=True)
+        r = cc.compare(first, second)
+        self.assertEqual(r["protection"]["raw_agreement"], 0.0, "B/full in the second reading is a disagreement, not n-a")
+
+
 class Validity(unittest.TestCase):
     def test_second_reading_without_valid_column_is_refused(self):
         path = write([{"server": "s", "tool": "a", "class": "A", "protection": "full", "vendor_only": "false", "evidence": ""}],

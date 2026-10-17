@@ -180,7 +180,10 @@ def check_context(rollout: Path, prompt: str, expected_developer: list[str] | No
                   expected_env: dict | None = None) -> dict:
     """See the module docstring. With expected_developer=None only the structural checks run (used for the reference session
     itself); a coding session must pass expected_developer from the batch's reference session."""
-    msgs = initial_messages(rollout)
+    try:
+        msgs = initial_messages(rollout)
+    except (OSError, UnicodeDecodeError, ValueError) as exc:  # truncated or malformed rollout: the session is excluded, not the batch
+        return {"ok": False, "problems": [f"unreadable rollout: {exc}"], "developer_tags": [], "developer_hashes": [], "environment": {}}
     problems, tags, envs, prompts, env = [], [], 0, 0, None
     for role, text in msgs:
         if HOST_HOME in text:

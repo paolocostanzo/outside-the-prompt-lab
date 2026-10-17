@@ -135,12 +135,17 @@ def main():
                 pass
             unchanged = fresh_manifest_matches(src, manifest)
             valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and bool(got) and unchanged
+            inconsistent = 0
             for r in got:
+                # class B must have protection n-a and class A must not: a contradictory row is kept, marked invalid
+                consistent = (r.get("class") == "B") == (r.get("protection") == "n-a")
+                inconsistent += not consistent
                 w.writerow({"repo": entry["repo"], "commit": entry["commit"], **r,
-                            "vendor_only": str(r.get("vendor_only")).lower(), "valid": valid})
+                            "vendor_only": str(r.get("vendor_only")).lower(), "valid": valid and consistent})
             fh.flush()  # checkpoint after every repository
             meta["sessions"].append({"repo": entry["repo"], "commit": entry["commit"], "status": rec.get("status"),
                                      "probe": rec["probe"], "context": ctx, "source_unchanged": unchanged, "valid": valid,
+                                     "rows_inconsistent": inconsistent,
                                      "n_rows": len(got), "n_files_mounted": len(manifest), "rollouts": rec.get("rollouts", [])})
             (out / "second-reading.json").write_text(json.dumps(meta, indent=2))
             print(entry["repo"], len(got), "rows", "valid" if valid else "INVALID", flush=True)
