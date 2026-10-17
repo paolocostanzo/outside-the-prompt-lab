@@ -13,7 +13,7 @@ reaches the network. The matrix runners edit the clients' trust stores in `$HOME
 | Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
 | `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 14 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
-| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 57 tests, evidence with SHA-256 hashes | *You approved the tool. Then it changed.* (20 Oct 2026) |
+| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes | *You approved the tool. Then it changed.* (20 Oct 2026) |
 | `defence-coverage/` (scripts only; census coming) | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Second-reading and comparison scripts (D22) | part 4 (27 Oct 2026) |
 | `telemetry/` (coming) | Q4 (RQ5) — what default host telemetry shows for each event | part 4 (27 Oct 2026) |
 | `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
@@ -31,7 +31,7 @@ node scripts/check-trust.mjs              # which projects have I already truste
 ## Quick start (Q3 components, no VM needed)
 ```bash
 cd tool-change
-npm test                                  # 60 tests, Node >= 22 and Python >= 3.11, no dependencies
+npm test                                  # 61 tests, Node >= 22 and Python >= 3.11, no dependencies
 node scripts/check-approvals.mjs          # which MCP tools have I approved permanently, and in which file?
 ```
 
