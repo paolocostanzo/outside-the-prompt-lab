@@ -1,0 +1,72 @@
+"""compare_census.py on synthetic readings: join, missing/duplicate tools, kappa inputs, untouched second labels, adjudication list.
+Run: python3 -m unittest discover -s defence-coverage/test"""
+import csv, importlib.util, tempfile, unittest
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+spec = importlib.util.spec_from_file_location("compare_census", HERE.parent / "scripts/compare_census.py")
+cc = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(cc)
+
+
+def write(rows, fields):
+    f = tempfile.NamedTemporaryFile("w", suffix=".csv", delete=False, newline="")
+    w = csv.DictWriter(f, fieldnames=fields)
+    w.writeheader()
+    w.writerows(rows)
+    f.close()
+    return f.name
+
+
+FIRST = ["server", "tool", "class", "protection", "contested"]
+SECOND = ["server", "tool", "class", "protection", "vendor_only", "evidence", "valid"]
+
+
+class Compare(unittest.TestCase):
+    def setUp(self):
+        self.first = cc.read(write([
+            {"server": "s", "tool": "a", "class": "A", "protection": "full", "contested": "False"},
+            {"server": "s", "tool": "b", "class": "A", "protection": "none", "contested": "False"},
+            {"server": "s", "tool": "c", "class": "B", "protection": "n-a", "contested": "False"},
+            {"server": "s", "tool": "d", "class": "A", "protection": "full", "contested": "True"},
+            {"server": "s", "tool": "only-first", "class": "B", "protection": "n-a", "contested": "False"},
+        ], FIRST))
+        self.second = cc.read(write([
+            {"server": "s", "tool": "a", "class": "A", "protection": "full", "vendor_only": "false", "evidence": "x:1", "valid": "True"},
+            {"server": "s", "tool": "b", "class": "A", "protection": "partial", "vendor_only": "false", "evidence": "x:2", "valid": "True"},
+            {"server": "s", "tool": "c", "class": "B", "protection": "n-a", "vendor_only": "false", "evidence": "x:3", "valid": "True"},
+            {"server": "s", "tool": "d", "class": "A", "protection": "full", "vendor_only": "true", "evidence": "x:4", "valid": "True"},
+            {"server": "s", "tool": "only-second", "class": "A", "protection": "none", "vendor_only": "false", "evidence": "x:5", "valid": "True"},
+            {"server": "s", "tool": "from-invalid", "class": "A", "protection": "none", "vendor_only": "false", "evidence": "", "valid": "False"},
+        ], SECOND), valid_only=True)
+
+    def test_join_and_missing(self):
+        r = cc.compare(self.first, self.second)
+        self.assertEqual(r["n_joined"], 4)
+        self.assertEqual(r["missing_in_second"], [["s", "only-first"]])
+        self.assertEqual(r["missing_in_first"], [["s", "only-second"]])
+        self.assertNotIn(["s", "from-invalid"], r["missing_in_first"], "rows from invalid sessions are dropped")
+
+    def test_agreement_uses_untouched_second_labels(self):
+        r = cc.compare(self.first, self.second)
+        self.assertEqual(r["class"]["raw_agreement"], 1.0)
+        self.assertEqual(r["protection"]["raw_agreement"], 0.75)
+        self.assertEqual(r["vendor_only"]["raw_agreement"], 1.0)
+
+    def test_adjudication_lists_class_a_disagreements_only(self):
+        r = cc.compare(self.first, self.second)
+        self.assertEqual([(x["server"], x["tool"]) for x in r["to_adjudicate"]], [("s", "b")])
+        self.assertEqual(r["to_adjudicate"][0]["second"]["evidence"], "x:2")
+
+    def test_duplicates_are_reported_and_left_out(self):
+        dup = cc.read(write([
+            {"server": "s", "tool": "a", "class": "A", "protection": "full", "vendor_only": "false", "evidence": "", "valid": "True"},
+            {"server": "s", "tool": "a", "class": "A", "protection": "none", "vendor_only": "false", "evidence": "", "valid": "True"},
+        ], SECOND), valid_only=True)
+        r = cc.compare(self.first, dup)
+        self.assertEqual(r["duplicates_second"], [["s", "a"]])
+        self.assertEqual(r["n_joined"], 0)
+
+
+if __name__ == "__main__":
+    unittest.main()

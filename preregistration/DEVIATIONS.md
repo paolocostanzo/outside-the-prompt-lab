@@ -270,3 +270,57 @@ declaration of agreement on every packet (each row of the coding sheet says so),
 the seeded ten-row sample, no disagreement; agreement reported as 10/10 with κ on the protection label. This entry was written before any
 answer of the local model was read.
 **Effect.** Reporting as in §5; D20 is superseded.
+
+### D22 · 17 Oct 2026 · §5 RQ3 and RQ4 (D17) — an independent additional coder from another model family (post hoc)
+**Problem.** (1) RQ3: the preregistered agreement between the author and the local model (D21) is κ = 0.115 (14/60). 45 of the 46
+disagreements share one cause, a packet line ("definition in force at the call: B") that gives the server's state and that the model
+read as "B was served". The author's labels were recorded from his declaration of agreement after he examined the evidence, not on
+blind forms (D21). (2) RQ4: the per-tool census (D17) was made by AI agents of one model family, with the coordinator's sample check
+and the author's 10/10 spot check; it has no independent second reader (D17 point 7).
+**Change.** A coder from a different model family is added, post hoc: OpenAI Codex CLI 0.162.0, model `gpt-6.1-sol`, reasoning effort
+`medium`, read-only sandbox, apps, plugins and MCP servers disabled. It replaces no preregistered coder and no preregistered analysis:
+the author-versus-local-model κ stays the primary agreement statistic and is reported first, with its cause.
+(1) RQ3. Codex codes the same 60 blind packets as the local model, without any change to their wording (packet set SHA-256
+`2aa0e318fee2db8b1832840553e4d6cc9e1cdff31cae325e8b960e60537825e6`), with the same system instruction, the same closing request and
+the same answer schema (`outcome` from the six labels, `reason`) as `scripts/code_q3_llm.py`. One fresh session per packet, packet
+order P001–P060, the packet text inside the prompt, the working directory an empty folder. Reported: Cohen's κ Codex vs author and
+Codex vs local model, Fleiss' κ over the three, the confusion tables, and how many of the 46 earlier disagreements Codex resolves
+like the author.
+(2) RQ4. Codex reads the eight servers of the census at the pinned commits (`defence-coverage/pinned-commits.csv`), one session per
+repository, and returns one row per registered tool name: class (A or not A), protection (full / partial / none / n-a), mechanism,
+a vendor-only-prose flag, and file:line evidence for each. The rules are given verbatim and in advance: D17 points 2–4 and the
+operational rule of the census (`lab/results/q2/census/REVIEW.md`, "Regola di coerenza"): class A = returns free prose written by
+third parties (titles, descriptions, bodies, comments, messages, file contents, logs), not names or identifier-like strings;
+**full** = all third-party prose the tool can return passes through the server's defence; **partial** = only part of it does,
+including the case where error or secondary branches return third-party text outside the defence; **none** = none of it does;
+**n-a** = not class A; **vendor-only prose** = the only prose is written by the vendor itself (documentation, curated advisories).
+Vendor-only prose **counts as qualifying prose** for class and protection in the inclusive reading: such a tool is class A and gets
+a protection label like any other. The vendor-only flag is used only to drop those rows from the second variant ("without
+vendor-only prose"). A tool that returns both vendor and third-party prose is not flagged and stays in both variants. The working directory contains only the clones at the pinned commits.
+**Comparison baseline:** before Codex starts, the first reading is frozen as one canonical table, i.e. the agents' CSVs after the
+documented corrections that `aggregate.py` applies (`load()` and `FULLY_CONTESTED`): 324 rows, 135 of class A, written to a CSV
+whose SHA-256 is `709d27601ab33fd820e19681a9fcd4cb1677a2bf4fa1e52fc02a1cbf7f78dc8c`; the table is published with the census evidence. The two readings are joined by server and registered tool name, and missing or duplicate tools on either
+side are reported. Agreement (Cohen's κ and raw agreement) is computed on class, on protection and on the vendor-only flag, using
+Codex's untouched labels: no correction of the first reading is applied to the second. Every disagreement on a class-A tool is
+then adjudicated by the author against the source, with file:line, before any coverage figure from the second reading is
+published; the independent results are reported before the adjudicated ones.
+(3) Blindness and isolation. Every coding session is new: never resumed, never a session used for reviewing this project. Each
+session runs inside a bubblewrap (`bwrap`) container whose filesystem holds only read-only system directories (`/usr`, `/etc` and
+their links), a private `/tmp`, the Codex executable, a separate `CODEX_HOME` with only a copy of the authentication file and a
+minimal configuration (model, effort), and the working directory: empty for RQ3, the pinned clones for RQ4. The real home
+directory, the project, earlier Codex sessions, global `AGENTS.md`, memories and hooks are not mounted, so they cannot be read by
+the CLI or any child process, whatever the command or symlink. Before each batch a probe inside the same container lists the
+paths of the project and of the real `~/.codex` and must fail; the probe output and the exact `bwrap` argument list are kept. For
+each session we keep the complete prompt, the session rollout (initial context), the packet or repository hashes, model,
+effort, the `--json` event stream and the answer. Allowed initial context: the CLI's own built-in instructions and tool
+definitions, the minimal configuration, and our prompt; no user or project instruction file. A coding is valid only if the
+container argument list matches the recorded one, the probe failed as required, and the rollout contains no other instructions.
+Any violation is reported and that session's coding is excluded.
+(4) Order. This deviation is committed and pushed before Codex receives any packet or repository. The scripts, with their prompts
+and schemas, are committed with it: `tool-change/scripts/isolated_codex.py` (container, probe, context check),
+`tool-change/scripts/code_q3_codex.py` (RQ3), `defence-coverage/scripts/census_codex.py` (RQ4 second reading) and
+`defence-coverage/scripts/compare_census.py` (RQ4 agreement), with their tests. Before this commit they were run only on synthetic
+inputs: one invented packet and one invented repository.
+**Effect.** Adds a robustness check from an independent model family. Preregistered analyses and their reporting order are unchanged.
+Codex belongs to the vendor of one measured client (Codex CLI); its role is coding captures and reading server code, not judging
+products.
