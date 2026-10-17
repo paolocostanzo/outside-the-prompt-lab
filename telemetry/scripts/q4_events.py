@@ -62,14 +62,23 @@ def plan(seed, clients=CLIENTS, events=EVENTS, reps=2):
     return runs
 
 
+QUOTA_WATCH = "~/q4-out/quota-watch.jsonl"
+
+
+def watched(command, client, session):
+    """Run command with the quota observer reading the client's tmux pane every second (D25 point 5); keeps command's exit code."""
+    return (f"python3 ~/lab/telemetry/scripts/quota_watch.py --client {client} --session {session} --out {QUOTA_WATCH} & W=$!; "
+            f"{command}; rc=$?; kill $W 2>/dev/null; wait $W 2>/dev/null; exit $rc")
+
+
 def cell_command(run):
-    """The command run inside the VM for one run (outputs under ~/q4-out)."""
+    """The command run inside the VM for one run (outputs under ~/q4-out), with the quota observer next to it."""
     c, e, rep = run["client"], run["event"], run["rep"]
     if e == "q5-start":
-        return (f"python3 ~/lab/trusting-a-repo/scripts/run_q5_matrix.py --lab ~/lab/trusting-a-repo --out ~/q4-out "
-                f"--reps 1 --clients {c} --only {c}:{Q5_CELL[c]}")
-    return (f"python3 ~/lab/tool-change/scripts/run_q3_cell.py --client {c} --signal {Q3_SIGNAL[e]} --change description "
-            f"--rep {rep} --out ~/q4-out")
+        return watched(f"python3 ~/lab/trusting-a-repo/scripts/run_q5_matrix.py --lab ~/lab/trusting-a-repo --out ~/q4-out "
+                       f"--reps 1 --clients {c} --only {c}:{Q5_CELL[c]}", c, "q5run")
+    return watched(f"python3 ~/lab/tool-change/scripts/run_q3_cell.py --client {c} --signal {Q3_SIGNAL[e]} --change description "
+                   f"--rep {rep} --out ~/q4-out", c, "q3run")
 
 
 def collect_command(t0, t1):
@@ -152,11 +161,22 @@ def validate_ground_truth(run, tgz_bytes):
 
 
 def quota_in_outputs(client, tgz_bytes, quota_mod):
-    """The first quota or rate-limit message in the run's screen captures and stdout, or None (plan phase 0.4)."""
+    """The first quota or rate-limit message seen in the run: by the observer (q4-out/quota-watch.jsonl, D25 point 5), in the
+    saved screen captures, or None. A missing observer record is itself reported, so "nothing seen" is never assumed."""
     try:
         tar = tarfile.open(fileobj=io.BytesIO(tgz_bytes), mode="r:gz")
     except (tarfile.TarError, OSError, EOFError):
         return None
+    names = set(tar.getnames())
+    if "q4-out/quota-watch.jsonl" not in names:
+        return "the quota observer left no record (it did not run)"
+    lines = tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace").splitlines()
+    recs = [json.loads(l) for l in lines if l.strip()]
+    if not any(r.get("event") == "started" for r in recs):
+        return "the quota observer did not start"
+    seen = [r for r in recs if r.get("event") == "quota"]
+    if seen:
+        return f"observer: {seen[0].get('message')}"
     for m in tar.getmembers():
         if m.isfile() and m.name.startswith("q4-out/") and m.name.endswith(".txt"):
             msg = quota_mod.find(client, tar.extractfile(m).read().decode("utf-8", "replace"))

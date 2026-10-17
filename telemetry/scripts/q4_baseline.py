@@ -35,8 +35,8 @@ def plan(seed, clients=ev.CLIENTS, parts=("dev", "holdout")):
 
 
 def session_command(s, minutes):
-    return (f"python3 ~/lab/telemetry/scripts/baseline_session.py --client {s['client']} --part {s['part']} "
-            f"--minutes {minutes} --out ~/q4-out")
+    return ev.watched(f"python3 ~/lab/telemetry/scripts/baseline_session.py --client {s['client']} --part {s['part']} "
+                      f"--minutes {minutes} --out ~/q4-out", s["client"], "q3run")
 
 
 def outputs_command():
@@ -56,6 +56,15 @@ def check_outputs(s, tgz_bytes):
         problems.append("q3-server.log missing")
     if problems:
         return None, problems
+    if "q4-out/quota-watch.jsonl" not in names:
+        problems.append("quota or rate limit: the quota observer left no record (it did not run)")
+    else:
+        recs = [json.loads(l) for l in tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace").splitlines() if l.strip()]
+        if not any(r.get("event") == "started" for r in recs):
+            problems.append("quota or rate limit: the quota observer did not start")
+        seen = [r for r in recs if r.get("event") == "quota"]
+        if seen:
+            problems.append(f"quota or rate limit reached (observer): {seen[0].get('message')!r} (stop: Paolo's rule)")
     try:
         sess = json.load(tar.extractfile(f"{base}/session.json"))
     except ValueError as exc:
@@ -66,6 +75,12 @@ def check_outputs(s, tgz_bytes):
         problems.append(f"session not valid: definitions {sess.get('definitions_served')}, changed {sess.get('definition_changed')}, "
                         f"workload {sess.get('workload')}")
     return sess, problems
+
+
+def setup_can_continue(part, problems):
+    """An exploratory set-up session (D25 point 2) whose only problem is that the scripted use did not work is recorded and the
+    set-up goes on to the next client; any other problem (quota, copy, export, telemetry, exit code) stops it, as in the baseline."""
+    return part == "setup" and bool(problems) and all(p.startswith("session not valid") for p in problems)
 
 
 def wait_for_gap(out, s, gap_hours, note, sleep=time.sleep):
@@ -161,6 +176,15 @@ def main():
             h.note(event="abort-copy-failed", session=s["name"], problems=problems,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
+        if setup_can_continue(s["part"], problems):
+            # exploratory set-up session (D25 point 2): a workload failure is what the session is for; record it and go on to
+            # the next client. Quota, copy, export and safety problems still stop.
+            ev.write_json_atomic(d / "run.json", {**s, "t0": t0, "t1": t1, "clock_skew_s": skew, "session_rc": res.returncode,
+                                                   "export": check["export"], "valid": False, "problems": problems,
+                                                   "workload": (sess or {}).get("workload")})
+            ev.clear_pending(d)
+            h.note(event="setup-session-recorded", session=s["name"], problems=problems)
+            continue
         if problems:  # everything was copied, but the session does not count: keep it as an attempt and stop
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),

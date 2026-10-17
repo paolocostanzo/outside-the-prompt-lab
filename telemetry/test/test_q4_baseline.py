@@ -22,7 +22,9 @@ class BaselinePlan(unittest.TestCase):
 
     def test_command(self):
         c = qb.session_command({"client": "gemini", "part": "holdout"}, 60)
-        self.assertEqual(c, "python3 ~/lab/telemetry/scripts/baseline_session.py --client gemini --part holdout --minutes 60 --out ~/q4-out")
+        self.assertEqual(c, qb.ev.watched("python3 ~/lab/telemetry/scripts/baseline_session.py --client gemini --part holdout "
+                                         "--minutes 60 --out ~/q4-out", "gemini", "q3run"))
+        self.assertIn("quota_watch.py --client gemini --session q3run", c)
 
     def test_holdout_waits_for_the_gap(self):
         out = Path(tempfile.mkdtemp())
@@ -59,7 +61,8 @@ class BaselineOutputs(unittest.TestCase):
 
     def files(self, session):
         b = "q4-out/baseline__codex__dev/"
-        return {b + "session.json": json.dumps(session).encode(), b + "timeline.jsonl": b"", "q3-server.log": b""}
+        return {b + "session.json": json.dumps(session).encode(), b + "timeline.jsonl": b"", "q3-server.log": b"",
+                "q4-out/quota-watch.jsonl": b'{"event": "started"}\n'}
 
     def test_valid_session_passes_and_invalid_is_not_counted(self):
         good = {"valid": True, "workload": {"ok": True}}
@@ -85,3 +88,19 @@ class QuotaStops(BaselineOutputs):
         _, problems = qb.check_outputs(self.S, _tgz(self.files({"valid": False, "quota_exhausted": True,
                                                                  "quota_message": "usage limit", "workload": {"ok": True}})))
         self.assertTrue(any("quota" in p for p in problems))
+
+
+class ObserverAndSetup(BaselineOutputs):
+    def test_observer_record_is_required_and_read(self):
+        f = self.files({"valid": True, "workload": {"ok": True}})
+        f.pop("q4-out/quota-watch.jsonl")
+        self.assertTrue(any("did not run" in p for p in qb.check_outputs(self.S, _tgz(f))[1]))
+        f = self.files({"valid": True, "workload": {"ok": True}})
+        f["q4-out/quota-watch.jsonl"] = b'{"event": "started"}\n{"event": "quota", "message": "rate limit"}\n'
+        self.assertTrue(any("observer" in p for p in qb.check_outputs(self.S, _tgz(f))[1]))
+
+    def test_setup_goes_on_only_for_workload_problems(self):
+        self.assertTrue(qb.setup_can_continue("setup", ["session not valid: workload ..."]))
+        self.assertFalse(qb.setup_can_continue("setup", ["session not valid: x", "quota or rate limit reached (observer): 'x'"]))
+        self.assertFalse(qb.setup_can_continue("dev", ["session not valid: workload ..."]), "never outside the set-up")
+        self.assertFalse(qb.setup_can_continue("setup", []))

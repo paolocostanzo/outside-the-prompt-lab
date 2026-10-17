@@ -164,9 +164,14 @@ class PlanPhase04(unittest.TestCase):
 
     def test_quota_in_run_captures(self):
         qm = q4.load(SCRIPTS / "quota.py", "quota")
-        tgz = _tgz({"q4-out/codex__none__description__r1/codex__none__r1__03-p2-end.txt": b"You've hit your usage limit."})
+        started = {"q4-out/quota-watch.jsonl": b'{"event": "started"}\n'}
+        tgz = _tgz({**started, "q4-out/codex__none__description__r1/codex__none__r1__03-p2-end.txt": b"You've hit your usage limit."})
         self.assertIn("usage limit", q4.quota_in_outputs("codex", tgz, qm))
-        self.assertIsNone(q4.quota_in_outputs("codex", _tgz({"q4-out/x/a.txt": b"ok"}), qm))
+        self.assertIsNone(q4.quota_in_outputs("codex", _tgz({**started, "q4-out/x/a.txt": b"ok"}), qm))
+        self.assertIn("did not run", q4.quota_in_outputs("codex", _tgz({"q4-out/x/a.txt": b"ok"}), qm))
+        seen = {"q4-out/quota-watch.jsonl": b'{"event": "started"}\n{"event": "quota", "message": "rate limit"}\n'}
+        self.assertIn("observer: rate limit", q4.quota_in_outputs("codex", _tgz({**seen, "q4-out/x/a.txt": b"ok"}), qm),
+                      "a message the client recovered from still counts")
 
     def test_memory_wait(self):
         d = Path(_tempfile.mkdtemp())
@@ -386,3 +391,19 @@ class InspectionRound5(unittest.TestCase):
         self.assertFalse((q4.STATE / "pending.json").exists())
         other = Path(_tempfile.mkdtemp()) / "next"; other.mkdir()
         q4.guard_vm(other, print)  # the next run is not blocked
+
+
+class QuotaObserver(unittest.TestCase):
+    def test_observer_records_a_transient_message(self):
+        w = q4.load(SCRIPTS / "quota_watch.py", "quota_watch")
+        screens = iter(["working", "API Error: Quota exceeded for metric", "working", "done"])
+        out = Path(_tempfile.mkdtemp()) / "qw.jsonl"
+        w.watch("gemini", "q3run", out, interval=0, rounds=4, read=lambda s: next(screens))
+        recs = [_json.loads(l) for l in out.read_text().splitlines()]
+        self.assertEqual([r["event"] for r in recs], ["started", "quota"])
+
+    def test_cell_commands_run_the_observer_on_the_right_session(self):
+        self.assertIn("--session q5run", q4.cell_command({"client": "codex", "event": "q5-start", "rep": 1}))
+        c = q4.cell_command({"client": "codex", "event": "q3-silent", "rep": 1})
+        self.assertIn("--session q3run", c)
+        self.assertTrue(c.endswith("exit $rc"), "the cell's own exit code is kept")
