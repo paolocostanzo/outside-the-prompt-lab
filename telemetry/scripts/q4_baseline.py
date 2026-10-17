@@ -57,14 +57,9 @@ def check_outputs(s, tgz_bytes):
     if problems:
         return None, problems
     if "q4-out/quota-watch.jsonl" not in names:
-        problems.append("quota or rate limit: the quota observer left no record (it did not run)")
+        problems.append("quota observer: left no record (it did not run)")
     else:
-        recs = [json.loads(l) for l in tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace").splitlines() if l.strip()]
-        if not any(r.get("event") == "started" for r in recs):
-            problems.append("quota or rate limit: the quota observer did not start")
-        seen = [r for r in recs if r.get("event") == "quota"]
-        if seen:
-            problems.append(f"quota or rate limit reached (observer): {seen[0].get('message')!r} (stop: Paolo's rule)")
+        problems += ev.observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"))
     try:
         sess = json.load(tar.extractfile(f"{base}/session.json"))
     except ValueError as exc:

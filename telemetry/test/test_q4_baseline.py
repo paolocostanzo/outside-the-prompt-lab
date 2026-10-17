@@ -62,7 +62,7 @@ class BaselineOutputs(unittest.TestCase):
     def files(self, session):
         b = "q4-out/baseline__codex__dev/"
         return {b + "session.json": json.dumps(session).encode(), b + "timeline.jsonl": b"", "q3-server.log": b"",
-                "q4-out/quota-watch.jsonl": b'{"event": "started"}\n'}
+                "q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n'}
 
     def test_valid_session_passes_and_invalid_is_not_counted(self):
         good = {"valid": True, "workload": {"ok": True}}
@@ -96,7 +96,7 @@ class ObserverAndSetup(BaselineOutputs):
         f.pop("q4-out/quota-watch.jsonl")
         self.assertTrue(any("did not run" in p for p in qb.check_outputs(self.S, _tgz(f))[1]))
         f = self.files({"valid": True, "workload": {"ok": True}})
-        f["q4-out/quota-watch.jsonl"] = b'{"event": "started"}\n{"event": "quota", "message": "rate limit"}\n'
+        f["q4-out/quota-watch.jsonl"] = b'{"ts": 1, "event": "started"}\n{"ts": 2, "event": "quota", "message": "rate limit"}\n{"ts": 9, "event": "stopped"}\n'
         self.assertTrue(any("observer" in p for p in qb.check_outputs(self.S, _tgz(f))[1]))
 
     def test_setup_goes_on_only_for_workload_problems(self):

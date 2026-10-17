@@ -164,13 +164,13 @@ class PlanPhase04(unittest.TestCase):
 
     def test_quota_in_run_captures(self):
         qm = q4.load(SCRIPTS / "quota.py", "quota")
-        started = {"q4-out/quota-watch.jsonl": b'{"event": "started"}\n'}
+        started = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n'}
         tgz = _tgz({**started, "q4-out/codex__none__description__r1/codex__none__r1__03-p2-end.txt": b"You've hit your usage limit."})
         self.assertIn("usage limit", q4.quota_in_outputs("codex", tgz, qm))
         self.assertIsNone(q4.quota_in_outputs("codex", _tgz({**started, "q4-out/x/a.txt": b"ok"}), qm))
         self.assertIn("did not run", q4.quota_in_outputs("codex", _tgz({"q4-out/x/a.txt": b"ok"}), qm))
-        seen = {"q4-out/quota-watch.jsonl": b'{"event": "started"}\n{"event": "quota", "message": "rate limit"}\n'}
-        self.assertIn("observer: rate limit", q4.quota_in_outputs("codex", _tgz({**seen, "q4-out/x/a.txt": b"ok"}), qm),
+        seen = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 2, "event": "quota", "message": "rate limit"}\n{"ts": 9, "event": "stopped"}\n'}
+        self.assertIn("(observer): 'rate limit'", q4.quota_in_outputs("codex", _tgz({**seen, "q4-out/x/a.txt": b"ok"}), qm),
                       "a message the client recovered from still counts")
 
     def test_memory_wait(self):
@@ -396,11 +396,33 @@ class InspectionRound5(unittest.TestCase):
 class QuotaObserver(unittest.TestCase):
     def test_observer_records_a_transient_message(self):
         w = q4.load(SCRIPTS / "quota_watch.py", "quota_watch")
-        screens = iter(["working", "API Error: Quota exceeded for metric", "working", "done"])
+        screens = iter([(True, "working", None), (True, "API Error: Quota exceeded for metric", None), (False, "", None),
+                        (True, "done", None)])
         out = Path(_tempfile.mkdtemp()) / "qw.jsonl"
-        w.watch("gemini", "q3run", out, interval=0, rounds=4, read=lambda s: next(screens))
+        w.watch("gemini", "q3run", out, interval=0, rounds=4, read=lambda s: next(screens), sleep=lambda x: None)
         recs = [_json.loads(l) for l in out.read_text().splitlines()]
-        self.assertEqual([r["event"] for r in recs], ["started", "quota"])
+        self.assertEqual([r["event"] for r in recs], ["started", "quota", "stopped"])
+        self.assertEqual((recs[-1]["captures"], recs[-1]["absent"]), (3, 1), "a missing session between restarts is not an error")
+
+    def test_observer_health_is_required(self):
+        P = q4.observer_problems
+        self.assertEqual(P('{"ts": 1, "event": "started"}\n{"ts": 11, "event": "heartbeat"}\n{"ts": 15, "event": "stopped"}\n'), [])
+        self.assertTrue(any("orderly end" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 11, "event": "heartbeat"}\n')),
+                        "an observer killed part-way")
+        self.assertTrue(any("gap" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 200, "event": "stopped"}\n')))
+        self.assertTrue(any("capture error" in p for p in
+                            P('{"ts": 1, "event": "started"}\n{"ts": 2, "event": "capture-error", "error": "x"}\n{"ts": 3, "event": "stopped"}\n')))
+        self.assertEqual(P(""), ["quota observer: did not start"])
+
+    def test_heartbeats_and_orderly_end(self):
+        w = q4.load(SCRIPTS / "quota_watch.py", "quota_watch")
+        clock = iter(range(0, 1000, 4))
+        out = Path(_tempfile.mkdtemp()) / "qw.jsonl"
+        w.watch("codex", "q3run", out, interval=0, rounds=10, read=lambda s: (True, "ok", None), clock=lambda: next(clock),
+                sleep=lambda x: None)
+        recs = [_json.loads(l) for l in out.read_text().splitlines()]
+        self.assertIn("heartbeat", [r["event"] for r in recs])
+        self.assertEqual(q4.observer_problems(out.read_text()), [])
 
     def test_cell_commands_run_the_observer_on_the_right_session(self):
         self.assertIn("--session q5run", q4.cell_command({"client": "codex", "event": "q5-start", "rep": 1}))

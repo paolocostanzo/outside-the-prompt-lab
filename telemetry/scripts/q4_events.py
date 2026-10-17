@@ -68,7 +68,36 @@ QUOTA_WATCH = "~/q4-out/quota-watch.jsonl"
 def watched(command, client, session):
     """Run command with the quota observer reading the client's tmux pane every second (D25 point 5); keeps command's exit code."""
     return (f"python3 ~/lab/telemetry/scripts/quota_watch.py --client {client} --session {session} --out {QUOTA_WATCH} & W=$!; "
-            f"{command}; rc=$?; kill $W 2>/dev/null; wait $W 2>/dev/null; exit $rc")
+            f"{command}; rc=$?; kill -TERM $W 2>/dev/null; wait $W 2>/dev/null; exit $rc")
+
+
+MAX_GAP_S = 30  # the observer writes at least every 10 s (heartbeat); more than this between two records means it stalled
+
+
+def observer_problems(text):
+    """Problems with the quota observer's record of a run or session (D25 point 5); empty list = it watched the whole time and
+    saw no quota message. Quota messages are reported here too."""
+    try:
+        recs = [json.loads(l) for l in text.splitlines() if l.strip()]
+    except ValueError:
+        return ["quota observer: record unreadable"]
+    kinds = [r.get("event") for r in recs]
+    if not recs or kinds[0] != "started":
+        return ["quota observer: did not start"]
+    problems = []
+    if "stopped" not in kinds:
+        problems.append("quota observer: no orderly end (it died or was killed before the run ended)")
+    ts = [r.get("ts", 0) for r in recs]
+    gaps = [b - a for a, b in zip(ts, ts[1:])]
+    if gaps and max(gaps) > MAX_GAP_S:
+        problems.append(f"quota observer: a gap of {max(gaps):.0f} s between records (it stalled)")
+    errors = [r for r in recs if r.get("event") == "capture-error"]
+    if errors:
+        problems.append(f"quota observer: {len(errors)} capture error(s), e.g. {errors[0].get('error')!r}")
+    seen = [r for r in recs if r.get("event") == "quota"]
+    if seen:
+        problems.append(f"quota or rate limit reached (observer): {seen[0].get('message')!r} (stop: Paolo's rule)")
+    return problems
 
 
 def cell_command(run):
@@ -170,13 +199,9 @@ def quota_in_outputs(client, tgz_bytes, quota_mod):
     names = set(tar.getnames())
     if "q4-out/quota-watch.jsonl" not in names:
         return "the quota observer left no record (it did not run)"
-    lines = tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace").splitlines()
-    recs = [json.loads(l) for l in lines if l.strip()]
-    if not any(r.get("event") == "started" for r in recs):
-        return "the quota observer did not start"
-    seen = [r for r in recs if r.get("event") == "quota"]
-    if seen:
-        return f"observer: {seen[0].get('message')}"
+    obs = observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"))
+    if obs:
+        return "; ".join(obs)
     for m in tar.getmembers():
         if m.isfile() and m.name.startswith("q4-out/") and m.name.endswith(".txt"):
             msg = quota_mod.find(client, tar.extractfile(m).read().decode("utf-8", "replace"))
