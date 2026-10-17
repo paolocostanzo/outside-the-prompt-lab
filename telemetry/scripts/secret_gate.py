@@ -3,10 +3,13 @@
 login file of the lab's clients, and anything inside them. This script never prints, logs or writes a secret's value.
 
   python3 secret_gate.py fingerprints                          # INSIDE the VM: JSON fingerprints of every lab secret on stdout
-  python3 secret_gate.py scan [--fingerprints FP.json] PATH... # files, folders and archives; exit 1 on a finding
-  python3 secret_gate.py scan-git [--fingerprints FP.json] [--repo DIR] BASE HEAD
-                                                               # every blob added or changed by every commit in BASE..HEAD,
-                                                               # and the commit messages; BASE may be the empty tree
+  python3 secret_gate.py scan --fingerprints FP.json PATH...   # files, folders and archives; exit 1 on a finding
+  python3 secret_gate.py scan-git --fingerprints FP.json [--repo DIR] BASE HEAD
+                                                               # every blob and path name in the tree of every commit in
+                                                               # BASE..HEAD (merges included) and the commit messages;
+                                                               # BASE may be the empty tree (whole history)
+  --formats-only replaces --fingerprints for an explicit audit without exact matching. A fingerprint file that is missing,
+  malformed, lists unreadable stores or lacks a required kind (--require-kinds) stops the scan (exit 2).
 
 Two kinds of matching:
 - *exact*: a fingerprint is {kind, source, length, prefix (first 4 characters), sha256}. Every occurrence of a prefix is checked by
@@ -17,8 +20,11 @@ Two kinds of matching:
   fingerprints were taken.
 
 Archives (.tar, .tgz, .tar.gz, .gz, .zip, .xz, .bz2) are scanned member by member, nested up to three levels. A file that cannot
-be read or decompressed, or an archive format the script cannot open, is a failure (exit 2): the gate fails closed. Findings are
-reported with the file, the archive member, the line (format matches) and the kind, never with the value.
+be read or decompressed, a directory that cannot be listed, a symlinked directory, or a compressed format recognised by its
+signature but not supported (zstandard, 7-zip, rar, lz4, lzip, compress, lzh, cabinet), whatever the file is called, is a failure
+(exit 2): the gate fails closed. Formats without a signature (raw deflate, brotli) cannot be recognised and are scanned as bytes.
+File names and archive member names are scanned too. Findings are reported with the file, the archive member, the line (format
+matches) and the kind, never with the value; every reported name or error is redacted first.
 Exit codes: 0 clean, 1 at least one finding, 2 something could not be scanned (and no finding).
 """
 import argparse, bz2, gzip, hashlib, io, json, lzma, os, re, socket, subprocess, sys, tarfile, time, zipfile
@@ -49,10 +55,10 @@ HOME = Path(os.path.expanduser("~"))
 # (kind, path relative to HOME, how to read it)
 SOURCES = [
     ("claude-oauth-token", ".agentlab_claude_token", "raw"),
-    ("claude-login", ".claude/.credentials.json", "json"),
-    ("claude-login", ".agentlab_claude_interactive.json", "json"),
-    ("codex-login", ".codex/auth.json", "json"),
-    ("cursor-login", ".config/cursor/auth.json", "json"),
+    ("claude-login", ".claude/.credentials.json", "json-keys"),
+    ("claude-login", ".agentlab_claude_interactive.json", "json-keys"),
+    ("codex-login", ".codex/auth.json", "json-keys"),
+    ("cursor-login", ".config/cursor/auth.json", "json-keys"),
     ("lab-secret", ".agentlab_secrets", "env"),
     ("goose-secret", ".config/goose/secrets.yaml", "yaml"),
     ("gemini-settings", ".gemini/settings.json", "json-keys"),
@@ -60,7 +66,9 @@ SOURCES = [
     ("gemini-env", ".gemini/.env", "env"),
     ("qwen-env", ".qwen/.env", "env"),
 ]
-SECRET_KEY = re.compile(r"(token|secret|key|password|credential|auth)", re.I)
+# Only values under these keys are secrets. Login files also hold account data that is not secret but appears in ordinary logs
+# (Claude Code's file lists the account's MCP connectors by name and URL): fingerprinting it would stop every run for nothing.
+SECRET_KEY = re.compile(r"(token|secret|password|passwd|credential|api[_-]?key|private[_-]?key)", re.I)
 
 
 def _strings(obj, keyed=False, key=""):
@@ -133,43 +141,89 @@ def merge_fingerprints(old, new):
 
 
 # --------------------------------------------------------------------------- scanning
+REQUIRED_KINDS = ("claude-oauth-token", "claude-login", "codex-login", "cursor-login", "lab-secret")  # the VM's stores (D26)
+REDACTED = "[REDACTED]"
+# compressed or archive formats recognised by their signature, whatever the file is called, that this script cannot open
+UNSUPPORTED_MAGIC = [(b"\x28\xb5\x2f\xfd", "zstandard"), (b"7z\xbc\xaf\x27\x1c", "7-zip"), (b"Rar!\x1a\x07", "rar"),
+                     (b"\x04\x22\x4d\x18", "lz4"), (b"LZIP", "lzip"), (b"\x1f\x9d", "unix compress"), (b"\x1f\xa0", "lzh"),
+                     (b"MSCF", "cabinet")]
+
+
 class Unscannable(Exception):
     pass
 
 
-def _exact(data, fps):
-    hits = []
+def _exact_spans(data, fps):
+    """[(start, end, kind)] of every occurrence of a fingerprinted value."""
+    spans = []
     for f in fps:
         pre, n, want = f["prefix"].encode(), f["length"], f["sha256"]
         i = data.find(pre)
         while i != -1:
             if hashlib.sha256(data[i:i + n]).hexdigest() == want:
-                hits.append(f["kind"])
-                break
+                spans.append((i, i + n, f["kind"]))
             i = data.find(pre, i + 1)
-    return hits
+    return spans
+
+
+def _format_spans(data):
+    return [(m.start(), m.end(), kind) for kind, rx in FORMATS for m in rx.finditer(data)]
 
 
 def scan_bytes(data, fps=()):
-    """[(kind, line or None)] for one blob of bytes; never the matched text."""
-    found = [(k, None) for k in _exact(data, fps)]
-    for kind, rx in FORMATS:
-        for m in rx.finditer(data):
-            found.append((kind, data.count(b"\n", 0, m.start()) + 1))
+    """[(kind, line)] for one blob of bytes, never the matched text; line is None for exact matches."""
+    found, seen = [], set()
+    for a, _, kind in _exact_spans(data, fps):
+        if kind not in seen:  # one finding per kind and blob is enough to block, and says less
+            seen.add(kind)
+            found.append((kind, None))
+    for a, _, kind in _format_spans(data):
+        found.append((kind, data.count(b"\n", 0, a) + 1))
     return found
 
 
+def redact(text, fps=()):
+    """text with every secret-looking or fingerprinted part replaced: names and error messages are reported only this way."""
+    if not text:
+        return text
+    b = text.encode(errors="surrogateescape")
+    spans = sorted(_exact_spans(b, fps) + _format_spans(b))
+    out, pos = [], 0
+    for a, z, _ in spans:
+        if a < pos:
+            a = pos
+        if a >= z:
+            continue
+        out.append(b[pos:a]); out.append(REDACTED.encode()); pos = z
+    out.append(b[pos:])
+    return b"".join(out).decode(errors="replace")
+
+
+def _unsupported(data):
+    for magic, name in UNSUPPORTED_MAGIC:
+        if data.startswith(magic):
+            return name
+    return None
+
+
 def _open_archive(name, data):
-    """Members of an archive as (member name, bytes), or None if data is not an archive."""
+    """Members of an archive as (member name, bytes), or None if data is not an archive. A known but unsupported compressed
+    format, whatever the file is called, raises Unscannable."""
     low = name.lower()
     try:
         if low.endswith((".tar", ".tgz", ".tar.gz", ".tar.xz", ".tar.bz2", ".txz", ".tbz2")) or (
                 len(data) > 262 and data[257:262] == b"ustar"):
             with tarfile.open(fileobj=io.BytesIO(data), mode="r:*") as t:
-                return [(m.name, t.extractfile(m).read()) for m in t.getmembers() if m.isfile()]
+                out = []
+                for m in t.getmembers():
+                    if m.isfile():
+                        out.append((m.name, t.extractfile(m).read()))
+                    else:  # names of directories and links are published too
+                        out.append((m.name, b""))
+                return out
         if low.endswith(".zip") or data[:4] == b"PK\x03\x04":
             with zipfile.ZipFile(io.BytesIO(data)) as z:
-                return [(i.filename, z.read(i)) for i in z.infolist() if not i.is_dir()]
+                return [(i.filename, b"" if i.is_dir() else z.read(i)) for i in z.infolist()]
         if low.endswith(".gz") or data[:2] == b"\x1f\x8b":
             return [(name[:-3] if low.endswith(".gz") else name + "!gunzip", gzip.decompress(data))]
         if low.endswith(".xz") or data[:6] == b"\xfd7zXZ\x00":
@@ -178,29 +232,55 @@ def _open_archive(name, data):
             return [(name[:-4] if low.endswith(".bz2") else name + "!bunzip2", bz2.decompress(data))]
     except (tarfile.TarError, zipfile.BadZipFile, OSError, EOFError, lzma.LZMAError, ValueError) as exc:
         raise Unscannable(f"{type(exc).__name__}") from exc
-    if low.endswith((".7z", ".zst", ".rar", ".lz4")):
-        raise Unscannable("archive format not supported")
+    kind = _unsupported(data)
+    if kind or low.endswith((".7z", ".zst", ".zstd", ".rar", ".lz4", ".lz", ".z", ".cab")):
+        raise Unscannable(f"archive format not supported: {kind or 'by suffix'}")
     return None
 
 
-def scan_blob(label, data, fps=(), depth=0):
-    """Findings [{path, member, kind, line}] and failures [{path, error}] for one blob, archives opened recursively."""
+def scan_blob(path, data, fps=(), member=None, depth=0):
+    """Findings [{path, member, kind, line}] and failures [{path, member, error}] for one blob: its content, the names of its
+    archive members, and archives opened recursively. Every reported name is redacted."""
     findings, failures = [], []
-    path, _, member = label.partition("::")
+    rp, rm = redact(path, fps), redact(member, fps)
     for kind, line in scan_bytes(data, fps):
-        findings.append({"path": path, "member": member or None, "kind": kind, "line": line})
+        findings.append({"path": rp, "member": rm, "kind": kind, "line": line})
     try:
         members = _open_archive(member or path, data)
     except Unscannable as exc:
-        return findings, failures + [{"path": path, "member": member or None, "error": str(exc)}]
+        return findings, failures + [{"path": rp, "member": rm, "error": redact(str(exc), fps)}]
     if members is not None:
         if depth >= MAX_DEPTH:
-            return findings, failures + [{"path": path, "member": member or None, "error": "archives nested too deep"}]
+            return findings, failures + [{"path": rp, "member": rm, "error": "archives nested too deep"}]
         for mname, mdata in members:
-            f2, e2 = scan_blob(path + "::" + (member + "/" if member else "") + mname, mdata, fps, depth + 1)
+            full = (member + "/" if member else "") + mname
+            for kind, _ in scan_bytes(mname.encode(errors="surrogateescape"), fps):
+                findings.append({"path": rp, "member": redact(full, fps), "kind": kind + " (in a member name)", "line": None})
+            f2, e2 = scan_blob(path, mdata, fps, full, depth + 1)
             findings += f2
             failures += e2
     return findings, failures
+
+
+def _walk_files(root, skip, failures, fps):
+    """Every file under root, with traversal errors recorded (an unreadable directory is a failure, never a silent skip)."""
+    out = []
+
+    def onerror(exc):
+        failures.append({"path": redact(str(getattr(exc, "filename", root)), fps), "member": None,
+                         "error": f"cannot list: {type(exc).__name__}"})
+    for dirpath, dirnames, filenames in os.walk(root, onerror=onerror):
+        rel = Path(dirpath).relative_to(root).parts
+        if set(rel) & set(skip):
+            dirnames[:] = []
+            continue
+        for dn in list(dirnames):
+            full = Path(dirpath) / dn
+            if full.is_symlink():  # os.walk does not follow it: what it points to would go unchecked
+                failures.append({"path": redact(str(full), fps), "member": None, "error": "symlinked directory not followed"})
+                dirnames.remove(dn)
+        out += [Path(dirpath) / f for f in filenames]
+    return sorted(out)
 
 
 def scan_paths(paths, fps=(), skip=()):
@@ -208,18 +288,16 @@ def scan_paths(paths, fps=(), skip=()):
     for root in paths:
         root = Path(root)
         if not root.exists():
-            failures.append({"path": str(root), "member": None, "error": "does not exist"})
+            failures.append({"path": redact(str(root), fps), "member": None, "error": "does not exist"})
             continue
-        if root.is_file():
-            files = [root]
-        else:  # a symlink is read through: what it points to is what would be published
-            files = sorted(p for p in root.rglob("*")
-                           if (p.is_file() or p.is_symlink()) and not set(p.relative_to(root).parts[:-1]) & set(skip))
+        files = [root] if not root.is_dir() else _walk_files(root, skip, failures, fps)
         for p in files:
+            for kind, _ in scan_bytes(str(p).encode(errors="surrogateescape"), fps):
+                findings.append({"path": redact(str(p), fps), "member": None, "kind": kind + " (in a file name)", "line": None})
             try:
-                data = p.read_bytes()
+                data = p.read_bytes()  # a file symlink is read through: what it points to is what would be published
             except OSError as exc:
-                failures.append({"path": str(p), "member": None, "error": type(exc).__name__})
+                failures.append({"path": redact(str(p), fps), "member": None, "error": type(exc).__name__})
                 continue
             f, e = scan_blob(str(p), data, fps)
             findings += f
@@ -227,49 +305,88 @@ def scan_paths(paths, fps=(), skip=()):
     return findings, failures
 
 
-def _git(repo, *args, binary=False):
-    r = subprocess.run(["git", "-C", str(repo), *args], capture_output=True)
+def _git(repo, *args, binary=False, stdin=None):
+    r = subprocess.run(["git", "-C", str(repo), *args], capture_output=True, input=stdin)
     if r.returncode != 0:
         raise Unscannable(f"git {args[0]} failed: {r.stderr.decode(errors='replace').strip()[:200]}")
     return r.stdout if binary else r.stdout.decode()
 
 
+def _blobs(repo, shas):
+    """Contents of many blobs through one `git cat-file --batch`."""
+    if not shas:
+        return {}
+    raw = _git(repo, "cat-file", "--batch", binary=True, stdin=("\n".join(shas) + "\n").encode())
+    out, pos = {}, 0
+    for sha in shas:
+        nl = raw.index(b"\n", pos)
+        head = raw[pos:nl].split()
+        if len(head) != 3 or head[1] != b"blob":
+            raise Unscannable(f"cat-file: unexpected object for {sha[:12]}")
+        size = int(head[2])
+        out[sha] = raw[nl + 1:nl + 1 + size]
+        pos = nl + 1 + size + 1
+    return out
+
+
 def scan_git(repo, base, head, fps=()):
-    """Every blob added or modified by every commit in base..head (so a secret added and later removed is still found: it would
-    stay in the published history), and every commit message in the range."""
+    """Every blob and every path name in the tree of every commit in base..head, merges included (each blob is read once), and
+    every commit message: a secret added and later removed, or introduced only while resolving a merge, stays in the published
+    history and is found."""
     findings, failures = [], []
     try:
-        rng = head if base == EMPTY_TREE else f"{base}..{head}"
-        commits = _git(repo, "rev-list", "--reverse", rng).split()
+        rng = [head] if base == EMPTY_TREE else [f"{base}..{head}"]
+        commits = _git(repo, "rev-list", "--reverse", *rng).split()
+        blob_path, names = {}, set()
         for c in commits:
             msg = _git(repo, "log", "-1", "--format=%B", c, binary=True)
             f, _ = scan_blob(f"commit {c[:12]} message", msg, fps)
             findings += f
-            names = _git(repo, "diff-tree", "-r", "--root", "--no-commit-id", "--name-only", "--diff-filter=ACMRT", "-z", c,
-                         binary=True).split(b"\0")
-            for n in filter(None, names):
-                path = n.decode(errors="replace")
-                try:
-                    data = _git(repo, "cat-file", "blob", f"{c}:{path}", binary=True)
-                except Unscannable as exc:
-                    failures.append({"path": f"{c[:12]}:{path}", "member": None, "error": str(exc)})
+            for entry in _git(repo, "ls-tree", "-r", "-z", "--full-tree", c, binary=True).split(b"\0"):
+                if not entry:
                     continue
-                f, e = scan_blob(f"{c[:12]}:{path}", data, fps)
+                meta, _, path = entry.partition(b"\t")
+                mode, typ, sha = meta.split()
+                names.add(path)
+                if typ == b"blob":
+                    blob_path.setdefault(sha.decode(), f"{c[:12]}:{path.decode(errors='surrogateescape')}")
+        for n in sorted(names):
+            for kind, _ in scan_bytes(n, fps):
+                findings.append({"path": redact(n.decode(errors="surrogateescape"), fps), "member": None,
+                                 "kind": kind + " (in a file name)", "line": None})
+        shas = sorted(blob_path)
+        for i in range(0, len(shas), 500):
+            chunk = shas[i:i + 500]
+            for sha, data in _blobs(repo, chunk).items():
+                f, e = scan_blob(blob_path[sha], data, fps)
                 findings += f
                 failures += e
     except Unscannable as exc:
-        failures.append({"path": str(repo), "member": None, "error": str(exc)})
+        failures.append({"path": redact(str(repo), fps), "member": None, "error": redact(str(exc), fps)})
     return findings, failures
 
 
-def load_fps(path):
-    if not path:
-        return []
-    d = json.loads(Path(path).read_text())
+def load_fps(path, require_kinds=REQUIRED_KINDS):
+    """A fingerprint file that is missing, malformed, lists unreadable stores or lacks a required kind of secret makes the scan
+    impossible: exact matching would silently weaken, so the caller must stop (exit 2)."""
+    def bad(why):
+        sys.stderr.write(f"secret gate: fingerprint file {path}: {why}; refusing to scan\n")
+        raise SystemExit(2)
+    try:
+        d = json.loads(Path(path).read_text())
+    except (OSError, ValueError) as exc:
+        bad(type(exc).__name__)
+    fps = d.get("fingerprints") if isinstance(d, dict) else None
+    if not isinstance(fps, list) or not all(isinstance(f, dict) and isinstance(f.get("kind"), str) and
+                                            isinstance(f.get("prefix"), str) and isinstance(f.get("length"), int) and
+                                            isinstance(f.get("sha256"), str) and len(f["sha256"]) == 64 for f in fps):
+        bad("malformed")
     if d.get("unreadable"):
-        raise SystemExit(f"fingerprint file lists unreadable stores {[u['source'] for u in d['unreadable']]}: refusing to scan "
-                         "with an incomplete set")
-    return d.get("fingerprints", [])
+        bad(f"unreadable stores {[u.get('source') for u in d['unreadable']]}")
+    missing = sorted(set(require_kinds) - {f["kind"] for f in fps})
+    if missing:
+        bad(f"no fingerprint of {missing}")
+    return fps
 
 
 def report(findings, failures, out=sys.stdout):
@@ -282,22 +399,26 @@ def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="mode", required=True)
     sub.add_parser("fingerprints")
-    s = sub.add_parser("scan")
-    s.add_argument("--fingerprints")
-    s.add_argument("--skip", action="append", default=[], help="folder name to skip (repeatable)")
-    s.add_argument("paths", nargs="+")
-    g = sub.add_parser("scan-git")
-    g.add_argument("--fingerprints")
-    g.add_argument("--repo", default=".")
-    g.add_argument("base")
-    g.add_argument("head")
+    for name in ("scan", "scan-git"):
+        s = sub.add_parser(name)
+        g = s.add_mutually_exclusive_group(required=True)
+        g.add_argument("--fingerprints", help="fingerprint file taken in the VM (required for anything that will be published)")
+        g.add_argument("--formats-only", action="store_true", help="explicit audit without exact matching (e.g. old history)")
+        s.add_argument("--require-kinds", default=",".join(REQUIRED_KINDS), help="kinds the fingerprint file must contain")
+        if name == "scan":
+            s.add_argument("--skip", action="append", default=[], help="folder name to skip (repeatable)")
+            s.add_argument("paths", nargs="+")
+        else:
+            s.add_argument("--repo", default=".")
+            s.add_argument("base")
+            s.add_argument("head")
     a = ap.parse_args(argv)
     if a.mode == "fingerprints":
         d = fingerprints()
         json.dump(d, sys.stdout, indent=1)
         sys.stdout.write("\n")
         return 2 if d["unreadable"] else 0
-    fps = load_fps(a.fingerprints)
+    fps = [] if a.formats_only else load_fps(a.fingerprints, [k for k in a.require_kinds.split(",") if k])
     if a.mode == "scan":
         return report(*scan_paths(a.paths, fps, set(a.skip)))
     return report(*scan_git(a.repo, a.base, a.head, fps))

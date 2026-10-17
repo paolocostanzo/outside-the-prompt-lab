@@ -157,27 +157,28 @@ def main():
             (d / "stop.stdout.txt").write_text(stop.stdout[-4000:] + "\n--- stderr ---\n" + (stop.stderr or ""))
             h.note(event="abort-not-quiescent", session=s["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
+        # D26: every copy first; the campaign log gets only exit codes until the secret gate has passed
         check = rn.client_logs(ip, d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_out, err_out = rn.ssh_bin(ip, outputs_command(), d / "vm-out.tgz")
-        sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
-        if rc_out != 0:
-            problems.insert(0, f"outputs copy exited {rc_out}: {err_out}")
-        if res.returncode != 0:
-            problems.insert(0, f"session exited {res.returncode}")
-        if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
-            problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
+        (d / "copy.stderr.txt").write_text(f"outputs (exit {rc_out}):\n{err_out}\n")
         tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
-        problems += tel_problems
         if check.get("collect_rc") != 0 or rc_out != 0 or not copied:  # a copy failed: the VM may hold the rest
-            h.note(event="abort-copy-failed", session=s["name"], problems=problems,
+            h.note(event="abort-copy-failed", session=s["name"], collect_rc=check.get("collect_rc"), outputs_rc=rc_out,
+                   telemetry_copied=copied,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
         leaks = ev.secret_problems(h, ip, d)
-        if leaks:  # D26: a secret in the copied evidence stops everything, set-up sessions included
+        if leaks:  # D26: before anything reads the evidence, set-up sessions included
             dest = ev.keep_attempt(d, "secret-found", {"problems": leaks, "t0": t0, "t1": t1})
             h.note(event="abort-secret", session=s["name"], problems=leaks, kept=str(dest),
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
+        sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
+        if res.returncode != 0:
+            problems.insert(0, f"session exited {res.returncode}")
+        if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
+            problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
+        problems += tel_problems
         if setup_can_continue(s["part"], problems):
             # exploratory set-up session (D25 point 2): a workload failure is what the session is for; record it and go on to
             # the next client. Quota, copy, export and safety problems still stop.

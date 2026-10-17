@@ -8,6 +8,9 @@ q4 = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(q4)
 import tempfile as _tmpstate
 q4.STATE = Path(_tmpstate.mkdtemp())  # never the real ~/.agentlab-q4 of the host
+import hashlib as _hl, secrets as _sec
+_FULL_FPS = [{"kind": k, "source": "x", "length": 48, "prefix": "abcd", "sha256": _hl.sha256(_sec.token_bytes(16)).hexdigest()}
+             for k in q4.sg.REQUIRED_KINDS]  # a complete fingerprint set of random values (D26: the gate needs every kind)
 
 
 class Plan(unittest.TestCase):
@@ -292,7 +295,7 @@ class InspectionRound2(unittest.TestCase):
             def ip(self): return "1.2.3.4"
             def ssh(self, ip, cmd, timeout=120):
                 if "secret_gate.py fingerprints" in cmd:
-                    return _NS(returncode=0, stdout='{"fingerprints": [], "unreadable": []}', stderr="")
+                    return _NS(returncode=0, stdout=_json.dumps({"fingerprints": _FULL_FPS, "unreadable": []}), stderr="")
                 return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
             def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
@@ -315,7 +318,7 @@ class InspectionRound2(unittest.TestCase):
             def ip(self): return "1.2.3.4"
             def ssh(self, ip, cmd, timeout=120):
                 if "secret_gate.py fingerprints" in cmd:
-                    return _NS(returncode=0, stdout='{"fingerprints": [], "unreadable": []}', stderr="")
+                    return _NS(returncode=0, stdout=_json.dumps({"fingerprints": _FULL_FPS, "unreadable": []}), stderr="")
                 return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
             def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}

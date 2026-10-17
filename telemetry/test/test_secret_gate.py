@@ -30,6 +30,11 @@ def fake(kind):
             "opaque": secrets.token_hex(24)}[kind]
 
 
+def full_fps(*extra):
+    """A complete fingerprint set (every required kind, random values) plus the given fingerprints."""
+    return [sg.fingerprint(fake("opaque"), k, "x") for k in sg.REQUIRED_KINDS] + list(extra)
+
+
 def tgz(members):
     buf = io.BytesIO()
     with tarfile.open(fileobj=buf, mode="w:gz") as t:
@@ -75,13 +80,21 @@ class Fingerprints(unittest.TestCase):
         self.claude, self.codex, self.gem = fake("opaque"), fake("opaque"), fake("opaque")
         (self.home / ".agentlab_claude_token").write_text(self.claude + "\n")
         (self.home / ".codex").mkdir()
-        (self.home / ".codex/auth.json").write_text(json.dumps({"auth_mode": "chatgpt", "tokens": {"refresh_token": self.codex}}))
+        (self.home / ".codex/auth.json").write_text(json.dumps({"auth_mode": "chatgpt", "tokens": {"refresh_token": self.codex,
+                                                                                                   "account_id": "acct-" + "1" * 20}}))
+        (self.home / ".claude").mkdir()
+        (self.home / ".claude/.credentials.json").write_text(json.dumps(
+            {"claudeAiOauth": {"accessToken": fake("opaque"), "scopes": ["user:inference-and-more"]},
+             "mcpOAuth": {"srv": {"serverName": "an-account-connector-name", "serverUrl": "https://connector.example/mcp"}}}))
         (self.home / ".agentlab_secrets").write_text(f"export GEMINI_API_KEY='{self.gem}'\nSHORT=abc\n")
 
     def test_values_are_fingerprinted_never_kept(self):
         d = sg.fingerprints(self.home)
         self.assertEqual(d["unreadable"], [])
-        self.assertEqual({f["kind"] for f in d["fingerprints"]}, {"claude-oauth-token", "codex-login", "lab-secret"})
+        self.assertEqual({f["kind"] for f in d["fingerprints"]}, {"claude-oauth-token", "claude-login", "codex-login", "lab-secret"})
+        self.assertEqual(sum(f["kind"] == "claude-login" for f in d["fingerprints"]), 1,
+                         "only the token field: connector names, URLs and scopes are account data, not secrets")
+        self.assertEqual(sum(f["kind"] == "codex-login" for f in d["fingerprints"]), 1, "account_id is not a secret")
         blob = json.dumps(d)
         for v in (self.claude, self.codex, self.gem):
             self.assertNotIn(v, blob)
@@ -183,9 +196,108 @@ class Git(unittest.TestCase):
         self.assertEqual(len(sg.scan_git(self.repo, "nonexistent", self.head())[1]), 1)
 
     def test_cli_exit_codes(self):
+        r = subprocess.run([sys.executable, str(SCRIPTS / "secret_gate.py"), "scan-git", "--formats-only", "--repo",
+                            str(self.repo), sg.EMPTY_TREE, "HEAD"], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 0, r.stderr)
         r = subprocess.run([sys.executable, str(SCRIPTS / "secret_gate.py"), "scan-git", "--repo", str(self.repo), sg.EMPTY_TREE,
                             "HEAD"], capture_output=True, text=True)
-        self.assertEqual(r.returncode, 0, r.stderr)
+        self.assertEqual(r.returncode, 2, "neither fingerprints nor an explicit --formats-only: refused")
+
+    def test_secret_only_in_a_merge_resolution(self):  # D26-R1
+        base = self.head()
+        self.git("checkout", "-qb", "side")
+        (self.repo / "s.txt").write_text("side")
+        self.git("add", "."); self.git("commit", "-qm", "side")
+        self.git("checkout", "-q", "-")
+        (self.repo / "m.txt").write_text("main")
+        self.git("add", "."); self.git("commit", "-qm", "main")
+        self.git("merge", "-q", "--no-commit", "side")
+        (self.repo / "resolved.txt").write_text("key " + fake("google"))  # in neither parent
+        self.git("add", "."); self.git("commit", "-qm", "merge")
+        kinds = [f["kind"] for f in sg.scan_git(self.repo, base, self.head())[0]]
+        self.assertEqual(kinds, ["google-api-key"])
+
+    def test_secret_in_a_file_name_is_found_and_redacted(self):  # D26-R3
+        v = fake("anthropic")
+        (self.repo / ("note-" + v + ".txt")).write_text("")
+        self.git("add", "."); self.git("commit", "-qm", "empty file")
+        findings, failures = sg.scan_git(self.repo, sg.EMPTY_TREE, self.head())
+        self.assertIn("anthropic-token (in a file name)", [f["kind"] for f in findings])
+        self.assertNotIn(v, json.dumps([findings, failures]))
+
+
+class ReviewRound1(unittest.TestCase):
+    """Codex round 1 on D26: names redacted, traversal errors, renamed archives, fingerprint files validated."""
+
+    def test_member_name_with_a_secret_is_found_and_redacted(self):
+        v = fake("anthropic")
+        d = Path(tempfile.mkdtemp())
+        (d / "x.tgz").write_bytes(tgz({"dir/" + v + ".log": b"harmless"}))
+        out = io.StringIO()
+        findings, failures = sg.scan_paths([d], full_fps())
+        sg.report(findings, failures, out)
+        self.assertIn("(in a member name)", out.getvalue())
+        self.assertNotIn(v, out.getvalue())
+        self.assertIn(sg.REDACTED, out.getvalue())
+
+    def test_exact_value_in_a_file_name_is_redacted(self):
+        v = fake("opaque")
+        d = Path(tempfile.mkdtemp())
+        (d / ("run-" + v)).write_text("x")
+        fps = full_fps(sg.fingerprint(v, "codex-login", "x"))
+        findings, _ = sg.scan_paths([d], fps)
+        self.assertEqual([f["kind"] for f in findings], ["codex-login (in a file name)"])
+        self.assertNotIn(v, json.dumps(findings))
+
+    @unittest.skipIf(os.geteuid() == 0, "root can read anything")
+    def test_unreadable_directory_is_a_failure(self):  # D26-R4
+        d = Path(tempfile.mkdtemp())
+        (d / "locked").mkdir()
+        (d / "locked/f.txt").write_text(fake("google"))
+        os.chmod(d / "locked", 0)
+        try:
+            findings, failures = sg.scan_paths([d])
+        finally:
+            os.chmod(d / "locked", 0o755)
+        self.assertEqual(findings, [])
+        self.assertTrue(any("cannot list" in f["error"] for f in failures))
+
+    def test_symlinked_directory_is_a_failure(self):
+        d, other = Path(tempfile.mkdtemp()), Path(tempfile.mkdtemp())
+        (other / "f.txt").write_text("x")
+        (d / "link").symlink_to(other, target_is_directory=True)
+        self.assertEqual([f["error"] for f in sg.scan_paths([d])[1]], ["symlinked directory not followed"])
+
+    def test_renamed_unsupported_archives_fail_closed(self):  # D26-R5
+        d = Path(tempfile.mkdtemp())
+        (d / "capture.zstd").write_bytes(b"\x28\xb5\x2f\xfd" + os.urandom(32))
+        (d / "notes.txt").write_bytes(b"7z\xbc\xaf\x27\x1c" + os.urandom(32))
+        (d / "data.bin").write_bytes(b"Rar!\x1a\x07\x00" + os.urandom(32))
+        failures = sg.scan_paths([d])[1]
+        self.assertEqual(sorted(Path(f["path"]).name for f in failures), ["capture.zstd", "data.bin", "notes.txt"])
+
+    def test_fingerprint_file_is_validated(self):  # D26-R7
+        d = Path(tempfile.mkdtemp())
+        cases = {"missing": None, "no-list": {"x": 1}, "bad-entry": {"fingerprints": [{"kind": "codex-login"}]},
+                 "incomplete": {"fingerprints": [sg.fingerprint(fake("opaque"), "codex-login", "x")]},
+                 "unreadable": {"fingerprints": full_fps(), "unreadable": [{"source": ".codex/auth.json"}]}}
+        for name, content in cases.items():
+            f = d / f"{name}.json"
+            if content is not None:
+                f.write_text(json.dumps(content))
+            with self.assertRaises(SystemExit) as cm:
+                sg.load_fps(str(f))
+            self.assertEqual(cm.exception.code, 2, name)
+        ok = d / "ok.json"
+        ok.write_text(json.dumps({"fingerprints": full_fps(), "unreadable": []}))
+        self.assertEqual(len(sg.load_fps(str(ok))), len(sg.REQUIRED_KINDS))
+
+    def test_cli_scan_needs_a_valid_fingerprint_file(self):
+        d = Path(tempfile.mkdtemp())
+        (d / "a.txt").write_text("fine")
+        r = subprocess.run([sys.executable, str(SCRIPTS / "secret_gate.py"), "scan", "--fingerprints", str(d / "none.json"),
+                            str(d)], capture_output=True, text=True)
+        self.assertEqual(r.returncode, 2)
 
 
 class Orchestrator(unittest.TestCase):
@@ -202,8 +314,8 @@ class Orchestrator(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         (d / "cell.stdout.txt").write_text("ok")
         v = fake("opaque")
-        self.assertEqual(q4.secret_problems(self.host({"fingerprints": [sg.fingerprint(v, "lab-secret", "s")], "unreadable": []}),
-                                            "ip", d), [])
+        self.assertEqual(q4.secret_problems(self.host({"fingerprints": full_fps(sg.fingerprint(v, "lab-secret", "s")),
+                                                       "unreadable": []}), "ip", d), [])
         st = q4.STATE / "secret-fingerprints.json"
         self.assertEqual(oct(st.stat().st_mode & 0o777), "0o600")
         self.assertNotIn(v, st.read_text())
@@ -212,7 +324,8 @@ class Orchestrator(unittest.TestCase):
         d = Path(tempfile.mkdtemp())
         v = fake("opaque")
         (d / "client-logs.tgz").write_bytes(tgz({"home/.gemini/tmp/chat.json": ("using " + v).encode()}))
-        probs = q4.secret_problems(self.host({"fingerprints": [sg.fingerprint(v, "lab-secret", "s")], "unreadable": []}), "ip", d)
+        probs = q4.secret_problems(self.host({"fingerprints": full_fps(sg.fingerprint(v, "lab-secret", "s")), "unreadable": []}),
+                                   "ip", d)
         self.assertEqual(len(probs), 1)
         self.assertIn("client-logs.tgz", probs[0])
         self.assertIn("lab-secret", probs[0])
@@ -220,6 +333,8 @@ class Orchestrator(unittest.TestCase):
 
     def test_fails_closed_without_fingerprints(self):
         d = Path(tempfile.mkdtemp())
+        self.assertIn("no fingerprint of", q4.secret_problems(self.host({"fingerprints": [], "unreadable": []}), "ip", d)[0],
+                      "a store that vanished from the VM leaves its secret unchecked")
         self.assertTrue(q4.secret_problems(self.host({"fingerprints": [], "unreadable": [{"source": ".codex/auth.json"}]}, rc=2),
                                            "ip", d))
 

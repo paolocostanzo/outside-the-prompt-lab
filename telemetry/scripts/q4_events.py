@@ -355,6 +355,9 @@ def secret_problems(h, ip, d):
         return [f"secret gate: no fingerprints from the VM (exit {r.returncode})"]
     if r.returncode != 0 or new.get("unreadable"):
         return [f"secret gate: secret stores not readable in the VM: {[u.get('source') for u in new.get('unreadable', [])]}"]
+    missing = sorted(set(sg.REQUIRED_KINDS) - {f.get("kind") for f in new.get("fingerprints", [])})
+    if missing:  # a store that vanished would leave its secret unchecked
+        return [f"secret gate: no fingerprint of {missing} in the VM"]
     fp = STATE / "secret-fingerprints.json"  # host-only state, outside the run folders: never published
     old = json.loads(fp.read_text()) if fp.exists() else None
     merged = sg.merge_fingerprints(old, new)
@@ -644,24 +647,25 @@ def main():
             (d / "stop.stdout.txt").write_text(stop.stdout[-4000:] + "\n--- stderr ---\n" + (stop.stderr or ""))
             h.note(event="abort-not-quiescent", run=r["name"], hint="a writer survived; VM left as it is, evidence still in it")
             sys.exit(5)
+        # D26: every copy first; the campaign log gets only exit codes until the secret gate has passed
         check = rn.client_logs(ip, d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_gt, err_gt = rn.ssh_bin(ip, ground_truth_command(r), d / "vm-out.tgz")
-        problems = ([f"ground-truth copy exited {rc_gt}: {err_gt}"] if rc_gt != 0 else []) + \
-            validate_ground_truth(r, (d / "vm-out.tgz").read_bytes())
+        (d / "copy.stderr.txt").write_text(f"ground truth (exit {rc_gt}):\n{err_gt}\n")
         tel_problems, copied = rn.telemetry(ip, d, t0 - 5)
-        problems += tel_problems
-        if res.returncode != 0:
-            problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")
         if check.get("collect_rc") != 0 or rc_gt != 0 or not copied:  # a copy failed: the VM may hold the rest
-            h.note(event="abort-copy-failed", run=r["name"], problems=problems,
+            h.note(event="abort-copy-failed", run=r["name"], collect_rc=check.get("collect_rc"), ground_truth_rc=rc_gt,
+                   telemetry_copied=copied,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
         leaks = secret_problems(h, ip, d)
-        if leaks:  # D26: checked before anything else reads the evidence
+        if leaks:  # D26: before anything reads the evidence or quotes it in the campaign log
             dest = keep_attempt(d, "secret-found", {"problems": leaks, "t0": t0, "t1": t1})
             h.note(event="abort-secret", run=r["name"], problems=leaks, kept=str(dest),
                    hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
             sys.exit(9)
+        problems = validate_ground_truth(r, (d / "vm-out.tgz").read_bytes()) + tel_problems
+        if res.returncode != 0:
+            problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")
         q = quota_in_outputs(r["client"], (d / "vm-out.tgz").read_bytes(), qm) or qm.find(r["client"], res.stdout)
         if q:
             problems.append(f"quota or rate limit reached: {q} (stop: Paolo's rule)")
