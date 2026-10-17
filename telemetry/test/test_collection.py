@@ -151,3 +151,94 @@ class Collection(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class Edges(unittest.TestCase):
+    def test_unsearchable_ancestor_is_not_absent(self):
+        if os.geteuid() == 0:
+            self.skipTest("root searches everything")
+        vm = load("vm_logs")
+        home = Path(tempfile.mkdtemp())
+        (home / ".gemini/tmp/x").mkdir(parents=True)
+        vm.HOME = str(home)
+        os.chmod(home / ".gemini", 0)
+        old = os.environ.get("HOME"); os.environ["HOME"] = str(home)
+        try:
+            loc = vm.inspect_location("~/.gemini/tmp/**/logs.json")
+            gone = vm.inspect_location("~/.nothing/here/**")
+        finally:
+            os.chmod(home / ".gemini", 0o755)
+            os.environ["HOME"] = old
+        self.assertEqual(loc["location"], "present")
+        self.assertTrue(loc["errors"], "an ancestor that cannot be searched is an inspection failure")
+        self.assertEqual(gone, {"location": "absent", "errors": []})
+
+    def test_plain_text_logs_are_counted_as_without_timestamps(self):
+        home = Path(tempfile.mkdtemp())
+        log = home / ".local/state/goose/logs/cli/2026-10-18/a.log"
+        log.parent.mkdir(parents=True)
+        log.write_text("plain text\n")
+        start, end = int(time.time()) - 60, int(time.time()) + 1
+        inv = json.loads(run_vm(home, "inventory"))
+        arc = home / "s.tgz"
+        arc.write_bytes(run_vm(home, "collect", str(start), str(end)))
+        r = cc.check(str(arc), "goose", start, end, inv, CAND_SHA)
+        self.assertEqual(r["export"], "ok", r.get("reason"))
+        pub = cc.public_record(r)
+        self.assertEqual(pub["patterns"][0]["files"], 1)
+        self.assertEqual(pub["patterns"][0]["without_timestamps"], 1)
+
+
+class StopClients(unittest.TestCase):
+    """stop_clients.sh kills processes: these tests NEVER let it reach the real pkill, pgrep or tmux. They run it with a PATH
+    that holds only stub commands (which record their arguments) and the few harmless tools it needs, so the real ones are
+    unreachable, and they check first that the script refuses to start outside the VM."""
+    REAL = ["bash", "seq", "sort", "sleep", "id", "tr", "cat", "hostname"]
+
+    def stub_path(self, alive_rounds=0):
+        d = Path(tempfile.mkdtemp())
+        log = d / "calls.log"
+        for name in ("pkill", "tmux", "ps"):
+            (d / name).write_text(f'#!/bin/sh\necho "{name} $*" >> "{log}"\n')
+        # pgrep reports a survivor for the first alive_rounds calls, then nothing
+        (d / "pgrep").write_text(f'#!/bin/sh\nn=$(cat "{d}/n" 2>/dev/null || echo 0); echo $((n+1)) > "{d}/n"\n'
+                                 f'echo "pgrep $*" >> "{log}"\n[ "$n" -lt {alive_rounds} ] && echo 4242\nexit 0\n')
+        for name in ("pkill", "tmux", "ps", "pgrep"):
+            os.chmod(d / name, 0o755)
+        for name in self.REAL:
+            real = shutil.which(name)
+            if real is None:
+                self.skipTest(f"{name} not found")
+            os.symlink(real, d / name)
+        self.assertEqual(shutil.which("pkill", path=str(d)), str(d / "pkill"))
+        return d, log
+
+    def run_script(self, d, env_extra, home):
+        env = {"PATH": str(d), "HOME": str(home), **env_extra}  # only the stub directory: the real pkill cannot be found
+        return subprocess.run([str(d / "bash"), str(SCRIPTS / "stop_clients.sh")], capture_output=True, text=True, env=env, timeout=60)
+
+    def test_refuses_outside_the_vm(self):
+        d, log = self.stub_path()
+        home = Path(tempfile.mkdtemp())
+        for env in ({}, {"Q4_IN_VM": "1"}):  # no flag; flag but no VM marker file
+            r = self.run_script(d, env, home)
+            self.assertEqual(r.returncode, 3, r.stdout + r.stderr)
+            self.assertIn("refusing to run", r.stderr)
+        self.assertFalse(log.exists(), "nothing was called")
+
+    def test_inside_the_vm_stops_and_waits(self):
+        if subprocess.run(["hostname"], capture_output=True, text=True).stdout.strip() == "parrot":
+            # the guard also refuses on the lab host by name: check the refusal, not the kill path
+            d, log = self.stub_path()
+            home = Path(tempfile.mkdtemp()); (home / ".agentlab_env").write_text("")
+            r = self.run_script(d, {"Q4_IN_VM": "1"}, home)
+            self.assertEqual(r.returncode, 3)
+            self.assertFalse(log.exists())
+            return
+        d, log = self.stub_path(alive_rounds=8)  # survivors for a while, then gone
+        home = Path(tempfile.mkdtemp()); (home / ".agentlab_env").write_text("")
+        r = self.run_script(d, {"Q4_IN_VM": "1"}, home)
+        self.assertEqual(r.returncode, 0, r.stdout + r.stderr)
+        calls = log.read_text()
+        self.assertIn("tmux kill-server", calls)
+        self.assertIn("pkill -TERM", calls)

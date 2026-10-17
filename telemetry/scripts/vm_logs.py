@@ -48,8 +48,12 @@ def inspect_location(pattern):
     """'absent' when the fixed part of the pattern does not exist; otherwise 'present' with every error met while walking it
     (glob silently skips directories it cannot read, so an unreadable location would look empty without this check)."""
     base = static_prefix(pattern)
-    if not os.path.lexists(base):
-        return {"location": "absent", "errors": []}
+    try:
+        os.lstat(base)
+    except (FileNotFoundError, NotADirectoryError):
+        return {"location": "absent", "errors": []}  # genuinely absent: every ancestor could be searched
+    except OSError as exc:  # e.g. EACCES on an ancestor: the location cannot be inspected, which is not "absent"
+        return {"location": "present", "errors": [f"{os.path.relpath(base, HOME)}: {exc.strerror}"]}
     errors = []
     if os.path.isdir(base):
         if not os.access(base, os.R_OK | os.X_OK):

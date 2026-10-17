@@ -35,7 +35,7 @@ Q5_CELL = {"claude-code": "after-decision", "codex": "after-decision", "gemini":
            "cursor-agent": "after-decision", "goose": "open-in-repo"}
 Q3_SIGNAL = {"q3-announced": "list_changed", "q3-silent": "none"}
 CANDIDATES = LAB / "telemetry/inventory/candidates.json"
-STOP_CLIENTS = "tmux kill-server 2>/dev/null; pkill -f q3-server.mjs; pkill -f marker-server.mjs; sleep 3; true"
+STOP_CLIENTS = "Q4_IN_VM=1 bash ~/lab/telemetry/scripts/stop_clients.sh"  # exits non-zero if a client, daemon or lab server survives
 
 
 def load(path, name):
@@ -276,7 +276,11 @@ def main():
         res = h.ssh(ip, cell_command(r), timeout=1500)
         t1 = int(time.time())
         (d / "cell.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
-        h.ssh(ip, STOP_CLIENTS)  # databases and logs are closed before they are copied
+        stop = h.ssh(ip, STOP_CLIENTS)  # databases and logs are closed before they are copied
+        if stop.returncode != 0:
+            dest = keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
+            h.note(event="abort-not-quiescent", run=r["name"], kept=str(dest), hint="a writer survived; VM left as it is")
+            sys.exit(5)
         check = rn.client_logs(ip, d, r["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_gt, err_gt = rn.ssh_bin(ip, ground_truth_command(r), d / "vm-out.tgz")
         problems = ([f"ground-truth copy exited {rc_gt}: {err_gt}"] if rc_gt != 0 else []) + \

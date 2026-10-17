@@ -68,11 +68,12 @@ def check(archive_path, client, start, end, inventory, candidates_sha256):
             if "sqlite-consolidated/" + f["path"] not in members:
                 return failed(rec, f"consolidated copy missing: {f['path']}")
     ranges = manifest.get("record_ranges", {})
-    cov = {f["path"]: in_window(ranges.get(f["path"]), start, end) for f in files if f["path"] in ranges}
-    pattern_of = {}
-    for f in files:  # which frozen pattern(s) each file came from, for the public counts
+    cov, pattern_of = {}, {}
+    for f in files:
         base = next((f["path"][:-len(s)] for s in ("-wal", "-shm", "-journal") if f["path"].endswith(s)), f["path"])
-        pattern_of[f["path"]] = [p for p in frozen if fnmatch_home(base, p)]  # sidecars count with their database
+        # every exported file gets a coverage value: its own record range, its database's for a sidecar, else "unknown"
+        cov[f["path"]] = in_window(ranges.get(f["path"], ranges.get(base)), start, end)
+        pattern_of[f["path"]] = [p for p in frozen if fnmatch_home(base, p)]  # which frozen pattern(s), for the public counts
     modified = [f for f in files if start <= f["mtime"] <= end + 5]
     inv_files = inventory["clients"][client].get("files")
     if not inv_files and not files:

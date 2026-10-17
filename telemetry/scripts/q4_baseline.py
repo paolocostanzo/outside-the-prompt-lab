@@ -125,7 +125,11 @@ def main():
         res = h.ssh(ip, session_command(s, a.minutes), timeout=int(a.minutes * 60) + 900)
         t1 = int(time.time())
         (d / "session.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
-        h.ssh(ip, ev.STOP_CLIENTS)
+        stop = h.ssh(ip, ev.STOP_CLIENTS)
+        if stop.returncode != 0:
+            dest = ev.keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
+            h.note(event="abort-not-quiescent", session=s["name"], kept=str(dest), hint="a writer survived; VM left as it is")
+            sys.exit(5)
         check = rn.client_logs(ip, d, s["client"], t0, t1, cc, inv, frozen["candidates_sha256"])
         rc_out, err_out = rn.ssh_bin(ip, outputs_command(), d / "vm-out.tgz")
         sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
