@@ -81,6 +81,16 @@ class SecondLabelsUntouched(unittest.TestCase):
         r = cc.compare(first, second)
         self.assertEqual(r["protection"]["raw_agreement"], 0.0, "B/full in the second reading is a disagreement, not n-a")
 
+    def test_inconsistent_row_stays_and_goes_to_adjudication(self):
+        first = cc.read(write([{"server": "s", "tool": "x", "class": "A", "protection": "full", "contested": "False"}], FIRST))
+        second = cc.read(write([{"server": "s", "tool": "x", "class": "B", "protection": "full", "vendor_only": "false",
+                                 "evidence": "e", "valid": "True", "consistent": "False"}], SECOND + ["consistent"]), valid_only=True)
+        r = cc.compare(first, second)
+        self.assertEqual(r["n_joined"], 1, "the row is not dropped as missing")
+        self.assertEqual(r["class"]["raw_agreement"], 0.0)
+        self.assertEqual([(x["tool"], x["second"]["consistent"]) for x in r["to_adjudicate"]], [("x", False)])
+        self.assertEqual(r["second_inconsistent_rows"], [["s", "x"]])
+
 
 class Validity(unittest.TestCase):
     def test_second_reading_without_valid_column_is_refused(self):

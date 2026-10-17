@@ -49,6 +49,13 @@ def prot_second(r):
     return (r.get("protection") or "").strip()
 
 
+def inconsistent(r):
+    """A second-reading row whose class and protection contradict each other (B with a protection, A with n-a)."""
+    if "consistent" in r and (r.get("consistent") or "").strip() != "":
+        return (r.get("consistent") or "").strip().lower() != "true"
+    return (cls(r) == "not-A") != (prot_second(r) == "n-a")
+
+
 def compare(first, second):
     dup1 = sorted(k for k, v in first.items() if len(v) > 1)
     dup2 = sorted(k for k, v in second.items() if len(v) > 1)
@@ -72,9 +79,13 @@ def compare(first, second):
          "second": {"class": second[k][0]["class"], "protection": second[k][0]["protection"],
                     "vendor_only": flag(second[k][0], "vendor_only"), "evidence": second[k][0].get("evidence", "")}}
         for k in common
-        if "A" in (cls(first[k][0]), cls(second[k][0]))
-        and (cls(first[k][0]), prot_first(first[k][0]), flag(first[k][0], "contested"))
-        != (cls(second[k][0]), prot_second(second[k][0]), flag(second[k][0], "vendor_only"))]
+        if inconsistent(second[k][0])
+        or ("A" in (cls(first[k][0]), cls(second[k][0]))
+            and (cls(first[k][0]), prot_first(first[k][0]), flag(first[k][0], "contested"))
+            != (cls(second[k][0]), prot_second(second[k][0]), flag(second[k][0], "vendor_only")))]
+    for item in out["to_adjudicate"]:
+        item["second"]["consistent"] = not inconsistent(second[(item["server"], item["tool"])][0])
+    out["second_inconsistent_rows"] = [list(k) for k in common if inconsistent(second[k][0])]
     return out
 
 

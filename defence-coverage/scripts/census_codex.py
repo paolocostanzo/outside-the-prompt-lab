@@ -61,7 +61,8 @@ ROW["properties"]["class"] = {"type": "string", "enum": ["A", "B"]}
 ROW["properties"]["protection"] = {"type": "string", "enum": ["full", "partial", "none", "n-a"]}
 SCHEMA = {"type": "object", "additionalProperties": False, "properties": {"rows": {"type": "array", "items": ROW}},
           "required": ["rows"]}
-FIELDS = ["repo", "commit", "server", "tool", "registered_at", "class", "class_reason", "protection", "mechanism", "vendor_only", "evidence"]
+FIELDS = ["repo", "commit", "server", "tool", "registered_at", "class", "class_reason", "protection", "mechanism", "vendor_only", "evidence",
+          "consistent"]
 
 
 def fresh_source(url, commit, dest: Path) -> list[dict]:
@@ -137,11 +138,12 @@ def main():
             valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and bool(got) and unchanged
             inconsistent = 0
             for r in got:
-                # class B must have protection n-a and class A must not: a contradictory row is kept, marked invalid
+                # class B should have protection n-a and class A should not. A contradictory row keeps its labels untouched,
+                # stays in the comparison (validity is about the session) and is flagged for adjudication.
                 consistent = (r.get("class") == "B") == (r.get("protection") == "n-a")
                 inconsistent += not consistent
                 w.writerow({"repo": entry["repo"], "commit": entry["commit"], **r,
-                            "vendor_only": str(r.get("vendor_only")).lower(), "valid": valid and consistent})
+                            "vendor_only": str(r.get("vendor_only")).lower(), "consistent": consistent, "valid": valid})
             fh.flush()  # checkpoint after every repository
             meta["sessions"].append({"repo": entry["repo"], "commit": entry["commit"], "status": rec.get("status"),
                                      "probe": rec["probe"], "context": ctx, "source_unchanged": unchanged, "valid": valid,
