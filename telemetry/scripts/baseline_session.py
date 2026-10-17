@@ -31,6 +31,11 @@ _qspec.loader.exec_module(quota)
 # gets "allow once". For Claude Code both questions read "Do you want to proceed?", and the Q3 keys give "don't ask again".
 LAB_TOOL = re.compile(r"q3_noop|q3-lab")
 QUESTION_LINES = 25  # the bottom of the screen, where the clients draw their questions
+DIALOG_LINES = 10    # the active dialog: the lines just above the question line
+# Headings of command and edit dialogs: when one is in the active dialog, the question is never an MCP approval, even if the lab
+# tool's name appears (recent tool output, or a command that mentions it).
+COMMAND_DIALOG = re.compile(r"Bash command|Edit file|Create file|Write file|Run this command|Would you like to run the following command|"
+                            r"Would you like to make the following edits|Apply this change|shell command", re.I)
 
 
 class Session:
@@ -58,10 +63,15 @@ class Session:
         """Answer a permission question on screen, if any. Returns the kind answered, or None.
         The frozen Q3 MCP approval is used only for a question that names the lab tool; command and edit questions are always
         answered "allow once", so that nothing is allowed permanently (D24 point 4)."""
-        bottom = "\n".join(s.splitlines()[-QUESTION_LINES:])
-        if self.spec.get("approve") and re.search(self.spec["approve"], bottom) and LAB_TOOL.search(bottom):
-            q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
-            return "mcp-approval"
+        lines = s.splitlines()[-QUESTION_LINES:]
+        bottom = "\n".join(lines)
+        if self.spec.get("approve"):
+            hits = [i for i, l in enumerate(lines) if re.search(self.spec["approve"], l)]
+            if hits:  # the active dialog = the lines just above the last question line, the question included
+                dialog = "\n".join(lines[max(0, hits[-1] - DIALOG_LINES):hits[-1] + 1])
+                if LAB_TOOL.search(dialog) and not COMMAND_DIALOG.search(dialog):
+                    q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
+                    return "mcp-approval"
         if self.perm.get("allow") and re.search(self.perm["allow"], bottom):
             q3.keys(*self.perm["allow_keys"])
             return "allow-once"
@@ -137,7 +147,7 @@ class Session:
             ready = q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
             if not ready:
                 self.log(action="not-ready", cycle=cycle)
-                self.quota_hit(q3.screen(), cycle, None)
+            self.quota_hit(q3.screen(), cycle, None)  # a quota message can sit next to the ready marker
             for task in self.tasks:
                 if time.time() >= deadline or self.quota_message:
                     break
@@ -146,6 +156,7 @@ class Session:
                     done += 1
                 elif not ready:
                     self.log(action="skipped-not-ready", cycle=cycle, task=task["id"])
+            self.quota_hit(q3.screen(), cycle, None)  # last look before the screen is destroyed, deadline exits included
             q3.kill()
             self.log(action="close", cycle=cycle)
             if self.quota_message:

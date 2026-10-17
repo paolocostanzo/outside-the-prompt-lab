@@ -184,3 +184,54 @@ class PlanPhase04(unittest.TestCase):
         r = subprocess.run([sys.executable, "-I", str(SCRIPTS / "q4_events.py"), "--snapshot", "x", "--seed", "1", "--inventory", "/x",
                             "--out", "/nonexistent-dir", "--clients", "gemini", "--reps", "1", "--dry-run"], capture_output=True, text=True, check=True)
         self.assertEqual(len([l for l in r.stdout.splitlines() if "__r" in l]), 3)
+
+
+class InspectionRound1(unittest.TestCase):
+    """Fixes of the code inspection of 17 Oct 2026, round 1."""
+    def test_timeout_becomes_a_failed_result(self):
+        def boom(*a, **k):
+            raise subprocess.TimeoutExpired(cmd="ssh", timeout=120, output=b"partial audit", stderr=b"")
+        r = q4.safe(boom)
+        self.assertEqual((r.returncode, r.stdout), (124, "partial audit"))
+        self.assertIn("timeout", r.stderr)
+
+    def test_telemetry_timeout_is_recorded_not_raised(self):
+        class H:
+            def ssh(self, ip, cmd, timeout=120):
+                if "audit.log" in cmd:
+                    raise subprocess.TimeoutExpired(cmd="ssh", timeout=timeout)
+                return _NS(returncode=0, stdout="x\n", stderr="")
+        d = Path(_tempfile.mkdtemp())
+        problems = q4.Runner(H(), None).telemetry("ip", d, 1)
+        self.assertTrue(any("audit.log" in p and "124" in p for p in problems), problems)
+        self.assertTrue((d / "telemetry/status.json").exists())
+
+    def test_interrupted_attempt_is_kept_before_a_rerun(self):
+        d = Path(_tempfile.mkdtemp()) / "run"
+        d.mkdir()
+        (d / "cell.stdout.txt").write_text("half")
+        kept = q4.preserve_interrupted(d)
+        self.assertTrue((kept / "cell.stdout.txt").exists())
+        self.assertEqual(_json.loads((kept / "attempt.json").read_text())["status"], "interrupted")
+        self.assertIsNone(q4.preserve_interrupted(d), "an empty folder (only attempts/) is not an attempt")
+
+    def test_memory_is_checked_before_every_revert(self):
+        calls = {"wait": 0, "revert": 0}
+        orig = q4.wait_for_memory
+        q4.wait_for_memory = lambda note: calls.__setitem__("wait", calls["wait"] + 1) or (2000, 30)
+        self.addCleanup(lambda: setattr(q4, "wait_for_memory", orig))
+        class Q3:
+            VIRSH, DOMAIN = ["virsh"], "agentlab"
+            @staticmethod
+            def run(cmd, **k):
+                if "snapshot-revert" in cmd:
+                    calls["revert"] += 1
+                    return _NS(returncode=0 if calls["revert"] >= 3 else 1, stdout="", stderr="apparmor")
+                return _NS(returncode=0, stdout="running", stderr="")
+        class H:
+            def order6_blocks(self): return 5
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="", stderr="")
+        ip, _ = q4.fresh_vm_checked(H(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertEqual(ip, "1.2.3.4")
+        self.assertEqual((calls["revert"], calls["wait"]), (3, 3), "one memory check per revert attempt")

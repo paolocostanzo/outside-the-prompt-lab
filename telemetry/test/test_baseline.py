@@ -178,3 +178,33 @@ class Quota(unittest.TestCase):
         self.assertEqual(self.s.quota_message, "You've hit your usage limit")
         lines = [json.loads(l) for l in (self.s.out / "timeline.jsonl").read_text().splitlines()]
         self.assertEqual(lines[-1]["action"], "quota")
+
+
+class DialogDetection(OverlappingQuestions):
+    def test_recent_tool_output_above_a_command_dialog(self):
+        screen = ("⏺ q3-lab - q3_noop (MCP)\n  ⎿  ok\n\n⏺ ok\n\n> Run the tests\n\nBash command\n\n  python3 -m unittest -q\n"
+                  "  Run the tests\n\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again for python3 commands\n   3. No")
+        self.assertEqual(self.s.answer_questions(screen, 2, CFG["tasks"][1]), "allow-once")
+        self.assertEqual(self.sent[-1], ("Enter",))
+
+    def test_lab_tool_name_inside_a_command(self):
+        screen = "Bash command\n\n  grep -n q3_noop greet.py\n\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again"
+        self.assertEqual(self.s.answer_questions(screen, 2, CFG["tasks"][1]), "allow-once")
+
+
+class QuotaAtCycleEdges(unittest.TestCase):
+    def test_quota_next_to_the_ready_marker_invalidates(self):
+        out = Path(tempfile.mkdtemp()); (out / "screens").mkdir()
+        bs.q3.load_overrides(SCRIPTS.parent.parent / "tool-change/scripts/q3-clients.json")
+        s = bs.Session("codex", "dev", out, CFG["tasks"], PERMS)
+        saved = {n: getattr(bs.q3, n) for n in ("launch", "wait_ready", "screen", "kill")}
+        saved_sleep = bs.time.sleep
+        self.addCleanup(lambda: ([setattr(bs.q3, n, f) for n, f in saved.items()], setattr(bs.time, "sleep", saved_sleep)))
+        bs.q3.launch = lambda cmd: None
+        bs.q3.wait_ready = lambda *a, **k: True
+        bs.q3.screen = lambda: "■ You've hit your usage limit.\n› Ask Codex to do anything"
+        bs.q3.kill = lambda: None
+        bs.time.sleep = lambda x: None
+        cycles, prompted, done = s.run(0.05, CFG)
+        self.assertEqual(cycles, 1, "the session ends at the first quota message")
+        self.assertIsNotNone(s.quota_message)

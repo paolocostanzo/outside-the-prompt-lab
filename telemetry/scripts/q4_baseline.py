@@ -116,18 +116,20 @@ def main():
         if (d / "run.json").exists():
             continue
         waited = wait_for_gap(out, s, a.gap_hours, h.note)
+        kept = ev.preserve_interrupted(d)
+        if kept:
+            h.note(event="interrupted-attempt-kept", session=s["name"], kept=str(kept))
         d.mkdir(exist_ok=True)
-        avail, _ = ev.wait_for_memory(h.note)
-        ip, boot_s = h.fresh_vm(a.snapshot)
+        ip, boot_s = ev.fresh_vm_checked(h, q3, a.snapshot, h.note)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
-        h.ssh(ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
+        ev.safe(h.ssh, ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
         t0 = int(time.time())
-        h.note(event="session-start", n=i, of=len(sessions), session=s["name"], ip=ip, boot_s=boot_s, host_avail_mb=avail)
-        res = h.ssh(ip, session_command(s, a.minutes), timeout=int(a.minutes * 60) + 900)
+        h.note(event="session-start", n=i, of=len(sessions), session=s["name"], ip=ip, boot_s=boot_s)
+        res = ev.safe(h.ssh, ip, session_command(s, a.minutes), timeout=int(a.minutes * 60) + 900)
         t1 = int(time.time())
         (d / "session.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
-        stop = h.ssh(ip, ev.STOP_CLIENTS)
+        stop = ev.safe(h.ssh, ip, ev.STOP_CLIENTS)
         if stop.returncode != 0:
             dest = ev.keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
             h.note(event="abort-not-quiescent", session=s["name"], kept=str(dest), hint="a writer survived; VM left as it is")

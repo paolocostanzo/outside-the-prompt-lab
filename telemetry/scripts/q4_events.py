@@ -182,6 +182,59 @@ def wait_for_memory(note, sleep=time.sleep, now=time.time, meminfo="/proc/meminf
         sleep(30)
 
 
+def safe(fn, *args, **kw):
+    """Run an ssh or virsh call; a timeout or transport error becomes a failed result (rc 124 / 255) with what was received,
+    instead of an exception that would leave the run without its attempt record."""
+    try:
+        return fn(*args, **kw)
+    except subprocess.TimeoutExpired as exc:
+        out = exc.stdout.decode(errors="replace") if isinstance(exc.stdout, bytes) else (exc.stdout or "")
+        err = exc.stderr.decode(errors="replace") if isinstance(exc.stderr, bytes) else (exc.stderr or "")
+        return _Result(124, out, (err + f"\ntimeout after {exc.timeout} s").strip())
+    except OSError as exc:
+        return _Result(255, "", f"{type(exc).__name__}: {exc}")
+
+
+class _Result:
+    def __init__(self, returncode, stdout, stderr):
+        self.returncode, self.stdout, self.stderr = returncode, stdout, stderr
+
+
+def fresh_vm_checked(h, q3, snapshot, note, sleep=time.sleep):
+    """Restore the clean snapshot like q3_host.Host.fresh_vm (which stays as it ran for part 3), but with the memory check of
+    the plan before EVERY revert attempt, and with timeouts turned into failures."""
+    for attempt in range(1, 6):
+        wait_for_memory(note)
+        r = safe(q3.run, q3.VIRSH + ["snapshot-revert", q3.DOMAIN, snapshot])
+        state = safe(q3.run, q3.VIRSH + ["domstate", q3.DOMAIN]).stdout
+        if r.returncode == 0 and "running" not in state and "esecuzione" not in state:
+            r = safe(q3.run, q3.VIRSH + ["start", q3.DOMAIN])
+        if r.returncode == 0:
+            break
+        note(event="revert-failed", attempt=attempt, stderr=(r.stderr or "").strip()[:300], order6plus=h.order6_blocks())
+        sleep(60)
+    else:
+        note(event="abort-revert", hint="host memory fragmented or VM not restorable: free memory or reboot, then rerun")
+        sys.exit(4)
+    t0 = time.time()
+    while time.time() - t0 < 240:
+        ip = h.ip()
+        if ip and safe(h.ssh, ip, "true", timeout=15).returncode == 0:
+            safe(h.ssh, ip, f"sudo date -s @{int(time.time())} >/dev/null")  # the guest clock comes back with the snapshot
+            return ip, round(time.time() - t0)
+        sleep(3)
+    note(event="ssh-timeout")
+    sys.exit(6)
+
+
+def preserve_interrupted(d):
+    """A run folder with content but no run.json is an attempt that was interrupted (crash, power, Ctrl-C): keep it before the
+    VM is restored again, so that a rerun never overwrites it."""
+    if d.exists() and not (d / "run.json").exists() and any(p.name != "attempts" for p in d.iterdir()):
+        return keep_attempt(d, "interrupted", {"note": "found without run.json when the campaign was resumed"})
+    return None
+
+
 def sha_file(p):
     return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 
@@ -236,20 +289,25 @@ class Runner:
         """Run a command in the VM and write its stdout, as bytes, to dest."""
         q3 = self.q3
         with open(dest, "wb") as f:
-            r = subprocess.run(["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes",
-                                f"lab@{ip}", command], stdout=f, stderr=subprocess.PIPE, timeout=timeout)
+            try:
+                r = subprocess.run(["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes",
+                                    f"lab@{ip}", command], stdout=f, stderr=subprocess.PIPE, timeout=timeout)
+            except subprocess.TimeoutExpired as exc:
+                return 124, f"timeout after {exc.timeout} s"
+            except OSError as exc:
+                return 255, f"{type(exc).__name__}: {exc}"
         return r.returncode, r.stderr.decode(errors="replace")[-500:]
 
     def push(self, ip):
         q3 = self.q3
         p1 = subprocess.Popen(["tar", "-C", str(LAB), "-czf", "-", "--exclude=node_modules", "--exclude=__pycache__", *FOLDERS],
                               stdout=subprocess.PIPE)
-        p2 = subprocess.run(["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes", f"lab@{ip}",
-                             "mkdir -p ~/lab && cd ~/lab && rm -rf " + " ".join(FOLDERS) + " && tar -xzf -"],
-                            stdin=p1.stdout, capture_output=True, timeout=180)
+        p2 = safe(subprocess.run, ["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes",
+                                   f"lab@{ip}", "mkdir -p ~/lab && cd ~/lab && rm -rf " + " ".join(FOLDERS) + " && tar -xzf -"],
+                  stdin=p1.stdout, capture_output=True, timeout=180)
         p1.wait()
-        h = self.h.ssh(ip, "cd ~/lab && find " + " ".join(FOLDERS) + " -type f -not -path '*/test/*' | sort | xargs sha256sum",
-                       timeout=120)
+        h = safe(self.h.ssh, ip, "cd ~/lab && find " + " ".join(FOLDERS) + " -type f -not -path '*/test/*' | sort | xargs sha256sum",
+                 timeout=120)
         return p2.returncode, h.stdout
 
     def telemetry(self, ip, d, since):
@@ -258,7 +316,7 @@ class Runner:
         tel.mkdir(exist_ok=True)
         problems, status = [], {}
         for name, rcmd, nonempty in TELEMETRY:
-            r = self.h.ssh(ip, rcmd.format(since=since), timeout=120)
+            r = safe(self.h.ssh, ip, rcmd.format(since=since), timeout=120)
             (tel / name).write_text(r.stdout)
             (tel / (name + ".stderr")).write_text(r.stderr or "")
             status[name] = {"rc": r.returncode, "bytes": len(r.stdout.encode())}
@@ -311,19 +369,21 @@ def main():
         d = out / r["name"]
         if (d / "run.json").exists():
             continue
+        kept = preserve_interrupted(d)
+        if kept:
+            h.note(event="interrupted-attempt-kept", run=r["name"], kept=str(kept))
         d.mkdir(exist_ok=True)
-        avail, order6 = wait_for_memory(h.note)
-        h.note(event="pre-revert", run=r["name"], avail_mb=avail, order6plus=order6)
-        ip, boot_s = h.fresh_vm(a.snapshot)
+        h.note(event="pre-revert", run=r["name"], order6plus=h.order6_blocks())
+        ip, boot_s = fresh_vm_checked(h, q3, a.snapshot, h.note)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
-        h.ssh(ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
+        safe(h.ssh, ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
         t0 = int(time.time())
-        h.note(event="run-start", n=i, of=len(runs), run=r["name"], ip=ip, boot_s=boot_s, host_avail_mb=avail, push_rc=rc_push)
-        res = h.ssh(ip, cell_command(r), timeout=1500)
+        h.note(event="run-start", n=i, of=len(runs), run=r["name"], ip=ip, boot_s=boot_s, push_rc=rc_push)
+        res = safe(h.ssh, ip, cell_command(r), timeout=1500)
         t1 = int(time.time())
         (d / "cell.stdout.txt").write_text(res.stdout + "\n--- stderr ---\n" + res.stderr)
-        stop = h.ssh(ip, STOP_CLIENTS)  # databases and logs are closed before they are copied
+        stop = safe(h.ssh, ip, STOP_CLIENTS)  # databases and logs are closed before they are copied
         if stop.returncode != 0:
             dest = keep_attempt(d, "clients-not-stopped", {"stdout": stop.stdout[-2000:], "t0": t0, "t1": t1})
             h.note(event="abort-not-quiescent", run=r["name"], kept=str(dest), hint="a writer survived; VM left as it is")
