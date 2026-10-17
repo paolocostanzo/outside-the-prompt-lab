@@ -82,7 +82,7 @@ def main():
                     outcome, reason = ans["outcome"], (ans.get("reason") or "")[:300]
             except (json.JSONDecodeError, AttributeError):
                 pass
-            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"]) if rec.get("rollouts")
+            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"], ref["environment"]) if rec.get("rollouts")
                    else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
             valid = rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"] and outcome != "INVALID"
             w.writerow({"id": p.stem, "outcome": outcome if valid else "INVALID", "reason": reason, "valid": valid})

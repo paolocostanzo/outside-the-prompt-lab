@@ -20,7 +20,9 @@ _spec.loader.exec_module(agr)
 def read(path, valid_only=False):
     rows = [r for r in csv.DictReader(open(path, newline=""))]
     if valid_only:
-        rows = [r for r in rows if r.get("valid", "True") in ("True", "true", True)]
+        if rows and "valid" not in rows[0]:
+            raise SystemExit(f"{path}: no 'valid' column; the second reading must carry the validity of its session")
+        rows = [r for r in rows if (r.get("valid") or "").strip().lower() == "true"]
     keyed = collections.defaultdict(list)
     for r in rows:
         keyed[(r["server"].strip(), r["tool"].strip())].append(r)
@@ -76,7 +78,10 @@ def main():
     ap.add_argument("second")
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
+    all_second = read(a.second)
     res = compare(read(a.first), read(a.second, valid_only=True))
+    res["second_rows_excluded_invalid"] = sum(len(v) for v in all_second.values()) - sum(
+        len(v) for v in read(a.second, valid_only=True).values())
     Path(a.out).write_text(json.dumps(res, indent=2))
     print(json.dumps({k: res[k] for k in ("n_first", "n_second", "n_joined", "class", "protection", "vendor_only")}, indent=1))
     print("to adjudicate:", len(res["to_adjudicate"]))

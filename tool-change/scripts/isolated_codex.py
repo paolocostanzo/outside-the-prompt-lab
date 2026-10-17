@@ -9,7 +9,7 @@ memories, skills or hooks. The copied credential is deleted on every exit path.
 
 Initial-context check (D22 point 3): before the first assistant message the rollout may contain only (a) developer blocks that
 are byte-identical to those of a reference session run in the same batch on a synthetic prompt (the CLI's own built-in texts for
-this version and container), (b) exactly one <environment_context> block whose fields are the expected ones, with cwd /work, and
+this version and container), (b) exactly one <environment_context> block, parsed strictly, equal to the reference one except for the date, and
 (c) exactly one user message equal to the prompt. Anything else makes the session invalid.
 
 Used by code_q3_codex.py (RQ3) and by defence-coverage/scripts/census_codex.py (RQ4). Requires bwrap and the native Codex binary.
@@ -44,9 +44,13 @@ def minimal_config(model: str, effort: str) -> str:
 def make_codex_home(root: Path, auth: Path, model: str, effort: str) -> Path:
     home = root / "codex-home"
     home.mkdir(parents=True)
-    shutil.copy2(auth, home / "auth.json")
-    os.chmod(home / "auth.json", 0o600)
-    (home / "config.toml").write_text(minimal_config(model, effort))
+    try:
+        shutil.copy2(auth, home / "auth.json")
+        os.chmod(home / "auth.json", 0o600)
+        (home / "config.toml").write_text(minimal_config(model, effort))
+    except BaseException:
+        (home / "auth.json").unlink(missing_ok=True)  # never leave a credential copy behind a failed set-up
+        raise
     return home
 
 
@@ -97,9 +101,9 @@ def run_session(prompt: str, root: Path, auth: Path, model: str, effort: str, sc
     workdir = root / "work"
     workdir.mkdir(parents=True)
     record = {"model": model, "effort": effort, "prompt": prompt, "rollouts": []}
-    codex_home = None
+    codex_home = root / "codex-home"  # known before any credential is copied, so the finally block always covers it
     try:
-        codex_home = make_codex_home(root, auth, model, effort)
+        make_codex_home(root, auth, model, effort)
         if schema is not None:
             (workdir / "schema.json").write_text(json.dumps(schema))
         pr = probe(codex_home, workdir, ro_binds, vendor)
@@ -122,7 +126,7 @@ def run_session(prompt: str, root: Path, auth: Path, model: str, effort: str, sc
         record["status"] = "error"
         record["error"] = str(exc)
     finally:
-        if codex_home is not None:
+        if codex_home.exists():
             (codex_home / "auth.json").unlink(missing_ok=True)  # never keep a credential copy next to the evidence
             record["rollouts"] = [str(r.relative_to(root)) for r in sorted(codex_home.glob("sessions/*/*/*/rollout-*.jsonl"))]
         record.setdefault("probe", {"ok": False, "visible": [], "returncode": None, "stdout": "", "stderr": "not run"})
@@ -149,26 +153,35 @@ def developer_hashes(rollout: Path) -> list[str]:
     return [hashlib.sha256(t.encode()).hexdigest() for role, t in initial_messages(rollout) if role == "developer"]
 
 
-def _env_ok(text: str) -> list[str]:
-    problems = []
+def parse_env(text: str) -> tuple[dict | None, list[str]]:
+    """Parse one <environment_context> block strictly: only the allowed fields, each at most once, nothing else in between."""
     m = re.fullmatch(r"\s*<environment_context>(.*)</environment_context>\s*", text, re.S)
     if not m:
-        return ["environment block is not a single <environment_context> element"]
-    body = m.group(1)
-    fields = re.findall(r"^\s*<([a-z_]+)>", body, re.M)
-    if set(fields) - ENV_FIELDS:
-        problems.append(f"unexpected environment fields: {sorted(set(fields) - ENV_FIELDS)}")
-    cwd = re.search(r"<cwd>(.*?)</cwd>", body)
-    if not cwd or cwd.group(1) != "/work":
+        return None, ["environment block is not a single <environment_context> element"]
+    body, fields, problems = m.group(1), {}, []
+    for el in re.finditer(r"<([a-z_]+)>(.*?)</\1>", body, re.S):
+        name = el.group(1)
+        if name not in ENV_FIELDS:
+            problems.append(f"unexpected environment field {name!r}")
+        if name in fields:
+            problems.append(f"duplicate environment field {name!r}")
+        fields[name] = el.group(2)
+    leftover = re.sub(r"<([a-z_]+)>(.*?)</\1>", "", body, flags=re.S)
+    if leftover.strip():
+        problems.append("text outside the environment fields")
+    if fields.get("cwd") != "/work":
         problems.append("environment cwd is not /work")
-    return problems
+    if "current_date" in fields and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", fields["current_date"]):
+        problems.append("environment current_date is not a date")
+    return fields, problems
 
 
-def check_context(rollout: Path, prompt: str, expected_developer: list[str] | None = None) -> dict:
+def check_context(rollout: Path, prompt: str, expected_developer: list[str] | None = None,
+                  expected_env: dict | None = None) -> dict:
     """See the module docstring. With expected_developer=None only the structural checks run (used for the reference session
     itself); a coding session must pass expected_developer from the batch's reference session."""
     msgs = initial_messages(rollout)
-    problems, tags, envs, prompts = [], [], 0, 0
+    problems, tags, envs, prompts, env = [], [], 0, 0, None
     for role, text in msgs:
         if HOST_HOME in text:
             problems.append(f"{role} message mentions the host home directory")
@@ -183,7 +196,8 @@ def check_context(rollout: Path, prompt: str, expected_developer: list[str] | No
         elif role == "user":
             if text.lstrip().startswith("<environment_context>"):
                 envs += 1
-                problems += _env_ok(text)
+                env, env_problems = parse_env(text)
+                problems += env_problems
             elif text.strip() == prompt.strip():
                 prompts += 1
             else:
@@ -197,7 +211,10 @@ def check_context(rollout: Path, prompt: str, expected_developer: list[str] | No
     hashes = [hashlib.sha256(t.encode()).hexdigest() for role, t in msgs if role == "developer"]
     if expected_developer is not None and hashes != expected_developer:
         problems.append("developer blocks differ from the reference session of this batch")
-    return {"ok": not problems, "problems": problems, "developer_tags": tags, "developer_hashes": hashes}
+    stable = {k: v for k, v in (env or {}).items() if k != "current_date"}
+    if expected_env is not None and stable != expected_env:
+        problems.append("environment block differs from the reference session of this batch")
+    return {"ok": not problems, "problems": problems, "developer_tags": tags, "developer_hashes": hashes, "environment": stable}
 
 
 def reference_session(root: Path, auth: Path, model: str, effort: str, schema: dict | None, ro_binds=(),
@@ -211,4 +228,4 @@ def reference_session(root: Path, auth: Path, model: str, effort: str, schema: d
            else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
     return {"record": {k: v for k, v in rec.items() if k != "prompt"}, "context": ctx,
             "ok": rec.get("status") == "completed" and rec["probe"]["ok"] and ctx["ok"],
-            "developer_hashes": ctx["developer_hashes"]}
+            "developer_hashes": ctx["developer_hashes"], "environment": ctx.get("environment")}

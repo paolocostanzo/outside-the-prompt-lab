@@ -73,5 +73,18 @@ class Compare(unittest.TestCase):
         self.assertEqual(r["n_joined"], 0)
 
 
+class Validity(unittest.TestCase):
+    def test_second_reading_without_valid_column_is_refused(self):
+        path = write([{"server": "s", "tool": "a", "class": "A", "protection": "full", "vendor_only": "false", "evidence": ""}],
+                     ["server", "tool", "class", "protection", "vendor_only", "evidence"])
+        with self.assertRaises(SystemExit):
+            cc.read(path, valid_only=True)
+
+    def test_only_explicit_true_counts(self):
+        path = write([{"server": "s", "tool": t, "class": "A", "protection": "full", "vendor_only": "false", "evidence": "", "valid": v}
+                      for t, v in (("a", "True"), ("b", ""), ("c", "yes"), ("d", "false"))], SECOND)
+        self.assertEqual(sorted(k[1] for k in cc.read(path, valid_only=True)), ["a"])
+
+
 if __name__ == "__main__":
     unittest.main()

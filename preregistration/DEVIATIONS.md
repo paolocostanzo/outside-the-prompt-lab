@@ -287,7 +287,8 @@ order P001–P060, the packet text inside the prompt, the working directory an e
 Codex vs local model, Fleiss' κ over the three, the confusion tables, and how many of the 46 earlier disagreements Codex resolves
 like the author.
 (2) RQ4. Codex reads the eight servers of the census at the pinned commits (`defence-coverage/pinned-commits.csv`), one session per
-repository, and returns one row per registered tool name: class (A or not A), protection (full / partial / none / n-a), mechanism,
+repository, and returns one row per tool name the server exposes, i.e. registered with the SDK or reachable through a dispatcher
+or catalog tool, deprecated aliases not counted separately, as in the first reading: class (A or not A), protection (full / partial / none / n-a), mechanism,
 a vendor-only-prose flag, and file:line evidence for each. The rules are given verbatim and in advance: D17 points 2–4 and the
 operational rule of the census (`lab/results/q2/census/REVIEW.md`, "Regola di coerenza"): class A = returns free prose written by
 third parties (titles, descriptions, bodies, comments, messages, file contents, logs), not names or identifier-like strings;
@@ -321,7 +322,8 @@ Any violation is reported and that session's coding is excluded.
 (4) Order. This deviation is committed and pushed before Codex receives any packet or repository. The scripts, with their prompts
 and schemas, are committed with it: `tool-change/scripts/isolated_codex.py` (container, probe, context check),
 `tool-change/scripts/code_q3_codex.py` (RQ3), `defence-coverage/scripts/census_codex.py` (RQ4 second reading) and
-`defence-coverage/scripts/compare_census.py` (RQ4 agreement), with their tests. Before this commit they were run only on synthetic
+`defence-coverage/scripts/compare_census.py` (RQ4 agreement) and `tool-change/scripts/agreement_q3_three.py` (RQ3 agreement),
+with their tests. Before this commit they were run only on synthetic
 inputs: one invented packet and one invented repository.
 **Effect.** Adds a robustness check from an independent model family. Preregistered analyses and their reporting order are unchanged.
 Codex belongs to the vendor of one measured client (Codex CLI); its role is coding captures and reading server code, not judging

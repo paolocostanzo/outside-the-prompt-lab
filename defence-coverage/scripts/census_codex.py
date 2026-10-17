@@ -24,8 +24,11 @@ _spec.loader.exec_module(iso)
 
 RULES = """Census rules (deviation D17 points 2-4, and the operational definitions of D22 point 2), given verbatim:
 
-- One row per registered tool name: every tool the server registers with its MCP SDK, including tools that are only registered
-  under a flag or a toolset, with the file:line where it is registered.
+- One row per tool name the server exposes: every tool registered with its MCP SDK (including tools registered only under a flag
+  or a toolset), and every named tool reachable through a dispatcher or catalog tool (for example a pair such as "search tools" /
+  "execute tool" that lists and runs catalog entries). Deprecated aliases that reuse another tool's definition are not counted
+  separately; a tool with its own name and its own schema is counted even if it reuses another tool's handler. Give the file:line
+  of the registration or of the catalog entry, and say in class_reason whether the tool is direct or catalog-only.
 - Class A: the tool returns free prose written by third parties (titles, descriptions, bodies, comments, messages, file contents,
   logs). Names and identifier-like strings (names of branches, repositories, projects, pipelines, teams, users, display names,
   tags or labels used as identifiers) do not make a tool class A. Otherwise the class is B.
@@ -123,7 +126,7 @@ def main():
             root = out / "sessions" / name
             rec = iso.run_session(prompt, root, Path(a.auth), a.model, a.effort, SCHEMA, ro_binds=((src, "/work/src"),),
                                   timeout=a.timeout)
-            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"]) if rec.get("rollouts")
+            ctx = (iso.check_context(root / rec["rollouts"][0], prompt, ref["developer_hashes"], ref["environment"]) if rec.get("rollouts")
                    else {"ok": False, "problems": ["no rollout"], "developer_tags": [], "developer_hashes": []})
             got = []
             try:
