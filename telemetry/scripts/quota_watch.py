@@ -71,11 +71,15 @@ def watch(client, session, out, interval=1.0, rounds=None, read=screen, clock=ti
                     last_beat = clock()
                 sleep(interval)
         except Stop:
-            pass
-        finally:
             if old is not None:
                 signal.signal(signal.SIGTERM, old)
-            write(fh, event="stopped", **stats)
+            write(fh, event="stopped", **stats)  # the orderly end: only on SIGTERM from the wrapper
+            return 0
+        except BaseException as exc:  # anything else is a failure, never an orderly end
+            write(fh, event="failed", error=f"{type(exc).__name__}: {exc}", **stats)
+            return 1
+        write(fh, event="stopped", **stats)  # bounded test loops (rounds) end here
+        return 0
 
 
 def main():
@@ -84,7 +88,7 @@ def main():
     ap.add_argument("--session", required=True)
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
-    watch(a.client, a.session, a.out)
+    raise SystemExit(watch(a.client, a.session, a.out))
 
 
 if __name__ == "__main__":

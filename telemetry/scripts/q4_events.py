@@ -63,20 +63,26 @@ def plan(seed, clients=CLIENTS, events=EVENTS, reps=2):
 
 
 QUOTA_WATCH = "~/q4-out/quota-watch.jsonl"
+BOUNDS = "~/q4-out/command-bounds.json"
 
 
 def watched(command, client, session):
     """Run command with the quota observer reading the client's tmux pane every second (D25 point 5); keeps command's exit code."""
+    # The observer must be watching before the command starts; the wrapper records the command's own start and end, and the
+    # observer's exit status, in q4-out/command-bounds.json, so that the host can check the observer covered the whole command.
     return (f"python3 ~/lab/telemetry/scripts/quota_watch.py --client {client} --session {session} --out {QUOTA_WATCH} & W=$!; "
-            f"{command}; rc=$?; kill -TERM $W 2>/dev/null; wait $W 2>/dev/null; exit $rc")
+            f"for i in $(seq 1 100); do grep -q '\"started\"' {QUOTA_WATCH} 2>/dev/null && break; sleep 0.1; done; "
+            f"S=$(date +%s.%N); ( {command} ); rc=$?; E=$(date +%s.%N); kill -TERM $W 2>/dev/null; wait $W; WRC=$?; "
+            f"printf '{{\"start\": %s, \"end\": %s, \"rc\": %s, \"observer_rc\": %s}}\\n' $S $E $rc $WRC > {BOUNDS}; exit $rc")
 
 
 MAX_GAP_S = 30  # the observer writes at least every 10 s (heartbeat); more than this between two records means it stalled
 
 
-def observer_problems(text):
-    """Problems with the quota observer's record of a run or session (D25 point 5); empty list = it watched the whole time and
-    saw no quota message. Quota messages are reported here too."""
+def observer_problems(text, bounds_text=None):
+    """Problems with the quota observer's record of a run or session (D25 point 5); empty list = it watched the whole command and
+    saw no quota message. bounds_text is q4-out/command-bounds.json, written by the wrapper: the observer must have started
+    before the command started, stopped in order after it ended, and exited 0. Quota messages are reported here too."""
     try:
         recs = [json.loads(l) for l in text.splitlines() if l.strip()]
     except ValueError:
@@ -85,8 +91,25 @@ def observer_problems(text):
     if not recs or kinds[0] != "started":
         return ["quota observer: did not start"]
     problems = []
+    if "failed" in kinds:
+        f = next(r for r in recs if r.get("event") == "failed")
+        problems.append(f"quota observer: failed ({f.get('error')})")
     if "stopped" not in kinds:
         problems.append("quota observer: no orderly end (it died or was killed before the run ended)")
+    try:
+        b = json.loads(bounds_text) if bounds_text else None
+    except ValueError:
+        b = None
+    if not b:
+        problems.append("quota observer: no command bounds (the wrapper did not finish)")
+    else:
+        stop = next((r for r in recs if r.get("event") == "stopped"), None)
+        if recs[0].get("ts", 0) > b.get("start", 0):
+            problems.append("quota observer: started after the command")
+        if stop is None or stop.get("ts", 0) < b.get("end", 0):
+            problems.append("quota observer: stopped before the command ended")
+        if b.get("observer_rc") != 0:
+            problems.append(f"quota observer: exit status {b.get('observer_rc')}")
     ts = [r.get("ts", 0) for r in recs]
     gaps = [b - a for a, b in zip(ts, ts[1:])]
     if gaps and max(gaps) > MAX_GAP_S:
@@ -199,7 +222,8 @@ def quota_in_outputs(client, tgz_bytes, quota_mod):
     names = set(tar.getnames())
     if "q4-out/quota-watch.jsonl" not in names:
         return "the quota observer left no record (it did not run)"
-    obs = observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"))
+    bounds = tar.extractfile("q4-out/command-bounds.json").read().decode() if "q4-out/command-bounds.json" in names else None
+    obs = observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"), bounds)
     if obs:
         return "; ".join(obs)
     for m in tar.getmembers():

@@ -62,7 +62,8 @@ class BaselineOutputs(unittest.TestCase):
     def files(self, session):
         b = "q4-out/baseline__codex__dev/"
         return {b + "session.json": json.dumps(session).encode(), b + "timeline.jsonl": b"", "q3-server.log": b"",
-                "q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n'}
+                "q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n',
+                "q4-out/command-bounds.json": b'{"start": 2, "end": 8, "rc": 0, "observer_rc": 0}'}
 
     def test_valid_session_passes_and_invalid_is_not_counted(self):
         good = {"valid": True, "workload": {"ok": True}}

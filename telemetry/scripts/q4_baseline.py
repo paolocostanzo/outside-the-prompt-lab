@@ -59,7 +59,8 @@ def check_outputs(s, tgz_bytes):
     if "q4-out/quota-watch.jsonl" not in names:
         problems.append("quota observer: left no record (it did not run)")
     else:
-        problems += ev.observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"))
+        bounds = tar.extractfile("q4-out/command-bounds.json").read().decode() if "q4-out/command-bounds.json" in names else None
+        problems += ev.observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"), bounds)
     try:
         sess = json.load(tar.extractfile(f"{base}/session.json"))
     except ValueError as exc:

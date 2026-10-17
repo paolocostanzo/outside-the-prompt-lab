@@ -1,5 +1,5 @@
 """q4_events.py: the plan and the commands (D24 point 3). No VM is touched. Run: python3 -m unittest discover -s telemetry/test"""
-import collections, importlib.util, subprocess, sys, unittest
+import collections, importlib.util, os, subprocess, sys, unittest
 from pathlib import Path
 
 SCRIPTS = Path(__file__).resolve().parent.parent / "scripts"
@@ -164,12 +164,14 @@ class PlanPhase04(unittest.TestCase):
 
     def test_quota_in_run_captures(self):
         qm = q4.load(SCRIPTS / "quota.py", "quota")
-        started = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n'}
+        started = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 5, "event": "heartbeat"}\n{"ts": 9, "event": "stopped"}\n',
+                "q4-out/command-bounds.json": b'{"start": 2, "end": 8, "rc": 0, "observer_rc": 0}'}
         tgz = _tgz({**started, "q4-out/codex__none__description__r1/codex__none__r1__03-p2-end.txt": b"You've hit your usage limit."})
         self.assertIn("usage limit", q4.quota_in_outputs("codex", tgz, qm))
         self.assertIsNone(q4.quota_in_outputs("codex", _tgz({**started, "q4-out/x/a.txt": b"ok"}), qm))
         self.assertIn("did not run", q4.quota_in_outputs("codex", _tgz({"q4-out/x/a.txt": b"ok"}), qm))
-        seen = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 2, "event": "quota", "message": "rate limit"}\n{"ts": 9, "event": "stopped"}\n'}
+        seen = {"q4-out/quota-watch.jsonl": b'{"ts": 1, "event": "started"}\n{"ts": 2, "event": "quota", "message": "rate limit"}\n{"ts": 9, "event": "stopped"}\n',
+                "q4-out/command-bounds.json": b'{"start": 1.5, "end": 8, "rc": 0, "observer_rc": 0}'}
         self.assertIn("(observer): 'rate limit'", q4.quota_in_outputs("codex", _tgz({**seen, "q4-out/x/a.txt": b"ok"}), qm),
                       "a message the client recovered from still counts")
 
@@ -406,7 +408,14 @@ class QuotaObserver(unittest.TestCase):
 
     def test_observer_health_is_required(self):
         P = q4.observer_problems
-        self.assertEqual(P('{"ts": 1, "event": "started"}\n{"ts": 11, "event": "heartbeat"}\n{"ts": 15, "event": "stopped"}\n'), [])
+        B = '{"start": 2, "end": 14, "rc": 0, "observer_rc": 0}'
+        self.assertEqual(P('{"ts": 1, "event": "started"}\n{"ts": 11, "event": "heartbeat"}\n{"ts": 15, "event": "stopped"}\n', B), [])
+        early = '{"ts": 1, "event": "started"}\n{"ts": 5, "event": "stopped"}\n'
+        self.assertTrue(any("before the command ended" in p for p in P(early, B)), "an early SIGTERM")
+        self.assertTrue(any("failed" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 3, "event": "failed", "error": "OSError"}\n', B)))
+        self.assertTrue(any("no command bounds" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 15, "event": "stopped"}\n')))
+        self.assertTrue(any("exit status" in p for p in
+                            P('{"ts": 1, "event": "started"}\n{"ts": 15, "event": "stopped"}\n', '{"start": 2, "end": 14, "rc": 0, "observer_rc": 1}')))
         self.assertTrue(any("orderly end" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 11, "event": "heartbeat"}\n')),
                         "an observer killed part-way")
         self.assertTrue(any("gap" in p for p in P('{"ts": 1, "event": "started"}\n{"ts": 200, "event": "stopped"}\n')))
@@ -422,10 +431,28 @@ class QuotaObserver(unittest.TestCase):
                 sleep=lambda x: None)
         recs = [_json.loads(l) for l in out.read_text().splitlines()]
         self.assertIn("heartbeat", [r["event"] for r in recs])
-        self.assertEqual(q4.observer_problems(out.read_text()), [])
+        self.assertEqual(q4.observer_problems(out.read_text(), '{"start": 1, "end": 30, "rc": 0, "observer_rc": 0}'), [])
 
     def test_cell_commands_run_the_observer_on_the_right_session(self):
         self.assertIn("--session q5run", q4.cell_command({"client": "codex", "event": "q5-start", "rep": 1}))
         c = q4.cell_command({"client": "codex", "event": "q3-silent", "rep": 1})
         self.assertIn("--session q3run", c)
         self.assertTrue(c.endswith("exit $rc"), "the cell's own exit code is kept")
+
+
+class WrapperEndToEnd(unittest.TestCase):
+    def test_watched_command_in_a_shell(self):
+        """The real wrapper and observer, in a temporary home, around a harmless command; the observer only reads tmux
+        (has-session / capture-pane) on a session that does not exist. Nothing is stopped or killed except the observer."""
+        import shutil as _sh
+        if not (_sh.which("bash") and _sh.which("tmux")):
+            self.skipTest("needs bash and tmux")
+        home = Path(_tempfile.mkdtemp())
+        (home / "lab").mkdir(); (home / "q4-out").mkdir()
+        (home / "lab" / "telemetry").symlink_to(SCRIPTS.parent)
+        cmd = q4.watched("sleep 2; exit 3", "codex", "q4-test-no-such-session")
+        r = subprocess.run(["bash", "-c", cmd], env={**os.environ, "HOME": str(home)}, capture_output=True, text=True, timeout=60)
+        self.assertEqual(r.returncode, 3, r.stderr)
+        bounds = (home / "q4-out/command-bounds.json").read_text()
+        self.assertEqual(_json.loads(bounds)["observer_rc"], 0, bounds)
+        self.assertEqual(q4.observer_problems((home / "q4-out/quota-watch.jsonl").read_text(), bounds), [])
