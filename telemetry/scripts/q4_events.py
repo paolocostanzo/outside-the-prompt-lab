@@ -380,7 +380,7 @@ def load_or_create_plan(out, frozen, runs):
         if diff:
             raise SystemExit(f"plan.json was made with other inputs; refusing to continue: {json.dumps(diff)[:800]}")
         return old["runs"]
-    pf.write_text(json.dumps({"created": now(), "frozen": frozen, "runs": runs}, indent=2))
+    write_json_atomic(pf, {"created": now(), "frozen": frozen, "runs": runs})
     return runs
 
 
@@ -493,6 +493,7 @@ def main():
     out.mkdir(parents=True, exist_ok=True)
     frozen = {"snapshot": a.snapshot, "seed": a.seed, "clients": a.clients.split(","), "reps": a.reps, "q5_cell": Q5_CELL,
               "inventory_sha256": sha_file(a.inventory), "candidates_sha256": sha_file(CANDIDATES), "harness": harness_identity()}
+    lock = vm_lock(lambda **k: print(json.dumps(k), flush=True))  # noqa: F841 before any campaign state is read or written
     runs = load_or_create_plan(out, frozen, runs)
     q3 = load(LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = load(HERE / "collection_check.py", "collection_check")
@@ -500,10 +501,12 @@ def main():
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = Runner(h, q3)
-    lock = vm_lock(h.note)  # noqa: F841 (held until the process exits)
     for i, r in enumerate(runs, 1):
         d = out / r["name"]
         if completed(d):
+            if (d / "pending.json").exists():  # interrupted between run.json and its cleanup: run.json comes after every check
+                clear_pending(d)
+                h.note(event="pending-cleared-for-completed-run", run=r["name"])
             continue
         d.mkdir(exist_ok=True)
         guard_vm(d, h.note)

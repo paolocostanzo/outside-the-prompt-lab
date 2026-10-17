@@ -105,16 +105,19 @@ def main():
     frozen = {"snapshot": a.snapshot, "seed": a.seed, "minutes": a.minutes, "gap_hours": a.gap_hours,
               "clients": a.clients.split(","), "parts": a.parts.split(","), "inventory_sha256": ev.sha_file(a.inventory),
               "candidates_sha256": ev.sha_file(ev.CANDIDATES), "harness": ev.harness_identity()}
+    lock = ev.vm_lock(lambda **k: print(json.dumps(k), flush=True))  # noqa: F841 before any campaign state is read or written
     sessions = ev.load_or_create_plan(out, frozen, sessions)
     q3 = ev.load(ev.LAB / "tool-change/scripts/q3_host.py", "q3_host")
     cc = ev.load(HERE / "collection_check.py", "collection_check")
     inv = json.load(open(a.inventory))
     h = q3.Host(out)
     rn = ev.Runner(h, q3)
-    lock = ev.vm_lock(h.note)  # noqa: F841 (held until the process exits)
     for i, s in enumerate(sessions, 1):
         d = out / s["name"]
         if ev.completed(d):
+            if (d / "pending.json").exists():  # interrupted between run.json and its cleanup
+                ev.clear_pending(d)
+                h.note(event="pending-cleared-for-completed-session", session=s["name"])
             continue
         d.mkdir(exist_ok=True)
         ev.guard_vm(d, h.note)

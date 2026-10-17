@@ -370,3 +370,19 @@ class InspectionRound4(unittest.TestCase):
         q4.write_json_atomic(d / "run.json", {"t1": 5})
         self.assertTrue(q4.completed(d))
         self.assertFalse((d / "run.json.tmp").exists())
+
+
+class InspectionRound5(unittest.TestCase):
+    def setUp(self):
+        q4.STATE = Path(_tempfile.mkdtemp())
+
+    def test_completed_run_with_a_leftover_pending_record_is_reconciled(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        q4.write_json_atomic(d / "run.json", {"t1": 9})  # interrupted right here, before clear_pending
+        self.assertTrue(q4.completed(d))
+        q4.clear_pending(d)
+        self.assertFalse((d / "pending.json").exists())
+        self.assertFalse((q4.STATE / "pending.json").exists())
+        other = Path(_tempfile.mkdtemp()) / "next"; other.mkdir()
+        q4.guard_vm(other, print)  # the next run is not blocked

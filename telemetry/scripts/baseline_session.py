@@ -77,7 +77,10 @@ class Session:
                 window = lines[max(0, hits[-1] - DIALOG_LINES):hits[-1] + 1]
                 # persistent approval only on positive identification: the client's exact MCP dialog line for the lab tool
                 # (baseline/clients.json "mcp_header") inside the active dialog, and no command or edit heading at the bottom
-                if any(re.search(header, l) for l in window) and not COMMAND_DIALOG.search(bottom):
+                option = self.perm.get("mcp_option")
+                options = lines[hits[-1] + 1:hits[-1] + 8]  # the choices drawn under the question
+                if any(re.search(header, l) for l in window) and not COMMAND_DIALOG.search(bottom) \
+                        and (option is None or any(re.search(option, l) for l in options)):
                     q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
                     return "mcp-approval"
         if self.perm.get("allow") and re.search(self.perm["allow"], bottom):

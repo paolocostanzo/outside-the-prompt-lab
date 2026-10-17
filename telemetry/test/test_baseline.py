@@ -41,7 +41,11 @@ class Baseline(unittest.TestCase):
         fake = FakeTmux(["x"])
         self.assertEqual(s.answer_questions("Would you like to run the following command?\n 1. Yes", 1, CFG["tasks"][1]), "allow-once")
         self.assertEqual(fake.sent[-1], ("Enter",))
-        self.assertEqual(s.answer_questions("Allow the q3-lab MCP server to run tool \"q3_noop\"?", 1, CFG["tasks"][3]), "mcp-approval")
+        codex_dialog = ('  Allow the q3-lab MCP server to run tool "q3_noop"?\n'
+                        "  › 1. Allow                   Run the tool and continue\n"
+                        "    2. Allow for this session  Run the tool and remember this choice for this session\n"
+                        "    3. Always allow            Run the tool and remember this choice for future tool calls")
+        self.assertEqual(s.answer_questions(codex_dialog, 1, CFG["tasks"][3]), "mcp-approval")
         self.assertEqual(fake.sent[-1], ("3", "Enter"))
         self.assertIsNone(s.answer_questions("greet.py returns a greeting.\n› Ask Codex to do anything", 1, CFG["tasks"][0]))
 
@@ -265,3 +269,17 @@ class ExactMcpHeaders(OverlappingQuestions):
             if client.startswith("_") or client == "goose":
                 continue
             self.assertTrue(spec.get("mcp_header"), client)
+
+
+class OptionScope(OverlappingQuestions):
+    def test_exact_header_inside_a_long_command(self):
+        body = "\n".join(f"  echo step {i}" for i in range(30))
+        screen = (f"Bash command\n\n{body}\n  q3-lab - q3_noop() (MCP)\n\nDo you want to proceed?\n ❯ 1. Yes\n"
+                  "   2. Yes, and don't ask again for echo commands in /home/lab/q3-repo\n   3. No")
+        self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][1]), "allow-once")
+        self.assertEqual(self.sent[-1], ("Enter",))
+
+    def test_mcp_dialog_whose_persistent_option_is_not_the_lab_tool(self):
+        screen = ("Tool use\n\n  q3-lab - q3_noop() (MCP)\n\nDo you want to proceed?\n ❯ 1. Yes\n"
+                  "   2. Yes, and don't ask again for all tools\n   3. No")
+        self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][3]), "allow-once", "the option scope must be the lab tool")
