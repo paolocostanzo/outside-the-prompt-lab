@@ -208,3 +208,15 @@ class QuotaAtCycleEdges(unittest.TestCase):
         cycles, prompted, done = s.run(0.05, CFG)
         self.assertEqual(cycles, 1, "the session ends at the first quota message")
         self.assertIsNotNone(s.quota_message)
+
+
+class PositiveMcpIdentification(OverlappingQuestions):
+    def test_long_command_pushes_its_heading_out_of_the_dialog_window(self):
+        body = "\n".join(f"  echo step {i}" for i in range(14))
+        screen = f"Bash command\n\n{body}\n  grep q3_noop greet.py\n\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again\n   3. No"
+        self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][1]), "allow-once")
+        self.assertEqual(self.sent[-1], ("Enter",))
+
+    def test_lab_tool_without_mcp_marker_is_not_trusted(self):
+        screen = "Something about q3_noop\nDo you want to proceed?\n ❯ 1. Yes\n   2. Yes, and don't ask again"
+        self.assertEqual(self.s.answer_questions(screen, 3, CFG["tasks"][3]), "allow-once")

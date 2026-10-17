@@ -34,6 +34,8 @@ QUESTION_LINES = 25  # the bottom of the screen, where the clients draw their qu
 DIALOG_LINES = 10    # the active dialog: the lines just above the question line
 # Headings of command and edit dialogs: when one is in the active dialog, the question is never an MCP approval, even if the lab
 # tool's name appears (recent tool output, or a command that mentions it).
+# A persistent approval needs a positive sign that the active dialog is an MCP tool dialog; anything ambiguous gets "allow once".
+MCP_DIALOG = re.compile(r"\(MCP\)|MCP server|MCP tool|mcp__", re.I)
 COMMAND_DIALOG = re.compile(r"Bash command|Edit file|Create file|Write file|Run this command|Would you like to run the following command|"
                             r"Would you like to make the following edits|Apply this change|shell command", re.I)
 
@@ -69,7 +71,9 @@ class Session:
             hits = [i for i, l in enumerate(lines) if re.search(self.spec["approve"], l)]
             if hits:  # the active dialog = the lines just above the last question line, the question included
                 dialog = "\n".join(lines[max(0, hits[-1] - DIALOG_LINES):hits[-1] + 1])
-                if LAB_TOOL.search(dialog) and not COMMAND_DIALOG.search(dialog):
+                # persistent approval only with positive evidence: an MCP marker and the lab tool in the active dialog, and no
+                # command or edit heading anywhere at the bottom of the screen (a long command can push its heading up)
+                if MCP_DIALOG.search(dialog) and LAB_TOOL.search(dialog) and not COMMAND_DIALOG.search(bottom):
                     q3.keys(*(self.spec.get("approve_keys") or ("Enter",)))
                     return "mcp-approval"
         if self.perm.get("allow") and re.search(self.perm["allow"], bottom):

@@ -231,7 +231,67 @@ class InspectionRound1(unittest.TestCase):
         class H:
             def order6_blocks(self): return 5
             def ip(self): return "1.2.3.4"
-            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="", stderr="")
-        ip, _ = q4.fresh_vm_checked(H(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+            def ssh(self, ip, cmd, timeout=120):
+                return _NS(returncode=0, stdout=f"{__import__('time').time():.3f}\n" if cmd.startswith("date +%s") else "", stderr="")
+        ip, _, skew = q4.fresh_vm_checked(H(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertLess(abs(skew), 2)
         self.assertEqual(ip, "1.2.3.4")
         self.assertEqual((calls["revert"], calls["wait"]), (3, 3), "one memory check per revert attempt")
+
+
+class InspectionRound2(unittest.TestCase):
+    def q3(self):
+        class Q3:
+            VIRSH, DOMAIN = ["virsh"], "agentlab"
+            @staticmethod
+            def run(cmd, **k): return _NS(returncode=0, stdout="running", stderr="")
+        return Q3
+
+    def test_clock_out_of_step_stops_before_the_run(self):
+        orig = q4.wait_for_memory
+        q4.wait_for_memory = lambda note: (2000, 30)
+        self.addCleanup(lambda: setattr(q4, "wait_for_memory", orig))
+        class H:
+            def order6_blocks(self): return 30
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120):
+                return _NS(returncode=0, stdout=f"{__import__('time').time() - 3600:.3f}\n" if cmd.startswith("date +%s") else "", stderr="")
+        notes = []
+        with self.assertRaises(SystemExit) as e:
+            q4.fresh_vm_checked(H(), self.q3(), "snap", lambda **k: notes.append(k), sleep=lambda s: None)
+        self.assertEqual(e.exception.code, 6)
+        self.assertEqual(notes[-1]["event"], "abort-clock")
+
+    def test_pending_attempt_with_unreachable_vm_stops_without_restoring(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        class H:
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=255, stdout="", stderr="no route")
+        notes = []
+        with self.assertRaises(SystemExit) as e:
+            q4.recover_pending(d, H(), None, None, None, None, "codex", "true", lambda **k: notes.append(k))
+        self.assertEqual(e.exception.code, 7)
+        self.assertTrue((d / "pending.json").exists(), "nothing is discarded")
+
+    def test_pending_attempt_is_recovered_from_a_reachable_vm(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        class H:
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="x\n", stderr="")
+        class Rn:
+            def client_logs(self, *a): return {"export": "ok"}
+            def ssh_bin(self, ip, cmd, dest): Path(dest).write_bytes(b"tgz"); return 0, ""
+            def telemetry(self, ip, d, since): return []
+        kept = q4.recover_pending(d, H(), Rn(), None, None, None, "codex", "tar", lambda **k: None)
+        self.assertTrue((kept / "vm-out.tgz").exists())
+        self.assertEqual(_json.loads((kept / "attempt.json").read_text())["status"], "interrupted-recovered")
+        self.assertFalse((d / "pending.json").exists())
+
+    def test_journal_without_entries_is_empty(self):
+        class H:
+            def ssh(self, ip, cmd, timeout=120):
+                return _NS(returncode=0, stdout="-- No entries --\n" if "journalctl" in cmd else "x\n", stderr="")
+        problems = q4.Runner(H(), None).telemetry("ip", Path(_tempfile.mkdtemp()), 1)
+        self.assertEqual(problems, ["telemetry journal.txt: empty"])

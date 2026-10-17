@@ -220,11 +220,59 @@ def fresh_vm_checked(h, q3, snapshot, note, sleep=time.sleep):
     while time.time() - t0 < 240:
         ip = h.ip()
         if ip and safe(h.ssh, ip, "true", timeout=15).returncode == 0:
-            safe(h.ssh, ip, f"sudo date -s @{int(time.time())} >/dev/null")  # the guest clock comes back with the snapshot
-            return ip, round(time.time() - t0)
+            # the guest clock comes back with the snapshot: set it, then measure the skew; runs need one clock
+            set_ = safe(h.ssh, ip, f"sudo date -s @{int(time.time())} >/dev/null", timeout=30)
+            skew = clock_skew(h, ip)
+            if set_.returncode != 0 or skew is None or abs(skew) > MAX_SKEW_S:
+                note(event="abort-clock", set_rc=set_.returncode, skew_s=skew, hint="guest clock not in step with the host")
+                sys.exit(6)
+            return ip, round(time.time() - t0), skew
+        sleep(3)
         sleep(3)
     note(event="ssh-timeout")
     sys.exit(6)
+
+
+MAX_SKEW_S = 2
+
+
+def clock_skew(h, ip):
+    """Guest minus host time in seconds (guest read between two host readings), or None if it cannot be read."""
+    before = time.time()
+    r = safe(h.ssh, ip, "date +%s.%N", timeout=15)
+    after = time.time()
+    try:
+        return round(float(r.stdout.strip()) - (before + after) / 2, 3) if r.returncode == 0 else None
+    except ValueError:
+        return None
+
+
+def mark_pending(d, **info):
+    """Written before any remote work of a run or session; removed only when run.json is written or the attempt is kept."""
+    (d / "pending.json").write_text(json.dumps({"at": now(), **info}, indent=1))
+
+
+def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
+    """A run or session interrupted while the VM held its evidence: before any restore, copy what the VM still has (client logs,
+    outputs and ground truth, host telemetry) into the folder and keep it as an attempt. If the VM cannot be reached, stop:
+    restoring now would destroy the evidence. Returns the kept folder, or None when nothing was pending."""
+    pf = d / "pending.json"
+    if not pf.exists():
+        return None
+    info = json.loads(pf.read_text())
+    ip = h.ip()
+    if not ip or safe(h.ssh, ip, "true", timeout=15).returncode != 0:
+        note(event="abort-pending-unreachable", folder=str(d),
+             hint="an interrupted attempt may still have its evidence in the VM, which does not answer: do not restore; "
+                  "look at the VM (virsh list), and delete pending.json only after deciding what to keep")
+        sys.exit(7)
+    t0, t1 = int(info.get("t0") or 0), int(time.time())
+    stop = safe(h.ssh, ip, STOP_CLIENTS)
+    check = rn.client_logs(ip, d, client, t0, t1, cc, inv, cand_sha)
+    rc_out, err_out = rn.ssh_bin(ip, gt_command, d / "vm-out.tgz")
+    problems = rn.telemetry(ip, d, t0 - 5)
+    return keep_attempt(d, "interrupted-recovered", {"pending": info, "stop_rc": stop.returncode, "export": check["export"],
+                                                     "outputs_rc": rc_out, "outputs_stderr": err_out, "telemetry_problems": problems})
 
 
 def preserve_interrupted(d):
@@ -302,13 +350,22 @@ class Runner:
         q3 = self.q3
         p1 = subprocess.Popen(["tar", "-C", str(LAB), "-czf", "-", "--exclude=node_modules", "--exclude=__pycache__", *FOLDERS],
                               stdout=subprocess.PIPE)
-        p2 = safe(subprocess.run, ["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes",
-                                   f"lab@{ip}", "mkdir -p ~/lab && cd ~/lab && rm -rf " + " ".join(FOLDERS) + " && tar -xzf -"],
-                  stdin=p1.stdout, capture_output=True, timeout=180)
-        p1.wait()
+        p2 = subprocess.Popen(["ssh", "-i", str(q3.KEY), "-o", f"UserKnownHostsFile={q3.KNOWN}", "-o", "BatchMode=yes", f"lab@{ip}",
+                               "mkdir -p ~/lab && cd ~/lab && rm -rf " + " ".join(FOLDERS) + " && tar -xzf -"],
+                              stdin=p1.stdout, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        p1.stdout.close()  # only ssh reads the pipe: if ssh dies, tar gets SIGPIPE instead of blocking
+        try:
+            p2.communicate(timeout=180)
+        except subprocess.TimeoutExpired:
+            p2.kill(); p2.communicate()
+        try:
+            p1.wait(timeout=30)
+        except subprocess.TimeoutExpired:
+            p1.kill(); p1.wait()
+        rc = p2.returncode if p2.returncode != 0 else p1.returncode
         h = safe(self.h.ssh, ip, "cd ~/lab && find " + " ".join(FOLDERS) + " -type f -not -path '*/test/*' | sort | xargs sha256sum",
                  timeout=120)
-        return p2.returncode, h.stdout
+        return (rc if h.returncode == 0 else (rc or h.returncode)), h.stdout
 
     def telemetry(self, ip, d, since):
         """Copy the host telemetry; returns the problems (empty list = complete). Every source keeps its stderr and exit code."""
@@ -322,7 +379,7 @@ class Runner:
             status[name] = {"rc": r.returncode, "bytes": len(r.stdout.encode())}
             if r.returncode != 0:
                 problems.append(f"telemetry {name}: exit {r.returncode}: {(r.stderr or '').strip()[:200]}")
-            elif nonempty and not r.stdout.strip():
+            elif nonempty and (not r.stdout.strip() or r.stdout.strip() == "-- No entries --"):
                 problems.append(f"telemetry {name}: empty")
         (tel / "status.json").write_text(json.dumps(status, indent=1))
         return problems
@@ -369,16 +426,22 @@ def main():
         d = out / r["name"]
         if (d / "run.json").exists():
             continue
-        kept = preserve_interrupted(d)
+        kept = recover_pending(d, h, rn, cc, inv, frozen["candidates_sha256"], r["client"], ground_truth_command(r), h.note) \
+            or preserve_interrupted(d)
         if kept:
             h.note(event="interrupted-attempt-kept", run=r["name"], kept=str(kept))
         d.mkdir(exist_ok=True)
         h.note(event="pre-revert", run=r["name"], order6plus=h.order6_blocks())
-        ip, boot_s = fresh_vm_checked(h, q3, a.snapshot, h.note)
+        ip, boot_s, skew = fresh_vm_checked(h, q3, a.snapshot, h.note)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
+        if rc_push != 0:
+            dest = keep_attempt(d, "harness-not-copied", {"push_rc": rc_push})
+            h.note(event="abort-push", run=r["name"], kept=str(dest), hint="the harness did not reach the VM; nothing was run")
+            sys.exit(5)
         safe(h.ssh, ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
         t0 = int(time.time())
+        mark_pending(d, run=r["name"], t0=t0, ip=ip)
         h.note(event="run-start", n=i, of=len(runs), run=r["name"], ip=ip, boot_s=boot_s, push_rc=rc_push)
         res = safe(h.ssh, ip, cell_command(r), timeout=1500)
         t1 = int(time.time())
@@ -401,10 +464,11 @@ def main():
             h.note(event="abort-run", run=r["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is for inspection; fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
-        (d / "run.json").write_text(json.dumps({**r, "t0": t0, "t1": t1, "cell_rc": res.returncode, "push_rc": rc_push,
+        (d / "run.json").write_text(json.dumps({**r, "t0": t0, "t1": t1, "clock_skew_s": skew, "cell_rc": res.returncode, "push_rc": rc_push,
                                                 "export": check["export"], "export_reason": check.get("reason"),
                                                 "client_logs": check.get("client_logs"), "ground_truth": "copied and checked"},
                                                indent=1))
+        (d / "pending.json").unlink()
         h.note(event="run-end", run=r["name"], rc=res.returncode, seconds=t1 - t0, export=check["export"],
                client_logs=check.get("client_logs"))
     h.note(event="events-done", runs=len(runs))

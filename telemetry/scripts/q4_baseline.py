@@ -116,15 +116,21 @@ def main():
         if (d / "run.json").exists():
             continue
         waited = wait_for_gap(out, s, a.gap_hours, h.note)
-        kept = ev.preserve_interrupted(d)
+        kept = ev.recover_pending(d, h, rn, cc, inv, frozen["candidates_sha256"], s["client"], outputs_command(), h.note) \
+            or ev.preserve_interrupted(d)
         if kept:
             h.note(event="interrupted-attempt-kept", session=s["name"], kept=str(kept))
         d.mkdir(exist_ok=True)
-        ip, boot_s = ev.fresh_vm_checked(h, q3, a.snapshot, h.note)
+        ip, boot_s, skew = ev.fresh_vm_checked(h, q3, a.snapshot, h.note)
         rc_push, hashes = rn.push(ip)
         (d / "harness-sha256.txt").write_text(hashes)
+        if rc_push != 0:
+            dest = ev.keep_attempt(d, "harness-not-copied", {"push_rc": rc_push})
+            h.note(event="abort-push", session=s["name"], kept=str(dest), hint="the harness did not reach the VM; nothing was run")
+            sys.exit(5)
         ev.safe(h.ssh, ip, "rm -rf ~/q4-out && mkdir -p ~/q4-out")
         t0 = int(time.time())
+        ev.mark_pending(d, session=s["name"], t0=t0, ip=ip)
         h.note(event="session-start", n=i, of=len(sessions), session=s["name"], ip=ip, boot_s=boot_s)
         res = ev.safe(h.ssh, ip, session_command(s, a.minutes), timeout=int(a.minutes * 60) + 900)
         t1 = int(time.time())
@@ -149,9 +155,10 @@ def main():
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is; look at the attempt, fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
-        (d / "run.json").write_text(json.dumps({**s, "t0": t0, "t1": t1, "waited_s": waited, "session_rc": res.returncode,
+        (d / "run.json").write_text(json.dumps({**s, "t0": t0, "t1": t1, "clock_skew_s": skew, "waited_s": waited, "session_rc": res.returncode,
                                                 "push_rc": rc_push, "export": check["export"], "export_reason": check.get("reason"),
                                                 "client_logs": check.get("client_logs"), "workload": sess["workload"]}, indent=1))
+        (d / "pending.json").unlink()
         h.note(event="session-end", session=s["name"], seconds=t1 - t0, export=check["export"], workload_ok=sess["workload"]["ok"])
     h.note(event="baseline-done", sessions=len(sessions), local_engine_repetition="not implemented, not done")
     q3.run(q3.VIRSH + ["shutdown", q3.DOMAIN])
