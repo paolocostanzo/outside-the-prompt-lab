@@ -14,9 +14,12 @@ stop every client (tmux), then BEFORE the next restore:
   - copy the run's outputs and the ground-truth log (the lab server's log for Q3 events, the canary's log for Q5) and verify
     that they are present and readable. If they are not, the attempt is kept under <run>/attempts/<n>/, nothing is marked
     complete, and the campaign stops with the VM left as it is: without ground truth, "no event" cannot be told from a lost one.
+  - scan everything copied out for secrets (secret_gate.py, D26): fresh fingerprints of the VM's secrets, never their values,
+    then exact and format matching over the run folder, archives included. A finding, an unreadable secret store or a file
+    that cannot be scanned keeps the attempt as "secret-found" and stops the campaign (exit 9): that attempt is never published.
 Whether the event happened is decided later from the ground-truth logs only, never from the client's logs.
 
-  python3 q4_events.py --snapshot q3-base-20261015 --seed SEED --inventory INVENTORY.json --out OUT
+  python3 q4_events.py --snapshot SNAPSHOT --seed SEED --inventory INVENTORY.json --out OUT
 The list of log locations is always the repository's telemetry/inventory/candidates.json: it is what the VM receives with the
 harness, and the plan freezes it through the harness commit and its own SHA-256.
   python3 q4_events.py ... --dry-run          # prints the plan and the commands, touches nothing
@@ -49,6 +52,9 @@ def load(path, name):
     mod = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(mod)
     return mod
+
+
+sg = load(HERE / "secret_gate.py", "secret_gate")  # D26: no secret may reach the copied evidence
 
 
 def plan(seed, clients=CLIENTS, events=EVENTS, reps=2):
@@ -338,6 +344,33 @@ def vm_lock(note):
     return fh
 
 
+def secret_problems(h, ip, d):
+    """D26: take fresh fingerprints of the VM's secrets (never their values) into the host state, then scan everything copied out
+    for this run or session, archives included, by exact value and by format. Returns problems that name only files and kinds;
+    a store that cannot be read or a file that cannot be scanned is a problem too (the gate fails closed)."""
+    r = safe(h.ssh, ip, "cd ~/lab && python3 telemetry/scripts/secret_gate.py fingerprints", timeout=60)
+    try:
+        new = json.loads(r.stdout)
+    except ValueError:
+        return [f"secret gate: no fingerprints from the VM (exit {r.returncode})"]
+    if r.returncode != 0 or new.get("unreadable"):
+        return [f"secret gate: secret stores not readable in the VM: {[u.get('source') for u in new.get('unreadable', [])]}"]
+    fp = STATE / "secret-fingerprints.json"  # host-only state, outside the run folders: never published
+    old = json.loads(fp.read_text()) if fp.exists() else None
+    merged = sg.merge_fingerprints(old, new)
+    write_json_atomic(fp, merged)
+    os.chmod(fp, 0o600)
+    findings, failures = sg.scan_paths([d], merged["fingerprints"], skip={"attempts"})
+    problems = []
+    if findings:
+        where = sorted({(os.path.relpath(f["path"], d), f["member"] or "", f["kind"]) for f in findings})
+        problems.append(f"secret gate: {len(findings)} finding(s): " + "; ".join(f"{p} {m} {k}".replace("  ", " ") for p, m, k in where))
+    if failures:
+        problems.append("secret gate: could not scan " + "; ".join(f"{os.path.relpath(f['path'], d)} ({f['error']})"
+                                                                   for f in failures))
+    return problems
+
+
 def mark_pending(d, **info):
     """Written before any remote work of a run or session, in the run folder and in the VM-wide record; cleared only when the
     run is complete or its attempt is kept after every copy out of the VM succeeded."""
@@ -413,8 +446,15 @@ def recover_pending(d, h, rn, cc, inv, cand_sha, client, gt_command, note):
         note(event="abort-pending-copy-failed", folder=str(d), collect_rc=check.get("collect_rc"), outputs_rc=rc_out,
              telemetry_copied=copied, hint="evidence could not be copied out of the VM; do not restore")
         sys.exit(7)
-    return keep_attempt(d, "interrupted-recovered", {"pending": info, "export": check["export"], "outputs_rc": rc_out,
-                                                     "telemetry_problems": problems})
+    leaks = secret_problems(h, ip, d)
+    kept = keep_attempt(d, "secret-found" if leaks else "interrupted-recovered",
+                        {"pending": info, "export": check["export"], "outputs_rc": rc_out, "telemetry_problems": problems,
+                         "secret_problems": leaks})
+    if leaks:
+        note(event="abort-secret", folder=str(d), problems=leaks, kept=str(kept),
+             hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
+        sys.exit(9)
+    return kept
 
 
 def preserve_interrupted(d):
@@ -616,6 +656,12 @@ def main():
             h.note(event="abort-copy-failed", run=r["name"], problems=problems,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
+        leaks = secret_problems(h, ip, d)
+        if leaks:  # D26: checked before anything else reads the evidence
+            dest = keep_attempt(d, "secret-found", {"problems": leaks, "t0": t0, "t1": t1})
+            h.note(event="abort-secret", run=r["name"], problems=leaks, kept=str(dest),
+                   hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
+            sys.exit(9)
         q = quota_in_outputs(r["client"], (d / "vm-out.tgz").read_bytes(), qm) or qm.find(r["client"], res.stdout)
         if q:
             problems.append(f"quota or rate limit reached: {q} (stop: Paolo's rule)")

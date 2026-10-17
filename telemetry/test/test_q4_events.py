@@ -290,15 +290,45 @@ class InspectionRound2(unittest.TestCase):
         q4.mark_pending(d, run="x", t0=1)
         class H:
             def ip(self): return "1.2.3.4"
-            def ssh(self, ip, cmd, timeout=120): return _NS(returncode=0, stdout="x\n", stderr="")
+            def ssh(self, ip, cmd, timeout=120):
+                if "secret_gate.py fingerprints" in cmd:
+                    return _NS(returncode=0, stdout='{"fingerprints": [], "unreadable": []}', stderr="")
+                return _NS(returncode=0, stdout="x\n", stderr="")
         class Rn:
             def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
-            def ssh_bin(self, ip, cmd, dest): Path(dest).write_bytes(b"tgz"); return 0, ""
+            def ssh_bin(self, ip, cmd, dest):  # a real (empty) archive: an unreadable one would stop the secret gate
+                import tarfile as _tf
+                with _tf.open(dest, "w:gz"):
+                    pass
+                return 0, ""
             def telemetry(self, ip, d, since): return [], True
         kept = q4.recover_pending(d, H(), Rn(), None, None, None, "codex", "tar", lambda **k: None)
         self.assertTrue((kept / "vm-out.tgz").exists())
         self.assertEqual(_json.loads((kept / "attempt.json").read_text())["status"], "interrupted-recovered")
         self.assertFalse((d / "pending.json").exists())
+
+    def test_recovered_attempt_with_a_secret_is_quarantined_and_stops(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        leaked = "AI" + "za" + "Q" * 35  # assembled at run time: the test file itself stays clean
+        class H:
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120):
+                if "secret_gate.py fingerprints" in cmd:
+                    return _NS(returncode=0, stdout='{"fingerprints": [], "unreadable": []}', stderr="")
+                return _NS(returncode=0, stdout="x\n", stderr="")
+        class Rn:
+            def client_logs(self, *a): return {"export": "ok", "collect_rc": 0}
+            def ssh_bin(self, ip, cmd, dest): Path(dest).write_text("log " + leaked); return 0, ""
+            def telemetry(self, ip, d, since): return [], True
+        notes = []
+        with self.assertRaises(SystemExit) as cm:
+            q4.recover_pending(d, H(), Rn(), None, None, None, "codex", "tar", lambda **k: notes.append(k))
+        self.assertEqual(cm.exception.code, 9)
+        att = d / "attempts" / "1"
+        self.assertEqual(_json.loads((att / "attempt.json").read_text())["status"], "secret-found")
+        self.assertEqual(notes[-1]["event"], "abort-secret")
+        self.assertNotIn(leaked, _json.dumps(notes) + (att / "attempt.json").read_text())
 
     def test_journal_without_entries_is_empty(self):
         class H:

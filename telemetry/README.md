@@ -16,6 +16,7 @@ published.
 | `scripts/score.py` | Scoring of detection rules (D6, D13, D24 point 5): detection between the ground-truth event time and the end of the run; one-minute holdout windows; false-positive windows with Wilson 95% intervals and alerts per hour; "tells apart" = every scored run detected and ≤ 5% of holdout windows |
 | `baseline/tasks.json`, `baseline/clients.json` | The fixed tasks, and the per-client "allow once" patterns (provisional) |
 | `scripts/collection_check.py` | Host side: export ok/failed (manifest schema, every frozen pattern accounted for, candidates file hash, file hashes, unreadable files, databases readable), client logs wrote / wrote-nothing-in-session / no-default-logs, record coverage of the session window or "unknown" |
+| `scripts/secret_gate.py` | Secret gate (D26): `fingerprints` runs inside the VM and records, for every lab secret, its length, first four characters and SHA-256, never the value; `scan` checks files, folders and archives by exact value and by known token formats; `scan-git` checks every blob and commit message of a commit range before a push. Fails closed. The orchestrators run it on every run and session folder before anything else reads it |
 | `test/` | `python3 -m unittest discover -s telemetry/test` |
 
 Safety boundary: read-only on the clients' stores; run only in a disposable VM.

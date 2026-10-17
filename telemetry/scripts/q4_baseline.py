@@ -172,6 +172,12 @@ def main():
             h.note(event="abort-copy-failed", session=s["name"], problems=problems,
                    hint="evidence not fully copied out of the VM; pending.json stays; rerun to retry the copy before any restore")
             sys.exit(5)
+        leaks = ev.secret_problems(h, ip, d)
+        if leaks:  # D26: a secret in the copied evidence stops everything, set-up sessions included
+            dest = ev.keep_attempt(d, "secret-found", {"problems": leaks, "t0": t0, "t1": t1})
+            h.note(event="abort-secret", session=s["name"], problems=leaks, kept=str(dest),
+                   hint="a secret reached the copied evidence: never publish this attempt; tell the author and rotate the secret")
+            sys.exit(9)
         if setup_can_continue(s["part"], problems):
             # exploratory set-up session (D25 point 2): a workload failure is what the session is for; record it and go on to
             # the next client. Quota, copy, export and safety problems still stop.
