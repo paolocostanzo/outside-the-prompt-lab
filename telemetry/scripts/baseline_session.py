@@ -46,7 +46,7 @@ ANSWER_ERROR = re.compile(r"Ran into this error|Server error \(\d{3}|\b5\d\d Ser
 ERROR_TAIL = re.compile(r"Please retry|transient or recoverable|try again later|Retrying", re.I)
 # Screen furniture, not part of an answer: footers, input boxes, progress bars, elapsed-time lines, lines of symbols only.
 CHROME = re.compile(r"~/q3-repo|/home/lab|for shortcuts|auto mode|for agents|Type your message|Add a follow-up|⏱|╌|context left|"
-                    r"tokens|esc to|ctrl\+|shift\+tab|Press a number|GPT-|\bOpus\b|default ·|goose is ready|"
+                    r"tokens|esc to|ctrl\+|shift\+tab|^workspace \(|Press a number|GPT-|\bOpus\b|default ·|goose is ready|"
                     r"^[\s│─━╭╮╰╯┌┐└┘═▔▁>›❯→•●✻⎿▸◐◓◑◒⠀-⣿.]*$", re.I)
 NOISE_LINES = 12   # an unrelated first-run or account notice is answered only while it is drawn at the bottom of the screen
 # A client that is still working (set-up of 22 Oct 2026): Goose keeps "goose is ready" on screen while it works, and Gemini CLI and
@@ -97,6 +97,10 @@ class Session:
         # the ready pattern for the baseline: clients.json "ready" if given (D29: Goose's composer once its banner has scrolled
         # away), otherwise the frozen Q3 one
         self.ready = self.perm.get("ready") or self.spec["ready"]
+        # a line the client prints when a turn is over (clients.json "turn_end", D30: Goose's "⏱ Ns"); when given, a turn is over
+        # only once such a line is drawn after the prompt's echo, whatever the screen looks like in between
+        self.turn_end = re.compile(self.perm["turn_end"]) if self.perm.get("turn_end") else None
+        self.last_prompt = None
         self.generic = perms.get("_generic")
         self.timeline = open(outdir / "timeline.jsonl", "a")
         self.n_caps = 0
@@ -174,6 +178,25 @@ class Session:
             return self.server_calls() > calls_before
         raise ValueError(f"unknown evidence {kind}")
 
+    def turn_over(self, s, prompt):
+        """For a client with a turn-end line: True once that line is drawn after the prompt's echo (no prompt yet: True).
+        In setup-r3 (22 Oct 2026) Goose, with a slow model, stayed still mid-turn between a tool's output and the model's reply,
+        with no working line; a prompt typed meanwhile was drawn as a plain line, queued, and run after the current turn, with
+        its echo ("> prompt") drawn only then. So the echo is the line in the client's echo format (clients.json "echo"), not a
+        queued copy; an echo that is the last drawn line belongs to a turn that has just started."""
+        if not self.turn_end or not prompt:
+            return True
+        lines = s.rstrip().splitlines()
+        echo_re = re.compile((self.perm.get("echo") or "") + re.escape(prompt[:30]))
+        echoes = [i for i, l in enumerate(lines) if echo_re.search(l)]
+        if not echoes:
+            if any(prompt[:30] in l for l in lines):
+                return False  # only a queued copy: the prompt's turn has not started
+            return any(self.turn_end.search(l) for l in lines)  # the echo has scrolled away: the turn has gone on since
+        if echoes[-1] == len(lines) - 1:
+            return False
+        return any(self.turn_end.search(l) for l in lines[echoes[-1] + 1:])
+
     def busy(self, s):
         """A working line in the bottom lines with no end-of-turn line after it."""
         lines = s.rstrip().splitlines()[-BUSY_LINES:]
@@ -204,7 +227,8 @@ class Session:
             s = q3.screen()
             if s != last:
                 last, since = s, time.time()
-            elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.ready, s):
+            elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.ready, s) \
+                    and self.turn_over(s, self.last_prompt):
                 settled = True
                 break
             time.sleep(1.5)
@@ -233,6 +257,7 @@ class Session:
             return False
         t_prompt, calls_before = time.time(), self.server_calls()
         type_literal(prompt)
+        self.last_prompt = prompt
         time.sleep(0.6)
         typed = q3.screen()  # the prompt in the composer, before Enter: anything else after Enter means it was submitted
         q3.keys("Enter")
@@ -263,7 +288,8 @@ class Session:
                 continue
             if s != last:
                 last, stable_since = s, time.time()
-            elif worked and time.time() - stable_since >= idle_s and not self.busy(s) and re.search(self.ready, s):
+            elif worked and time.time() - stable_since >= idle_s and not self.busy(s) and re.search(self.ready, s) \
+                    and self.turn_over(s, prompt):
                 ok = self.evidence(task, cycle, t_prompt, calls_before, screen=s, prompt=prompt)
                 self.end("done" if ok else "no-evidence", cycle, task, f"c{cycle}-{task['id']}", s, prompt,
                          seconds=round(time.time() - t0, 1))
@@ -280,6 +306,7 @@ class Session:
         while time.time() < deadline:
             cycle += 1
             q3.launch(self.spec["cmd"])
+            self.last_prompt = None  # a fresh client: no earlier turn to wait for (D30)
             self.log(action="open", cycle=cycle)
             ready = q3.wait_ready({**self.spec, "ready": self.ready}, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
             self.quota_hit(q3.screen(), cycle, None)  # a quota message can sit next to the ready marker

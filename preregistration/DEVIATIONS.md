@@ -808,3 +808,61 @@ Three problems remained.
   version, but Cursor CLI can update itself when it starts; the version of every run is recorded and reported.
 - The event and baseline orders are those fixed above.
 - The preregistered six-client scope of RQ5 is reduced to five, and this is reported as a limitation.
+
+### D30 · 22 Oct 2026 · D28 points 1, 2, 4 and 5, D29 points 3 and 4 — the end of Goose's turn; Gemini CLI's footer
+**Problem.**
+1. *Goose.* In `setup-r3` (harness `5c0d878`, fifteen minutes) Goose completed 6 of 14 tasks and never called the known server.
+   - With the slow model of D18, Goose stayed still in the middle of a turn, between a tool's output and the model's reply, for
+     longer than the idle time. It drew no working line in that session; in `setup-r1` it did.
+   - The driver declared turns over too early. "Explain" was over at 47 seconds of a turn that took 73 seconds ("⏱ 1m 13s"). Of
+     the 13 task ends that were not timeouts, 11 came too early.
+   - The next prompt was then typed while Goose was working. Goose drew it as a plain line, queued it, and ran it after the
+     current turn, echoing it only then ("> prompt"). The driver stayed one turn behind, and the following tasks ended without
+     their evidence: the test ran during the "edit" task, for example.
+   - D28's checks did not catch this. The screen was still, the ready pattern of D29 point 3 matched, and no working line was
+     drawn.
+2. *Gemini CLI's footer.*
+   - In `setup-r3` (fifteen minutes) Gemini CLI meets D29 point 4: its second cycle is complete, with the known-server call after
+     the frozen MCP approval, and every task has a duration.
+   - Its one timeout is not the driver's. The edit of cycle 1 was made. Then the model returned an empty response, and Gemini CLI
+     kept retrying on its own, past the task's 240-second limit ("This is taking a bit longer", 2 min 47 s, working line drawn).
+   - The session is "not valid" by the workload rule: 7 of 9 tasks (0.78) and 0.5 calls per cycle, against 0.8 for both.
+   - The timeout was recorded with `error_reply` false, because a line of Gemini CLI's footer ("workspace (…)") was read as
+     answer text after the error.
+
+**Change.**
+1. *Turn-end line.* `baseline/clients.json` may give a client:
+   - a turn-end line, which the client prints only when a turn is over. For Goose, its elapsed-time line ("⏱" and a number);
+   - the format of its prompt echo. For Goose, "> " at the start of the line.
+
+   For such a client, a turn is over only when a turn-end line is drawn after the prompt's echo. These cases are not over:
+   - a plain queued copy of the prompt, with no echo;
+   - an echo that is the last drawn line (its turn has just started).
+
+   If neither the echo nor a copy is on screen, the echo has scrolled away, and any turn-end line counts. This is required in
+   addition to D28's checks.
+2. *The next prompt waits.* Before the next prompt, the driver waits for the previous prompt's turn to end, as part of D28 point
+   1's 90-second wait. The previous prompt is forgotten when the client is launched again for a new cycle.
+3. *Other clients.* They have no turn-end line, and their behaviour is unchanged.
+4. *Screen furniture.* A line that starts with "workspace (" is added to D28's list of screen furniture.
+
+Applied to every recorded task end, the turn-end rule changes only Goose's results:
+- In `setup-r3` it reads "over" only on the two task ends that had really ended; it reads "not over" on the 11 early ones and on
+  the timeout.
+- In `setup-r2` it reads "over" on all four task ends, which had ended.
+
+Applied to every recorded task end of all clients in `setup-r1` to `setup-r3`, the screen-furniture change alters one outcome
+only: Gemini CLI's timeout, which now reads "error".
+
+`setup-r4` runs Goose again for fifteen minutes. As D29 point 4 requires, it must show at least one complete cycle with the
+known-server call, a duration for every task, and no timeout caused by the driver.
+
+**Why.** Goose does not always draw a working line while it works, but it always prints its elapsed time at the end of a turn,
+after its answer or its error.
+
+**Effect.**
+- None on events, rules, thresholds or other clients' task ends.
+- Goose's baseline tasks are judged over only at Goose's own end-of-turn line.
+- Gemini CLI's provider errors are now counted for D28 point 7.
+- Risk, reported: slow provider answers may make Gemini CLI's sixty-minute sessions fail the workload rule. D28 point 7 then
+  applies.

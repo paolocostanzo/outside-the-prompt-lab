@@ -109,6 +109,11 @@ class Baseline(unittest.TestCase):
                 "in demand are usually temporary. Please try again later..\nPlease retry if you think this is a transient or "
                 "recoverable error.\n  ⏱ 33.37s\n  ╌╌╌╌╌╌╌╌ 1% 7k/1.0M\n> ")
         self.assertEqual(bs.turn_outcome(real, prompt), "error", "Goose's complete error block (setup-r1 screen 0002)")
+        gem = (f"> {prompt}\n✕ The model returned an empty response with no text or thoughts. This may be a transient API issue; "
+               "please try again.\nℹ This request failed. Press F12 for diagnostics.\n ⠇ This is taking a bit longer, we're still "
+               "on it. (esc to cancel, 2m 47s)\n Shift+Tab to accept edits\n >   Type your message or @path/to/file\n"
+               " workspace (/directory)        sandbox\n ~/q3-repo                     no sandbox")
+        self.assertEqual(bs.turn_outcome(gem, prompt), "error", "Gemini CLI's footer is not an answer (setup-r3)")
         earlier = f"Ran into this error: Server error (503 Service Unavailable)\n> {prompt}\ngreet.py returns a greeting.\n> "
         self.assertTrue(s.evidence(task, 1, 0, 0, screen=earlier, prompt=prompt), "an error before this prompt does not count")
 
@@ -232,6 +237,49 @@ class Baseline(unittest.TestCase):
         self.assertTrue(bs.re.search(s.ready, ended))
         self.assertFalse(s.busy(ended))
         self.assertEqual(self.session("codex").ready, bs.q3.CLIENTS["codex"]["ready"], "other clients keep the Q3 pattern")
+
+    def test_goose_turn_is_over_only_after_its_elapsed_time_line(self):
+        """setup-r3 (22 Oct 2026): Goose with a slow model stayed still mid-turn with no working line; "explain" was declared over
+        at 47 s of a 73 s turn and the next prompt waited unsent in its input line (D30: clients.json "turn_end")."""
+        s = self.session("goose")
+        prompt = CFG["tasks"][0]["prompt"]
+        mid = (f"> {prompt}\n  ✓ extensions ready\n  ▸ shell\n    command: cat greet.py\n    def greet(name):\n"
+               "> Enter to send · Ctrl+J newline")
+        self.assertFalse(s.turn_over(mid, prompt))
+        over = mid.replace("> Enter to send", "greet.py returns a greeting.\n  ⏱ 1m 13s\n  ╌╌╌ 1% 7k/1.0M\n> Enter to send")
+        self.assertTrue(s.turn_over(over, prompt))
+        nxt = CFG["tasks"][1]["prompt"]
+        queued = over.replace("> Enter to send · Ctrl+J newline", f"> {nxt}")
+        self.assertFalse(s.turn_over(queued, nxt), "an echo on the last drawn line: its turn has just started")
+        plain = mid.replace("> Enter to send · Ctrl+J newline", f"{nxt}\n  ⏱ 1m 13s\n> Enter to send · Ctrl+J newline")
+        self.assertFalse(s.turn_over(plain, nxt), "a queued copy (no echo) under an earlier turn's elapsed time is not over")
+        self.assertTrue(self.session("codex").turn_over(mid, prompt), "other clients have no turn-end line")
+        # settle() waits for the previous turn's end before the next prompt is typed
+        s.last_prompt = prompt
+        FakeTmux([mid])
+        self.clocked()
+        self.assertFalse(s.settle(1, "test", idle_s=8))
+
+    def test_a_relaunched_client_does_not_wait_for_the_previous_cycle(self):
+        """Adversarial review of D30, F1: last_prompt is cleared when the client is launched again."""
+        s = self.session("goose")
+        seen = []
+        def fake_task(cycle, task, timeout, idle_s):
+            seen.append(s.last_prompt)
+            s.last_prompt = task["prompt"]
+            s.fail = None
+            return True
+        s.do_task = fake_task
+        clock = iter(range(0, 100000, 20))
+        bs.time.time = lambda: next(clock)
+        FakeTmux(["x"])
+        bs.q3.launch = lambda cmd: None
+        bs.q3.kill = lambda: None
+        bs.q3.wait_ready = lambda *a, **k: True
+        cycles, _, _ = s.run(10, CFG)
+        self.assertGreater(cycles, 1)
+        firsts = [seen[i] for i in range(0, len(seen), 4)]
+        self.assertTrue(all(p is None for p in firsts), "the first task of every cycle starts with no previous prompt")
 
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
