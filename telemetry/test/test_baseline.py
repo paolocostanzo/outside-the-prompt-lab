@@ -222,6 +222,17 @@ class Baseline(unittest.TestCase):
         c2, p2, d2 = s2.run(10, CFG)
         self.assertEqual((p2, d2, s2.server_prompts), (4 * c2, 0, c2))
 
+    def test_goose_is_ready_at_its_composer_after_the_banner_scrolled_away(self):
+        """setup-r2 (22 Oct 2026), Goose screen 0003: the edit was made and the turn ended, but the Q3 ready pattern found neither
+        the banner nor a bare ">" and the task timed out (D29: clients.json "ready" for the baseline)."""
+        s = self.session("goose")
+        ended = ("    Edited greet.py (2 lines -> 4 lines)\nThe tests pass successfully.\n  ⏱ 21.38s\n"
+                 "  ╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌╌ 1% 7k/1.0M\n> Enter to send · Ctrl+J newline")
+        self.assertIsNone(bs.re.search(bs.q3.CLIENTS["goose"]["ready"], ended), "the frozen Q3 pattern misses it")
+        self.assertTrue(bs.re.search(s.ready, ended))
+        self.assertFalse(s.busy(ended))
+        self.assertEqual(self.session("codex").ready, bs.q3.CLIENTS["codex"]["ready"], "other clients keep the Q3 pattern")
+
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
         self.assertEqual(bs.validity(ok), (["A"], False))

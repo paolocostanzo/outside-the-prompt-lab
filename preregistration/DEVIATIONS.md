@@ -706,3 +706,105 @@ four were found on exploratory sessions, before any confirmatory data.
   (point 6).
 - The `setup-r1` sessions are published as set-up evidence, except the Cursor CLI screens of MCP approval dialogs, which stay
   private (D27, plan of 22 October).
+
+### D29 · 22 Oct 2026 · D24 points 3–4, D25 points 2 and 4, D26 point 8, D27 points 1, 4, 5, 7, 8 and 9, D28 point 8 — Cursor CLI without quota, Goose's ready pattern, longer set-up sessions
+**Problem.** The second set-up round (`setup-r2`, harness `4b6be4c`, 22 October) counted Codex CLI, Qwen Code and Claude Code.
+Three problems remained.
+1. *Cursor CLI.* It stopped at its first task with "You've hit your usage limit". The author's Cursor account is on the free plan,
+   and its included usage resets when the monthly cycle ends, on 15 November 2026. The stop was handled as D25 point 5 and D27
+   point 8 require. Before that date, Cursor CLI cannot run event runs or baseline sessions. The frozen plans of D24 run over all
+   clients in one order. Waiting as D27 point 8 says would hold the whole campaign until 15 November, after the blog post of
+   27 October and the preprint of the week of 2 November.
+2. *Goose's ready pattern.*
+   - The baseline used the frozen Q3 ready patterns.
+   - Goose's pattern ("goose is ready", "( O)>", or a line ending in ">") matched while its start-up banner was on screen.
+   - Once the banner had scrolled away, the input line read "> Enter to send · Ctrl+J newline". Goose had made the requested
+     edit and ended its turn, and the task timed out.
+3. *Slow cycles in a six-minute set-up.* Gemini CLI did 3/3 tasks, with three correct "allow once" answers and no error. Each task
+   took about 2.5 minutes ("This is taking a bit longer, we're still on it"), so the session ended before the known-server task.
+
+**Change.**
+1. *RQ5's confirmatory data are the five clients'; Cursor CLI becomes an exploratory addendum.*
+   - The rule-development runs (D27 point 1, now 15), the event runs (D24 point 3, now 30) and the baseline (D24 point 4) run with
+     `--clients claude-code,codex,gemini,qwen,goose` and the seeds of D25 and D27. The plans shuffle the five clients' runs: they
+     are not the six-client order with Cursor CLI's runs removed. The orders are fixed below, before any run.
+   - D27 point 4 is unchanged in substance. Its aggregation and the H5 judgement are made on these five clients, and that
+     judgement is the confirmatory one.
+   - H5 can only become true, never false, when a client is added: a type that fails on one measurable pair stays failed. If
+     Cursor CLI's data entered the judgement after the five-client results were known, its rules, written by an author who knows
+     those results, could decide H5. Cursor CLI therefore never changes the confirmatory judgement.
+   - D27 point 8 ("wait for the reset, then resume the same frozen plan") is replaced, for Cursor CLI only, by this point.
+     D27 point 4's "no client is retried selectively" still holds within each plan.
+2. *Cursor CLI's addendum (exploratory).*
+   - Schedule: its own set-up session (`setup-cursor`) on 15–16 November 2026, after the reset. Then, straight after: its 3
+     rule-development runs, its 6 event runs, and its baseline (development, at least six hours' gap, holdout).
+   - It uses `--clients cursor-agent`, the seeds of D25 and D27, and its own folders.
+   - Usage estimate: about 10 prompts for the runs and about 140 for the baseline (about 35 cycles of 4 prompts). Several model
+     requests per prompt.
+   - If the free allowance stops a session, the author decides between one paid month and stopping; the decision and its date
+     are recorded.
+   - It runs from the same acquisition worktree and commit as the five clients (D27 point 9). A fix that only Cursor CLI needs,
+     found in `setup-cursor`, gets its own deviation, a diff limited to the `cursor-agent` entry or code paths and a new commit
+     named in Cursor CLI's plans. The five clients' data and plans are not touched. Any such difference is reported as a
+     limitation.
+   - If its snapshot login has expired (the Cursor CLI token of D26 point 3 is renewed by 27 November), it is renewed as D25 point
+     4 says, in a Cursor-only snapshot named in its plans.
+   - Rules for Cursor CLI are written only on its own development material and frozen before its holdout is opened. The freeze
+     commit adds only Cursor CLI's rule files and its line in the SHA list. A script checks that every other frozen hash (scorer,
+     applier, window definition, tool versions) equals the five-client freeze. The blind second author (D27 point 7) also writes
+     rules for Cursor CLI, from a Cursor-only package.
+   - Results: reported per pair, with the same metrics, as exploratory, next to the confirmatory five-client judgement. If not
+     complete by 31 December 2026, the addendum reports what exists. A stop outside the author's control (quota, provider,
+     login) is logged with its date.
+   - The blog post of 27 October and the first preprint say only that Cursor CLI's test could not be completed for lack of
+     quota. Its MCP approval screens stay private, as for every Cursor CLI run (plan of 22 October).
+3. *Goose's ready pattern for the baseline.*
+   - `baseline/clients.json` may give a client a ready pattern for the baseline. The driver then uses it in place of the frozen
+     Q3 pattern when a cycle opens and when a task ends.
+   - Goose's pattern adds its input line, "Enter to send · Ctrl+J newline", to the Q3 alternatives.
+   - A ready pattern alone never ends a task: D28 still requires a submitted prompt, an unchanged screen and no working line.
+     For Goose the input line is present at every turn end, so this rests on the working-line check.
+   - The four Goose task ends of `setup-r2` show the input line only at turn ends. `setup-r3` keeps the screens of every Goose
+     task end, and its lineage entry reports any input line seen on a working screen.
+   - The Q3 pattern and Q3's results are unchanged.
+4. *Longer set-up sessions.* D25 point 2 is amended in two ways:
+   - a set-up session may last up to fifteen minutes, so that a slow client shows a complete cycle;
+   - a client may be run again when its earlier session did not show a complete cycle, not only when its questions changed.
+
+   `setup-r3` runs Goose and Gemini CLI, fifteen minutes each. It must show:
+   - for each client, at least one complete cycle, including the known-server task;
+   - a duration for every task;
+   - no timeout caused by the driver.
+
+   Goose and Gemini CLI share one free API key, so a quota or provider stop is handled as D27 point 8 and D28 point 7 say. Set-up
+   sessions remain exploratory. The baseline's sixty-minute parts are unchanged.
+5. *Logins for the five-client campaign.* Codex CLI's login in `q4-base-20261017` lasts until about 27 October.
+   - If Codex CLI's sessions are not complete by then, the login is renewed in a new snapshot as D25 point 4 and D26 say.
+   - A further deviation, written before Codex CLI's next run, then names that snapshot for Codex CLI's remaining runs and
+     sessions.
+   - D26 point 8, the rotation of the lab's secrets, waits until Cursor CLI's addendum is over.
+
+**Frozen orders** (`--dry-run`, five clients, before any run):
+- Rule-development runs (seed 20261022, one repetition): gemini q3-announced, goose q3-silent, goose q3-announced, gemini
+  q5-start, qwen q3-silent, goose q5-start, claude-code q3-announced, gemini q3-silent, codex q5-start, claude-code q5-start,
+  claude-code q3-silent, codex q3-announced, qwen q5-start, codex q3-silent, qwen q3-announced.
+- Event runs (seed 20261018, two repetitions):
+  - r1: goose q3-silent, codex q3-announced, qwen q3-silent, claude-code q3-silent, claude-code q5-start, qwen q5-start, gemini
+    q5-start, qwen q3-announced, gemini q3-silent, gemini q3-announced, claude-code q3-announced, codex q3-silent, codex q5-start,
+    goose q5-start, goose q3-announced;
+  - r2: qwen q3-announced, goose q3-silent, qwen q5-start, codex q3-silent, gemini q5-start, gemini q3-announced, codex
+    q3-announced, goose q5-start, claude-code q3-announced, claude-code q3-silent, codex q5-start, claude-code q5-start, goose
+    q3-announced, gemini q3-silent, qwen q3-silent.
+- Baseline (seed 20261019): development codex, claude-code, qwen, gemini, goose; then the holdouts in the same order.
+- Cursor CLI: rule development q5-start, q3-announced, q3-silent; events r1 q3-silent, q3-announced, q5-start, then r2 in the same
+  order; baseline development, then holdout.
+
+**Why.**
+- Point 1: the campaign can go on, and Cursor CLI's later rules cannot decide the confirmatory judgement.
+- Points 3 and 4: a client must not fail for reasons that belong to the driver or to the set-up's length.
+
+**Effect.**
+- RQ5 is confirmatory on five clients. Cursor CLI's Q4 result is exploratory, about three weeks later. The snapshot holds the same
+  version, but Cursor CLI can update itself when it starts; the version of every run is recorded and reported.
+- The event and baseline orders are those fixed above.
+- The preregistered six-client scope of RQ5 is reduced to five, and this is reported as a limitation.

@@ -94,6 +94,9 @@ class Session:
         self.cell = cell or f"baseline-{client}-{part}"
         self.spec = q3.CLIENTS[client]
         self.tasks, self.perm = tasks, perms.get(client, {})
+        # the ready pattern for the baseline: clients.json "ready" if given (D29: Goose's composer once its banner has scrolled
+        # away), otherwise the frozen Q3 one
+        self.ready = self.perm.get("ready") or self.spec["ready"]
         self.generic = perms.get("_generic")
         self.timeline = open(outdir / "timeline.jsonl", "a")
         self.n_caps = 0
@@ -201,7 +204,7 @@ class Session:
             s = q3.screen()
             if s != last:
                 last, since = s, time.time()
-            elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.spec["ready"], s):
+            elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.ready, s):
                 settled = True
                 break
             time.sleep(1.5)
@@ -260,7 +263,7 @@ class Session:
                 continue
             if s != last:
                 last, stable_since = s, time.time()
-            elif worked and time.time() - stable_since >= idle_s and not self.busy(s) and re.search(self.spec["ready"], s):
+            elif worked and time.time() - stable_since >= idle_s and not self.busy(s) and re.search(self.ready, s):
                 ok = self.evidence(task, cycle, t_prompt, calls_before, screen=s, prompt=prompt)
                 self.end("done" if ok else "no-evidence", cycle, task, f"c{cycle}-{task['id']}", s, prompt,
                          seconds=round(time.time() - t0, 1))
@@ -278,7 +281,7 @@ class Session:
             cycle += 1
             q3.launch(self.spec["cmd"])
             self.log(action="open", cycle=cycle)
-            ready = q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
+            ready = q3.wait_ready({**self.spec, "ready": self.ready}, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
             self.quota_hit(q3.screen(), cycle, None)  # a quota message can sit next to the ready marker
             if not ready:
                 self.log(action="not-ready", cycle=cycle)

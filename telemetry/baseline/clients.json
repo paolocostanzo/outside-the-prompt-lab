@@ -5,6 +5,6 @@
  "gemini": {"allow": "Allow execution of|Apply this change\\?", "allow_keys": ["Enter"], "mcp_header": "Allow execution of MCP tool \"q3_noop\" from server \"q3-lab\"\\?", "mcp_option": "Allow tool for this session"},
  "qwen": {"allow": "Allow execution of|Apply this change\\?|Yes, allow once", "allow_keys": ["Enter"], "mcp_header": "Allow execution of MCP tool \"q3_noop\" from server \"q3-lab\"\\?", "mcp_option": null},
  "cursor-agent": {"allow": "Run this command\\?|Accept this edit|Apply this change", "allow_keys": ["Enter"], "mcp_header": "^\\s*q3-lab: q3_noop\\s*$", "mcp_option": "Allowlist MCP Tool"},
- "goose": {"allow": null, "allow_keys": null, "mcp_header": null, "mcp_option": null},
+ "goose": {"allow": null, "allow_keys": null, "mcp_header": null, "mcp_option": null, "ready": "goose is ready|\\( O\\)>|>\\s*$|Enter to send · Ctrl\\+J newline"},
  "_generic": "Do you want to|\\bAllow\\b|\\bApprove\\b|\\(y/n\\)|\\[y/N\\]|Yes, allow once|Proceed\\?"
 }
