@@ -866,3 +866,39 @@ after its answer or its error.
 - Gemini CLI's provider errors are now counted for D28 point 7.
 - Risk, reported: slow provider answers may make Gemini CLI's sixty-minute sessions fail the workload rule. D28 point 7 then
   applies.
+
+### D31 · 22 Oct 2026 · D25 point 2, D27 points 1, 4 and 5 — set-up sessions as rule-development material, window coverage, rule tooling
+**Problem.**
+- D27 point 1 names the material on which rules are written: the rule-development runs, the pipeline check and the development
+  part of the baseline.
+- The author also used the exploratory set-up sessions of D25 point 2 (`setup-r1` to `setup-r4`, normal use on the same snapshot)
+  to check candidate rules for false alarms and to drop candidates. D27 did not list that material.
+- Every archive also carries the snapshot's history, meaning records older than the run, from earlier lab work. "Changed" and
+  "new name" rules read that history as the past.
+- An adversarial review found two further problems:
+  - Goose keeps only its last ten model requests, so most one-minute windows of a long session hold no record a Goose rule could
+    fire on;
+  - the tools that read the logs and apply the rules were not described in any deviation.
+
+**Change.**
+1. *Material.* Rule development may use the exploratory set-up sessions (D25 point 2) and the history carried by every archive, in
+   addition to the material of D27 point 1. The confirmatory event runs and the holdout sessions remain excluded until the rules
+   are frozen. Each use is recorded in `telemetry/rules/rule-development-log.md`.
+2. *Coverage.* For every rule, the report gives, next to the false-positive windows, the number of holdout windows that hold at
+   least one record of the rule's source. The threshold of D27 point 2 and the window count of D27 point 3 are unchanged.
+3. *Tools.* Two scripts are frozen with the rules (D27 point 5):
+   - `telemetry/rules/normalize.py` reads a client's default logs, from the redacted archive and only the client's frozen
+     locations, as time-ordered records. Record times are read as the exporter reads them, with three additions: a time without a
+     zone is read as UTC; Codex CLI's `ts_nanos` is added; colour codes before a time are ignored. A file with no timed record is
+     dated by its file time and marked, and only a rule that says so may use such records.
+   - `telemetry/rules/apply.py` applies rules of five types: match, changed, unannounced, new name, none. A pair whose rule is
+     "none" is not distinguishable.
+   - Lab literals are refused anywhere in a rule. A name hidden in regular-expression syntax is left to the reviews.
+
+**Why.** The set-up sessions were the only normal use available before the baseline. They were used openly, and they contain no
+confirmatory data.
+
+**Effect.**
+- No change to the events, the threshold, the windows or the aggregation of D27.
+- The rules' false-positive check on development material covers more normal use than D27 foresaw.
+- Coverage makes visible where a false-positive rate of zero only reflects absent records.
