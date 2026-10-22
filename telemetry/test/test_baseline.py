@@ -18,8 +18,14 @@ class FakeTmux:
         bs.q3.screen = lambda: self.screens[0] if len(self.screens) == 1 else self.screens.pop(0)
         bs.q3.keys = lambda *k: self.sent.append(k)
         bs.q3.type_text = lambda text: self.sent.append(("TYPE", text))
+        bs.type_literal = lambda text: self.sent.append(("TYPE", text))
         bs.q3.answer_noise = lambda s: False
         bs.time.sleep = lambda s: None
+
+    def switch(self, before, after):
+        """`before` until the prompt's text is typed, then the screens in `after` (the last one stays)."""
+        after = list(after)
+        bs.q3.screen = lambda: before if not any(k[0] == "TYPE" for k in self.sent) else (after.pop(0) if len(after) > 1 else after[0])
 
 
 class Baseline(unittest.TestCase):
@@ -27,7 +33,9 @@ class Baseline(unittest.TestCase):
         self.out = Path(tempfile.mkdtemp())
         (self.out / "screens").mkdir()
         # FakeTmux and the clock below patch shared modules: restore them after every test
-        saved_q3 = {n: getattr(bs.q3, n) for n in ("screen", "keys", "type_text", "answer_noise")}
+        saved_q3 = {n: getattr(bs.q3, n) for n in ("screen", "keys", "type_text", "answer_noise", "launch", "kill", "wait_ready")}
+        saved_type = bs.type_literal
+        self.addCleanup(lambda: setattr(bs, "type_literal", saved_type))
         saved_time = (bs.time.time, bs.time.sleep)
         self.addCleanup(lambda: [setattr(bs.q3, n, f) for n, f in saved_q3.items()])
         self.addCleanup(lambda: (setattr(bs.time, "time", saved_time[0]), setattr(bs.time, "sleep", saved_time[1])))
@@ -58,15 +66,161 @@ class Baseline(unittest.TestCase):
 
     def test_task_done_when_screen_is_stable_and_ready(self):
         s = self.session("codex")
-        s.evidence = lambda task, cycle, t, c: True
+        s.evidence = lambda task, cycle, t, c, **k: True
         ready = "greet.py defines greet().\n› Ask Codex to do anything"
-        fake = FakeTmux(["working...", "working...", ready])
+        fake = FakeTmux(["x"])
+        fake.switch("› Ask Codex to do anything", ["working...", "working...", ready])
         clock = iter(range(0, 1000, 5))
         bs.time.time = lambda: next(clock)
         self.assertTrue(s.do_task(3, CFG["tasks"][2], timeout=240, idle_s=8))
         self.assertIn("cycle 3", fake.sent[0][1], "{k} is replaced by the cycle number")
         lines = [json.loads(l) for l in (self.out / "timeline.jsonl").read_text().splitlines()]
         self.assertEqual([l["action"] for l in lines], ["prompt", "done"])
+
+    def test_auto_mode_notice_is_not_a_question(self):
+        """Set-up of 22 Oct 2026: "Allowed by auto mode classifier" matched the generic "Allow" and Enter was sent for 4 min."""
+        s = self.session("claude-code")
+        FakeTmux(["x"])
+        screen = ("● Bash(python3 -m unittest -q)\n  ⎿  Ran 1 test\n  ⎿  Allowed by auto mode classifier\n"
+                  "● Yes, the tests pass.\n❯ show me the test file\n  ⏵⏵ auto mode on (shift+tab to cycle)")
+        self.assertIsNone(s.answer_questions(screen, 1, CFG["tasks"][1]))
+        self.assertEqual(s.answer_questions("output\nAllow command?", 1, CFG["tasks"][1]), "unexpected-question")
+
+    def test_an_error_reply_is_not_an_answer(self):
+        """Set-up of 22 Oct 2026: error replies drawn at the end of the screen (Goose 503, Gemini CLI empty response)."""
+        s = self.session("goose")
+        task = CFG["tasks"][0]
+        prompt = task["prompt"]
+        goose = (f"> {prompt}\n  ▸ shell\n    command: cat greet.py\nRan into this error: Server error (503 Service Unavailable) "
+                 "at https://x: This model is currently experiencing high demand.\n  ⏱ 33.37s\n> ")
+        self.assertFalse(s.evidence(task, 1, 0, 0, screen=goose, prompt=prompt))
+        gemini = f"> {prompt}\n✕ The model returned an empty response. This may be a transient API issue.\n\n  Type your message"
+        self.assertFalse(s.evidence(task, 1, 0, 0, screen=gemini, prompt=prompt))
+        retried = (f"> {prompt}\nℹ This request failed. Retrying...\n✦ greet.py defines one function that returns a greeting.\n"
+                   "  Type your message\n ~/q3-repo   gemini-flash-lite-latest")
+        self.assertTrue(s.evidence(task, 1, 0, 0, screen=retried, prompt=prompt), "a short answer after an error is an answer")
+        footer = (f"> {prompt}\nRan into this error: Server error (503 Service Unavailable)\n  ⏱ 3.1s\n" + "  ╌╌╌╌╌╌ 1% 7k/1.0M\n" * 14
+                  + "> ")
+        self.assertFalse(s.evidence(task, 1, 0, 0, screen=footer, prompt=prompt), "screen furniture after an error is not an answer")
+        self.assertEqual(bs.turn_outcome(f"> {prompt}\n> ", prompt), "empty")
+        real = (f"> {prompt}\n  ✓ extensions ready\n  ▸ shell\n    command: cat greet.py\n    def greet(name):\n"
+                "Ran into this error: Server error (503 Service Unavailable) at https://generativelanguage.googleapis.com/v1beta/"
+                "models/gemini-flash-lite-latest:streamGenerateContent: This model is currently experiencing high demand. Spikes "
+                "in demand are usually temporary. Please try again later..\nPlease retry if you think this is a transient or "
+                "recoverable error.\n  ⏱ 33.37s\n  ╌╌╌╌╌╌╌╌ 1% 7k/1.0M\n> ")
+        self.assertEqual(bs.turn_outcome(real, prompt), "error", "Goose's complete error block (setup-r1 screen 0002)")
+        earlier = f"Ran into this error: Server error (503 Service Unavailable)\n> {prompt}\ngreet.py returns a greeting.\n> "
+        self.assertTrue(s.evidence(task, 1, 0, 0, screen=earlier, prompt=prompt), "an error before this prompt does not count")
+
+    def clocked(self):
+        clock = iter(range(0, 100000, 2))
+        bs.time.time = lambda: next(clock)
+
+    def test_a_busy_client_is_not_done_even_when_its_ready_marker_is_drawn(self):
+        """Set-up of 22 Oct 2026: Goose keeps "goose is ready" on screen while it works; "explain" was declared done mid-reply."""
+        s = self.session("goose")
+        s.evidence = lambda *a, **k: True
+        banner = "   \\____)    20261022_1 · /home/lab/q3-repo\n     L L     goose is ready\n"
+        idle = banner + "> "
+        busy = banner + "> Explain in two sentences what greet.py does.\n◐  Hatching clever solutions...  (Ctrl+C to interrupt)"
+        done = banner + "> Explain in two sentences what greet.py does.\ngreet.py returns a greeting.\n  ⏱ 12.0s\n> "
+        fake = FakeTmux([idle])
+        after = [busy] * 20 + [done]
+        bs.q3.screen = lambda: idle if not any(k[0] == "TYPE" for k in fake.sent) else (after.pop(0) if len(after) > 1 else after[0])
+        self.clocked()
+        self.assertTrue(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
+        lines = [json.loads(l) for l in (self.out / "timeline.jsonl").read_text().splitlines()]
+        self.assertEqual(lines[-1]["action"], "done")
+        self.assertIn("greet.py returns a greeting", (self.out / "screens" / lines[-1]["screen"]).read_text())
+
+    def test_an_unsent_prompt_fails_fast_and_the_notice_is_answered_at_most_twice(self):
+        """Set-up of 22 Oct 2026 (Codex CLI 0.162.1, screen 0014): the account card stayed drawn, the prompt sat unsent in the
+        composer, and Escape was sent at every poll for four minutes."""
+        s = self.session("codex")
+        card = ("  To get started, describe a task or try one of these commands:\n  Set up security for Daybreak mode\n"
+                "  Set up Advanced Account Security with a hardware security key.\n› 1. Set up security\n"
+                "  Press a number to choose · esc to dismiss · type to continue\n")
+        stuck = card + "› Explain in two sentences what greet.py does. Do not change any file.\n  GPT-6.1-Sol default · ~/q3-repo"
+        fake = FakeTmux(["x"])
+        fake.switch("  To get started, describe a task\n› Ask Codex to do anything\n  GPT-6.1-Sol default · ~/q3-repo", [stuck])
+        self.clocked()
+        self.assertFalse(s.do_task(4, CFG["tasks"][0], timeout=240, idle_s=8))
+        actions = [json.loads(l)["action"] for l in (self.out / "timeline.jsonl").read_text().splitlines()]
+        self.assertIn("prompt-not-submitted", actions)
+        self.assertNotIn("timeout", actions, "it fails fast, not after the task's timeout")
+        self.assertLessEqual(sum(1 for k in fake.sent if k == ("Escape",)), 2, "once before the prompt, once while the task runs")
+
+    def test_no_notice_answer_while_the_client_works(self):
+        s = self.session("codex")
+        FakeTmux(["x"])
+        working = "Set up security for Daybreak mode\n• Working (12s • esc to interrupt)"
+        self.assertFalse(s.answer_notice(working, 1, "explain"))
+
+    def test_unexpected_questions_are_capped(self):
+        s = self.session("goose")
+        s.evidence = lambda *a, **k: True
+        fake = FakeTmux(["x"])
+        fake.switch("     L L     goose is ready\n> ", ["working", "output\nProceed? (y/n)"])
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
+        self.assertEqual(sum(1 for k in fake.sent if k == ("Enter",)), bs.MAX_QUESTIONS + 1, "the prompt's Enter, then the answers")
+        actions = [json.loads(l)["action"] for l in (self.out / "timeline.jsonl").read_text().splitlines()]
+        self.assertEqual(actions[-1], "question-limit")
+        self.assertEqual(sum(1 for k in fake.sent if k == ("Enter",)) - 1, 3, "three answered, the fourth not answered")
+
+    def test_old_spinner_lines_above_an_ended_turn_are_not_busy(self):
+        """Codex review of D28, R1 (Goose screen 0007): old working lines stay in the transcript after the turn ended."""
+        s = self.session("goose")
+        ended = ("◐  Hatching clever solutions...  (Ctrl+C to interrupt)\n" * 4
+                 + "Ran into this error: Server error (503 Service Unavailable)\n  ⏱ 33.37s\n  ╌╌╌╌ 1% 7k/1.0M\n> ")
+        self.assertFalse(s.busy(ended))
+        self.assertTrue(s.busy(ended + "Run the tests\n◐  Debugging reality...  (Ctrl+C to interrupt)"))
+
+    def test_nothing_is_typed_into_a_client_that_never_settles(self):
+        """Codex review of D28, R2: after the settle timeout the driver types nothing and the cycle ends."""
+        s = self.session("goose")
+        fake = FakeTmux(["     L L     goose is ready\n◐  Debugging reality...  (Ctrl+C to interrupt)"])
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
+        self.assertFalse(any(k[0] == "TYPE" for k in fake.sent))
+        self.assertEqual(s.fail, "not-settled")
+
+    def test_an_unsent_prompt_on_a_screen_with_a_permanent_ready_marker_is_not_done(self):
+        """Codex review of D28, R3: Goose's banner is always "ready"; a prompt that never left the composer is not an answer."""
+        s = self.session("goose")
+        fake = FakeTmux(["x"])
+        idle = "     L L     goose is ready\n> "
+        fake.switch(idle, [idle + "Explain in two sentences what greet.py does. Do not change any file."])
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
+        self.assertEqual(s.fail, "prompt-not-submitted")
+
+    def test_a_hard_failure_ends_the_cycle_and_counts_the_rest(self):
+        """Codex review of D28, R2 and R6: after a hard failure nothing more is typed in that cycle; the remaining tasks count as
+        prompted and failed, the known-server task included; a cycle that never gets ready counts its server task too."""
+        s = self.session("goose")
+        calls = []
+        def fake_task(cycle, task, timeout, idle_s):
+            calls.append(task["id"])
+            s.fail = "timeout"
+            return False
+        s.do_task = fake_task
+        clock = iter(range(0, 100000, 30))
+        bs.time.time = lambda: next(clock)
+        FakeTmux(["x"])
+        bs.q3.launch = lambda cmd: None
+        bs.q3.kill = lambda: None
+        bs.q3.wait_ready = lambda *a, **k: True
+        cycles, prompted, done = s.run(10, CFG)
+        self.assertGreater(cycles, 1)
+        self.assertEqual(calls, ["explain"] * cycles, "only the first task is typed in each cycle")
+        self.assertEqual((prompted, done, s.server_prompts), (4 * cycles, 0, cycles))
+        s2 = self.session("goose")
+        bs.q3.wait_ready = lambda *a, **k: False
+        clock2 = iter(range(0, 100000, 100))
+        bs.time.time = lambda: next(clock2)
+        c2, p2, d2 = s2.run(10, CFG)
+        self.assertEqual((p2, d2, s2.server_prompts), (4 * c2, 0, c2))
 
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
@@ -87,6 +241,16 @@ class Workload(unittest.TestCase):
         self.assertFalse(bs.workload(10, 40, 31, 8, self.CRIT)["ok"], "too few tasks completed")
         self.assertFalse(bs.workload(10, 40, 40, 7, self.CRIT)["ok"], "too few calls to the known server")
         self.assertFalse(bs.workload(0, 0, 0, 0, self.CRIT)["ok"], "a session with no use is not valid")
+
+    def test_a_cycle_cut_before_the_known_server_task_asks_for_no_call(self):
+        """Set-up of 22 Oct 2026: Codex, Gemini CLI and Cursor CLI did every task they were given, but the last cycle ended before
+        the known-server task, and calls per cycle fell to 0.75 or 0.5 (D28 proposal)."""
+        self.assertFalse(bs.workload(4, 15, 15, 3, self.CRIT)["ok"], "old denominator: every cycle")
+        w = bs.workload(4, 15, 15, 3, self.CRIT, server_cycles=3)
+        self.assertTrue(w["ok"])
+        self.assertEqual((w["cycles"], w["server_cycles"], w["known_server_calls_per_cycle"]), (4, 3, 1.0))
+        self.assertFalse(bs.workload(4, 16, 16, 2, self.CRIT, server_cycles=4)["ok"], "a reached task without its call still counts")
+        self.assertFalse(bs.workload(1, 2, 2, 0, self.CRIT, server_cycles=0)["ok"], "no cycle reached the server task: no use")
 
 
 class Evidence(unittest.TestCase):

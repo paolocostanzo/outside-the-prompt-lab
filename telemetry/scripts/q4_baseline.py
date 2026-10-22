@@ -15,7 +15,7 @@ The local-engine repetition (D13 point 1) is not implemented and is reported as 
   python3 q4_baseline.py --snapshot q3-base-20261015 --seed SEED --inventory INVENTORY.json --out OUT [--minutes 60] [--dry-run]
   python3 q4_baseline.py ... --parts setup --minutes 6      # exploratory set-up sessions (not part of the baseline)
 """
-import argparse, importlib.util, io, json, random, sys, tarfile, time
+import argparse, datetime as dt, importlib.util, io, json, random, sys, tarfile, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -79,6 +79,76 @@ def setup_can_continue(part, problems):
     return part == "setup" and bool(problems) and all(p.startswith("session not valid") for p in problems)
 
 
+PROVIDER_WAIT_S, PROVIDER_MAX = 3600, 3  # D28 point 6: at least one hour between provider-unavailable attempts, at most three
+
+
+def attempt_session(f, rec):
+    """The session summary of a kept attempt and whether a quota or rate limit was seen in it: from attempt.json, or, for an
+    attempt recovered after an interruption, from the session.json and the quota observer's record inside its copied outputs,
+    read with the same checks as a normal session (Codex review of D28, rounds 2-3, G2-03 and G3-01)."""
+    if rec.get("session"):
+        quota = any(str(p).startswith("quota or rate limit reached") for p in rec.get("problems") or [])
+        return rec["session"], quota or bool(rec["session"].get("quota_exhausted"))
+    tgz = f.parent / "vm-out.tgz"
+    if rec.get("status") != "interrupted-recovered" or not tgz.exists():
+        return {}, False
+    try:
+        tar = tarfile.open(tgz, mode="r:gz")
+        names = set(tar.getnames())
+        m = next((n for n in names if n.startswith("q4-out/") and n.endswith("/session.json")), None)
+        sess = json.load(tar.extractfile(m)) if m else {}
+        quota = bool(sess.get("quota_exhausted"))
+        if "q4-out/quota-watch.jsonl" in names:
+            bounds = tar.extractfile("q4-out/command-bounds.json").read().decode() if "q4-out/command-bounds.json" in names else None
+            seen = ev.observer_problems(tar.extractfile("q4-out/quota-watch.jsonl").read().decode("utf-8", "replace"), bounds)
+            quota = quota or any(p.startswith("quota or rate limit reached") for p in seen)
+        return sess, quota
+    except (tarfile.TarError, OSError, EOFError, ValueError):
+        return {}, False
+
+
+def provider_attempts(d):
+    """Times of the kept attempts of session folder d that failed the workload check with at least one error reply from the
+    provider (D28 point 7: "provider unavailable"), oldest first. A quota or rate-limit stop is never one: it keeps the reset-
+    and-resume rule of D27 point 8 (Codex review of D28, round 2, G2-02)."""
+    times = []
+    for f in sorted((d / "attempts").glob("*/attempt.json")) if (d / "attempts").is_dir() else []:
+        rec = json.loads(f.read_text())
+        if rec.get("status") not in ("session-not-counted", "interrupted-recovered"):
+            continue
+        sess, quota = attempt_session(f, rec)
+        if (sess.get("error_replies") or 0) >= 1 and not (sess.get("workload") or {}).get("ok", False) and not quota:
+            times.append(dt.datetime.fromisoformat(rec["at"]).timestamp())
+    return sorted(times)
+
+
+def incomplete_clients(out):
+    f = out / "incomplete-clients.json"
+    return json.loads(f.read_text()) if f.exists() else {}
+
+
+def provider_gate(out, s, note, sleep=time.sleep, now=time.time):
+    """Before a development or holdout session (D28 point 6). After a provider-unavailable attempt, wait until one hour has
+    passed since it. After three, the client's baseline is incomplete: it is recorded in incomplete-clients.json (written by
+    this runner, never by hand) and the client's remaining sessions are skipped. Returns True when the session is skipped."""
+    if s["part"] == "setup":
+        return False
+    times = provider_attempts(out / s["name"])
+    if len(times) >= PROVIDER_MAX:
+        inc = incomplete_clients(out)
+        inc.setdefault(s["client"], {"session": s["name"], "provider_attempts": len(times), "at": ev.now(),
+                                     "reason": "provider unavailable in three attempts (D28 point 6)"})
+        ev.write_json_atomic(out / "incomplete-clients.json", inc)
+        note(event="client-incomplete", session=s["name"], provider_attempts=len(times))
+        return True
+    if times:
+        wait = times[-1] + PROVIDER_WAIT_S - now()
+        if wait > 0:
+            note(event="provider-wait", session=s["name"], wait_s=round(wait), provider_attempts=len(times))
+            sleep(wait)
+    return False
+
+
 def wait_for_gap(out, s, gap_hours, note, sleep=time.sleep):
     """Holdout sessions start at least gap_hours after the end of the same client's valid development session."""
     if s["part"] != "holdout":
@@ -130,12 +200,17 @@ def main():
                 ev.clear_pending(d)
                 h.note(event="pending-cleared-for-completed-session", session=s["name"])
             continue
+        if s["client"] in incomplete_clients(out):  # D28 point 6: no more sessions for a client whose baseline is incomplete
+            h.note(event="session-skipped-client-incomplete", session=s["name"])
+            continue
         d.mkdir(exist_ok=True)
         ev.guard_vm(d, h.note)
         kept = ev.recover_pending(d, h, rn, cc, inv, frozen["candidates_sha256"], s["client"], outputs_command(), h.note) \
             or ev.preserve_interrupted(d)
         if kept:
             h.note(event="interrupted-attempt-kept", session=s["name"], kept=str(kept))
+        if provider_gate(out, s, h.note):
+            continue
         waited = wait_for_gap(out, s, a.gap_hours, h.note)
         d.mkdir(exist_ok=True)
         ip, boot_s, skew = ev.fresh_vm_checked(h, q3, a.snapshot, h.note)
@@ -195,6 +270,9 @@ def main():
             continue
         if problems:  # everything was copied, but the session does not count: keep it as an attempt and stop
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
+            if (sess or {}).get("error_replies"):
+                h.note(event="provider-unavailable", session=s["name"], error_replies=sess["error_replies"],
+                       hint="D28 point 6: rerun the same command; the runner waits one hour and stops the client after three")
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
                    hint="VM left as it is: look at it and at the attempt before rerunning, a rerun powers it off; fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)

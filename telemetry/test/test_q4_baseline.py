@@ -26,6 +26,67 @@ class BaselinePlan(unittest.TestCase):
                                          "--minutes 60 --out ~/q4-out", "gemini", "q3run"))
         self.assertIn("quota_watch.py --client gemini --session q3run", c)
 
+    def attempt(self, d, n, at, error_replies, ok=False, status="session-not-counted"):
+        a = d / "attempts" / str(n); a.mkdir(parents=True)
+        (a / "attempt.json").write_text(json.dumps({"status": status, "at": at,
+                                                    "session": {"error_replies": error_replies, "workload": {"ok": ok}}}))
+
+    def test_provider_unavailable_attempts_wait_one_hour_then_stop_the_client(self):
+        """D28 point 6 (Codex review of D28, R7): enforced by the runner, not by hand."""
+        out = Path(tempfile.mkdtemp())
+        s = {"client": "gemini", "part": "dev", "name": "baseline__gemini__dev"}
+        d = out / s["name"]
+        notes, slept = [], []
+        t = time.time()
+        iso = lambda x: qb.dt.datetime.fromtimestamp(x, qb.dt.timezone.utc).isoformat(timespec="seconds")
+        self.attempt(d, 1, iso(t - 600), 2)
+        self.attempt(d, 2, iso(t - 7200), 0)                       # not a provider failure: no error reply
+        self.attempt(d, 3, iso(t - 7300), 3, status="secret-found")  # another kind of attempt
+        self.assertEqual(len(qb.provider_attempts(d)), 1)
+        self.assertFalse(qb.provider_gate(out, s, lambda **k: notes.append(k), sleep=slept.append, now=lambda: t))
+        self.assertAlmostEqual(slept[0], 3000, delta=2)
+        self.assertEqual(notes[-1]["event"], "provider-wait")
+        self.attempt(d, 4, iso(t - 5000), 1)
+        self.attempt(d, 5, iso(t - 9000), 4)
+        self.assertTrue(qb.provider_gate(out, s, lambda **k: notes.append(k), sleep=slept.append, now=lambda: t))
+        self.assertIn("gemini", qb.incomplete_clients(out))
+        self.assertEqual(notes[-1]["event"], "client-incomplete")
+        self.assertFalse(qb.provider_gate(out, {"client": "gemini", "part": "setup", "name": "baseline__gemini__setup"},
+                                          lambda **k: None), "set-up sessions are not limited")
+
+    def test_quota_stops_and_recovered_sessions_in_the_provider_rule(self):
+        """Codex review of D28, round 2: G2-02 (a quota stop is never a provider failure) and G2-03 (a recovered attempt counts)."""
+        import io, tarfile
+        d = Path(tempfile.mkdtemp()) / "baseline__qwen__dev"
+        iso = qb.dt.datetime.now(qb.dt.timezone.utc).isoformat(timespec="seconds")
+        a = d / "attempts" / "1"; a.mkdir(parents=True)
+        (a / "attempt.json").write_text(json.dumps({"status": "session-not-counted", "at": iso,
+                                                    "problems": ["quota or rate limit reached (observer): 'API Error: [429]' (stop)"],
+                                                    "session": {"error_replies": 2, "workload": {"ok": False}}}))
+        b = d / "attempts" / "2"; b.mkdir(parents=True)
+        (b / "attempt.json").write_text(json.dumps({"status": "session-not-counted", "at": iso,
+                                                    "session": {"error_replies": 1, "quota_exhausted": True, "workload": {"ok": False}}}))
+        self.assertEqual(qb.provider_attempts(d), [], "quota stops keep D27 point 8")
+        c = d / "attempts" / "3"; c.mkdir(parents=True)
+        (c / "attempt.json").write_text(json.dumps({"status": "interrupted-recovered", "at": iso}))
+        raw = json.dumps({"error_replies": 3, "workload": {"ok": False}}).encode()
+        with tarfile.open(c / "vm-out.tgz", "w:gz") as tar:
+            info = tarfile.TarInfo("q4-out/baseline__qwen__dev/session.json"); info.size = len(raw)
+            tar.addfile(info, io.BytesIO(raw))
+        self.assertEqual(len(qb.provider_attempts(d)), 1, "a recovered provider failure counts")
+        e = d / "attempts" / "4"; e.mkdir(parents=True)
+        (e / "attempt.json").write_text(json.dumps({"status": "interrupted-recovered", "at": iso}))
+        orig = qb.ev.observer_problems
+        qb.ev.observer_problems = lambda text, bounds: ["quota or rate limit reached (observer): 'Quota exceeded' (stop)"] \
+            if "Quota exceeded" in text else []
+        self.addCleanup(lambda: setattr(qb.ev, "observer_problems", orig))
+        with tarfile.open(e / "vm-out.tgz", "w:gz") as tar:
+            for name, data in (("q4-out/baseline__qwen__dev/session.json", raw),
+                               ("q4-out/quota-watch.jsonl", b'{"event": "quota", "message": "Quota exceeded"}\n')):
+                info = tarfile.TarInfo(name); info.size = len(data)
+                tar.addfile(info, io.BytesIO(data))
+        self.assertEqual(len(qb.provider_attempts(d)), 1, "a recovered attempt with an observer quota event is a quota stop")
+
     def test_holdout_waits_for_the_gap(self):
         out = Path(tempfile.mkdtemp())
         (out / "baseline__codex__dev").mkdir()

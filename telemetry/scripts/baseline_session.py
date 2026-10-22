@@ -36,6 +36,54 @@ DIALOG_LINES = 10    # the active dialog: the lines just above the question line
 # tool's name appears (recent tool output, or a command that mentions it).
 # A persistent approval needs a positive sign that the active dialog is an MCP tool dialog; anything ambiguous gets "allow once".
 MCP_DIALOG = re.compile(r"\(MCP\)|MCP server|MCP tool|mcp__", re.I)
+# A reply that is a model or API error, not an answer (set-up of 22 Oct 2026: Goose "Ran into this error: Server error (503 …)",
+# Gemini CLI "The model returned an empty response"). The client returns to its ready screen anyway.
+ANSWER_ERROR = re.compile(r"Ran into this error|Server error \(\d{3}|\b5\d\d Service Unavailable|experiencing high demand|"
+                          r"\[API Error|API Error:|Request failed with status|returned an empty response|This request failed|"
+                          r"stream error|stream disconnected|\bOverloaded\b", re.I)
+# Advice that clients print with an error ("Please retry if you think this is a transient or recoverable error.", Goose 22 Oct):
+# part of the error block, never answer text (Codex review of D28, round 2, G2-01).
+ERROR_TAIL = re.compile(r"Please retry|transient or recoverable|try again later|Retrying", re.I)
+# Screen furniture, not part of an answer: footers, input boxes, progress bars, elapsed-time lines, lines of symbols only.
+CHROME = re.compile(r"~/q3-repo|/home/lab|for shortcuts|auto mode|for agents|Type your message|Add a follow-up|⏱|╌|context left|"
+                    r"tokens|esc to|ctrl\+|shift\+tab|Press a number|GPT-|\bOpus\b|default ·|goose is ready|"
+                    r"^[\s│─━╭╮╰╯┌┐└┘═▔▁>›❯→•●✻⎿▸◐◓◑◒⠀-⣿.]*$", re.I)
+NOISE_LINES = 12   # an unrelated first-run or account notice is answered only while it is drawn at the bottom of the screen
+# A client that is still working (set-up of 22 Oct 2026): Goose keeps "goose is ready" on screen while it works, and Gemini CLI and
+# Qwen Code draw "Type your message" under their spinner, so the ready pattern alone does not mean the reply is over. Goose also
+# leaves old spinner lines in its transcript: a working line counts only when no end-of-turn line is drawn after it.
+BUSY = re.compile(r"Ctrl\+C to interrupt|esc to (?:cancel|interrupt)|ctrl\+c to stop", re.I)
+TURN_END = re.compile(r"⏱ ?\d|\bfor \d+(?:\.\d+)?s\b|Worked for|· done \d", re.I)
+BUSY_LINES = 15
+NOT_SUBMITTED_S = 60  # a prompt after whose Enter nothing changes on screen for this long, with no sign of work, was not submitted
+MAX_QUESTIONS = 3     # unexpected questions answered per task; more means the driver is misreading the screen
+SETTLE_S = 90         # longest wait for a ready, idle client before a prompt; past it the cycle ends (no typing into a busy client)
+HARD_FAILURES = ("not-settled", "prompt-not-submitted", "question-limit", "timeout")  # the cycle ends after one of these
+
+
+def type_literal(text):
+    """The prompt's text, without Enter (tmux send-keys -l); Enter is sent separately, after the screen is read."""
+    q3.sh(f"tmux send-keys -t {q3.SESSION} -l {json.dumps(text)}")
+
+
+def turn_outcome(screen, prompt):
+    """The current turn's outcome from the screen, after the prompt's echo: "error" when a model or API error is drawn with no
+    answer after it, "answered" when answer text is drawn (after the last error, if any), "empty" otherwise. Lines that are
+    screen furniture, or part of the echoed prompt, are not answer text."""
+    anchor = prompt[:30]
+    reply = screen[screen.rfind(anchor):] if anchor and anchor in screen else screen
+    lines = reply.rstrip().splitlines()[1:] if anchor and anchor in screen else reply.rstrip().splitlines()
+    def answer_text(line):
+        t = line.strip()
+        return (len(re.findall(r"[A-Za-z]{2,}", t)) >= 3 and not CHROME.search(t) and not ANSWER_ERROR.search(t)
+                and not ERROR_TAIL.search(t) and t.strip("›>❯● ") not in prompt)
+    errors = [i for i, l in enumerate(lines) if ANSWER_ERROR.search(l)]
+    after = lines[errors[-1] + 1:] if errors else lines
+    if any(answer_text(l) for l in after):
+        return "answered"
+    return "error" if errors else "empty"
+
+
 COMMAND_DIALOG = re.compile(r"Bash command|Edit file|Create file|Write file|Run this command|Would you like to run the following command|"
                             r"Would you like to make the following edits|Apply this change|shell command", re.I)
 
@@ -50,6 +98,9 @@ class Session:
         self.timeline = open(outdir / "timeline.jsonl", "a")
         self.n_caps = 0
         self.quota_message = None
+        self.server_prompts = 0
+        self.error_replies = 0   # tasks whose turn ended on a model or API error (D28: provider unavailable)
+        self.fail = None  # cycles that reached the known-server task (D28 proposal: the per-cycle denominator)
 
     def log(self, **kw):
         self.timeline.write(json.dumps({"ts": q3.now(), "epoch": round(time.time(), 3), **kw}) + "\n")
@@ -61,7 +112,7 @@ class Session:
         (self.out / "screens" / name).write_text(q3.screen())
         return name
 
-    def answer_questions(self, s, cycle, task):
+    def answer_questions(self, s, cycle, task, answer_unexpected=True):
         """Answer a permission question on screen, if any. Returns the kind answered, or None.
         The frozen Q3 MCP approval is used only for a question that names the lab tool; command and edit questions are always
         answered "allow once", so that nothing is allowed permanently (D24 point 4)."""
@@ -87,6 +138,8 @@ class Session:
             q3.keys(*self.perm["allow_keys"])
             return "allow-once"
         if self.generic and re.search(self.generic, "\n".join(drawn[-12:])):  # bottom of the drawn screen only
+            if not answer_unexpected:  # D28 point 3: the fourth unexpected question is not answered
+                return "question-limit"
             q3.keys("Enter")
             return "unexpected-question"
         return None
@@ -102,11 +155,12 @@ class Session:
     def server_calls(self):
         return sum(1 for e in q3.events() if e.get("event") == "tools/call" and e.get("cell") == self.cell)
 
-    def evidence(self, task, cycle, t_prompt, calls_before):
-        """Whether the action the task asked for really happened (tasks.json "evidence"); the ready screen alone is not enough."""
+    def evidence(self, task, cycle, t_prompt, calls_before, screen="", prompt=""):
+        """Whether the action the task asked for really happened (tasks.json "evidence"); the ready screen alone is not enough.
+        "answered": the client is back at its ready screen and the turn ended on answer text, not on an error (turn_outcome)."""
         kind = task.get("evidence", "answered")
         if kind == "answered":
-            return True
+            return turn_outcome(screen, prompt) == "answered"
         if kind == "test-run":
             f = q3.REPO / ".q4-test-runs"
             return f.exists() and any(float(x) >= t_prompt - 1 for x in f.read_text().split() if x.replace(".", "", 1).isdigit())
@@ -117,38 +171,107 @@ class Session:
             return self.server_calls() > calls_before
         raise ValueError(f"unknown evidence {kind}")
 
+    def busy(self, s):
+        """A working line in the bottom lines with no end-of-turn line after it."""
+        lines = s.rstrip().splitlines()[-BUSY_LINES:]
+        busy = [i for i, l in enumerate(lines) if BUSY.search(l)]
+        ends = [i for i, l in enumerate(lines) if TURN_END.search(l)]
+        return bool(busy) and (not ends or busy[-1] > ends[-1])
+
+    def answer_notice(self, s, cycle, task_id):
+        """Answer an unrelated notice (tool-change q3-clients.json "noise", unchanged) only while it is drawn at the bottom of the
+        screen, and never while the client is working (Escape interrupts a turn in some clients). The screen is kept before the
+        keys are sent. Returns True when a notice was answered."""
+        if self.busy(s):
+            return False
+        bottom = "\n".join(s.rstrip().splitlines()[-NOISE_LINES:])
+        for tip, answer in q3.NOISE:
+            if re.search(tip, bottom):
+                self.log(action="noise", cycle=cycle, task=task_id, screen=self.capture("noise"))
+                q3.keys(*answer)
+                return True
+        return False
+
+    def settle(self, cycle, task_id, idle_s, timeout=SETTLE_S):
+        """Before typing a prompt: wait until the screen is ready, not busy and unchanged for idle_s (a notice can be drawn a few
+        seconds after the ready marker, as Codex's account card was), then answer a notice at the bottom once. False when the
+        client never settled: the caller types nothing and ends the cycle."""
+        t0, last, since, settled = time.time(), None, time.time(), False
+        while time.time() - t0 < timeout:
+            s = q3.screen()
+            if s != last:
+                last, since = s, time.time()
+            elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.spec["ready"], s):
+                settled = True
+                break
+            time.sleep(1.5)
+        if not settled:
+            return False
+        if self.answer_notice(q3.screen(), cycle, task_id):
+            time.sleep(2)
+        return True
+
+    def end(self, action, cycle, task, label, screen, prompt, **kw):
+        """Every task exit: one record with the turn's outcome on the last screen seen, counted once per task."""
+        error = action != "quota" and turn_outcome(screen, prompt) == "error"  # a quota stop is not a provider failure (D27 point 8)
+        self.error_replies += error
+        self.fail = action if action in HARD_FAILURES else None
+        self.log(action=action, cycle=cycle, task=task["id"], error_reply=error, screen=self.capture(label), **kw)
+
     def do_task(self, cycle, task, timeout, idle_s):
-        """True when the client is back at its ready screen with a stable screen before the timeout AND the task's evidence is
-        there (a refused edit or a failed command returns to the ready screen too)."""
+        """True when the client is back at its ready screen with a stable screen, no working line, a sign that the prompt was
+        submitted, before the timeout, AND the task's evidence is there (a refused edit or a failed command returns to the ready
+        screen too). Sets self.fail to a hard failure (HARD_FAILURES) when the cycle must end."""
         prompt = task["prompt"].replace("{k}", str(cycle))
+        self.fail = None
+        if not self.settle(cycle, task["id"], idle_s):
+            s = q3.screen()
+            self.end("not-settled", cycle, task, f"c{cycle}-{task['id']}-unsettled", s, prompt)
+            return False
         t_prompt, calls_before = time.time(), self.server_calls()
-        q3.type_text(prompt)
+        type_literal(prompt)
+        time.sleep(0.6)
+        typed = q3.screen()  # the prompt in the composer, before Enter: anything else after Enter means it was submitted
+        q3.keys("Enter")
         self.log(action="prompt", cycle=cycle, task=task["id"])
-        t0, last, stable_since = time.time(), None, time.time()
+        notices = questions = 0
+        t0, last, stable_since, worked, s = time.time(), None, time.time(), False, typed
         while time.time() - t0 < timeout:
             time.sleep(1.5)
             s = q3.screen()
+            worked = worked or s != typed or self.busy(s)
             if self.quota_hit(s, cycle, task["id"]):
+                self.end("quota", cycle, task, f"c{cycle}-{task['id']}-quota", s, prompt)
                 return False
-            if q3.answer_noise(s):
+            if not worked and time.time() - t0 >= NOT_SUBMITTED_S:
+                self.end("prompt-not-submitted", cycle, task, f"c{cycle}-{task['id']}-unsent", s, prompt)
+                return False
+            if notices < 1 and self.answer_notice(s, cycle, task["id"]):
+                notices += 1
                 continue
-            kind = self.answer_questions(s, cycle, task)
+            kind = self.answer_questions(s, cycle, task, answer_unexpected=questions < MAX_QUESTIONS)
+            if kind == "question-limit":
+                self.end("question-limit", cycle, task, f"c{cycle}-{task['id']}-questions", s, prompt)
+                return False
             if kind:
                 self.log(action=kind, cycle=cycle, task=task["id"], screen=self.capture(kind))
+                questions += kind == "unexpected-question"
                 time.sleep(2)
                 continue
             if s != last:
                 last, stable_since = s, time.time()
-            elif time.time() - stable_since >= idle_s and re.search(self.spec["ready"], s):
-                ok = self.evidence(task, cycle, t_prompt, calls_before)
-                self.log(action="done" if ok else "no-evidence", cycle=cycle, task=task["id"], seconds=round(time.time() - t0, 1),
-                         screen=self.capture(f"c{cycle}-{task['id']}"))
+            elif worked and time.time() - stable_since >= idle_s and not self.busy(s) and re.search(self.spec["ready"], s):
+                ok = self.evidence(task, cycle, t_prompt, calls_before, screen=s, prompt=prompt)
+                self.end("done" if ok else "no-evidence", cycle, task, f"c{cycle}-{task['id']}", s, prompt,
+                         seconds=round(time.time() - t0, 1))
                 return ok
-        self.log(action="timeout", cycle=cycle, task=task["id"], screen=self.capture(f"c{cycle}-{task['id']}-timeout"))
+        self.end("timeout", cycle, task, f"c{cycle}-{task['id']}-timeout", s, prompt)
         return False
 
     def run(self, minutes, cfg):
-        """Returns (cycles, tasks prompted, tasks done). A cycle whose client never gets ready counts all its tasks as failed."""
+        """Returns (cycles, tasks prompted, tasks done). A cycle whose client never gets ready counts all its tasks as failed,
+        its known-server task included (D28 point 5). After a hard failure the cycle ends: its remaining tasks count as prompted
+        and failed, so that nothing is typed into a client in an unknown state."""
         deadline = time.time() + minutes * 60
         cycle = prompted = done = 0
         while time.time() < deadline:
@@ -156,17 +279,27 @@ class Session:
             q3.launch(self.spec["cmd"])
             self.log(action="open", cycle=cycle)
             ready = q3.wait_ready(self.spec, 90, [], f"c{cycle}", self.out / "screens", {"client": self.client, "signal": "baseline", "rep": cycle})
+            self.quota_hit(q3.screen(), cycle, None)  # a quota message can sit next to the ready marker
             if not ready:
                 self.log(action="not-ready", cycle=cycle)
-            self.quota_hit(q3.screen(), cycle, None)  # a quota message can sit next to the ready marker
-            for task in self.tasks:
-                if time.time() >= deadline or self.quota_message:
-                    break
-                prompted += 1
-                if ready and self.do_task(cycle, task, cfg["task_timeout_s"], cfg["idle_s"]):
-                    done += 1
-                elif not ready:
+                for task in self.tasks:
+                    prompted += 1
+                    self.server_prompts += task.get("evidence") == "server-call"
                     self.log(action="skipped-not-ready", cycle=cycle, task=task["id"])
+            else:
+                for i, task in enumerate(self.tasks):
+                    if time.time() >= deadline or self.quota_message:
+                        break
+                    prompted += 1
+                    self.server_prompts += task.get("evidence") == "server-call"
+                    if self.do_task(cycle, task, cfg["task_timeout_s"], cfg["idle_s"]):
+                        done += 1
+                    elif self.fail:
+                        for rest in self.tasks[i + 1:]:
+                            prompted += 1
+                            self.server_prompts += rest.get("evidence") == "server-call"
+                            self.log(action="skipped-after-failure", cycle=cycle, task=rest["id"], after=self.fail)
+                        break
             self.quota_hit(q3.screen(), cycle, None)  # last look before the screen is destroyed, deadline exits included
             q3.kill()
             self.log(action="close", cycle=cycle)
@@ -176,12 +309,15 @@ class Session:
         return cycle, prompted, done
 
 
-def workload(cycles, prompted, done, calls, crit):
-    """Whether the normal use happened: share of tasks done and known-server calls per cycle, against fixed thresholds."""
+def workload(cycles, prompted, done, calls, crit, server_cycles=None):
+    """Whether the normal use happened: share of tasks done and known-server calls per cycle, against fixed thresholds.
+    The calls are counted per cycle that reached the known-server task (server_cycles): a last cycle cut by the session's end
+    before that task asked for no call (set-up of 22 Oct 2026, D28 proposal). Without server_cycles, every cycle counts."""
     share = done / prompted if prompted else 0.0
-    per_cycle = calls / cycles if cycles else 0.0
-    return {"cycles": cycles, "tasks_prompted": prompted, "tasks_done": done, "done_share": share, "known_server_calls": calls,
-            "known_server_calls_per_cycle": per_cycle,
+    denom = cycles if server_cycles is None else server_cycles
+    per_cycle = calls / denom if denom else 0.0
+    return {"cycles": cycles, "server_cycles": denom, "tasks_prompted": prompted, "tasks_done": done, "done_share": share,
+            "known_server_calls": calls, "known_server_calls_per_cycle": per_cycle,
             "ok": share >= crit["min_done_share"] and per_cycle >= crit["min_known_server_calls_per_cycle"]}
 
 
@@ -215,12 +351,13 @@ def main():
     events = q3.events()
     served, changed = validity(events)
     calls = sum(1 for e in events if e.get("event") == "tools/call" and e.get("cell") == f"baseline-{a.client}-{a.part}")
-    w = workload(cycles, prompted, done, calls, cfg["workload_success"])
+    w = workload(cycles, prompted, done, calls, cfg["workload_success"], server_cycles=s.server_prompts)
     s.log(action="session-end", cycles=cycles, definitions_served=served, definition_changed=changed, workload=w)
     (outdir / "session.json").write_text(json.dumps({"client": a.client, "part": a.part, "minutes": a.minutes, "t_start": t_start,
                                                      "t_end": time.time(), "definitions_served": served,
                                                      "definition_changed": changed, "workload": w,
                                                      "quota_exhausted": bool(s.quota_message), "quota_message": s.quota_message,
+                                                     "error_replies": s.error_replies,
                                                      "valid": served in ([], ["A"]) and not changed and w["ok"]
                                                      and not s.quota_message}, indent=1))
 

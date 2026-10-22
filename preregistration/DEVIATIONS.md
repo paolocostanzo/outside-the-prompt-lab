@@ -615,3 +615,94 @@ verdict a rule written before any confirmatory data rather than a reading of the
 - Limitation, reported: the baseline has no benign server starts or benign definition changes, so the false-positive rate measures
   normal use, not benign look-alikes. With two confirmatory runs per pair, detection rates are imprecise. The local-engine
   repetition remains not done.
+
+### D28 · 22 Oct 2026 · D24 point 4, D25 point 2 — the baseline driver after the set-up sessions
+**Problem.** The six exploratory set-up sessions (D25 point 2, folder `setup-r1`, 22 October, six minutes each, harness `b1d6104`)
+found four faults in the baseline driver. None of them was in a client.
+1. *A busy client taken for a ready one.* The driver declared a task over when the client's ready pattern was on screen and the
+   screen had not changed for eight seconds.
+   - Goose keeps its start-up banner ("goose is ready") on screen while it works. Every "explain" task was declared done while
+     Goose was still working ("… (Ctrl+C to interrupt)"). The next prompts were typed while Goose was busy, and they queued.
+   - In cycles 3 and 4 there was no provider error, yet every task after "explain" failed.
+   - In cycles 1 and 2 the provider also answered "503 Service Unavailable … experiencing high demand".
+   - Gemini CLI and Qwen Code have the same weakness: their input line ("Type your message") is drawn under the spinner.
+2. *A notice taken for a question.* Claude Code's screen said "Allowed by auto mode classifier": auto mode was on and no question
+   was asked, as in Q3. The generic question pattern contained "Allow" without word boundaries. The driver pressed Enter for
+   four minutes, until the task's timeout. Nothing was submitted: the input stayed empty and the timeline has no extra prompt.
+3. *An unsent prompt.* In Codex CLI's last cycle, an account notice ("Set up security …", already in Q3's list of unrelated
+   notices) was drawn just after the client opened. The prompt was typed and stayed unsent in the composer. The driver sent Escape
+   at every poll, because the notice matched anywhere on the screen, and the notice stayed. The task timed out after four
+   minutes.
+4. *Cut cycles.* The session's end cut the last cycle of Codex CLI, Gemini CLI and Cursor CLI before the known-server task. Their
+   calls per cycle (D24 point 4: "at least 0.8 calls per cycle to the known server") were then 0.75, 0.5 and 0.75, although
+   every cycle that reached that task made its call. Gemini CLI and Cursor CLI did every task they were given (7/7, 15/15);
+   Codex CLI did 12 of 13, because of fault 3.
+
+**Change** (`telemetry/scripts/baseline_session.py`, `telemetry/scripts/q4_baseline.py`, `telemetry/baseline/clients.json`):
+1. *Busy means not over.* A task is over only when all four of these hold:
+   - the ready pattern is on screen;
+   - the screen has not changed for the idle time;
+   - the prompt was submitted (point 4);
+   - the client is not working. A working line ("Ctrl+C to interrupt", "esc to cancel", "esc to interrupt", "ctrl+c to stop")
+     counts only if it is in the bottom fifteen lines with no end-of-turn line after it (Goose's elapsed time, "… for Ns",
+     "Worked for"). Old working lines above an ended turn do not count.
+
+   Before typing a prompt, the driver waits for the same condition, for at most 90 seconds. If the client never settles,
+   nothing is typed (`not-settled`).
+2. *An error is not an answer.* The current turn's outcome is read once, after the prompt's echo:
+   - "error": a model or API error (a fixed list, `ANSWER_ERROR`) is drawn with no answer text after it;
+   - "answered": answer text is drawn after the last error;
+   - "empty": anything else.
+
+   Screen furniture (footers, input boxes, progress lines, elapsed-time lines) is not answer text. The "answered" evidence needs
+   "answered". Every task exit records whether its turn ended on an error: done, no evidence, timeout, unsent, not settled,
+   question limit, quota. `session.json` counts these once per task (`error_replies`).
+3. *Notices and questions.*
+   - A notice from the unchanged Q3 list is answered only while it is drawn in the bottom twelve lines and the client is not
+     working. It is answered once before a prompt and at most once while a task runs. Its screen is kept before the keys are
+     sent.
+   - The generic question pattern matches "Allow" and "Approve" as whole words (`clients.json`, a revision in the sense of D25
+     point 2).
+   - At most three unexpected questions are answered per task. A fourth fails the task (`question-limit`).
+4. *Submitted prompts.* The screen is read after the prompt's text is typed and before Enter. A task can be over only after the
+   screen differs from that reading, or after a working line has appeared. If neither happens for 60 seconds, the task is
+   recorded as `prompt-not-submitted` and fails at once, not at its timeout.
+5. *A failed task ends the cycle.* A task can fail without completing: not settled, not submitted, question limit, timeout. When
+   that happens, nothing more is typed in that cycle. The client is closed, and the cycle's remaining tasks count as prompted and
+   failed, the known-server task included. A cycle whose client never gets ready counts all its tasks the same way, even when the
+   session's time is over.
+6. *Calls per cycle.*
+   - D24 point 4's "at least 0.8 calls per cycle to the known server" becomes "at least 0.8 calls per cycle that reached the
+     known-server task". Cycles counted under point 5 also count. The threshold is unchanged.
+   - This relaxes a preregistered rule after exploratory set-up data and before any baseline session. In a sixty-minute session
+     it can turn a failing session into a passing one only through its last cycle.
+   - We had first decided to keep the rule (set-up log, 16:18), and reversed that when the same cut appeared in three clients.
+7. *Provider unavailable.* Goose, Gemini CLI and Qwen Code use the same model on one free key.
+   - A development or holdout session that fails its workload check with at least one error reply is a "provider unavailable"
+     attempt. The driver makes no in-session retries.
+   - The baseline orchestrator (`q4_baseline.py`) enforces the rest:
+     - before running that session again, it waits until one hour has passed since the last such attempt;
+     - after three such attempts, it records the client in `incomplete-clients.json` (written by the runner, never by hand) and
+       skips the client's remaining sessions, its holdout included;
+     - the frozen plan goes on with the other clients.
+   - RQ5 for an incomplete client is exploratory (D13 point 5, D27 point 4).
+   - Error replies in counted sessions stay in the data: they are part of the normal use against which the rules are scored.
+8. *Set-up, second round.* All six clients run again in `setup-r2`, with the same seed, snapshot and length, and with the harness
+   at the commit that carries this deviation. The corrections apply to every client, and Qwen Code's only valid session ran a
+   single cycle. `setup-lineage.md` records each round's commit, the SHA-256 of `clients.json` and the reason for the next round.
+   `clients.json` is frozen, with its SHA-256, after the last set-up round and before the first event run.
+
+**Why.** Fault 1 counted unfinished and failed work as normal use. Faults 2–4 discarded sessions in which normal use happened. All
+four were found on exploratory sessions, before any confirmatory data.
+
+**Check on the recorded screens.** The new working-line and outcome rules were applied to every task end recorded in `setup-r1`:
+- the 49 tasks that really ended in the five clients other than Goose all read "not working" and "answered";
+- Goose's four wrong "done" read "working";
+- Codex CLI's unsent prompt reads "empty".
+
+**Effect.**
+- No change to the events, the detection rules, the threshold of D6/D27 or the baseline's length.
+- The validity rule of D24 point 4 is stricter for busy, unsent and error screens (points 1, 2, 4, 5), and amended for cut cycles
+  (point 6).
+- The `setup-r1` sessions are published as set-up evidence, except the Cursor CLI screens of MCP approval dialogs, which stay
+  private (D27, plan of 22 October).
