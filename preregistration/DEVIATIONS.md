@@ -465,3 +465,153 @@ never asked a question in Q3, so its dialog has not been seen.
 
 **Effect.** RQ5 stays confirmatory. The set-up sessions and the pipeline check are exploratory and excluded, like the set-up runs of
 Q3 (D16 point 8).
+
+### D26 · 17 Oct 2026 · D25 point 4 — logins for the Q4 snapshot, and a gate that keeps every secret out of the published evidence
+**Problem.** The VM check of 17 October, made before any Q4 session or run, found Claude Code's access token in `q3-base-20261015`
+expired since 15 October. One minimal non-interactive call, without MCP servers, renewed it: the stored refresh token changed and
+the new access token lasts eight hours. Claude Code therefore replaces its refresh token at every renewal; the vendor's
+troubleshooting page describes an earlier client bug in which two renewals with the same token revoked the saved login. From a snapshot, Claude Code can run only
+within about eight hours of the snapshot's last renewal. After that, the first restored run renews and replaces the token, and the
+next run, restored from the same snapshot, reuses a token that is no longer valid. The baseline of D24 point 4 runs from one
+snapshot for more than twelve hours: development sessions, at least six hours, held-out sessions. Codex CLI's login was last renewed
+on 9 October and its access token expires on 19 October, inside the campaign. A long-lived token solves this, but the lab publishes
+captures, host telemetry and records derived from the clients' logs, and the author's rule is that no secret may ever be published.
+Default client logs can also hold token-shaped data of their own, such as short-lived session tokens: the check of the clean
+snapshot found some in one client's default diagnostic log, all expired.
+**Change.**
+1. *Claude Code.* It authenticates with a one-year OAuth token of the same subscription, which the author creates with
+   `claude setup-token` on the host and writes into a file in the VM that only the lab user can read.
+   - A shell function in the lab user's login profile passes the token, as `CLAUDE_CODE_OAUTH_TOKEN`, to Claude Code's process
+     only. The runners start every client in a login shell, so no runner code changes, and no other client has it in its
+     environment.
+   - The interactive login file is moved out of `~/.claude/`. The token is then the only credential Claude Code can use, and a
+     missing token shows as "not logged in" rather than as a fall-back to the other login.
+   - By the vendor's documentation the token can only make model requests: claude.ai connectors and Remote Control are not
+     available (the lab uses neither), and locally configured MCP servers work. Files synced from the account on 15 October stay
+     as D18 point 1 left them.
+2. *Codex CLI.* A fresh ChatGPT login of the same account (`codex login --device-auth`), just before the snapshot.
+3. *Other clients.* No change: Gemini CLI, Qwen Code and Goose use an API key; Cursor CLI's token is valid until 27 November.
+4. *Secret gate* (`telemetry/scripts/secret_gate.py`). It never prints, logs or writes a secret's value.
+   - Inside the VM, it takes a fingerprint of every secret in the clients' known stores: length, first four characters and
+     SHA-256. In login files only the fields that name a secret (tokens, keys, passwords) count: the account data stored next to
+     them, such as the names and addresses of the account's MCP connectors, is not a secret.
+   - On the host, it scans files, folders and archives, nested archives included, two ways: by those exact values, and by the
+     formats of known tokens and keys. File names and archive member names are scanned too, and every name it reports is
+     redacted first. A fingerprint set that is missing, malformed, or lacks one of the expected stores stops the scan.
+   - After every run and session, every copy out of the VM is completed first, with only exit codes in the campaign log. The
+     orchestrators then refresh the fingerprints into the host's private state and scan the copied folder, before any other
+     check reads it.
+   - A lab secret found by exact value, anywhere, stops the campaign: the attempt is kept as "secret-found" and never
+     published. So do token-shaped data anywhere outside the raw client-log archive, a secret store that cannot be read, and a
+     file or folder that cannot be scanned.
+   - Inside the raw client-log archive, which D24 point 1 already keeps in the private evidence, token-shaped data that matches no
+     lab secret is counted by kind in the run's `secret-marks.json` (no value, no file name) and does not stop the run. That
+     archive is never published.
+   - Right after the gate, a redacted copy of that archive is made and checked clean, with the SHA-256 of both in
+     `secret-marks.json`; every later reader (a person, a script or a model) uses the copy. Redaction replaces each match with
+     characters of the same length, so databases stay readable; JSON stays parseable; archives are rebuilt member by member,
+     names and tar metadata included. An archive it cannot rebuild unambiguously, with data after its end for instance, stops
+     the run. The only reader of the raw archive is the collection check of D24 point 2, which compares file hashes with the
+     manifest; the records it writes are redacted first and scanned after.
+   - A pre-push hook in the lab and site repositories scans every file, file name and commit message in the tree of every
+     commit a push would publish, merges included. A finding, or a missing fingerprint set, blocks the push; a new branch is
+     checked against its whole history. Before this deviation, the whole published history of both repositories was scanned, by
+     format and by exact value: no finding.
+5. *Checks before the snapshot.*
+   - `claude auth status` names the token as the method in use, after the move of the login file.
+   - One minimal non-interactive call without MCP servers succeeds, and the moved login file is not modified by it.
+   - No fragment of the token is found in Claude Code's own files.
+   - Codex reports a ChatGPT login renewed on the day.
+6. *Snapshot.* What the checks wrote is removed, as in D18 point 1. Client processes are stopped and a running snapshot
+   `q4-base-<date>` is taken (D18 point 2). The checks, the clean-up output and a list of the files changed since the VM check (paths
+   only) pass the secret gate and are published as set-up evidence.
+7. *Before the event runs.* Claude Code's set-up session (D25 point 2) runs before the event runs. If its default mode or its
+   questions differ from Q3 ("auto mode", no question at the first tool call, D18 point 5), the campaign stops and a deviation is
+   written before any event run.
+8. *After the lab.* Every lab secret is revoked or rotated: the Claude Code token, the Codex login and the Gemini API key.
+**Effect.** None on outcomes, rules or analysis: every Q4 session and run uses the same logins, and `q3-base-20261015` is not used
+for Q4. Limitation: an interactively logged-in Claude Code renews its login every few hours; our runs do not. Any trace of that
+renewal in default logs or in network traffic is therefore absent from both the event runs and the baseline. An attempt stopped by
+the secret gate is reported by its file names and the kinds of secret found.
+
+
+### D27 · 22 Oct 2026 · §1 RQ5/H5, D6, D13, D24 points 4–5 — rule development, threshold, aggregation and freezing, fixed before any Q4 run
+**Problem.** Before the Q4 campaign, a red-team review of the plan found six gaps.
+1. *Rule development.* D24 point 4 says detection rules are written on the development part of the baseline only, but a rule
+   cannot be written for an event it has never seen. Writing it on the 36 event runs would make the true positives in-sample.
+2. *Threshold.* The preregistration says "below 5% per hour"; D6 wrote "≤ 5%" and called the threshold unchanged.
+3. *Window count.* The number of holdout windows, and the clock they are counted on, is not fixed.
+4. *Aggregation.* H5 ("at least one event type is not distinguishable with default client logging alone") does not say how results
+   per client combine into a verdict per event type, nor what happens to a client where an event type cannot occur.
+5. *What is frozen.* Only the rule files are frozen; the code that applies and scores them is not.
+6. *Lab artefacts.* Nothing stops a rule from matching names that exist only because of the lab's own design.
+
+**Change.**
+1. *Rule-development event runs (exploratory).* Before the 36 event runs of D24 point 3, one run per event type and terminal client
+   (18 runs, `q4_events.py --reps 1`, seed 20261022, in their own folder) is recorded from the same snapshot, with the same export
+   and checks. These runs, the pipeline check of D25 point 3 and the development part of the baseline are the only material on
+   which rules are written. The 36 event runs and the holdout sessions are used only to score frozen rules. The development runs
+   are published as development evidence and are not part of RQ5.
+2. *Threshold.* We return to the preregistered wording: a rule passes on a holdout if its false-positive windows are **below** 5%
+   (k/n < 0.05). This replaces "≤ 5%" in D6 and D24 point 5. With 60 windows a rule passes with at most two.
+3. *Windows.* Holdout windows are cut from `t_start` to `t_end` of the session's `session.json`, written by `baseline_session.py`
+   on the VM clock. The VM clock is set from the host at every restore, and the remaining skew is recorded. The count is
+   n = floor((t_end − t_start) / 60), whatever the session's real length. Client-log times are read on the same clock.
+4. *Aggregation.*
+   - A (client, event type) pair is **measurable** if it has at least one counted event run in which the ground truth shows the
+     event. Pairs where the event cannot happen (for example Goose and repository-declared servers) are "not measurable", are
+     listed, and do not enter the verdict.
+   - An event type is **distinguishable** if, for every measurable pair of that type, the pair's frozen rule detects every
+     counted event run and passes on that client's counted holdout.
+   - **H5 holds** if at least one event type with at least one measurable pair is not distinguishable.
+   - The table per pair is reported next to the verdict.
+   - Failed sessions and runs are retried for every client, in plan order, until they count. No client is retried selectively.
+   - If a client's confirmatory data are incomplete when results are first reported, the verdict is given with and without that
+     client, and the client is marked as preliminary.
+5. *Freezing.* One rule per measurable pair on default client logs, and separately one rule per event type on host telemetry
+   (reported apart, D13 point 4). Before any holdout session is opened for scoring, one commit is pushed. It contains:
+   - the rule files;
+   - `score.py`;
+   - the script that applies the rules to the logs;
+   - this window definition;
+   - the versions of the tools used;
+   - a single SHA-256 list of all these files.
+
+   Every candidate rule tried during development is logged with the material it was tried on and why it was kept or dropped
+   (`rule-development-log.md`). Until that commit, failed holdout attempts are inspected only through `attempt.json`, the
+   campaign log and the secret-gate summaries; any other access to holdout material is logged.
+6. *No lab artefacts.* Rules on client logs may not use these literals:
+   - the lab's names and paths (`q3-lab`, `q3_noop`, `q3-repo`, `q4-out`, the lab user's home), the lab ports and addresses;
+   - the canary's names and content;
+   - the text of definitions A and B, and the names of the lab server's tools.
+
+   A rule must describe the class of event: a server declared by the project starts; a tool list changes after approval, with or
+   without a notification.
+7. *Second rule author (exploratory).* A second set of rules is written by a separate model session that starts with no
+   conversation history. Its inputs are a package assembled for it:
+   - redacted copies of the development material only (rule-development runs, pipeline check, development sessions);
+   - a description of the three event classes;
+   - the forbidden literals.
+
+   What is kept: the package (with SHA-256), the exact prompt, the model and session identity, and the session's full transcript.
+   The transcript is checked: a read of any file outside the package (design notes, deviations, harness code, confirmatory
+   folders) invalidates the session, which is then reported and not replaced. Its rules are frozen in the same commit and scored
+   the same way. They are reported for agreement only; H5 is judged on the author's rules.
+8. *Quota stops.* A stop for a quota or rate limit is always handled the same way: wait for the reset, then resume the same frozen
+   plan with the same length.
+
+9. *Acquisition and analysis checkouts.* The orchestrators freeze the repository commit in every plan and refuse to resume under
+   another. All acquisition, meaning the rule-development runs, the event runs and the baseline, therefore runs from a separate
+   worktree fixed at the campaign commit and never changed. It resumes, if needed, after any later commit. The rules, the scoring
+   code and the analysis are committed from the main checkout. The campaign commit is named in every plan and in the report.
+10. *Failed exports.* An event run whose client-log export fails is kept as an attempt and retried, like a baseline session; it is
+   never recorded as complete (this corrects the event orchestrator before any run).
+
+**Why.** To keep the true positives and the false-positive rate out of sample, restore the preregistered threshold, and make the H5
+verdict a rule written before any confirmatory data rather than a reading of them.
+**Effect.**
+- RQ5 stays confirmatory, with rules developed on exploratory runs and the development baseline only.
+- The baseline is unchanged at D24's two hours per client.
+- Limitation, reported: the baseline has no benign server starts or benign definition changes, so the false-positive rate measures
+  normal use, not benign look-alikes. With two confirmatory runs per pair, detection rates are imprecise. The local-engine
+  repetition remains not done.

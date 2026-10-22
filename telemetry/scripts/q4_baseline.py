@@ -182,8 +182,7 @@ def main():
         sess, problems = check_outputs(s, (d / "vm-out.tgz").read_bytes())
         if res.returncode != 0:
             problems.insert(0, f"session exited {res.returncode}")
-        if check["export"] != "ok":  # a development or holdout session without its logs is of no use (D24 point 4)
-            problems.insert(0, f"client-log export failed: {check.get('reason', '').split(':')[0]}")
+        problems = ev.export_problems(check) + problems  # a session without its logs is of no use (D24 point 4)
         problems += tel_problems
         if setup_can_continue(s["part"], problems):
             # exploratory set-up session (D25 point 2): a workload failure is what the session is for; record it and go on to
@@ -197,7 +196,7 @@ def main():
         if problems:  # everything was copied, but the session does not count: keep it as an attempt and stop
             dest = ev.keep_attempt(d, "session-not-counted", {"problems": problems, "t0": t0, "t1": t1, "session": sess})
             h.note(event="abort-session", session=s["name"], problems=problems, kept=str(dest),
-                   hint="VM left as it is; look at the attempt, fix the cause, then rerun the same command (the plan is kept)")
+                   hint="VM left as it is: look at it and at the attempt before rerunning, a rerun powers it off; fix the cause, then rerun the same command (the plan is kept)")
             sys.exit(5)
         ev.write_json_atomic(d / "run.json", {**s, "t0": t0, "t1": t1, "clock_skew_s": skew, "waited_s": waited,
                                                "session_rc": res.returncode, "push_rc": rc_push, "export": check["export"],

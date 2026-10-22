@@ -241,6 +241,8 @@ class InspectionRound1(unittest.TestCase):
                 if "snapshot-revert" in cmd:
                     calls["revert"] += 1
                     return _NS(returncode=0 if calls["revert"] >= 3 else 1, stdout="", stderr="apparmor")
+                if cmd[1] == "domstate" and calls["revert"] == 0:
+                    return _NS(returncode=0, stdout="shut off", stderr="")  # powered off before the restore (D27, R2)
                 return _NS(returncode=0, stdout="running", stderr="")
         class H:
             def order6_blocks(self): return 5
@@ -253,13 +255,136 @@ class InspectionRound1(unittest.TestCase):
         self.assertEqual((calls["revert"], calls["wait"]), (3, 3), "one memory check per revert attempt")
 
 
-class InspectionRound2(unittest.TestCase):
-    def q3(self):
+def fake_virsh(state, order=None, destroy_rc=0, stops_anyway=False):
+    """A virsh stub with a domain state: destroy shuts the domain off (or fails); a revert to the running snapshot runs it."""
+    st = {"s": state}
+    order = order if order is not None else []
+    class Q3:
+        VIRSH, DOMAIN = ["virsh"], "agentlab"
+        @staticmethod
+        def run(cmd, **k):
+            verb = cmd[1]
+            order.append(verb)
+            if verb == "domstate":
+                return _NS(returncode=0, stdout=st["s"] + "\n", stderr="")
+            if verb == "destroy":
+                if destroy_rc == 0 or stops_anyway:
+                    st["s"] = "shut off"
+                return _NS(returncode=destroy_rc, stdout="", stderr="" if destroy_rc == 0 else "domain is not running")
+            if verb == "snapshot-revert":
+                st["s"] = "running"
+            return _NS(returncode=0, stdout="", stderr="")
+    return Q3, order
+
+
+class D27Round1(unittest.TestCase):
+    """Codex review of D27, round 1: R1 (failed export never completes a run), R2 (VM powered off before a restore), and the
+    adversarial review of that code (B1 states and locale, B7 stale record, B9 order)."""
+
+    def host(self):
+        class H:
+            def order6_blocks(self): return 30
+            def ip(self): return "1.2.3.4"
+            def ssh(self, ip, cmd, timeout=120):
+                return _NS(returncode=0, stdout=f"{__import__('time').time():.3f}\n" if cmd.startswith("date +%s") else "", stderr="")
+        return H()
+
+    def setUp(self):
+        orig = q4.wait_for_memory
+        self.order = []
+        q4.wait_for_memory = lambda note: self.order.append("memory") or (2000, 30)
+        self.addCleanup(lambda: setattr(q4, "wait_for_memory", orig))
+
+    def test_running_vm_is_powered_off_before_the_memory_check(self):
+        Q3, _ = fake_virsh("running", self.order)
+        notes = []
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: notes.append(k), sleep=lambda s: None)
+        self.assertEqual(self.order[:4], ["domstate", "destroy", "domstate", "memory"])
+        self.assertEqual(self.order[4], "snapshot-revert")
+        self.assertEqual(notes[0]["event"], "vm-powered-off-before-restore")
+
+    def test_paused_or_stopping_vm_is_powered_off_too(self):
+        for state in ("paused", "in shutdown", "pmsuspended"):
+            Q3, order = fake_virsh(state)
+            q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+            self.assertIn("destroy", order, state)
+
+    def test_shut_off_vm_is_not_destroyed(self):
+        Q3, order = fake_virsh("shut off")
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertNotIn("destroy", order)
+
+    def test_destroy_that_fails_because_the_vm_just_stopped_is_fine(self):
+        Q3, order = fake_virsh("in shutdown", destroy_rc=1, stops_anyway=True)
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertIn("snapshot-revert", order)
+
+    def test_destroy_that_fails_stops_before_any_restore(self):
+        Q3, order = fake_virsh("running", destroy_rc=1)
+        notes = []
+        with self.assertRaises(SystemExit) as e:
+            q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: notes.append(k), sleep=lambda s: None)
+        self.assertEqual(e.exception.code, 4)
+        self.assertNotIn("snapshot-revert", order)
+        self.assertEqual(notes[-1]["event"], "abort-power-off")
+
+    def test_virsh_runs_in_the_c_locale(self):
+        seen = []
         class Q3:
             VIRSH, DOMAIN = ["virsh"], "agentlab"
             @staticmethod
-            def run(cmd, **k): return _NS(returncode=0, stdout="running", stderr="")
-        return Q3
+            def run(cmd, **k):
+                seen.append((cmd[1], (k.get("env") or {}).get("LC_ALL")))
+                return _NS(returncode=0, stdout="shut off" if cmd[1] == "domstate" else "", stderr="")
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertTrue(seen and all(lc == "C" for _, lc in seen), seen)
+
+    def test_restoring_a_running_snapshot_never_starts_the_vm(self):
+        Q3, order = fake_virsh("running")
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertNotIn("start", order)
+
+    def test_a_shut_off_snapshot_is_started(self):
+        class Q3:
+            VIRSH, DOMAIN = ["virsh"], "agentlab"
+            calls = []
+            @staticmethod
+            def run(cmd, **k):
+                Q3.calls.append(cmd[1])
+                return _NS(returncode=0, stdout="shut off" if cmd[1] == "domstate" else "", stderr="")
+        q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertEqual(Q3.calls[-1], "start")
+
+    def test_pending_attempt_blocks_power_off(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        self.addCleanup(lambda: q4.clear_pending(d))
+        Q3, order = fake_virsh("running")
+        with self.assertRaises(SystemExit) as e:
+            q4.fresh_vm_checked(self.host(), Q3, "snap", lambda **k: None, sleep=lambda s: None)
+        self.assertEqual(e.exception.code, 7)
+        self.assertEqual(order, [], "nothing is touched while evidence may still be in the VM")
+
+    def test_stale_record_of_the_same_folder_is_cleared(self):
+        d = Path(_tempfile.mkdtemp()) / "run"; d.mkdir()
+        q4.mark_pending(d, run="x", t0=1)
+        (d / "pending.json").unlink()  # keep_attempt stopped after keeping the attempt, before clearing the VM-wide record
+        notes = []
+        q4.guard_vm(d, lambda **k: notes.append(k))
+        self.assertFalse((q4.STATE / "pending.json").exists())
+        self.assertEqual(notes[-1]["event"], "stale-vm-pending-cleared")
+
+    def test_failed_export_is_a_problem(self):
+        self.assertEqual(q4.export_problems({"export": "ok"}), [])
+        self.assertEqual(q4.export_problems({"export": "failed", "reason": "hash mismatch: /home/lab/x"}),
+                         ["client-log export failed: hash mismatch"])
+        self.assertTrue(q4.export_problems({}), "a check without a result is not ok")
+        self.assertEqual(q4.export_problems({"export": "failed", "reason": None}), ["client-log export failed: "])
+
+
+class InspectionRound2(unittest.TestCase):
+    def q3(self):
+        return fake_virsh("running")[0]
 
     def test_clock_out_of_step_stops_before_the_run(self):
         orig = q4.wait_for_memory

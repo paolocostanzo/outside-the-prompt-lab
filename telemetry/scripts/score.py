@@ -4,12 +4,14 @@
 Input: for each rule, the times (Unix seconds) at which it fired, per event run and per holdout session.
   - Event run: the rule detects the event if it fires between the ground-truth time of the event and the end of the run (the
     moment the logs were copied). Hits before the event do not count. Runs whose ground truth shows no event are left out
-    ("no event", D24 point 2); runs whose export failed are left out with their reason.
+    ("no event", D24 point 2). Since D27 point 10 a run whose export failed is retried and never completed, so the status
+    "export-failed" can only come from inputs made before that change; such runs are left out with their reason.
   - Holdout: the session [t0, t1] is cut into one-minute windows from t0; a trailing window shorter than 60 s is dropped. A
     window is a false-positive window if the rule fires at least once in it. Reported: count, share, Wilson 95% interval, and
     alerts per hour (hits per hour of holdout, and false-positive windows per hour).
-  - "Tells the event apart" (D6): fires on every scored event run and on at most 5% of holdout windows. Observed rate on the
-    holdout, not a population estimate (D13 point 3); consecutive windows are autocorrelated.
+  - "Tells the event apart" (D6, D27 point 2): fires on every scored event run and on fewer than 5% of holdout windows (k/n < 0.05,
+    the preregistered "below 5%"; D6 had written "at most"). Observed rate on the holdout, not a population estimate (D13 point 3);
+    consecutive windows are autocorrelated.
 
   python3 score.py SCORES_INPUT.json > SCORES.json
 SCORES_INPUT.json: {"rules": {"<id>": {"event_runs": [{"run": "...", "event_time": T, "end": T, "status": "ok|no-event|export-failed",
@@ -67,7 +69,7 @@ def score(rules):
         ev, ho = score_events(r["event_runs"]), score_holdout(r["holdout"])
         out[rid] = {"events": ev, "holdout": ho,
                     "tells_apart": bool(ev["scored"]) and ev["detected"] == ev["scored"] and ho["fp_share"] is not None
-                    and ho["fp_share"] <= THRESHOLD}
+                    and 20 * ho["fp_windows"] < ho["windows"]}  # k/n < 0.05 = THRESHOLD, in integers
     return out
 
 

@@ -46,6 +46,7 @@ TELEMETRY = [("audit.log", "sync; sleep 1; sudo cat /var/log/audit/audit.log", T
              ("nft-ruleset.txt", "sudo nft list ruleset", False),
              ("auditctl-rules.txt", "sudo auditctl -l", False)]
 MIN_AVAIL_MB, MIN_ORDER6, MEM_WAIT_S = 1024, 20, 900  # plan of 17 Oct 2026, phase 0.4
+C_LOCALE = {**os.environ, "LC_ALL": "C"}  # virsh states in English whatever the host locale ("shut off", not "spento")
 STOP_CLIENTS = "Q4_IN_VM=1 bash ~/lab/telemetry/scripts/stop_clients.sh"  # exits non-zero if a client, daemon or lab server survives
 
 
@@ -280,13 +281,27 @@ class _Result:
 
 def fresh_vm_checked(h, q3, snapshot, note, sleep=time.sleep):
     """Restore the clean snapshot like q3_host.Host.fresh_vm (which stays as it ran for part 3), but with the memory check of
-    the plan before EVERY revert attempt, and with timeouts turned into failures."""
+    the plan before EVERY revert attempt, and with timeouts turned into failures.
+    A running VM is powered off first (Codex review of D27, round 1, R2): with the VM running the host cannot reach the memory the
+    check asks for, so every restore after the first would wait and stop. This is done only when no attempt is pending anywhere:
+    every caller recovers or keeps the previous attempt (all copies out of the VM done) before restoring."""
+    if (STATE / "pending.json").exists():
+        note(event="abort-vm-holds-evidence", hint="a pending attempt is recorded: rerun its campaign, it recovers before restoring")
+        sys.exit(7)
+    state = safe(q3.run, q3.VIRSH + ["domstate", q3.DOMAIN], env=C_LOCALE).stdout.strip()
+    if state != "shut off":  # running, paused, pmsuspended, in shutdown...: all hold the VM's memory
+        r = safe(q3.run, q3.VIRSH + ["destroy", q3.DOMAIN], env=C_LOCALE)
+        after = safe(q3.run, q3.VIRSH + ["domstate", q3.DOMAIN], env=C_LOCALE).stdout.strip()
+        note(event="vm-powered-off-before-restore", state=state, rc=r.returncode, state_after=after)
+        if after != "shut off":  # a destroy that failed because the VM had just stopped is fine
+            note(event="abort-power-off", stderr=(r.stderr or "").strip()[:300], hint="power the VM off (virsh destroy), then rerun")
+            sys.exit(4)
     for attempt in range(1, 6):
         wait_for_memory(note)
-        r = safe(q3.run, q3.VIRSH + ["snapshot-revert", q3.DOMAIN, snapshot])
-        state = safe(q3.run, q3.VIRSH + ["domstate", q3.DOMAIN]).stdout
-        if r.returncode == 0 and "running" not in state and "esecuzione" not in state:
-            r = safe(q3.run, q3.VIRSH + ["start", q3.DOMAIN])
+        r = safe(q3.run, q3.VIRSH + ["snapshot-revert", q3.DOMAIN, snapshot], env=C_LOCALE)
+        state = safe(q3.run, q3.VIRSH + ["domstate", q3.DOMAIN], env=C_LOCALE).stdout.strip()
+        if r.returncode == 0 and state != "running":  # a shut-off snapshot: start it (Codex review of D27, round 3, R5)
+            r = safe(q3.run, q3.VIRSH + ["start", q3.DOMAIN], env=C_LOCALE)
         if r.returncode == 0:
             break
         note(event="revert-failed", attempt=attempt, stderr=(r.stderr or "").strip()[:300], order6plus=h.order6_blocks())
@@ -423,6 +438,12 @@ def secret_problems(h, ip, d):
     return problems
 
 
+def export_problems(check):
+    """A run or session whose client-log export failed is not usable: it is kept as an attempt and retried (D27 point 10, which
+    replaces the exclusion of D24 point 2), never recorded as complete. Only the failure category is quoted (paths can name the lab accounts' services)."""
+    return [] if check.get("export") == "ok" else [f"client-log export failed: {(check.get('reason') or '').split(':')[0]}"]
+
+
 def mark_pending(d, **info):
     """Written before any remote work of a run or session, in the run folder and in the VM-wide record; cleared only when the
     run is complete or its attempt is kept after every copy out of the VM succeeded."""
@@ -447,7 +468,10 @@ def guard_vm(d, note):
     rec = json.loads(g.read_text())
     other = Path(rec.get("folder", ""))
     if other == d.resolve():
-        return  # this folder's own attempt: recover_pending() handles it
+        if not (d / "pending.json").exists():  # keep_attempt stopped after keeping the attempt: the record is stale
+            note(event="stale-vm-pending-cleared", folder=str(other))
+            g.unlink()
+        return  # otherwise this folder's own attempt: recover_pending() handles it
     if (other / "pending.json").exists():
         note(event="abort-vm-holds-other-evidence", folder=str(other),
              hint="the VM holds an interrupted attempt of another campaign: rerun that campaign first, it recovers before restoring")
@@ -742,6 +766,7 @@ def main():
                    hint="a secret reached a collection record: never publish this attempt; tell the author")
             sys.exit(9)
         problems = validate_ground_truth(r, (d / "vm-out.tgz").read_bytes()) + tel_problems
+        problems = export_problems(check) + problems  # D27 point 10: retried until it counts (Codex review, round 1, R1)
         if res.returncode != 0:
             problems.insert(0, f"cell exited {res.returncode}: {(res.stderr or '').strip()[-300:]}")
         q = quota_in_outputs(r["client"], (d / "vm-out.tgz").read_bytes(), qm) or qm.find(r["client"], res.stdout)
@@ -750,7 +775,7 @@ def main():
         if problems:  # everything was copied, but the run is not usable: keep it as an attempt and stop
             dest = keep_attempt(d, "not-usable", {"problems": problems, "t0": t0, "t1": t1, "cell_rc": res.returncode})
             h.note(event="abort-run", run=r["name"], problems=problems, kept=str(dest),
-                   hint="VM left as it is for inspection; fix the cause, then rerun the same command (the plan is kept)")
+                   hint="VM left as it is for inspection: look at it before rerunning, a rerun powers it off; then rerun the same command (the plan is kept)")
             sys.exit(5)
         write_json_atomic(d / "run.json", {**r, "t0": t0, "t1": t1, "clock_skew_s": skew, "cell_rc": res.returncode,
                                             "push_rc": rc_push, "export": check["export"], "export_reason": check.get("reason"),

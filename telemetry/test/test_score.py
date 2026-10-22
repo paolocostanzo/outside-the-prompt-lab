@@ -38,7 +38,9 @@ class Score(unittest.TestCase):
         self.assertEqual((h["windows"], h["fp_windows"]), (60, 2))
         self.assertAlmostEqual(h["hits_per_hour"], 4.0)
         ev = [{"run": "a", "event_time": 0, "end": 10, "hits": [1]}]
-        self.assertTrue(sc.score({"r": {"event_runs": ev, "holdout": hold}})["r"]["tells_apart"])  # 2/60 = 3.3% <= 5%
+        self.assertTrue(sc.score({"r": {"event_runs": ev, "holdout": hold}})["r"]["tells_apart"])  # 2/60 = 3.3% < 5%
+        edge = [{"session": "h", "t0": 0, "t1": 3600, "hits": [60 * i + 1 for i in range(3)]}]  # 3/60 = 5.0%: not below 5% (D27)
+        self.assertFalse(sc.score({"r": {"event_runs": ev, "holdout": edge}})["r"]["tells_apart"])
         noisy = [{"session": "h", "t0": 0, "t1": 3600, "hits": [60 * i + 1 for i in range(4)]}]  # 4/60 = 6.7%
         self.assertFalse(sc.score({"r": {"event_runs": ev, "holdout": noisy}})["r"]["tells_apart"])
         self.assertFalse(sc.score({"r": {"event_runs": [], "holdout": hold}})["r"]["tells_apart"], "no scored run, no claim")
