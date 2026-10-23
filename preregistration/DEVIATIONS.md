@@ -1074,3 +1074,84 @@ draws whenever it is idle.
 - The three Gemini-backed clients' baseline runs on the paid tier.
 - A cycle can now end with `prompt-mangled`; such cycles are counted and reported like the other hard failures.
 - Cursor CLI's later phases use the new commit.
+
+### D35 · 23 Oct 2026 · D18 point 3, D25 point 4, D27 point 8, D32 point 1, D34 points 2–6 — Qwen Code's cursor character, Claude Code's usage notices, a prepaid Gemini API key, and checks of every client's input line without sending
+**Problem.**
+1. *`setup-r6`.*
+   - It ran on D34's commit (`1c18719`). Every cycle ended at its first task with `prompt-mangled`: 19 cycles, 0 tasks done.
+   - The prompt was whole each time. Qwen Code 0.25.1 draws its cursor as a zero-width space (U+200B) after the typed text, and
+     D34's check allowed nothing after the prompt.
+   - Enter was never pressed: no prompt was sent. The lab server saw only start-up calls (19 of each list and initialize call),
+     and no tool call. The check of the `setup-r6` screens covers the typed screens only: the driver kept no screen from before.
+   - D34's check had been validated on echoed prompts, which carry no cursor.
+2. *Claude Code's usage notice.* In a check after one real turn, Claude Code 2.1.300 drew "You've used 76% of your weekly limit
+   · resets Oct 24, 10pm" in its footer. The pattern "weekly limit" in `telemetry/scripts/quota.py` matched it, and the task was
+   stopped as a quota stop. The notice is not a stop.
+3. *The Gemini key.*
+   - D34 point 4 planned a paid tier on the Google project of the lab's key. On 23 October at about 17:45 that key answered with
+     "Quota exceeded for metric … generate_content_free_tier_requests, limit: 500, model: gemini-3.5-flash-lite": it was still on
+     the free tier. Whether billing had been set on another project is not known; the key is replaced.
+   - At 18:04 the author installed a new key of another project of his, with prepaid billing. With no credit it answered "Your
+     prepayment credits are depleted"; after the author's top-up, at 18:07, it answered (`modelVersion` `gemini-3.5-flash-lite`,
+     `serviceTier` standard).
+
+**Change.**
+1. *Folding of the input line.* Zero-width characters (U+200B–U+200D, U+2060, U+FEFF) are allowed only at the very end of the
+   input, after the last character of the prompt. Anywhere inside it, a line end of a wrapped prompt included, they fail. The rule is unchanged: the input must be the prompt alone. As in D34, white space and box borders inside the
+   input are ignored, so a space inside a word, or a character wrapped onto its own line, would not be seen; `tmux send-keys -l`
+   with the ASCII prompts cannot produce either.
+2. *Reading the input line again.* When the check fails, the driver reads the screen again, 0.6 s apart, up to five reads in
+   all, and stops early when two reads are equal. Enter is pressed only if the last read passes; otherwise the task ends
+   `prompt-mangled`. The number of reads is logged with the prompt.
+3. *Usage notices.*
+   - For Claude Code, "You've used N% of your … limit" is removed from the screen text before the quota patterns are applied
+     (white space and a line break tolerated). "You've hit your … limit", "Claude usage limit reached" and "… weekly limit" (any
+     other wording) still match.
+   - "Your prepayment credits are depleted" is a quota stop for every client (D27 point 8).
+   - On the recorded screens (1,150 across the six clients, events and holdouts excluded) the patterns match only the screens
+     already recorded as quota stops.
+4. *The Gemini key (D34 point 4 replaced).*
+   - The three Gemini-backed clients (D18 point 3) use the new key, with the same model, clients and settings.
+   - The key is set by the author in `~/.agentlab_secrets` of a new snapshot, `q4-base-20261023b` (D25 point 4): the snapshot
+     `q4-base-20261017` plus only the new key, in both variables of that file (`GEMINI_API_KEY` for Gemini CLI and Qwen Code,
+     `GOOGLE_API_KEY` for Goose). An intermediate snapshot, `q4-base-20261023`, had only the first line changed: in the check after
+     a turn, Goose still used the old key and met its free-tier limit. It is not used. All baseline sessions, of every client,
+     use `q4-base-20261023b`. The event runs used
+     `q4-base-20261017` and the old key on its free tier.
+   - The prepaid credit is the spending cap: when it is used up, requests are refused and the session stops as a quota stop.
+   - The key is never logged or published; the project is named only in the author's private notes.
+   - Differences the tier could make (latency, rate limits, Google's data-use terms) are a limitation. The lab's content is
+     synthetic.
+5. *Checks without sending (23 October).* A script opens each client in the VM, restored to its snapshot, types prompts and
+   checks the input line with the driver's `composer_holds` and its re-read rule. The SHA-256 of the driver and of `quota.py`
+   in the VM are recorded with each folder. After the checks, the driver changed only in where a zero-width character is
+   allowed (point 1); every saved screen pair was replayed with the final driver, with the same results.
+   - Into a freshly started client, all four prompts, Enter never pressed: 20 of 20 read as whole (5 clients). D34's version
+     read 16 of 20; the 4 failures were Qwen Code's.
+   - After one real "explain" turn (Enter pressed for that task only), the test, edit (cycle 10) and known-server prompts, never
+     sent: 15 of 15 (5 clients), with the driver and `quota.py` of SHA-256 `761dbb34…` and `d22125bb…`. Goose
+     first met the old key's free-tier limit on the intermediate snapshot and was checked again on `q4-base-20261023b`.
+   - Six synthetic alterations of each typed prompt (a dropped letter, a zero-width character inside, a "0" before or after, a
+     "/" before, a soft hyphen inside), replayed with the corrected driver on every saved screen pair, are all rejected: 366 of
+     366.
+   - Cursor CLI was not checked. The same checks run before its phase (D29).
+6. *`setup-r7`, then `baseline-r3`.*
+   - `setup-r7` (Qwen Code, fifteen minutes, D34 point 5) runs on the corrected commit and the new snapshot. It is decided by
+     `check_setup_r6.py` (SHA-256 `519581fb…`), which loads the harness's own driver and its folding, and also requires the
+     host's acceptance of the session (its `run.json`, written after the quota observer, the copies and the export).
+   - `baseline-r3` starts only if `setup-r7` passes, with the plan of D33 (seed 20261019, the five clients in the order Codex
+     CLI, Claude Code, Qwen Code, Gemini CLI, Goose, development then holdout, 60 minutes, six hours' gap), on the new snapshot.
+   - If a check fails and needs a code change, the baseline starts again in a new folder from the next commit.
+   - `setup-r6` is kept and published as an attempt.
+7. *Other clients' quota on the author's accounts.* Claude Code's account was at 76% of its weekly limit on 23 October (reset
+   24 October, 22:00). A stop at the limit is a quota stop under D27 point 8.
+8. *Commit.* The acquisition commit becomes D34's commit plus only this change, on `acq-baseline`.
+
+**Why.** A check that stops a whole prompt, and a notice read as a stop, are faults of the driver, not of the clients. Typing
+without sending tests every client's input line at almost no cost. The free tier could not carry three clients' baseline before
+the blog post of 27 October; a prepaid key gives the quota with a hard spending cap.
+
+**Effect.**
+- No change to events, rules, thresholds or lengths.
+- The baseline runs on a snapshot that differs from the events' only by the Gemini key.
+- Gemini requests are paid from the author's prepaid credit.
