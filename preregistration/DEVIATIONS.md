@@ -902,3 +902,54 @@ confirmatory data.
 - No change to the events, the threshold, the windows or the aggregation of D27.
 - The rules' false-positive check on development material covers more normal use than D27 foresaw.
 - Coverage makes visible where a false-positive rate of zero only reflects absent records.
+
+### D32 · 23 Oct 2026 · D25 point 5, D27 points 1 and 9, D29 point 2 — a quota stop without a limit message, an observer race, and a fresh start of the baseline
+**Problem.**
+1. *A quota stop without a limit message.*
+   - The first baseline session was Codex CLI's development part, run on harness `be9317c`. After 40 of its 60 minutes, at the start
+     of its sixteenth cycle, Codex CLI 0.162.1 showed a new notice: "You have 2 usage limit resets available. Run /usage to use
+     one."
+   - The notice was absent from the fifteen earlier cycles and from all six Codex CLI event runs. What makes it appear is not
+     documented; third-party guides describe these resets as a way to continue after a limit is hit.
+   - The generic pattern "usage limit" in `telemetry/scripts/quota.py` matched the notice, and the session was stopped. No screen of
+     that session holds a limit message ("You've hit your usage limit", "try again at"), and Codex CLI went on working after the
+     notice.
+   - Whether the account was close to a limit at that moment is unknown.
+2. *Observer race.*
+   - Twice the observer found the tmux session present, and its screen capture then failed with "no server running", because the
+     runner had just closed tmux.
+   - Once was in the event runs (`qwen__q5-start__r1`, attempt 1, kept and repeated on 22 October). The other was in this session,
+     2 s before a cycle closed.
+   - D25 point 5 counts every read failure as a stop.
+
+**Change.**
+1. *The pattern.* The generic pattern no longer matches "usage limit" when the next words are "resets available". Real limit
+   messages still match, including those that say when a limit resets: "Your usage limit resets in 3h", "Usage limit reached for
+   …", "You've hit your usage limit".
+2. *The observer (D25 point 5 amended).* When a screen capture fails, the observer checks the session again. If the session no
+   longer exists, it writes a "vanished" record with its time, and counts it apart from read errors and from absent sessions. A
+   failure while the session still exists remains an error and a stop. A client that dies mid-cycle is still caught by the
+   driver, which records the failed tasks.
+3. *Before restarting.* Codex CLI's account usage (five-hour and weekly) is read outside any measured session, on the vendor's
+   usage page, and written in the campaign log. If either window is nearly used up, the baseline waits for it to reset, in the
+   spirit of D27 point 8.
+4. *Fresh start of the baseline.*
+   - The orchestrators freeze the harness commit in each plan, so the baseline cannot resume under the corrected code. It starts
+     again in a new folder, `baseline-r2`, with the same seed (20261019), the same five clients and order, the same lengths and
+     gap, and the same snapshot.
+   - Its acquisition commit is `be9317c` plus only the two corrections of this deviation, on a branch of its own (`acq-baseline`),
+     so the rule files of D31 are not copied into the VM. D27 point 9 is amended: the event runs used `be9317c`, and the baseline
+     uses that branch's commit.
+   - D29 point 2 is amended: Cursor CLI's later phases (set-up, rule-development runs, event runs and baseline) use that branch's
+     commit too.
+5. *The first folder.* `baseline/` is kept and published as an attempt: one Codex CLI development session, not counted. It is
+   excluded from rule development, and its client-log archives stay closed.
+
+**Why.**
+- A notice that offers resets is not a limit message.
+- A session that ends between two reads is not a broken observer.
+- Neither stop came from the clients' normal use.
+
+**Effect.**
+- No change to events, rules, thresholds or lengths.
+- The baseline starts about two hours later than planned.
