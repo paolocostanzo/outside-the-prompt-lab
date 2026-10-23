@@ -19,6 +19,9 @@ GENERIC = [
 # Oct 24, 10pm" (probe of 23 Oct 2026, D35); spacing and line wraps tolerated
 NOTICES = {
     "claude-code": [r"You've\s+used\s+\d+%\s+of\s+your\s+[^·\n]*?(?:\n[^·\n]*?)?limit"],
+    # Codex CLI's tip "… access available usage limit resets." (baseline-r3, D37), also when wrapped; only this recorded phrase is
+    # removed, the rest of its line is still read (Codex review of D37: a tip line may carry a real failure)
+    "codex": [r"available\s+usage\s+limit\s+resets"],
 }
 CLIENT = {
     "claude-code": [r"Claude usage limit reached", r"\b5-hour limit\b", r"\bweekly limit\b", r"\blimit will reset\b",
