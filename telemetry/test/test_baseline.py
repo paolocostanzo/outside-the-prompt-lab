@@ -395,6 +395,15 @@ class Quota(unittest.TestCase):
                              ("qwen", "RESOURCE_EXHAUSTED"), ("goose", "Request failed: HTTP 429 Too Many Requests")]:
             self.assertIsNotNone(bs.quota.find(client, text), text)
 
+    def test_codex_reset_notice_is_not_a_quota_message(self):
+        """Baseline of 23 Oct 2026 (D32): Codex CLI 0.162.1 showed this notice at the start of a cycle, 40 minutes into a session,
+        with no limit message on any screen."""
+        self.assertIsNone(bs.quota.find("codex", "• You have 2 usage limit resets available. Run /usage to use one."))
+        for real in ("Your usage limit resets in 3h", "Usage limit resets at 17:00. Upgrade or wait.", "usage limit\nresets in 2h"):
+            self.assertIsNotNone(bs.quota.find("goose", real), real)
+        self.assertIsNotNone(bs.quota.find("gemini", "Usage limit reached for gemini-flash-lite-latest."))
+        self.assertIsNotNone(bs.quota.find("cursor-agent", "Error: You've hit your usage limit"))
+
     def test_ordinary_text_is_not_a_quota_message(self):
         for text in ["greet.py returns a greeting for the given name.", "Ran 1 test in 0.001s\n\nOK", "line 429 of the log",
                      "the function has a limit on the name length", "# reviewed in cycle 4"]:

@@ -7,7 +7,8 @@ capture. The historical Q3 and Q5 runners are left as they ran; this observer is
 
 Records (JSON Lines): "started"; "heartbeat" every HEARTBEAT_S seconds with the number of captures, whether the client's tmux
 session existed (between a client's restarts it does not: an expected gap, not an error) and capture failures; "capture-error"
-when the session existed but could not be read; "quota" with the screen; "stopped" on SIGTERM (the orderly end). The host
+when the session existed but could not be read; "vanished" when it existed at the check and was gone at the read (the runner
+closed it in between, D32); "quota" with the screen; "stopped" on SIGTERM (the orderly end). The host
 (observer_problems() in q4_events.py) rejects a run without "stopped", with a gap between records longer than MAX_GAP_S, or with
 capture errors: an observer that died part-way must not look like an observer that saw nothing.
 """
@@ -23,12 +24,36 @@ _spec.loader.exec_module(quota)
 HEARTBEAT_S = 10
 
 
+# tmux's own words for a session or server that does not exist; any other failure is a read error (Codex review of D32, D32-01)
+ABSENT = ("no server running", "can't find session", "session not found", "no such file or directory")
+
+
+def absent(stderr):
+    return any(a in (stderr or "").lower() for a in ABSENT)
+
+
 def screen(session):
-    """(present, text, error): present is False when the session does not exist (between client restarts)."""
-    if subprocess.run(["tmux", "has-session", "-t", session], capture_output=True).returncode != 0:
-        return False, "", None
+    """(present, text, error): present is False when the session does not exist (between client restarts); a session that existed
+    at the check and was confirmed gone at the read gives (False, "", VANISHED); a failure that does not establish absence is an
+    error, with tmux's messages."""
+    h = subprocess.run(["tmux", "has-session", "-t", session], capture_output=True, text=True)
+    if h.returncode != 0:
+        if absent(h.stderr):
+            return False, "", None
+        return True, "", f"has-session: {h.stderr.strip() or f'exit {h.returncode}'}"
     r = subprocess.run(["tmux", "capture-pane", "-p", "-J", "-t", session], capture_output=True, text=True)
-    return True, r.stdout, (None if r.returncode == 0 else (r.stderr.strip() or f"exit {r.returncode}"))
+    if r.returncode == 0:
+        return True, r.stdout, None
+    err = r.stderr.strip() or f"exit {r.returncode}"
+    again = subprocess.run(["tmux", "has-session", "-t", session], capture_output=True, text=True)
+    if again.returncode != 0 and absent(again.stderr):
+        # the session ended between the two calls (the runner closes tmux at the end of a run or cycle): recorded as "vanished",
+        # not as a read error and not silently (D32)
+        return False, "", VANISHED
+    return True, "", f"capture-pane: {err}; recheck: {again.stderr.strip() or f'exit {again.returncode}'}"
+
+
+VANISHED = "vanished"  # marker: the session existed when checked and was gone when its screen was read (D32)
 
 
 class Stop(Exception):
@@ -38,7 +63,7 @@ class Stop(Exception):
 def watch(client, session, out, interval=1.0, rounds=None, read=screen, clock=time.time, sleep=time.sleep):
     out = Path(out).expanduser()
     out.parent.mkdir(parents=True, exist_ok=True)
-    stats = {"captures": 0, "absent": 0, "capture_errors": 0}
+    stats = {"captures": 0, "absent": 0, "capture_errors": 0, "vanished": 0}
 
     def write(fh, **rec):
         fh.write(json.dumps({"ts": clock(), **rec}) + "\n")
@@ -55,7 +80,10 @@ def watch(client, session, out, interval=1.0, rounds=None, read=screen, clock=ti
             while rounds is None or n < rounds:
                 n += 1
                 present, s, err = read(session)
-                if not present:
+                if not present and err == VANISHED:
+                    stats["vanished"] += 1
+                    write(fh, event="vanished")
+                elif not present:
                     stats["absent"] += 1
                 elif err:
                     stats["capture_errors"] += 1

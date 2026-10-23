@@ -567,6 +567,48 @@ class QuotaObserver(unittest.TestCase):
         self.assertEqual([r["event"] for r in recs], ["started", "quota", "stopped"])
         self.assertEqual((recs[-1]["captures"], recs[-1]["absent"]), (3, 1), "a missing session between restarts is not an error")
 
+    def test_a_session_that_ends_between_the_two_tmux_calls_is_absent(self):
+        """D32: has-session succeeded, then capture-pane failed because the runner had just closed tmux."""
+        w = q4.load(SCRIPTS / "quota_watch.py", "quota_watch")
+        calls = []
+        def run(cmd, **k):
+            calls.append(cmd[1])
+            gone = cmd[1] == "capture-pane" or calls.count("has-session") > 1
+            return _NS(returncode=1 if gone else 0, stdout="", stderr="no server running on /tmp/tmux-1000/default" if gone else "")
+        orig = w.subprocess.run
+        w.subprocess.run = run
+        self.addCleanup(lambda: setattr(w.subprocess, "run", orig))
+        self.assertEqual(w.screen("q3run"), (False, "", w.VANISHED))
+        out = Path(_tempfile.mkdtemp()) / "qw.jsonl"
+        reads = iter([(True, "x", None), (False, "", w.VANISHED), (False, "", None)])
+        w.watch("qwen", "q3run", out, interval=0, rounds=3, read=lambda s: next(reads), sleep=lambda x: None)
+        recs = [_json.loads(l) for l in out.read_text().splitlines()]
+        self.assertIn("vanished", [r["event"] for r in recs], "recorded, not silent")
+        self.assertEqual((recs[-1]["vanished"], recs[-1]["capture_errors"], recs[-1]["absent"]), (1, 0, 1))
+        w.subprocess.run = run
+        calls.clear()
+        w.subprocess.run = lambda cmd, **k: (calls.append(cmd[1]) or _NS(returncode=0 if cmd[1] == "has-session" else 1,
+                                                                           stdout="", stderr="busy"))
+        self.assertEqual(w.screen("q3run")[:2], (True, ""), "a failure while the session still exists stays an error")
+        self.assertIn("busy", w.screen("q3run")[2])
+        # D32-01: a successful check, a failed capture and an ambiguous recheck stay a read error, with both diagnostics
+        replies = iter([_NS(returncode=0, stdout="", stderr=""),
+                        _NS(returncode=1, stdout="", stderr="capture failed: Resource temporarily unavailable"),
+                        _NS(returncode=1, stdout="", stderr="error connecting to /tmp/tmux-1000/default (Resource temporarily unavailable)")])
+        seen = []
+        w.subprocess.run = lambda cmd, **k: (seen.append(cmd[1]), next(replies))[1]
+        present, text, err = w.screen("q3run")
+        self.assertEqual(seen, ["has-session", "capture-pane", "has-session"])
+        self.assertTrue(present)
+        self.assertNotEqual(err, w.VANISHED)
+        self.assertIn("capture failed", err)
+        self.assertIn("recheck: error connecting", err)
+        # an initial check that fails without saying the session is absent is an error too
+        w.subprocess.run = lambda cmd, **k: _NS(returncode=1, stdout="", stderr="error connecting to socket")
+        self.assertTrue(w.screen("q3run")[0])
+        w.subprocess.run = lambda cmd, **k: _NS(returncode=1, stdout="", stderr="no server running on /tmp/tmux-1000/default")
+        self.assertEqual(w.screen("q3run"), (False, "", None))
+
     def test_observer_health_is_required(self):
         P = q4.observer_problems
         B = '{"start": 2, "end": 14, "rc": 0, "observer_rc": 0}'
