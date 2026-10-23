@@ -953,3 +953,54 @@ confirmatory data.
 **Effect.**
 - No change to events, rules, thresholds or lengths.
 - The baseline starts about two hours later than planned.
+
+### D33 · 23 Oct 2026 · D28 point 8, D29 point 3, D32 point 4 — Qwen Code's ready pattern when a suggestion replaces its placeholder; a third start of the baseline
+**Problem.**
+- `baseline-r2` (acquisition commit `3481e6f`) counted Codex CLI's and Claude Code's development sessions. Qwen Code's development
+  session then failed its workload check, with 35 of 56 tasks and 5 calls in 14 cycles.
+- Its "edit" task timed out in 8 of 13 cycles, although the edit had been made and Qwen Code had answered ("I have appended …").
+- After those turns, Qwen Code drew a suggested next prompt ("> run the tests") in its input line instead of its placeholder,
+  "Type your message …". The placeholder was its only ready pattern (the frozen Q3 pattern), so the driver never saw it ready.
+- Among the recorded screens, Qwen Code showed this in 9 of 61 (set-up rounds and this attempt). Gemini CLI never showed it, in
+  32 screens, and Goose has its own pattern (D29).
+
+**Change.**
+1. *The ready pattern.*
+   - `baseline/clients.json` gives Qwen Code a baseline ready pattern: its placeholder, or its idle footer line, which begins with
+     "Auto mode (shift + tab to cycle)".
+   - While Qwen Code works, that footer begins with "Enter to steer", which the pattern does not match.
+   - D28's checks still apply: a submitted prompt, an unchanged screen and no working line.
+   - On the recorded screens, the new pattern reads all 9 screens with a suggestion as ready and loses none of the screens the old
+     pattern read as ready.
+   - This revises `clients.json` after its freeze (D28 point 8). The revision is limited to Qwen Code's entry.
+2. *A check before the restart (exploratory).*
+   - The recorded screens never show a prompt typed while a suggestion is drawn: every such screen ended its cycle.
+   - One fifteen-minute set-up session of Qwen Code (`setup-r5`, D25 point 2, D29 point 4) runs on the corrected commit before the
+     baseline. It must show at least one task typed after a suggestion was drawn, with the typed prompt alone echoed and its
+     evidence present.
+   - If it does not, the baseline does not start and the cause is examined.
+3. *Other clients.*
+   - Gemini CLI: no suggestion appears in its 32 recorded screens, and no idle-only footer line exists to use instead.
+   - Goose: its pattern (D29) matched 43 of 44 screens. The one miss is the queued-prompt case handled by D30.
+   - Their patterns are not changed without evidence.
+4. *A third start of the baseline.*
+   - The plan freezes the harness commit, so the baseline starts again in a new folder, `baseline-r3`. The seed (20261019), clients,
+     order, lengths, gap and snapshot are the same as before.
+   - The acquisition commit is that of `baseline-r2` (`3481e6f`) plus only this revision, on the same branch (`acq-baseline`).
+   - D32 point 4 is amended accordingly, and Cursor CLI's later phases (D29 point 2, D32 point 4) use this commit.
+   - `baseline-r2` is kept and published as an attempt: two counted development sessions (Codex CLI, Claude Code) and one failed
+     one (Qwen Code), none of them counted in `baseline-r3`.
+   - Its development sessions remain rule-development material (D27 point 1, D31). Codex CLI's and Claude Code's client logs had
+     already been read for their candidate rules before this deviation; no candidate changed.
+   - This differs from D32, which kept `baseline/` closed and excluded, because that material had not been read.
+   - Any rule-development round on `baseline-r3`'s development hours reports the `baseline-r2` results next to them.
+5. *Limitation.* The pattern depends on Qwen Code's footer text for its default approval mode. If that mode or the text changes,
+   the old failure can return.
+
+**Why.** A suggestion drawn in the input line is not a sign of work. The driver must recognise an idle client by a line the client
+draws whenever it is idle.
+
+**Effect.**
+- No change to events, rules, thresholds or lengths.
+- The baseline restarts about four hours after its first start.
+- Codex CLI's and Claude Code's development hours are recorded again.
