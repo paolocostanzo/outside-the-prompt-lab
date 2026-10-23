@@ -281,6 +281,19 @@ class Baseline(unittest.TestCase):
         firsts = [seen[i] for i in range(0, len(seen), 4)]
         self.assertTrue(all(p is None for p in firsts), "the first task of every cycle starts with no previous prompt")
 
+    def test_qwen_is_ready_when_a_suggestion_replaces_its_placeholder(self):
+        """baseline-r2 (23 Oct 2026, D33): Qwen Code showed a suggested prompt ("> run the tests") instead of "Type your message";
+        the edit was done, and the task timed out 8 times out of 13. Its idle footer starts with "Auto mode"; while it works the
+        footer starts with "Enter to steer"."""
+        s = self.session("qwen")
+        idle = ("  ◆︎ I have appended # reviewed in cycle 13 to greet.py.\n> run the tests\n"
+                "  ➜ repo · model · 1.0m Context 1.7% used\n  Auto mode (shift + tab to cycle)")
+        working = "  ➜ repo · model\n  Enter to steer · Ctrl+Q to queue · Auto mode (shift + tab to cycle)"
+        self.assertTrue(bs.re.search(s.ready, idle))
+        self.assertFalse(bs.re.search(s.ready, working))
+        self.assertTrue(bs.re.search(s.ready, ">   Type your message or @path/to/file"))
+        self.assertEqual(self.session("gemini").ready, bs.q3.CLIENTS["gemini"]["ready"])
+
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
         self.assertEqual(bs.validity(ok), (["A"], False))
