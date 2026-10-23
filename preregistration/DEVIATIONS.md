@@ -1229,3 +1229,44 @@ be fixed now, before any rule is scored.
 - Limits of the Q5 host rule: it misses a repository-declared server whose command line was already seen on the host; it assumes
   the repository is opened when the client starts; it sees only the lab user's processes; and in the holdout it is tested mostly
   on the harness's own commands, which the learning set already holds, over windows the rotating log only partly covers.
+
+### D37 · 23 Oct 2026 · D27 point 8, D32 points 1 and 3, D33 point 4, D35 points 3 and 6 — a tip read as a quota stop; a fourth start of the baseline
+**Problem.**
+- `baseline-r3` (acquisition commit `cf77407`, snapshot `q4-base-20261023b`) stopped in its first session, Codex CLI's development
+  part, after about 49 minutes (48.8 minutes from `t_start` to `t_end`) and 19 cycles: 74 of 75 prompted tasks done, and the
+  known server called in each of the 18 cycles that reached its task.
+- Under an answer, Codex CLI 0.162.1 drew a tip: "Tip: When signed in with ChatGPT, use /usage to check your account usage and
+  access available usage limit resets." The generic pattern "usage limit" matched it; D32's exception covered only "usage limit
+  resets available". The quota observer and the driver flagged it within half a second and the session was stopped.
+- The tip is not a limit. Codex CLI had finished its turn (the edit was made, the input line was idle), and no limit message
+  appears on any screen or in the observer's record. The one task counted as not done is that last edit, stopped with the session.
+- The tips change at random: the recorded screens hold 32 different Codex CLI tips and 8 of Cursor CLI.
+
+**Change.**
+1. *Patterns (`telemetry/scripts/quota.py`, SHA-256 `ad064cb4…`).*
+   - For Codex CLI only, the recorded phrase "available usage limit resets" (also across a line break) is removed before the
+     patterns are applied. The rest of the tip's line is still read, so a failure on the same line still matches.
+   - No general rule on tips: a tip never recorded that names a limit could stop a session again. That would be a false stop,
+     handled as this one, never a missed one.
+   - Real limit messages still match ("You've hit your usage limit", "Your usage limit resets in 3h", "Usage limit reached for …").
+   - On all recorded screen files (1,462, copies included; events and holdouts excluded), the new patterns change the result of
+     only the two screens of this stop.
+2. *Records of `baseline-r3`.* Its attempt keeps the records as written (the problems in `attempt.json`, `quota_exhausted` in
+   `session.json`, the observer's `quota-watch.jsonl`); this deviation reclassifies the stop as a false alarm in its text only.
+   Because it was not a quota stop, D27 point 8 (wait for the reset and resume the same plan) does not apply.
+3. *A fourth start of the baseline.*
+   - As in D32 and D33, the plan freezes the harness commit, so the baseline starts again in a new folder, `baseline-r4`, from the
+     corrected commit, with the plan of D33 (seed 20261019, the same five clients and order, 60 minutes, six hours' gap) and the
+     snapshot of D35 (`q4-base-20261023b`). The `baseline-r3` folder is not rerun.
+   - Before the restart, Codex CLI's account usage (five-hour and weekly) is read on the vendor's usage page and written in the
+     campaign log (D32 point 3); if either is nearly used up, the restart waits for it. Read by the author on 23 October in the
+     evening: 1% used.
+   - `baseline-r3` is kept and published as an attempt. Its Codex CLI development session is development material (D27 point 1,
+     D31), as `baseline-r2`'s were; any rule-development round reports it next to `baseline-r4`'s.
+   - The acquisition commit becomes D35's commit plus only this change, on `acq-baseline`.
+
+**Why.** A tip is not a quota message, and the stop did not come from the client's normal use.
+
+**Effect.**
+- No change to events, rules, thresholds or lengths.
+- The baseline restarts about three hours after `baseline-r3`'s start.
