@@ -9,7 +9,8 @@ about the test repository does not match; they are checked on the exploratory se
 import re
 
 GENERIC = [
-    r"\busage limit\b", r"\brate[- ]limit(ed)?\b", r"\bquota (exceeded|exhausted|reached)\b", r"\bexceeded (your|the) (current )?quota\b",
+    # not Codex CLI's start-up notice "You have 2 usage limit resets available" (baseline of 23 Oct 2026, D32)
+    r"\busage limit\b(?!\s+resets\s+available\b)", r"\brate[- ]limit(ed)?\b", r"\bquota (exceeded|exhausted|reached)\b", r"\bexceeded (your|the) (current )?quota\b",
     r"\bRESOURCE_EXHAUSTED\b", r"\b(HTTP|status|error|code)[: ]+429\b", r"\b429 Too Many Requests\b", r"\btoo many requests\b",
     r"\bout of credits\b", r"\bcredit balance is too low\b",
 ]
