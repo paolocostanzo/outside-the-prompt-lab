@@ -50,6 +50,9 @@ def score_events(runs):
 
 
 def score_holdout(sessions):
+    """The threshold is on all windows (D27 point 3). Coverage (D31 point 2, D36): windows holding at least one record of the
+    rule's source, per session as scores_input.py gives it; the share over covered windows is reported next to it, never used
+    for the threshold. A session without a coverage figure makes the total unknown (None)."""
     n_win = fp = hits_in = 0
     seconds = 0
     for s in sessions:
@@ -59,8 +62,13 @@ def score_holdout(sessions):
         fp += sum(any(a <= h < b for h in s["hits"]) for a, b in ws)
         hits_in += sum(1 for h in s["hits"] if ws and ws[0][0] <= h < ws[-1][1])
     hours = seconds / 3600
+    covs = [s.get("covered_windows") for s in sessions]
+    covered = sum(covs) if sessions and all(c is not None for c in covs) else None
     return {"windows": n_win, "fp_windows": fp, "fp_share": (fp / n_win) if n_win else None, "wilson95": wilson(fp, n_win),
-            "hours": hours, "hits_per_hour": (hits_in / hours) if hours else None, "fp_windows_per_hour": (fp / hours) if hours else None}
+            "hours": hours, "hits_per_hour": (hits_in / hours) if hours else None, "fp_windows_per_hour": (fp / hours) if hours else None,
+            "covered_windows": covered, "fp_share_covered": (fp / covered) if covered else None,
+            "per_session": [{"session": s.get("session"), "windows": len(windows(s["t0"], s["t1"])),
+                             "covered_windows": s.get("covered_windows")} for s in sessions]}
 
 
 def score(rules):
