@@ -49,3 +49,7 @@ within/beyond, per-project comparison, consolidated copy, lone WAL, coverage). N
 exact [event, run end]; the ±5 s of evaldev.py is for exploration only), R8 (UTC for naive times; "*" crosses "/"), R9 (look-alikes
 absent from normal use: the D27 limitation), R10 (the "none" rules are confirmed).
 Development results unchanged except claude-code/q5-start (now none): VALUTAZIONE-SVILUPPO-v2.txt.
+
+## Round 3 (23/10 12:52) — development part of the baseline (baseline-r2), first two clients
+Codex CLI development hour: 0 false-positive windows out of 60 for every candidate; source coverage 60/60. Claude Code
+development hour: 0/60; coverage 48/60 (MCP logs) and 60/60 (transcripts). No candidate changed.
