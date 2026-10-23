@@ -16,7 +16,7 @@ actually happened (tasks.json "workload_success": share of tasks completed, know
 both checks; the host keeps an invalid session as an attempt and does not count it. The local-engine repetition (D13 point 1)
 is not implemented here: there is no part for it, and it is reported as not done unless a later, reviewed change adds it.
 """
-import argparse, importlib.util, json, re, time
+import argparse, difflib, importlib.util, json, re, time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -58,7 +58,23 @@ BUSY_LINES = 15
 NOT_SUBMITTED_S = 60  # a prompt after whose Enter nothing changes on screen for this long, with no sign of work, was not submitted
 MAX_QUESTIONS = 3     # unexpected questions answered per task; more means the driver is misreading the screen
 SETTLE_S = 90         # longest wait for a ready, idle client before a prompt; past it the cycle ends (no typing into a busy client)
-HARD_FAILURES = ("not-settled", "prompt-not-submitted", "question-limit", "timeout")  # the cycle ends after one of these
+HARD_FAILURES = ("not-settled", "prompt-not-submitted", "question-limit", "timeout", "prompt-mangled")  # the cycle ends after one
+FOLD = re.compile(r"[\s│┃█▐▌]")  # white space, box borders and scroll bars: what a wrapped input line adds between characters
+MARKERS = "[>›❯→*]*"  # the input markers that may stand before a prompt on its first line
+
+
+def composer_holds(before, typed, prompt):
+    """True when the lines that typing drew or changed hold the whole prompt, unaltered. The screen before typing is compared
+    line by line with the screen after, so that an earlier cycle's echo of the same prompt does not count; white space and box
+    borders are dropped, so that a wrapped input line reads as one (D34: Qwen Code's survey swallowed the digits of a prompt)."""
+    a, b = before.rstrip().splitlines(), typed.rstrip().splitlines()
+    new = [l for op, _, _, j1, j2 in difflib.SequenceMatcher(None, a, b, autojunk=False).get_opcodes() if op != "equal"
+           for l in b[j1:j2]]
+    # the input is the prompt alone: it may run over line ends, only an input marker may stand before it on its first line, and
+    # nothing after it on its last, so a survey's "0" left before or after it fails (Codex review of D34, D34-01)
+    text = "\n".join(FOLD.sub("", l) for l in new)
+    body = "\n?".join(map(re.escape, FOLD.sub("", prompt)))
+    return re.search(r"(?:^|\n)" + MARKERS + body + r"(?=\n|$)", text) is not None
 
 
 def type_literal(text):
@@ -204,39 +220,54 @@ class Session:
         ends = [i for i, l in enumerate(lines) if TURN_END.search(l)]
         return bool(busy) and (not ends or busy[-1] > ends[-1])
 
+    def notice_at_bottom(self, s):
+        bottom = "\n".join(s.rstrip().splitlines()[-NOISE_LINES:])
+        for tip, answer in list(q3.NOISE) + [tuple(n) for n in self.perm.get("notices") or []]:
+            if re.search(tip, bottom):
+                return answer
+        return None
+
     def answer_notice(self, s, cycle, task_id):
         """Answer an unrelated notice (tool-change q3-clients.json "noise", unchanged) only while it is drawn at the bottom of the
         screen, and never while the client is working (Escape interrupts a turn in some clients). The screen is kept before the
         keys are sent. Returns True when a notice was answered."""
         if self.busy(s):
             return False
-        bottom = "\n".join(s.rstrip().splitlines()[-NOISE_LINES:])
-        for tip, answer in q3.NOISE:
-            if re.search(tip, bottom):
-                self.log(action="noise", cycle=cycle, task=task_id, screen=self.capture("noise"))
-                q3.keys(*answer)
-                return True
-        return False
+        # the frozen Q3 notices, then the baseline's own per client (clients.json "notices"; D34: Qwen Code's feedback survey,
+        # whose digit keys would otherwise swallow the digits of the next prompt)
+        answer = self.notice_at_bottom(s)
+        if answer is None:
+            return False
+        self.log(action="noise", cycle=cycle, task=task_id, screen=self.capture("noise"))
+        q3.keys(*answer)
+        time.sleep(1)
+        # the screen after the keys, kept with the one before: set-up checks that the notice is gone (adversarial review of D34)
+        self.log(action="noise-after", cycle=cycle, task=task_id, screen=self.capture("noise-after"))
+        return True
 
     def settle(self, cycle, task_id, idle_s, timeout=SETTLE_S):
         """Before typing a prompt: wait until the screen is ready, not busy and unchanged for idle_s (a notice can be drawn a few
-        seconds after the ready marker, as Codex's account card was), then answer a notice at the bottom once. False when the
+        seconds after the ready marker, as Codex's account card was) and free of notices. False when the
         client never settled: the caller types nothing and ends the cycle."""
-        t0, last, since, settled = time.time(), None, time.time(), False
+        t0, last, since, settled, answered = time.time(), None, time.time(), False, 0
         while time.time() - t0 < timeout:
             s = q3.screen()
             if s != last:
                 last, since = s, time.time()
             elif time.time() - since >= idle_s and not self.busy(s) and re.search(self.ready, s) \
                     and self.turn_over(s, self.last_prompt):
-                settled = True
-                break
+                # a notice can be drawn after the ready marker (Qwen Code's survey came up to about 16 s after a turn): it is
+                # answered, at most twice, and the client must then settle again; typing follows only a screen that is ready,
+                # idle, past its turn and free of notices (adversarial and Codex reviews of D34)
+                if self.notice_at_bottom(s) is None:
+                    settled = True
+                    break
+                if answered == 2:
+                    break
+                self.answer_notice(s, cycle, task_id)
+                answered, last = answered + 1, None
             time.sleep(1.5)
-        if not settled:
-            return False
-        if self.answer_notice(q3.screen(), cycle, task_id):
-            time.sleep(2)
-        return True
+        return settled
 
     def end(self, action, cycle, task, label, screen, prompt, **kw):
         """Every task exit: one record with the turn's outcome on the last screen seen, counted once per task."""
@@ -256,10 +287,15 @@ class Session:
             self.end("not-settled", cycle, task, f"c{cycle}-{task['id']}-unsettled", s, prompt)
             return False
         t_prompt, calls_before = time.time(), self.server_calls()
+        before = q3.screen()
         type_literal(prompt)
         self.last_prompt = prompt
         time.sleep(0.6)
         typed = q3.screen()  # the prompt in the composer, before Enter: anything else after Enter means it was submitted
+        if not composer_holds(before, typed, prompt):
+            # an altered prompt is not the scripted use: no Enter, the cycle ends and the client is closed (D34)
+            self.end("prompt-mangled", cycle, task, f"c{cycle}-{task['id']}-mangled", typed, prompt)
+            return False
         q3.keys("Enter")
         self.log(action="prompt", cycle=cycle, task=task["id"])
         notices = questions = 0
