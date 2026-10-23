@@ -1155,3 +1155,77 @@ the blog post of 27 October; a prepaid key gives the quota with a hard spending 
 - No change to events, rules, thresholds or lengths.
 - The baseline runs on a snapshot that differs from the events' only by the Gemini key.
 - Gemini requests are paid from the author's prepaid credit.
+
+### D36 · 23 Oct 2026 · D13 point 4, D24 points 2 and 5, D27 points 2–6, D28 point 6, D31 points 2–3 — rules on host telemetry, the start time of a repository-declared server, and the scoring tools
+**Problem.**
+1. *Host-telemetry rules.* D27 point 5 asks for one rule per event type on host telemetry, frozen with the client-log rules and
+   reported apart. None had been written. Exploration on development material only (the rule-development runs, the pipeline
+   check, the set-up sessions and the development sessions of `baseline-r2`) found:
+   - the audit log records the start of a repository-declared server: the AI client starts an interpreter or runner in the
+     project folder at its own start-up;
+   - nothing in the audit log, the journal or the outgoing-connection lines changes when an approved server changes its tool
+     definition, with or without a notification: the change happens inside a process that is already running, over stdio.
+2. *The start time of a repository-declared server.* The ground truth of Q5 is the "start" record that the server process writes
+   itself. The audit log records that process's exec 0.06 to 0.22 s earlier, on the same clock. Under D24 point 5 ("hits before
+   the event do not count"), a rule that sees the start would be scored as a miss.
+3. *The audit log rotates.* Only the current `/var/log/audit/audit.log` is copied (D24). In hour-long sessions it rotates: in the
+   development sessions of `baseline-r2`, 39 and 19 of 60 one-minute windows hold any process-start record, and the client's
+   start-up at the beginning of the session is lost. The event runs are short and keep their whole log.
+4. *Tools.* D27 point 5 freezes the scripts that apply and score the rules. Two were missing: the one that turns rule hits and
+   ground truth into the scorer's input, and the one that computes the verdict of D27 point 4.
+
+**Change.**
+1. *Host rules.*
+   - `host/q5-start` (H-Q5): an AI client process (public product names: claude, codex, gemini, qwen, goose, cursor-agent,
+     cursor) directly starts an MCP launcher (an interpreter or runner such as node, npx, python, uvx or docker, not a shell),
+     with its working directory in a project folder (a folder inside a home folder that is not hidden), within 30 s of the
+     client's own start; and the launcher's command line, digits replaced by N, has not been seen before as a child of an AI
+     client on this host.
+   - "Seen before" means in a learning set, or earlier inside the same run or session. The learning set holds the commands that
+     AI clients started inside the windows of development sessions: the set-up sessions and the development sessions of the
+     baseline, never the event runs, the holdout sessions or the log's older history. It is computed by `host.py learn`,
+     published and frozen with the rules. It is data drawn from normal use, not text written into a rule (D27 point 6).
+   - `host/q3-announced` and `host/q3-silent`: none. Host telemetry cannot tell these events apart.
+   - Two other candidates were tried and dropped, with their results, in the rule-development log: a write to a trust or approval
+     store long after the writing process started (never after the event; 5.2% of normal one-minute windows), and the same server
+     launched again by the same client (it fires only because the harness restarts the client, equally for both Q3 events).
+   - Each host rule is scored over all five clients' event runs of its type and all five holdout sessions, and also per client.
+2. *Start time of a repository-declared server (all rules).* The event time of a Q5 run is the time of the audit log's last
+   successful exec, at or before the canary's "start" record and within 60 s of it, of the process whose pid that record names;
+   without such an exec record, the "start" record's time. Whether the event happened is still decided by the "start" record of
+   the run's client. The definition is the same for client-log and host rules; it can only add hits in the fraction of a second
+   between the two records. On development material the pid matched in every run.
+3. *Coverage of host holdouts.* For every host holdout the report gives the windows that hold at least one process-start record
+   (as D31 point 2 does for client logs), and the host false-positive share is given both over all windows and over the covered
+   ones. The acquisition is not changed: the host results are reported apart from H5, and `baseline-r3` is already running on a
+   frozen commit.
+4. *Tools, frozen with the rules (D27 point 5).*
+   - `telemetry/rules/scores_input.py`: the input of `score.py`. Event times come from the ground-truth logs only: for Q3 the lab
+     server's single change of definition to B for the run's cell, as in `q4_events.py`; for Q5 point 2. Hits count from 5 s
+     before the run's t0. A run ends 120 s after its t1, the moment its scripted session returned: the clients are then stopped
+     and the logs copied (D24 point 5, "until the logs are copied"), which took 3.2 to 4.5 s in the 18 rule-development and
+     pipeline runs; the copied archive holds nothing written after the copy. Holdout windows are cut from `t_start` to `t_end`
+     of the session's `session.json` (D27 point 3), with coverage per rule. Every run and holdout of the plans must be there and
+     usable: an absent or unusable one (a failed export, a missing audit log for host rules) is listed under "missing" with its
+     client; a planned pair without a rule stops the build.
+   - `telemetry/rules/h5.py`: the verdict of D27 point 4, on client-log rules only. A pair is measurable if at least one counted
+     run shows the event; an event type is distinguishable if every measurable pair's rule tells it apart; H5 holds if some event
+     type with a measurable pair is not distinguishable. A client whose confirmatory data are incomplete (the runner's
+     provider-incomplete clients of D28 point 6, and every client with something listed as missing) is marked preliminary, and the
+     verdict is given with and without those clients; otherwise a measurable pair with no holdout windows does not pass.
+   - `telemetry/rules/host.py`: the host rules, the learning set, the exec lookup of point 2 and the coverage of point 3.
+   - `telemetry/scripts/score.py` (D24 point 5) also reports, for each rule, the covered windows (total and per session) and the
+     false-positive share over them; the threshold stays on all windows.
+   - On development material the whole chain runs: client-log rules on the rule-development runs, with the development sessions
+     of `baseline-r2` in place of holdouts; host rules with a learning set of 5 commands. `host/q5-start` detects 3 of 3 rule-
+     development runs where the event happened (and the pipeline check's), at the exec.
+
+**Why.** D27 point 5 requires the host rules and the scoring tools to be frozen before any holdout is opened; the start time must
+be fixed now, before any rule is scored.
+
+**Effect.**
+- No change to the client-log rules, the threshold or the windows. The H5 verdict rests on client logs only.
+- Host results are reported apart, per event type and per client.
+- Limits of the Q5 host rule: it misses a repository-declared server whose command line was already seen on the host; it assumes
+  the repository is opened when the client starts; it sees only the lab user's processes; and in the holdout it is tested mostly
+  on the harness's own commands, which the learning set already holds, over windows the rotating log only partly covers.
