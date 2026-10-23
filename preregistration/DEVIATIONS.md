@@ -1004,3 +1004,73 @@ draws whenever it is idle.
 - No change to events, rules, thresholds or lengths.
 - The baseline restarts about four hours after its first start.
 - Codex CLI's and Claude Code's development hours are recorded again.
+
+### D34 · 23 Oct 2026 · D18 point 3, D25 point 2, D27 point 8, D28 points 3 and 7, D33 — Qwen Code's feedback survey, a check of the typed prompt before Enter, and a paid tier for the Gemini API key
+**Problem.**
+1. *The survey.*
+   - Qwen Code sometimes shows a feedback survey under its last answer: "How is Qwen doing this session? (optional) 1: Good 2:
+     Bad 3: Fine 0: Dismiss". While it is open, a digit typed into the next prompt answers it and vanishes from the prompt.
+   - Three prompts were altered, all of the known-server task: in `setup-r2`, `setup-r5` and Qwen Code's development session of
+     `baseline-r2`, each in its first cycle. "Call the q3_noop tool of the q3-lab MCP server" arrived as "Call the q_noop tool of
+     the q-lab MCP server". The model still called the right tool.
+   - The survey was also drawn once without altering a prompt (`setup-r1`, the cycle ended right after).
+   - The survey can be drawn up to about 16 s after a turn ends, after the driver's idle check, so answering it once before
+     typing is not enough.
+   - Each altered prompt answered the survey ("Fine") from the lab's Qwen Code account.
+   - Q3 is not affected: all 50 Qwen Code prompts of the Q3 primary runs are intact, and no survey appears there.
+   - Codex CLI draws a card that also takes digits ("Press a number to choose"). The frozen Q3 notice list closes it (D28 point 3);
+     no prompt was altered by it.
+2. *Quota.*
+   - The free tier of the Gemini API key used by Gemini CLI, Qwen Code and Goose (D18 point 3) ran out twice: on 22 October during
+     the event runs, and on 23 October during `setup-r5`, with "exceeded your current quota".
+   - The baseline needs about six hours of these three clients. The free tier allows about one and a half to two hours a day. The
+     baseline would end after the blog post of 27 October.
+
+**Change.**
+1. *Baseline notices.*
+   - `baseline/clients.json` may list a client's own notices, with the keys that close them. The frozen Q3 list of notices (D28
+     point 3) is unchanged.
+   - Qwen Code's survey is closed with "0" (Dismiss), under the rules of D28 point 3: only at the bottom of the screen, never while
+     the client works, with the screen kept before and after the key.
+2. *Right before typing (all clients).* A prompt is typed only on a screen that is ready, idle, past the previous turn and free
+   of notices. A notice drawn after the ready marker is answered, at most twice, and the client must then settle again. If it does
+   not within the settle time, or a notice is still drawn after two answers, nothing is typed and the task ends as `not-settled`
+   (D28 point 7).
+3. *Before Enter (all clients).*
+   - The driver compares the screen before typing with the screen after typing, line by line. Among the lines that typing drew
+     or changed, the input must be the prompt alone, after white space, box borders and scroll bars are dropped: it may run over
+     line ends, only an input marker may stand before it on its first line, and nothing may follow it on its last.
+   - Otherwise Enter is not pressed, and the task ends with a new hard failure, `prompt-mangled`: the cycle ends and the client
+     is closed, as for the other hard failures (D28 point 7).
+   - The comparison ignores an earlier cycle's echo of the same prompt.
+   - On the recorded set-up and development screens, the normalisation reads all 1,031 echoed prompts of the six clients as whole.
+4. *Paid tier.*
+   - The author enables billing on the Google project of the same API key. The key, the model (`gemini-flash-lite-latest`, D18
+     point 3), the clients and their settings are unchanged; only the quota changes.
+   - The time of the change is logged, with the project name and never the key. The author sets a spending cap on the project.
+   - Runs and sessions recorded before the change keep their place: the event runs ran on the free tier.
+   - `gemini-flash-lite-latest` is an alias. The model version that served each session is reported where the clients' own logs
+     record it, and is otherwise a limitation.
+   - Differences that the tier could make, such as latency, provider errors and Google's data-use terms, are reported as a
+     limitation.
+5. *Check before the baseline.*
+   - One more fifteen-minute set-up session of Qwen Code (`setup-r6`, D25 point 2) runs on the corrected commit and the paid tier.
+   - A script decides it: no task ends `prompt-mangled`; no echoed prompt on any screen is altered; after every answered notice,
+     the screen after the keys is kept and the notice (from the frozen Q3 list or the client's own) is gone from the bottom of
+     the screen; the session meets its workload with no quota stop. The script uses the driver's own definitions.
+   - On the recorded sessions, the script flags exactly the four screens of the three altered prompts, and nothing else.
+   - If it fails, the baseline does not start.
+6. *Commit.*
+   - The acquisition commit becomes D33's commit plus only this change, on `acq-baseline`. `baseline-r3` starts from it.
+   - D32 point 4 and D33 point 4 are amended, and so are Cursor CLI's later phases.
+
+**Why.**
+- A prompt that loses characters is not the scripted normal use, and a check on the screen is the only one the driver has before
+  the prompt is sent.
+- A quota that lasts two hours a day would push three clients' baseline past the date of the first report.
+
+**Effect.**
+- No change to events, rules, thresholds or lengths.
+- The three Gemini-backed clients' baseline runs on the paid tier.
+- A cycle can now end with `prompt-mangled`; such cycles are counted and reported like the other hard failures.
+- Cursor CLI's later phases use the new commit.
