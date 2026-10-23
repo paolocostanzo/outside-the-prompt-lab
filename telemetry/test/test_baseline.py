@@ -69,7 +69,8 @@ class Baseline(unittest.TestCase):
         s.evidence = lambda task, cycle, t, c, **k: True
         ready = "greet.py defines greet().\n› Ask Codex to do anything"
         fake = FakeTmux(["x"])
-        fake.switch("› Ask Codex to do anything", ["working...", "working...", ready])
+        typed = "› " + CFG["tasks"][2]["prompt"].replace("{k}", "3")  # the composer before Enter (D34)
+        fake.switch("› Ask Codex to do anything", [typed, "working...", "working...", ready])
         clock = iter(range(0, 1000, 5))
         bs.time.time = lambda: next(clock)
         self.assertTrue(s.do_task(3, CFG["tasks"][2], timeout=240, idle_s=8))
@@ -130,7 +131,7 @@ class Baseline(unittest.TestCase):
         busy = banner + "> Explain in two sentences what greet.py does.\n◐  Hatching clever solutions...  (Ctrl+C to interrupt)"
         done = banner + "> Explain in two sentences what greet.py does.\ngreet.py returns a greeting.\n  ⏱ 12.0s\n> "
         fake = FakeTmux([idle])
-        after = [busy] * 20 + [done]
+        after = [idle + CFG["tasks"][0]["prompt"]] + [busy] * 20 + [done]
         bs.q3.screen = lambda: idle if not any(k[0] == "TYPE" for k in fake.sent) else (after.pop(0) if len(after) > 1 else after[0])
         self.clocked()
         self.assertTrue(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
@@ -165,7 +166,7 @@ class Baseline(unittest.TestCase):
         s = self.session("goose")
         s.evidence = lambda *a, **k: True
         fake = FakeTmux(["x"])
-        fake.switch("     L L     goose is ready\n> ", ["working", "output\nProceed? (y/n)"])
+        fake.switch("     L L     goose is ready\n> ", ["> " + CFG["tasks"][0]["prompt"], "working", "output\nProceed? (y/n)"])
         self.clocked()
         self.assertFalse(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
         self.assertEqual(sum(1 for k in fake.sent if k == ("Enter",)), bs.MAX_QUESTIONS + 1, "the prompt's Enter, then the answers")
@@ -293,6 +294,87 @@ class Baseline(unittest.TestCase):
         self.assertFalse(bs.re.search(s.ready, working))
         self.assertTrue(bs.re.search(s.ready, ">   Type your message or @path/to/file"))
         self.assertEqual(self.session("gemini").ready, bs.q3.CLIENTS["gemini"]["ready"])
+
+    def test_qwen_feedback_survey_is_dismissed_before_typing(self):
+        """setup-r5 (23 Oct 2026, D34): with Qwen Code's survey open, the "3" keys of "q3_noop" answered it and vanished from the
+        prompt. Its "0: Dismiss" is pressed before the prompt is typed."""
+        s = self.session("qwen")
+        fake = FakeTmux(["x"])
+        survey = ("  ◆︎ I have appended the comment.\n●︎ How is Qwen doing this session? (optional)\n"
+                  "1: Good 2: Bad 3: Fine 0: Dismiss\n> run the tests\n  ➜ repo · model · Context 1.7% used\n"
+                  "  Auto mode (shift + tab to cycle)")
+        self.assertTrue(s.answer_notice(survey, 1, "known-server"))
+        self.assertEqual(fake.sent[-1], ("0",))
+        self.assertFalse(self.session("codex").answer_notice(survey, 1, "known-server"), "only Qwen Code's list has it")
+
+    QWEN_IDLE = "  ◆︎ I have appended the comment.\n> Type your message or @path/to/file\n  Auto mode (shift + tab to cycle)"
+    QWEN_SURVEY = ("  ◆︎ I have appended the comment.\n●︎ How is Qwen doing this session? (optional)\n"
+                   "1: Good 2: Bad 3: Fine 0: Dismiss\n> Type your message or @path/to/file\n  Auto mode (shift + tab to cycle)")
+
+    def test_a_survey_that_stays_drawn_means_nothing_is_typed(self):
+        """Adversarial review of D34: the survey can be drawn after the idle check; it is looked for again right before typing,
+        answered at most twice, and while it stays drawn nothing is typed."""
+        s = self.session("qwen")
+        fake = FakeTmux([self.QWEN_SURVEY])
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][3], timeout=240, idle_s=8))
+        self.assertEqual(s.fail, "not-settled")
+        self.assertFalse(any(k[0] == "TYPE" for k in fake.sent))
+        self.assertEqual(sum(1 for k in fake.sent if k == ("0",)), 2)
+
+    def test_a_dismissed_survey_lets_the_prompt_through(self):
+        s = self.session("qwen")
+        s.evidence = lambda *a, **k: True
+        prompt = CFG["tasks"][3]["prompt"]
+        typed = self.QWEN_IDLE.replace("Type your message or @path/to/file", prompt)
+        done = self.QWEN_IDLE.replace("I have appended the comment.", "ok")
+        fake = FakeTmux(["x"])
+        after = [typed, typed, done]
+        bs.q3.screen = lambda: (self.QWEN_SURVEY if ("0",) not in fake.sent else self.QWEN_IDLE) \
+            if not any(k[0] == "TYPE" for k in fake.sent) else (after.pop(0) if len(after) > 1 else after[0])
+        self.clocked()
+        self.assertTrue(s.do_task(1, CFG["tasks"][3], timeout=240, idle_s=8))
+        self.assertEqual(fake.sent.index(("0",)) < [k[0] for k in fake.sent].index("TYPE"), True)
+
+    def test_a_client_that_turns_busy_after_a_dismissed_survey_gets_no_prompt(self):
+        """Codex review of D34, D34-02: after a notice is answered the client must settle again; a busy screen is not ready."""
+        s = self.session("qwen")
+        busy = self.QWEN_IDLE + "\n⠋ Thinking… (esc to cancel, 2s)"
+        fake = FakeTmux(["x"])
+        bs.q3.screen = lambda: self.QWEN_SURVEY if ("0",) not in fake.sent else busy
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][3], timeout=240, idle_s=8))
+        self.assertEqual(s.fail, "not-settled")
+        self.assertFalse(any(k[0] == "TYPE" for k in fake.sent))
+
+    def test_a_mangled_prompt_is_not_sent(self):
+        """setup-r5 (D34): "Call the q3_noop tool of the q3-lab MCP server" reached Qwen Code as "Call the q_noop tool of the
+        q-lab MCP server". An altered prompt is never sent: no Enter, and the cycle ends."""
+        s = self.session("qwen")
+        prompt = CFG["tasks"][3]["prompt"]
+        fake = FakeTmux(["x"])
+        fake.switch(self.QWEN_IDLE, [self.QWEN_IDLE.replace("Type your message or @path/to/file", prompt.replace("3", ""))])
+        self.clocked()
+        self.assertFalse(s.do_task(1, CFG["tasks"][3], timeout=240, idle_s=8))
+        self.assertEqual(s.fail, "prompt-mangled")
+        self.assertIn("prompt-mangled", bs.HARD_FAILURES)
+        self.assertNotIn(("Enter",), fake.sent)
+
+    def test_composer_check_ignores_old_echoes_and_reads_wrapped_boxes(self):
+        p = CFG["tasks"][0]["prompt"]
+        before = f"> {p}\ngreet.py returns a greeting.\n  ⏱ 3.1s\n> "
+        self.assertTrue(bs.composer_holds(before, f"> {p}\ngreet.py returns a greeting.\n  ⏱ 3.1s\n> {p}", p))
+        self.assertFalse(bs.composer_holds(before, f"> {p}\ngreet.py returns a greeting.\n  ⏱ 3.1s\n> Explain in two", p),
+                         "the echo of an earlier cycle does not stand for the composer")
+        boxed_before = "╭────────────────────────────────╮\n│ > Type your message            │\n╰────────────────────────────────╯"
+        boxed = ("╭────────────────────────────────╮\n│ > Explain in two sentences what │\n│ greet.py does. Do not change    │\n"
+                 "│ any file.                       │\n╰────────────────────────────────╯")
+        self.assertTrue(bs.composer_holds(boxed_before, boxed, p))
+        self.assertFalse(bs.composer_holds("> ", "> 0" + p, p), "a survey's 0 left before the prompt")
+        self.assertTrue(bs.composer_holds("status: idle\n", "status: typing\n" + p, p), "a changed line above does not count")
+        self.assertFalse(bs.composer_holds("> ", "> " + p + "0", p), "nor after it")
+        self.assertFalse(bs.composer_holds("> ", "> /" + p, p), "only an input marker may stand before it")
+        self.assertTrue(bs.composer_holds("> █", "> " + p + " █", p), "Qwen Code's scroll bar")
 
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
