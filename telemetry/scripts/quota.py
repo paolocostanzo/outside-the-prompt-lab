@@ -13,9 +13,16 @@ GENERIC = [
     r"\busage limit\b(?!\s+resets\s+available\b)", r"\brate[- ]limit(ed)?\b", r"\bquota (exceeded|exhausted|reached)\b", r"\bexceeded (your|the) (current )?quota\b",
     r"\bRESOURCE_EXHAUSTED\b", r"\b(HTTP|status|error|code)[: ]+429\b", r"\b429 Too Many Requests\b", r"\btoo many requests\b",
     r"\bout of credits\b", r"\bcredit balance is too low\b",
+    r"\bprepayment credits are depleted\b",  # the Gemini key's prepaid project when its credit is used up (D35)
 ]
+# Notices that only report usage, removed before matching: Claude Code's footer "You've used 76% of your weekly limit · resets
+# Oct 24, 10pm" (probe of 23 Oct 2026, D35); spacing and line wraps tolerated
+NOTICES = {
+    "claude-code": [r"You've\s+used\s+\d+%\s+of\s+your\s+[^·\n]*?(?:\n[^·\n]*?)?limit"],
+}
 CLIENT = {
-    "claude-code": [r"Claude usage limit reached", r"\b5-hour limit\b", r"\bweekly limit\b", r"\blimit will reset\b"],
+    "claude-code": [r"Claude usage limit reached", r"\b5-hour limit\b", r"\bweekly limit\b", r"\blimit will reset\b",
+                    r"You've hit your (?:\w+ )?limit"],
     "codex": [r"You've hit your usage limit", r"\btry again at \d{1,2}:\d{2}\b"],
     "gemini": [r"\bQuota exceeded\b"],
     "qwen": [r"\bQuota exceeded\b"],
@@ -30,5 +37,8 @@ def compiled(client):
 
 def find(client, text):
     """The first quota or rate-limit message in text, or None."""
-    m = compiled(client).search(text or "")
+    text = text or ""
+    for notice in NOTICES.get(client, []):
+        text = re.sub(notice, " ", text, flags=re.I)
+    m = compiled(client).search(text)
     return m.group(0) if m else None
