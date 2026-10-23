@@ -61,6 +61,14 @@ SETTLE_S = 90         # longest wait for a ready, idle client before a prompt; p
 HARD_FAILURES = ("not-settled", "prompt-not-submitted", "question-limit", "timeout", "prompt-mangled")  # the cycle ends after one
 FOLD = re.compile(r"[\s│┃█▐▌]")  # white space, box borders and scroll bars: what a wrapped input line adds between characters
 MARKERS = "[>›❯→*]*"  # the input markers that may stand before a prompt on its first line
+# Qwen Code draws its cursor as U+200B right after the typed text (setup-r6, D35): zero-width characters are allowed only at the
+# very end of the input, never inside it, not even at a line end inside a wrapped prompt (Codex review of D35, D35-01)
+CURSOR = "[\u200b-\u200d\u2060\ufeff]*"
+TYPED_READS = 5  # reads of the input line, 0.6 s apart, while it still changes (a slow client may draw it in steps, D35)
+
+
+def fold(line):
+    return FOLD.sub("", line)
 
 
 def composer_holds(before, typed, prompt):
@@ -72,9 +80,9 @@ def composer_holds(before, typed, prompt):
            for l in b[j1:j2]]
     # the input is the prompt alone: it may run over line ends, only an input marker may stand before it on its first line, and
     # nothing after it on its last, so a survey's "0" left before or after it fails (Codex review of D34, D34-01)
-    text = "\n".join(FOLD.sub("", l) for l in new)
-    body = "\n?".join(map(re.escape, FOLD.sub("", prompt)))
-    return re.search(r"(?:^|\n)" + MARKERS + body + r"(?=\n|$)", text) is not None
+    text = "\n".join(fold(l) for l in new)
+    body = "\n?".join(map(re.escape, fold(prompt)))
+    return re.search(r"(?:^|\n)" + MARKERS + body + CURSOR + r"(?=\n|$)", text) is not None
 
 
 def type_literal(text):
@@ -292,12 +300,19 @@ class Session:
         self.last_prompt = prompt
         time.sleep(0.6)
         typed = q3.screen()  # the prompt in the composer, before Enter: anything else after Enter means it was submitted
+        reads = 1
+        while reads < TYPED_READS and not composer_holds(before, typed, prompt):  # read again while the line is still drawn
+            time.sleep(0.6)
+            again, reads = q3.screen(), reads + 1
+            if again == typed:
+                break
+            typed = again
         if not composer_holds(before, typed, prompt):
             # an altered prompt is not the scripted use: no Enter, the cycle ends and the client is closed (D34)
-            self.end("prompt-mangled", cycle, task, f"c{cycle}-{task['id']}-mangled", typed, prompt)
+            self.end("prompt-mangled", cycle, task, f"c{cycle}-{task['id']}-mangled", typed, prompt, reads=reads)
             return False
         q3.keys("Enter")
-        self.log(action="prompt", cycle=cycle, task=task["id"])
+        self.log(action="prompt", cycle=cycle, task=task["id"], reads=reads)
         notices = questions = 0
         t0, last, stable_since, worked, s = time.time(), None, time.time(), False, typed
         while time.time() - t0 < timeout:

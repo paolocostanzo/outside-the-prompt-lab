@@ -347,6 +347,20 @@ class Baseline(unittest.TestCase):
         self.assertEqual(s.fail, "not-settled")
         self.assertFalse(any(k[0] == "TYPE" for k in fake.sent))
 
+    def test_an_input_line_drawn_in_steps_is_read_again(self):
+        """Adversarial review of D35: a slow client may draw the prompt in steps; the check reads it again while it changes."""
+        s = self.session("qwen")
+        s.evidence = lambda *a, **k: True
+        prompt = CFG["tasks"][0]["prompt"]
+        half = self.QWEN_IDLE.replace("Type your message or @path/to/file", prompt[:30])
+        whole = self.QWEN_IDLE.replace("Type your message or @path/to/file", prompt)
+        done = self.QWEN_IDLE.replace("I have appended the comment.", "greet.py returns a greeting.")
+        fake = FakeTmux(["x"])
+        fake.switch(self.QWEN_IDLE, [half, whole, whole, done])
+        self.clocked()
+        self.assertTrue(s.do_task(1, CFG["tasks"][0], timeout=240, idle_s=8))
+        self.assertIn(("Enter",), fake.sent)
+
     def test_a_mangled_prompt_is_not_sent(self):
         """setup-r5 (D34): "Call the q3_noop tool of the q3-lab MCP server" reached Qwen Code as "Call the q_noop tool of the
         q-lab MCP server". An altered prompt is never sent: no Enter, and the cycle ends."""
@@ -375,6 +389,12 @@ class Baseline(unittest.TestCase):
         self.assertFalse(bs.composer_holds("> ", "> " + p + "0", p), "nor after it")
         self.assertFalse(bs.composer_holds("> ", "> /" + p, p), "only an input marker may stand before it")
         self.assertTrue(bs.composer_holds("> █", "> " + p + " █", p), "Qwen Code's scroll bar")
+        self.assertTrue(bs.composer_holds("> ", "> " + p + " \u200b", p), "Qwen Code's cursor (setup-r6)")
+        k = CFG["tasks"][3]["prompt"]
+        self.assertFalse(bs.composer_holds("> ", "> " + k.replace("q3", "q\u200b3", 1), k), "a zero-width character inside fails")
+        self.assertFalse(bs.composer_holds("> ", "> " + k.replace("q3", "q\u200b\n3", 1), k), "also at a line end inside the input")
+        self.assertFalse(bs.composer_holds("│ >    │", "│ > " + k.replace("q3", "q\u200b   │\n│ 3", 1) + " │", k), "boxed")
+        self.assertTrue(bs.composer_holds("│ >    │", "│ > " + k.replace("q3", "q   │\n│ 3", 1) + " \u200b │", k), "cursor in a box")
 
     def test_validity(self):
         ok = [{"event": "out", "why": "tools/list", "state": "A"}, {"event": "tools/call", "state": "A"}]
@@ -494,6 +514,14 @@ class Quota(unittest.TestCase):
         """Baseline of 23 Oct 2026 (D32): Codex CLI 0.162.1 showed this notice at the start of a cycle, 40 minutes into a session,
         with no limit message on any screen."""
         self.assertIsNone(bs.quota.find("codex", "• You have 2 usage limit resets available. Run /usage to use one."))
+        # D35: Claude Code's footer notice is not a stop; its limit messages still are
+        self.assertIsNone(bs.quota.find("claude-code", "esc to interrupt   You've used 76% of your weekly limit · resets Oct 24, 10pm"))
+        self.assertIsNone(bs.quota.find("claude-code", "You've used 90% of your 5-hour limit · resets 11pm"))
+        self.assertIsNone(bs.quota.find("claude-code", "You've used 76% of your\nweekly limit · resets Oct 24, 10pm"), "wrapped")
+        self.assertIsNone(bs.quota.find("claude-code", "You've  used 80%  of your Opus weekly limit · resets"), "spacing, model")
+        self.assertTrue(bs.quota.find("claude-code", "You've hit your limit · resets 10pm (Europe/Rome)"))
+        self.assertTrue(bs.quota.find("claude-code", "Claude usage limit reached. Your limit will reset at 10pm"))
+        self.assertTrue(bs.quota.find("goose", "Your prepayment credits are depleted. Please go to AI Studio"))
         for real in ("Your usage limit resets in 3h", "Usage limit resets at 17:00. Upgrade or wait.", "usage limit\nresets in 2h"):
             self.assertIsNotNone(bs.quota.find("goose", real), real)
         self.assertIsNotNone(bs.quota.find("gemini", "Usage limit reached for gemini-flash-lite-latest."))
