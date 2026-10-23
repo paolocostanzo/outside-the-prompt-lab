@@ -514,6 +514,18 @@ class Quota(unittest.TestCase):
         """Baseline of 23 Oct 2026 (D32): Codex CLI 0.162.1 showed this notice at the start of a cycle, 40 minutes into a session,
         with no limit message on any screen."""
         self.assertIsNone(bs.quota.find("codex", "• You have 2 usage limit resets available. Run /usage to use one."))
+        # D37: Codex CLI's tip is not a stop; a limit that says when it resets still is
+        self.assertIsNone(bs.quota.find("codex", "└ Tip: When signed in with ChatGPT, use /usage to check your account usage and "
+                                                 "access available usage limit resets."))
+        self.assertTrue(bs.quota.find("codex", "Your usage limit resets in 3h"))
+        self.assertTrue(bs.quota.find("codex", "■ You've hit your usage limit. Tip: upgrade to Pro"), "a stop before a tip still counts")
+        self.assertTrue(bs.quota.find("goose", "error: rate limit exceeded; tip: retry later"), "a lower-case tip mid-line is kept")
+        self.assertTrue(bs.quota.find("codex", "Tip: retry later. Request failed: HTTP 429 Too Many Requests"), "a failure after a tip")
+        self.assertTrue(bs.quota.find("codex", "└ Tip: access available usage limit resets. Error: 429 Too Many Requests"),
+                        "only the recorded phrase is removed")
+        self.assertIsNone(bs.quota.find("codex", "  └ Tip: When signed in with ChatGPT, use /usage to check your account usage and access available\n"
+                                                 "    usage limit resets."), "the tip wrapped")
+        self.assertTrue(bs.quota.find("codex", "Usage limit reached for GPT-6.1-Sol"))
         # D35: Claude Code's footer notice is not a stop; its limit messages still are
         self.assertIsNone(bs.quota.find("claude-code", "esc to interrupt   You've used 76% of your weekly limit · resets Oct 24, 10pm"))
         self.assertIsNone(bs.quota.find("claude-code", "You've used 90% of your 5-hour limit · resets 11pm"))
