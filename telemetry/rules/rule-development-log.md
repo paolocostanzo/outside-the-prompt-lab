@@ -2,9 +2,11 @@
 
 Every candidate rule considered by the author, the material it was tried on, and why it was kept or dropped. Material: only the
 exploratory runs (`events-dev/`, 15 runs; `pipeline-check/`, 3 Gemini CLI runs) and the exploratory set-up sessions
-(`setup-r1` to `setup-r4`); the confirmatory event runs and the baseline were not opened. Explorations (private notes, by two
-assistant sessions under the author's direction): ESPLORAZIONE-claude-gemini-qwen.md, ESPLORAZIONE-codex-goose.md. Candidate file:
-`author-candidates.json`. Status: candidates, not frozen (the development hour of the baseline is still to be read).
+(`setup-r1` to `setup-r4`), later also the later set-up sessions and the development part of the baseline (rounds 3–4); the client
+logs of the confirmatory event runs and of the holdout sessions were not opened. Other reads of confirmatory material (ground truth
+and observer records, not client logs) are listed in `holdout-access.md`. Explorations (private notes, by two assistant sessions
+under the author's direction): ESPLORAZIONE-claude-gemini-qwen.md, ESPLORAZIONE-codex-goose.md. Candidate file:
+`author-candidates.json`, frozen unchanged as `rules-author.json` (see `FROZEN.md`).
 
 ## Round 1 (22/10 21:00)
 
@@ -53,3 +55,14 @@ Development results unchanged except claude-code/q5-start (now none): VALUTAZION
 ## Round 3 (23/10 12:52) — development part of the baseline (baseline-r2), first two clients
 Codex CLI development hour: 0 false-positive windows out of 60 for every candidate; source coverage 60/60. Claude Code
 development hour: 0/60; coverage 48/60 (MCP logs) and 60/60 (transcripts). No candidate changed.
+
+## Round 4 (24/10 08:21) — development part of the baseline (baseline-r4, five clients), with baseline-r3 and baseline-r2
+Material: the five development hours of `baseline-r4`, Codex CLI's development attempt of `baseline-r3` (48 windows) and the
+development hours of `baseline-r2` (Codex CLI, Claude Code, Qwen Code's attempt), reported side by side (D33 point 4, D37).
+Every candidate: 0 false-positive windows in every session. Coverage of the rule's source (windows with any record): Codex CLI
+60/60 (q5-start, q3-announced); Claude Code 46/60 (q3-announced, MCP logs) and 60/60 (q3-silent, transcripts); Gemini CLI 61/61
+(q3-announced); Qwen Code 60/60; Goose 1/60 for both q3 rules (it keeps only its last ten model requests, round 2 R2). The rules
+of type none or unannounced have no own source. No candidate changed: the author's rules are frozen as they are.
+Output: reports/piano-p4-20261022/regole/VALUTAZIONE-SVILUPPO-v4.txt (script evaldev_r4.py).
+Host rule (D36): learning set computed from the 27 development and set-up sessions inside their windows: 5 commands
+(`telemetry/rules/host-known-commands.json`).

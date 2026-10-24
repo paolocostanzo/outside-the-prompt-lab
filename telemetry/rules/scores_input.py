@@ -42,8 +42,19 @@ def jsonl(text):
     return [json.loads(l) for l in text.splitlines() if l.strip()]
 
 
+class Unusable(Exception):
+    pass
+
+
 def event_time(run_dir, run):
-    """The event's time from the run's ground truth, or None (no event)."""
+    """The event's time from the run's ground truth, or None (no event); Unusable when the ground truth cannot be parsed."""
+    try:
+        return _event_time(run_dir, run)
+    except (ValueError, KeyError, TypeError, tarfile.TarError, OSError) as exc:
+        raise Unusable(str(exc)) from exc
+
+
+def _event_time(run_dir, run):
     with tarfile.open(run_dir / "vm-out.tgz") as t:
         if run["event"] == "q5-start":
             starts = [r for r in jsonl(t.extractfile("canary-start.log").read().decode("utf-8", "replace"))
@@ -61,6 +72,54 @@ def event_time(run_dir, run):
         return ap.nz.to_epoch(changes[0]["ts"]) if len(changes) == 1 else None
 
 
+def readable(d, *names):
+    """True when every named file of the folder exists and, for a .tgz, opens as an archive (FREEZE-02: evidence that is absent or
+    unreadable at scoring time is listed as missing, not an exception)."""
+    for n in names:
+        f = d / n
+        if not f.is_file():
+            return False
+        if n.endswith(".tgz"):
+            try:
+                with tarfile.open(f) as t:
+                    t.getnames()
+            except (tarfile.TarError, OSError, EOFError):
+                return False
+    return True
+
+
+def client_archive_ok(folder, client):
+    """The client-log evidence of a run or session is usable (Codex review of the freeze, FREEZE-02):
+      - the runner's collection check (collection.json, D24 point 2, made on the original archive before redaction: manifest,
+        explicit entry for the client, every frozen location accounted for, files and hashes, databases) says export "ok" for
+        this client;
+      - the redacted archive holds a manifest with an explicit entry for the client in "clients" and "patterns", and every file
+        that entry lists. An entry listing no file (no default log) is a real observation and passes."""
+    try:
+        col = json.loads((folder / "collection.json").read_text())
+        if col.get("export") != "ok" or col.get("client") != client:
+            return False
+        with tarfile.open(folder / "client-logs.redacted.tgz") as t:
+            names = set(t.getnames())
+            m = json.load(t.extractfile("manifest.json"))
+        if not (isinstance(m, dict) and isinstance(m.get("clients"), dict) and isinstance(m.get("patterns"), dict)
+                and client in m["clients"] and client in m["patterns"] and isinstance(m["clients"][client], list)):
+            return False
+        return all(isinstance(e, dict) and f"home/{e['path']}" in names for e in m["clients"][client])
+    except (OSError, ValueError, KeyError, TypeError, tarfile.TarError, EOFError):
+        return False
+
+
+def ground_truth_ok(run_dir, run):
+    """vm-out.tgz holds the run's ground-truth log (FREEZE-02)."""
+    member = "canary-start.log" if run["event"] == "q5-start" else "q3-server.log"
+    try:
+        with tarfile.open(run_dir / "vm-out.tgz") as t:
+            return member in t.getnames()
+    except (tarfile.TarError, OSError, EOFError):
+        return False
+
+
 def planned(folder):
     return json.loads((Path(folder) / "plan.json").read_text())["runs"]
 
@@ -71,7 +130,13 @@ def runs(events_dir, missing):
         if not (d / "run.json").is_file():
             missing.append({"kind": "event run", "name": r["name"], "client": r["client"]})
             continue
-        yield d, {**r, **json.loads((d / "run.json").read_text())}
+        run = {**r, **json.loads((d / "run.json").read_text())}
+        need = ("vm-out.tgz",) if run.get("export") != "ok" else ("vm-out.tgz", "client-logs.redacted.tgz")
+        if not readable(d, *need) or not ground_truth_ok(d, run) or (
+                run.get("export") == "ok" and not client_archive_ok(d, run["client"])):
+            missing.append({"kind": "event run with absent or unreadable evidence", "name": r["name"], "client": r["client"]})
+            continue
+        yield d, run
 
 
 def holdouts(baseline_dir, missing):
@@ -82,7 +147,16 @@ def holdouts(baseline_dir, missing):
         if not (d / "run.json").is_file():
             missing.append({"kind": "holdout", "name": s["name"], "client": s["client"]})
             continue
-        yield d, s["client"], host.session_window(d)
+        try:
+            window = host.session_window(d) if readable(d, "vm-out.tgz", "client-logs.redacted.tgz") else None
+            if window is not None and not client_archive_ok(d, s["client"]):
+                window = None
+        except (StopIteration, KeyError, ValueError, tarfile.TarError, OSError):
+            window = None
+        if window is None:
+            missing.append({"kind": "holdout with absent or unreadable evidence", "name": s["name"], "client": s["client"]})
+            continue
+        yield d, s["client"], window
 
 
 def incomplete(baseline_dir, missing):
@@ -102,7 +176,11 @@ def build(rules, events_dir, baseline_dir):
             out[rid]["event_runs"].append({"run": d.name, "status": "export-failed", "hits": []})
             missing.append({"kind": "unusable event run (export failed)", "name": d.name, "client": run["client"]})
             continue
-        te = event_time(d, run)
+        try:
+            te = event_time(d, run)
+        except Unusable:
+            missing.append({"kind": "event run with unparsable ground truth", "name": d.name, "client": run["client"]})
+            continue
         hits = ap.apply(rules, d / "client-logs.redacted.tgz", run["client"], run["t0"] - START_SLACK, run["t1"] + END_SLACK)
         out[rid]["event_runs"].append({"run": d.name, "event_time": te, "end": run["t1"] + END_SLACK,
                                        "status": "ok" if te is not None else "no-event", "hits": hits.get(rid, [])})
@@ -127,7 +205,11 @@ def build_host(known, events_dir, baseline_dir):
             entry = {"run": d.name, "status": "export-failed", "hits": []}
             missing.append({"kind": "unusable event run (no export or audit log)", "name": d.name, "client": run["client"]})
         else:
-            te = event_time(d, run)
+            try:
+                te = event_time(d, run)
+            except Unusable:
+                missing.append({"kind": "event run with unparsable ground truth", "name": d.name, "client": run["client"]})
+                continue
             hits = host.apply(known, audit, run["t0"] - START_SLACK, run["t1"] + END_SLACK)[rid]
             entry = {"run": d.name, "event_time": te, "end": run["t1"] + END_SLACK,
                      "status": "ok" if te is not None else "no-event", "hits": hits}
