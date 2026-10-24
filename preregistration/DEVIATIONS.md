@@ -1270,3 +1270,29 @@ be fixed now, before any rule is scored.
 **Effect.**
 - No change to events, rules, thresholds or lengths.
 - The baseline restarts about three hours after `baseline-r3`'s start.
+
+### D38 · 24 Oct 2026 · D17 point 7, D21, D22 — the author's adjudication of RQ4, helped by a third reading that proposes
+**Problem.** D22 has every disagreement between the two readings on a tool decided by the author against the source, with
+file:line. There were 91 such tools in the servers whose figures are published. The adjudication sheet showed both readings and the
+cited code; deciding 91 cases from it alone proved slow for the author.
+
+**Change.**
+1. A third reading, by AI-model sessions (the coordinator's model, Claude Opus 5.5) that saw only the adjudication pages (both
+   readings and the cited code) and the rules of D17 points 2–4, proposed for each case a class, a protection and a vendor-only flag,
+   with a short reason, the line that settles it and a confidence; where the cited code was not enough it proposed the reading with
+   less protection.
+2. The author decided each case in a guided page that showed the disputed fields, the cited lines and the proposal, and could accept
+   it or choose otherwise. For each case the exported sheet records whether the proposal was taken as it was or the author chose
+   otherwise.
+3. The proposals and the sheet are published with the census (`defence-coverage/results-20261024/`), for the published servers
+   only. The guided page is not: it also carried rows of servers whose figures are not published. Agreement between the two original readings is still
+   measured before any decision, on their original labels (D22).
+4. The three AWS servers' figures are unchanged from those agreed with AWS.
+5. After the Codex review of this deviation, the author decided one case again: Sentry's `find_dashboards` returns dashboard titles,
+   which D17 point 2 counts as third-party prose, and the cited code has no defence (A, none). The sheet records it.
+
+**Why.** The decision stays the author's and is checked against the source; the proposal makes the cited code readable for a
+non-programmer and is kept with the record.
+
+**Effect.** The final labels are the author's. The third reading may have influenced them; the sheet shows, case by case, where the
+author followed it.

@@ -1,0 +1,205 @@
+{
+ "inputs_sha256": {
+  "first": "709d27601ab33fd820e19681a9fcd4cb1677a2bf4fa1e52fc02a1cbf7f78dc8c",
+  "second": "f0235157d1e5aaef2218510703acf7f65823e110b98c6580efde946c48dc0355",
+  "adjudication": "c6b2185dd5edee75bf7a6c39bc55fec0e252af33362ac78c0c77db0b0eef026f"
+ },
+ "servers": [
+  "azure-devops-mcp",
+  "github-mcp-server",
+  "sentry-mcp",
+  "aws-iac-mcp-server",
+  "mssql-mcp-server",
+  "oracle-mcp-server"
+ ],
+ "no_defence_D23": [],
+ "agreement_before_adjudication": {
+  "listed_servers": {
+   "servers": [
+    "aws-iac-mcp-server",
+    "azure-devops-mcp",
+    "github-mcp-server",
+    "mssql-mcp-server",
+    "oracle-mcp-server",
+    "sentry-mcp"
+   ],
+   "n_joined": 269,
+   "class": {
+    "kappa": 0.7581660173808811,
+    "raw_agreement": 0.8773234200743495,
+    "n": 269
+   },
+   "protection": {
+    "kappa": 0.5209596414350602,
+    "raw_agreement": 0.6691449814126395,
+    "n": 269
+   },
+   "vendor_only": {
+    "kappa": 0.6181301967146625,
+    "raw_agreement": 0.9739776951672863,
+    "n": 269
+   }
+  },
+  "coverage_servers": {
+   "servers": [
+    "aws-iac-mcp-server",
+    "azure-devops-mcp",
+    "github-mcp-server",
+    "mssql-mcp-server",
+    "oracle-mcp-server",
+    "sentry-mcp"
+   ],
+   "n_joined": 269,
+   "class": {
+    "kappa": 0.7581660173808811,
+    "raw_agreement": 0.8773234200743495,
+    "n": 269
+   },
+   "protection": {
+    "kappa": 0.5209596414350602,
+    "raw_agreement": 0.6691449814126395,
+    "n": 269
+   },
+   "vendor_only": {
+    "kappa": 0.6181301967146625,
+    "raw_agreement": 0.9739776951672863,
+    "n": 269
+   }
+  }
+ },
+ "adjudicated": 91,
+ "all_A": {
+  "per_server": {
+   "azure-devops-mcp": {
+    "A": 34,
+    "full": 33,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.9705882352941176,
+    "cov_any": 1.0
+   },
+   "github-mcp-server": {
+    "A": 60,
+    "full": 11,
+    "partial": 41,
+    "none": 8,
+    "cov_full": 0.18333333333333332,
+    "cov_any": 0.8666666666666667
+   },
+   "sentry-mcp": {
+    "A": 33,
+    "full": 1,
+    "partial": 16,
+    "none": 16,
+    "cov_full": 0.030303030303030304,
+    "cov_any": 0.5151515151515151
+   },
+   "aws-iac-mcp-server": {
+    "A": 9,
+    "full": 8,
+    "partial": 0,
+    "none": 1,
+    "cov_full": 0.8888888888888888,
+    "cov_any": 0.8888888888888888
+   },
+   "mssql-mcp-server": {
+    "A": 1,
+    "full": 0,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.0,
+    "cov_any": 1.0
+   },
+   "oracle-mcp-server": {
+    "A": 1,
+    "full": 0,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.0,
+    "cov_any": 1.0
+   }
+  },
+  "summary": {
+   "servers": 6,
+   "mean_full": 0.3455189146365617,
+   "median_full": 0.10681818181818181,
+   "mean_any": 0.8784511784511785,
+   "median_any": 0.9444444444444444,
+   "pooled_full": [
+    53,
+    138
+   ],
+   "pooled_any": [
+    113,
+    138
+   ]
+  }
+ },
+ "without_vendor_only": {
+  "per_server": {
+   "azure-devops-mcp": {
+    "A": 34,
+    "full": 33,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.9705882352941176,
+    "cov_any": 1.0
+   },
+   "github-mcp-server": {
+    "A": 58,
+    "full": 11,
+    "partial": 39,
+    "none": 8,
+    "cov_full": 0.1896551724137931,
+    "cov_any": 0.8620689655172413
+   },
+   "sentry-mcp": {
+    "A": 31,
+    "full": 1,
+    "partial": 16,
+    "none": 14,
+    "cov_full": 0.03225806451612903,
+    "cov_any": 0.5483870967741935
+   },
+   "aws-iac-mcp-server": {
+    "A": 5,
+    "full": 4,
+    "partial": 0,
+    "none": 1,
+    "cov_full": 0.8,
+    "cov_any": 0.8
+   },
+   "mssql-mcp-server": {
+    "A": 1,
+    "full": 0,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.0,
+    "cov_any": 1.0
+   },
+   "oracle-mcp-server": {
+    "A": 1,
+    "full": 0,
+    "partial": 1,
+    "none": 0,
+    "cov_full": 0.0,
+    "cov_any": 1.0
+   }
+  },
+  "summary": {
+   "servers": 6,
+   "mean_full": 0.3320835787040066,
+   "median_full": 0.11095661846496106,
+   "mean_any": 0.8684093437152391,
+   "median_any": 0.9310344827586207,
+   "pooled_full": [
+    49,
+    130
+   ],
+   "pooled_any": [
+    107,
+    130
+   ]
+  }
+ }
+}

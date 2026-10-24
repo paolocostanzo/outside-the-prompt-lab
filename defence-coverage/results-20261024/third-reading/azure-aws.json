@@ -1,0 +1,233 @@
+[
+ {
+  "server": "azure-devops-mcp",
+  "n": "20",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "Con l'azione download il tool restituisce il contenuto dei file dell'artefatto di build (uno zip in base64), cioè file scritti da terzi; l'azione list dà solo nomi e numeri. Il codice citato mostra che anche il testo delle risorse viene marcato come non fidato (content-safety.ts:54-55); il punto in cui il wrapper si applica a tutti i tool non è nel codice citato, ma entrambe le letture ne riconoscono la presenza.",
+  "riga": "src/tools/pipelines.ts:549"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "21",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "Il tool restituisce l'oggetto completo dell'esecuzione della pipeline, che può includere lo YAML finale scritto dagli autori della pipeline (contenuto di file). Il testo restituito passa per il wrapper che lo marca come non fidato; il codice citato non mostra direttamente dove il wrapper viene applicato, da qui la confidenza media.",
+  "riga": "src/tools/pipelines.ts:434"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "22",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "Avviando una pipeline (anche in anteprima) il tool restituisce l'esecuzione con lo YAML finale, e la rinomina restituisce l'intera definizione di build: testo scritto da terzi. Tutte le risposte passano per il wrapper che le marca come non fidate; il punto di applicazione non è nel codice citato.",
+  "riga": "src/tools/pipelines.ts:56"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "23",
+  "class": "not-A",
+  "protection": "n-a",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool crea un ramo e restituisce solo un messaggio fisso del server con nomi di ramo e codice del commit, oppure un messaggio di errore del servizio (customMessage). Nomi e messaggi di stato/errore del servizio non sono testo libero scritto da terzi; se un revisore considera customMessage come testo di policy scritto da un amministratore, sarebbe comunque coperto dal wrapper.",
+  "riga": "src/tools/repositories.ts:1312"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "24",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce il thread di commenti della pull request con il testo dei commenti (content), scritti da altre persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/repositories.ts:78"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "25",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Creando o aggiornando una pull request il tool restituisce titolo e descrizione, testo scritto da persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/repositories.ts:125"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "26",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "L'azione get restituisce l'oggetto completo del repository, non filtrato, che contiene anche i dati del progetto con la sua descrizione scritta da persone; l'azione list dà solo nomi e numeri. Il testo passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/repositories.ts:208"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "27",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce il caso di test creato, con titolo e passi di test scritti da persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/test-plans.ts:414"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "28",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "Il tool restituisce il piano di test creato, compresa la descrizione scritta da persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/test-plans.ts:245"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "29",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "second",
+  "perche": "Aggiungendo casi di test a una suite, il tool restituisce i record completi dei casi, con i titoli scritti da persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/test-plans.ts:332"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "30",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce la risposta completa della creazione o modifica della pagina wiki, che include il contenuto della pagina. Tutto il testo, sia in caso di successo sia di errore, passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/wiki.ts:312"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "31",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce il commento creato o modificato con il suo testo, scritto da persone. Tutta la risposta passa per il wrapper che la marca come non fidata.",
+  "riga": "src/tools/work-items.ts:993"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "32",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce i collegamenti con i loro commenti e il work item aggiornato con titolo e descrizione, scritti da persone. Tutto il testo, compreso l'errore che elenca i collegamenti, passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/work-items.ts:1226"
+ },
+ {
+  "server": "azure-devops-mcp",
+  "n": "33",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "second",
+  "perche": "Il tool restituisce il work item creato o aggiornato con titolo e campi descrittivi scritti da persone. Tutto il testo restituito passa per il wrapper che lo marca come non fidato.",
+  "riga": "src/tools/work-items.ts:774"
+ },
+ {
+  "server": "aws-iac-mcp-server",
+  "n": "1",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "true",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool restituisce titoli ed estratti della documentazione ufficiale AWS CDK, testo scritto dal fornitore. I risultati passano per sanitize_tool_response (filtro caratteri nascosti + delimitazione); il ramo di errore citato riporta solo il messaggio d'errore del servizio di documentazione AWS, che non è testo di terzi, quindi non riduce la protezione.",
+  "riga": "src/aws-iac-mcp-server/awslabs/aws_iac_mcp_server/sanitizer.py:37"
+ },
+ {
+  "server": "aws-iac-mcp-server",
+  "n": "2",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool restituisce esempi di codice e documentazione di costrutti, anche creati dalla comunità, quindi testo di terzi. I risultati passano per sanitize_tool_response; il ramo di errore riporta solo il messaggio del servizio AWS, non testo della comunità. Il punto in cui questo tool chiama il sanitizer (server.py:476) non è nel sorgente citato, da qui la confidenza media.",
+  "riga": "src/aws-iac-mcp-server/awslabs/aws_iac_mcp_server/sanitizer.py:37"
+ },
+ {
+  "server": "aws-iac-mcp-server",
+  "n": "3",
+  "class": "A",
+  "protection": "full",
+  "vendor_only": "true",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool restituisce titoli ed estratti della documentazione ufficiale CloudFormation, scritta dal fornitore. La risposta passa sempre per sanitize_tool_response; il ramo di errore riporta solo il messaggio del servizio AWS, che non è testo di terzi.",
+  "riga": "src/aws-iac-mcp-server/awslabs/aws_iac_mcp_server/server.py:412"
+ },
+ {
+  "server": "mssql-mcp-server",
+  "n": "80",
+  "class": "not-A",
+  "protection": "n-a",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool apre una connessione al database e restituisce un messaggio di stato; in caso di errore c'è il messaggio d'errore del driver o del database. Un messaggio d'errore del sistema non è testo libero scritto da terzi. Il punto dove l'errore viene trasformato in risposta (server.py:328) non è nel sorgente citato.",
+  "riga": "src/mssql-mcp-server/awslabs/mssql_mcp_server/server.py:322"
+ },
+ {
+  "server": "mssql-mcp-server",
+  "n": "81",
+  "class": "not-A",
+  "protection": "n-a",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "first",
+  "perche": "Il tool restituisce lo schema di una tabella: nomi delle colonne, tipi di dato, lunghezze. Sono nomi e numeri, non testo libero; gli eventuali messaggi di errore sono diagnostica del database, non testo scritto da terzi.",
+  "riga": "src/mssql-mcp-server/awslabs/mssql_mcp_server/server.py:253"
+ },
+ {
+  "server": "oracle-mcp-server",
+  "n": "82",
+  "class": "not-A",
+  "protection": "n-a",
+  "vendor_only": "false",
+  "confidence": "medium",
+  "agree_with": "first",
+  "perche": "Il tool apre una connessione al database e restituisce lo stato, oppure il testo dell'errore di Oracle (str(pool_err)) senza protezione. Un messaggio d'errore del sistema non è testo libero scritto da terzi, quindi la mancanza di protezione non conta.",
+  "riga": "src/oracle-mcp-server/awslabs/oracle_mcp_server/server.py:380"
+ },
+ {
+  "server": "oracle-mcp-server",
+  "n": "83",
+  "class": "not-A",
+  "protection": "n-a",
+  "vendor_only": "false",
+  "confidence": "high",
+  "agree_with": "first",
+  "perche": "Il tool restituisce lo schema di una tabella: nomi delle colonne, tipi, lunghezze e precisione. Sono nomi e numeri, non testo libero; gli errori della query sono diagnostica del database.",
+  "riga": "src/oracle-mcp-server/awslabs/oracle_mcp_server/server.py:267"
+ }
+]
