@@ -15,10 +15,10 @@ documents; we did not wait to observe it. The lab sets no logging or verbosity o
 | Codex CLI | `.codex/sessions/**/*.jsonl` (session rollouts) | JSON Lines | `timestamp` | absent on the snapshot (removed before it, D18); undocumented |
 | Cursor CLI | `.cursor/chats/<hash>/<id>/store.db` and `meta.json` | SQLite, JSON | SQLite columns as above | undocumented |
 | Cursor CLI | `.cursor/projects/<project>/agent-transcripts/<id>/<id>.jsonl`, `worker.log` | JSON Lines, plain text | `timestamp` where present | undocumented |
-| Gemini CLI | `.gemini/tmp/<project hash>/logs.json`, `chats/` | JSON (list of records) | `timestamp` | 30 days by default (documented) |
-| Goose | `.local/state/goose/logs/cli/<date>/<time>.log` | plain text | not extracted | two weeks (documented) |
+| Gemini CLI | `.gemini/tmp/<project hash>/logs.json`, `chats/` | JSON (list of records) | `timestamp` | `chats/`: 30 days by default, configurable (`sessionRetention`, documented at v0.64.0); `logs.json`: no documented retention |
+| Goose | `.local/state/goose/logs/cli/<date>/<time>.log` | plain text | not extracted | two weeks, fixed (documented; hard-coded in `logging.rs` at v1.54.0) |
 | Goose | `.local/share/goose/sessions/sessions.db` | SQLite in WAL mode (as Codex) | SQLite columns as above | documented |
-| Qwen Code | `.qwen/tmp/<hash>/logs.json`, `.qwen/projects/<project>/chats/*.jsonl`, `.qwen/usage/*.jsonl`, `usage_record.jsonl` | JSON, JSON Lines | `timestamp` | 30 days (`cleanupPeriodDays`, documented) |
+| Qwen Code | `.qwen/tmp/<hash>/logs.json`, `.qwen/projects/<project>/chats/*.jsonl`, `.qwen/usage/*.jsonl`, `usage_record.jsonl` | JSON, JSON Lines | `timestamp` | not swept at v0.25.1: `general.cleanupPeriodDays` (default 30) covers file-history backups, debug logs and subagent transcripts, not `chats/` (settings.md:101, housekeeping/scheduler.ts) |
 
 Where record times cannot be extracted, `collection_check.py` reports the file's coverage as "unknown" and falls back on the
 file's modification time; the analysis reads those files with their own parser. A file kept for a limited time can be cut by
