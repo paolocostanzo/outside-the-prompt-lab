@@ -46,7 +46,7 @@ run outside it.
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
-Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (26 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): [DOI after the release]. See also `CITATION.cff`.
+Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (26 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. See also `CITATION.cff`.
 
 The study design (research questions, hypotheses, criteria, analysis plan, Q3 and Q4 protocols) was preregistered on
 11 October 2026: https://doi.org/10.5281/zenodo.23300369
