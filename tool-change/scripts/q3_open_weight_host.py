@@ -21,9 +21,6 @@ from pathlib import Path
 
 import q3_host as qh
 
-CLIENTS_JSON = "~/lab/tool-change/scripts/q3-clients-open-weight.json"
-
-
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--snapshot", required=True)
@@ -33,7 +30,6 @@ def main():
     ap.add_argument("--seed", type=int, required=True)
     ap.add_argument("--model-endpoint", default="192.168.122.1:11434", help="host:port of the model, as seen from the host")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--probe", action="store_true", help="trial run: proxy + client start only, no cell (validity check)")
     a = ap.parse_args()
     out = Path(a.out).resolve()
     out.mkdir(parents=True, exist_ok=True)
@@ -41,42 +37,55 @@ def main():
     cells = [{"client": c, "signal": s} for c in a.clients.split(",") for s in a.signals.split(",")]
     random.Random(a.seed).shuffle(cells)
     (out / "plan.json").write_text(json.dumps({"made": qh.now(), "seed": a.seed, "snapshot": a.snapshot, "model_endpoint": a.model_endpoint,
-                                               "probe": a.probe, "cells": cells}, indent=2))
+                                               "cells": cells}, indent=2))
+    try:
+        run_cells(a, h, out, cells)
+    finally:   # the VM is stopped whatever happened; the secret gate (open_weight_gate.py) runs before anything is published
+        qh.run(qh.VIRSH + ["shutdown", qh.DOMAIN])
+
+
+def run_cells(a, h, out, cells):
     for i, c in enumerate(cells, 1):
-        name = f"{c['client']}__{c['signal']}__description__r{a.rep}" + ("__probe" if a.probe else "")
-        if (out / name / ("probe.json" if a.probe else "row.json")).exists():
+        name = f"{c['client']}__{c['signal']}__description__r{a.rep}"
+        if (out / name / "row.json").exists():
             continue
         h.mem_ok()
         t0 = time.time()
         ip, boot_s = h.fresh_vm(a.snapshot)
         rc, hashes = h.push_harness(ip)
-        tunnel = subprocess.Popen(["ssh", "-N", "-i", str(qh.KEY), "-o", f"UserKnownHostsFile={qh.KNOWN}", "-o", "BatchMode=yes",
-                                   "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=30",
-                                   "-R", f"127.0.0.1:11434:{a.model_endpoint}", f"lab@{ip}"])
-        time.sleep(3)
         h.note(event="cell-start", n=i, of=len(cells), cell=name, ip=ip, boot_s=boot_s, push_rc=rc)
-        h.ssh(ip, f"mkdir -p ~/q3-out/{name} && (nohup python3 ~/lab/tool-change/scripts/record_proxy.py --listen 127.0.0.1:11435 "
-                  f"--upstream http://127.0.0.1:11434 --out ~/q3-out/{name}/proxy.jsonl --client {c['client']} "
-                  f"> ~/q3-out/{name}/proxy.stderr.txt 2>&1 &) ; sleep 1; curl -s -m 20 http://127.0.0.1:11435/api/version",
-              timeout=60)
-        if a.probe:
-            r = h.ssh(ip, f"cd ~/lab/tool-change/scripts && python3 -c \"import json,run_q3_cell as m; m.load_overrides('{CLIENTS_JSON}'); "
-                          f"print(m.CLIENTS['{c['client']}']['cmd'])\"", timeout=60)
-            (out / f"{name}.stdout.txt").write_text(r.stdout + "\n--- stderr ---\n" + r.stderr)
-            h.ssh(ip, f"echo '{{\"cmd_checked\": true}}' > ~/q3-out/{name}/probe.json")
-        else:
-            r = h.ssh(ip, f"python3 ~/lab/tool-change/scripts/run_q3_cell.py --client {c['client']} --signal {c['signal']} "
-                          f"--change description --rep {a.rep} --out ~/q3-out --clients-json {CLIENTS_JSON}", timeout=2400)
-            (out / f"{name}.stdout.txt").write_text(r.stdout + "\n--- stderr ---\n" + r.stderr)
-            # the cell writes into ~/q3-out/<client>__<signal>__description__r<rep>, the same folder as the proxy log
-        tunnel.terminate()
-        tunnel.wait(timeout=30)
-        h.fetch(ip, name, out / name, int(t0) - 5)
-        (out / name / "harness-sha256.txt").write_text(hashes)
-        h.note(event="cell-end", cell=name, rc=r.returncode, seconds=round(time.time() - t0),
-               row=(out / name / "row.json").exists())
+        tunnel, result = None, None
+        try:   # the tunnel this script owns is always ended and the cell's files always fetched, even when a step fails
+            tunnel = subprocess.Popen(["ssh", "-N", "-i", str(qh.KEY), "-o", f"UserKnownHostsFile={qh.KNOWN}", "-o",
+                                       "BatchMode=yes", "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=30",
+                                       "-R", f"127.0.0.1:11434:{a.model_endpoint}", f"lab@{ip}"])
+            time.sleep(3)
+            if tunnel.poll() is not None:
+                raise RuntimeError(f"reverse tunnel ended at once (exit {tunnel.returncode})")
+            up = h.ssh(ip, f"mkdir -p ~/q3-out/{name} && (nohup python3 ~/lab/tool-change/scripts/record_proxy.py "
+                           f"--listen 127.0.0.1:11435 --upstream http://127.0.0.1:11434 --out ~/q3-out/{name}/proxy.jsonl "
+                           f"--client {c['client']} > ~/q3-out/{name}/proxy.stderr.txt 2>&1 &) ; sleep 1; "
+                           f"curl -sf -m 20 http://127.0.0.1:11435/api/version", timeout=60)
+            if up.returncode != 0:
+                raise RuntimeError("model endpoint not reachable through the proxy")
+            result = h.ssh(ip, f"python3 ~/lab/tool-change/scripts/run_q3_cell.py --client {c['client']} --signal {c['signal']} "
+                               f"--change description --rep {a.rep} --out ~/q3-out --clients-json "
+                               f"/home/lab/lab/tool-change/scripts/q3-clients-open-weight.json", timeout=2400)
+            (out / f"{name}.stdout.txt").write_text(result.stdout + "\n--- stderr ---\n" + result.stderr)
+        except Exception as e:
+            h.note(event="cell-failed", cell=name, error=type(e).__name__ + ": " + str(e)[:300])
+        finally:
+            if tunnel is not None:
+                tunnel.terminate()
+                try:
+                    tunnel.wait(timeout=30)
+                except subprocess.TimeoutExpired:
+                    tunnel.kill()
+            h.fetch(ip, name, out / name, int(t0) - 5)
+            (out / name / "harness-sha256.txt").write_text(hashes)
+        h.note(event="cell-end", cell=name, rc=None if result is None else result.returncode,
+               seconds=round(time.time() - t0), row=(out / name / "row.json").exists())
     h.note(event="matrix-done", cells=len(cells))
-    qh.run(qh.VIRSH + ["shutdown", qh.DOMAIN])
 
 
 if __name__ == "__main__":

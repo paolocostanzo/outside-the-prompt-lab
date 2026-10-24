@@ -223,6 +223,17 @@ class RecordProxyTest(unittest.TestCase):
         [e] = rp.tool_entries({"tools": [ns]})
         self.assertEqual((e["name"], e["revision"]), ("mcp__q3_lab/q3_noop", "A"))
 
+    def test_malformed_tool_metadata_is_forwarded_and_marked(self):
+        for tools in ([{"name": "x", "description": 123}], 1):
+            Stub.seen = []
+            status, _ = self.post({"model": "m", "tools": tools})
+            self.assertEqual(status, 200)
+            self.assertEqual(len(Stub.seen), 1)
+        reqs = self.recs("request")
+        self.assertEqual(reqs[0]["inspect"], "ok")
+        self.assertTrue(reqs[1]["inspect"].startswith("tools not readable"))
+        self.assertEqual(len(self.recs("done")), 2)
+
     def test_shapes_and_hashes(self):
         self.assertEqual(rp.tool_entries({"tools": [{"name": "q3_noop", "description": B}]})[0]["revision"], "B")
         g = rp.tool_entries({"tools": [{"functionDeclarations": [{"name": "q3_noop", "description": A}, {"name": "x"}]}]})

@@ -42,11 +42,16 @@ def tool_entries(body):
 
     def add(f, prefix=""):
         desc = f.get("description") or ""
+        if not isinstance(desc, str):
+            desc = json.dumps(desc, ensure_ascii=False)
         m = REVISION.search(desc)
         out.append({"name": prefix + f["name"], "sha256": hashlib.sha256(desc.encode("utf-8")).hexdigest(),
                     "revision": m.group(1) if m else None, "head": desc[:80]})
 
-    for t in body.get("tools") or []:
+    tools = body.get("tools") or []
+    if not isinstance(tools, list):
+        raise ValueError("tools is not a list")
+    for t in tools:
         if not isinstance(t, dict):
             continue
         if t.get("type") == "namespace" and isinstance(t.get("tools"), list):
@@ -87,7 +92,11 @@ def inspect(raw, encoding):
         return None, [], None, "body not readable as JSON: " + type(e).__name__
     if not isinstance(body, dict):
         return None, [], None, "body is not a JSON object"
-    return body.get("model"), tool_entries(body), elsewhere(body), "ok"
+    try:
+        return body.get("model"), tool_entries(body), elsewhere(body), "ok"
+    except Exception as e:   # unexpected shapes are an explicit inspection failure; the request is still forwarded
+        return body.get("model") if isinstance(body.get("model"), str) else None, [], None, \
+            "tools not readable: " + type(e).__name__
 
 
 class BadRequestBody(Exception):
