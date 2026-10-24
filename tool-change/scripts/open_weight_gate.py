@@ -24,7 +24,8 @@ STATE = Path.home() / ".agentlab-q4"  # shared with q4_events.py, outside every 
 def manifest(out):
     """SHA-256 of every file in the campaign folder except the gate's own report: the approval holds for exactly these bytes."""
     import hashlib
-    files = sorted(p for p in out.rglob("*") if p.is_file() and p.name != "secret-gate.json")
+    report = out / "secret-gate.json"
+    files = sorted(p for p in out.rglob("*") if p.is_file() and p != report)
     return {os.path.relpath(p, out): hashlib.sha256(p.read_bytes()).hexdigest() for p in files}
 
 
