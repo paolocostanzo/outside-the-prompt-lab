@@ -1320,6 +1320,13 @@ part 3 or part 4.
    otherwise it is discarded with the reason. Results are given per phase: phase 2 (requests with A after the change; the first
    request with B and its delay, or "B not seen before the session closed"; whether the call succeeded) and phase 3 apart.
 
+6. *Added on 24 October, after the routing checks and before any cell* (commit after `ebc4bd3`). Two clients hand MCP tools to the
+   model in ways point 4 did not cover: Codex CLI groups them in a `namespace` entry of `tools[]` (recorded as
+   `<namespace>/<tool>`), and Qwen Code passes them through a tool search, so the definition reaches the model inside the
+   messages. The proxy therefore also counts, per request, how many times each revision is named outside `tools[]` (counts only,
+   no text). The VM reaches the model through a reverse SSH tunnel opened from the host after each restore
+   (`q3_open_weight_host.py`), because the host firewall does not accept connections from the VM and is left unchanged.
+
 **Why.** It is the only way to see which definition a client hands to the model, which the vendors' hosted models do not show, and
 it keeps the promise made in part 2.
 

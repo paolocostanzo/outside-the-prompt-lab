@@ -210,6 +210,19 @@ class RecordProxyTest(unittest.TestCase):
         self.assertEqual(Stub.seen, [])
         self.assertTrue(self.recs("request")[0]["inspect"].startswith("incomplete request"))
 
+    def test_revision_named_in_messages_is_counted_without_text(self):
+        body = {"model": "m", "messages": [{"role": "tool", "content": "found: q3_noop: " + B}], "tools": []}
+        self.post(body)
+        req = self.recs("request")[0]
+        self.assertEqual(req["elsewhere"], {"A": 0, "B": 1})
+        self.assertNotIn("Nothing else happens", self.out.read_text())
+
+    def test_codex_namespace_tools(self):
+        ns = {"type": "namespace", "name": "mcp__q3_lab", "description": "Tools in the mcp__q3_lab namespace.",
+              "tools": [{"type": "function", "name": "q3_noop", "description": A}]}
+        [e] = rp.tool_entries({"tools": [ns]})
+        self.assertEqual((e["name"], e["revision"]), ("mcp__q3_lab/q3_noop", "A"))
+
     def test_shapes_and_hashes(self):
         self.assertEqual(rp.tool_entries({"tools": [{"name": "q3_noop", "description": B}]})[0]["revision"], "B")
         g = rp.tool_entries({"tools": [{"functionDeclarations": [{"name": "q3_noop", "description": A}, {"name": "x"}]}]})

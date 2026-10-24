@@ -8,6 +8,8 @@ Every request is forwarded with its original body bytes and its response streame
   - "request", written when the request has arrived and before anything is sent upstream:
     {"kind": "request", "id": n, "t": <arrival, epoch s>, "client": ..., "method": ..., "path": ..., "model": ...,
      "tools": [{"name": ..., "sha256": <of the description>, "revision": "A"|"B"|null, "head": <first 80 chars>}],
+     "elsewhere": {"A": n, "B": n},   # revision names found in the rest of the request (e.g. a tool-search result in
+                                      # the messages, the way Qwen Code hands MCP tools to the model); counts only, no text
      "inspect": "ok" | "<why the body could not be read>"}
   - "done", written once when the exchange ends: {"kind": "done", "id": n, "t": ..., "status": <upstream status or null>,
     "error": null | "<what failed>"}
@@ -33,28 +35,45 @@ HOP = {"connection", "keep-alive", "proxy-connection", "transfer-encoding", "te"
 
 
 def tool_entries(body):
-    """The tools in a request body, whatever the API: OpenAI and Ollama (tools[].function), Anthropic (tools[].name),
-    Gemini-style (tools[].functionDeclarations[])."""
+    """The tools in a request body, whatever the API: OpenAI and Ollama (tools[].function), OpenAI Responses and Anthropic
+    (tools[].name), Gemini-style (tools[].functionDeclarations[]), and Codex CLI's namespaces (tools[] of type "namespace",
+    whose own tools[] hold the MCP server's tools; recorded as "<namespace>/<tool>")."""
     out = []
+
+    def add(f, prefix=""):
+        desc = f.get("description") or ""
+        m = REVISION.search(desc)
+        out.append({"name": prefix + f["name"], "sha256": hashlib.sha256(desc.encode("utf-8")).hexdigest(),
+                    "revision": m.group(1) if m else None, "head": desc[:80]})
+
     for t in body.get("tools") or []:
         if not isinstance(t, dict):
+            continue
+        if t.get("type") == "namespace" and isinstance(t.get("tools"), list):
+            for f in t["tools"]:
+                if isinstance(f, dict) and "name" in f:
+                    add(f, str(t.get("name")) + "/")
             continue
         fns = t.get("functionDeclarations") or t.get("function_declarations")
         items = fns if isinstance(fns, list) else [t.get("function") if isinstance(t.get("function"), dict) else t]
         for f in items:
-            if not isinstance(f, dict) or "name" not in f:
-                continue
-            desc = f.get("description") or ""
-            m = REVISION.search(desc)
-            out.append({"name": f["name"], "sha256": hashlib.sha256(desc.encode("utf-8")).hexdigest(),
-                        "revision": m.group(1) if m else None, "head": desc[:80]})
+            if isinstance(f, dict) and "name" in f:
+                add(f)
     return out
 
 
+def elsewhere(body):
+    """How many times each revision is named outside tools[] (messages, system prompt...): counts only."""
+    rest = {k: v for k, v in body.items() if k != "tools"}
+    text = json.dumps(rest, ensure_ascii=False)
+    return {r: len(re.findall(r"\brevision " + r + r"\b", text)) for r in "AB"}
+
+
 def inspect(raw, encoding):
-    """(model, tools, status) from a request body; the original bytes are forwarded untouched, this reads a decoded copy."""
+    """(model, tools, elsewhere, status) from a request body; the original bytes are forwarded untouched, this reads a
+    decoded copy."""
     if not raw:
-        return None, [], "ok"
+        return None, [], {"A": 0, "B": 0}, "ok"
     enc = (encoding or "identity").strip().lower()
     try:
         if enc == "gzip":
@@ -62,13 +81,13 @@ def inspect(raw, encoding):
         elif enc == "deflate":
             raw = zlib.decompress(raw)
         elif enc != "identity":
-            return None, [], "unsupported content-encoding: " + enc
+            return None, [], None, "unsupported content-encoding: " + enc
         body = json.loads(raw)
     except (ValueError, UnicodeDecodeError, OSError, zlib.error) as e:
-        return None, [], "body not readable as JSON: " + type(e).__name__
+        return None, [], None, "body not readable as JSON: " + type(e).__name__
     if not isinstance(body, dict):
-        return None, [], "body is not a JSON object"
-    return body.get("model"), tool_entries(body), "ok"
+        return None, [], None, "body is not a JSON object"
+    return body.get("model"), tool_entries(body), elsewhere(body), "ok"
 
 
 class BadRequestBody(Exception):
@@ -140,9 +159,9 @@ def make_handler(upstream, out, client, lock, ids):
                 except OSError:
                     pass
                 return
-            model, tools, how = inspect(raw, self.headers.get("Content-Encoding"))
+            model, tools, other, how = inspect(raw, self.headers.get("Content-Encoding"))
             write({"kind": "request", "id": rid, "t": t, "client": client, "method": self.command, "path": self.path,
-                   "model": model, "tools": tools, "inspect": how})
+                   "model": model, "tools": tools, "elsewhere": other, "inspect": how})
 
             status, error, started = None, None, False
             http10 = self.request_version == "HTTP/1.0"

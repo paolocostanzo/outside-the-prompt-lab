@@ -5,13 +5,15 @@ For every cell: restore the clean snapshot, start the VM, copy the harness in, s
 (record_proxy.py, 127.0.0.1:11435 -> the model endpoint reachable from the VM), run one cell with the open-weight client file,
 stop the proxy's output by fetching it with the cell, copy everything out, stop the VM at the end.
 
-The model endpoint must already be reachable from the VM at --upstream (an SSH tunnel to our GPU instance bound to the libvirt
-bridge address, opened by hand for the duration of the runs). Nothing here touches processes on the host.
+The model endpoint is reached through a reverse SSH tunnel that this script opens from the host into the VM after each restore
+(VM 127.0.0.1:11434 -> --model-endpoint on the host side, itself an SSH tunnel to our GPU instance opened by hand), because the
+host firewall does not accept connections from the VM and is left as it is. The script ends only the tunnel process it started.
 
   python3 q3_open_weight_host.py --snapshot q4-base-20261023b --clients qwen,goose --signals none,list_changed \
-      --upstream http://192.168.122.1:11434 --out ../../results/q3/open-weight-20261025 --seed 20261025
+      --out ../../results/q3/open-weight-20261025 --seed 20261025
 """
 import argparse
+import subprocess
 import json
 import random
 import time
@@ -29,7 +31,7 @@ def main():
     ap.add_argument("--signals", default="none,list_changed")
     ap.add_argument("--rep", type=int, default=1)
     ap.add_argument("--seed", type=int, required=True)
-    ap.add_argument("--upstream", required=True)
+    ap.add_argument("--model-endpoint", default="192.168.122.1:11434", help="host:port of the model, as seen from the host")
     ap.add_argument("--out", required=True)
     ap.add_argument("--probe", action="store_true", help="trial run: proxy + client start only, no cell (validity check)")
     a = ap.parse_args()
@@ -38,7 +40,7 @@ def main():
     h = qh.Host(out)
     cells = [{"client": c, "signal": s} for c in a.clients.split(",") for s in a.signals.split(",")]
     random.Random(a.seed).shuffle(cells)
-    (out / "plan.json").write_text(json.dumps({"made": qh.now(), "seed": a.seed, "snapshot": a.snapshot, "upstream": a.upstream,
+    (out / "plan.json").write_text(json.dumps({"made": qh.now(), "seed": a.seed, "snapshot": a.snapshot, "model_endpoint": a.model_endpoint,
                                                "probe": a.probe, "cells": cells}, indent=2))
     for i, c in enumerate(cells, 1):
         name = f"{c['client']}__{c['signal']}__description__r{a.rep}" + ("__probe" if a.probe else "")
@@ -48,9 +50,13 @@ def main():
         t0 = time.time()
         ip, boot_s = h.fresh_vm(a.snapshot)
         rc, hashes = h.push_harness(ip)
+        tunnel = subprocess.Popen(["ssh", "-N", "-i", str(qh.KEY), "-o", f"UserKnownHostsFile={qh.KNOWN}", "-o", "BatchMode=yes",
+                                   "-o", "ExitOnForwardFailure=yes", "-o", "ServerAliveInterval=30",
+                                   "-R", f"127.0.0.1:11434:{a.model_endpoint}", f"lab@{ip}"])
+        time.sleep(3)
         h.note(event="cell-start", n=i, of=len(cells), cell=name, ip=ip, boot_s=boot_s, push_rc=rc)
         h.ssh(ip, f"mkdir -p ~/q3-out/{name} && (nohup python3 ~/lab/tool-change/scripts/record_proxy.py --listen 127.0.0.1:11435 "
-                  f"--upstream {a.upstream} --out ~/q3-out/{name}/proxy.jsonl --client {c['client']} "
+                  f"--upstream http://127.0.0.1:11434 --out ~/q3-out/{name}/proxy.jsonl --client {c['client']} "
                   f"> ~/q3-out/{name}/proxy.stderr.txt 2>&1 &) ; sleep 1; curl -s -m 20 http://127.0.0.1:11435/api/version",
               timeout=60)
         if a.probe:
@@ -63,6 +69,8 @@ def main():
                           f"--change description --rep {a.rep} --out ~/q3-out --clients-json {CLIENTS_JSON}", timeout=2400)
             (out / f"{name}.stdout.txt").write_text(r.stdout + "\n--- stderr ---\n" + r.stderr)
             # the cell writes into ~/q3-out/<client>__<signal>__description__r<rep>, the same folder as the proxy log
+        tunnel.terminate()
+        tunnel.wait(timeout=30)
         h.fetch(ip, name, out / name, int(t0) - 5)
         (out / name / "harness-sha256.txt").write_text(hashes)
         h.note(event="cell-end", cell=name, rc=r.returncode, seconds=round(time.time() - t0),
