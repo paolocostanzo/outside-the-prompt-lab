@@ -36,6 +36,7 @@ and D21 (`../preregistration/DEVIATIONS.md`), all written before the outcomes th
 | `scripts/isolated_codex.py`, `scripts/code_q3_codex.py` | Additional post hoc coder (D22): Codex CLI in a bubblewrap container that cannot see the project, with an isolation probe and an initial-context check against a reference session |
 | `scripts/agreement_q3_three.py` | Agreement with the additional coder: preregistered κ first, then Codex vs author and vs local model, Fleiss' κ, confusion tables |
 | `scripts/check-approvals.mjs` | **For readers:** lists, read-only, the MCP tools you approved permanently in each client (see below) |
+| `scripts/record_proxy.py`, `scripts/q3-clients-open-weight.json`, `scripts/q3_open_weight_host.py`, `scripts/open_weight_gate.py`, `scripts/analyze_open_weight.py` | Open-weight cells (D39, exploratory): recording proxy between client and model, client file pointing four clients at an open-weight model, host orchestration with a reverse SSH tunnel, the D26 secret gate, per-phase analysis. Evidence: `evidence/open-weight-20261024/` |
 | `test/` | `node:test` suite (server, coder with the real server, configuration writer, run plan, analysis, agreement, check-approvals) |
 
 ## Check your own setup
@@ -83,7 +84,7 @@ only where a recording proxy shows it (local-engine cells).
 
 ## Requirements and tests
 
-Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (61 tests on 17 October 2026).
+Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (61 tests on 17 October 2026). The open-weight scripts have their own Python tests: `python3 -m unittest discover -s test -p 'test_*.py'` (18 tests, 24 October 2026).
 
 ## Interpretation limits
 
