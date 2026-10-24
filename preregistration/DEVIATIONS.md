@@ -1296,3 +1296,31 @@ non-programmer and is kept with the record.
 
 **Effect.** The final labels are the author's. The third reading may have influenced them; the sheet shows, case by case, where the
 author followed it.
+
+### D39 · 24 Oct 2026 · D5 (secondary cells, local engine), D16 points 5–6 — the open-weight cells, run after part 4's confirmatory results
+**Problem.** D5 lists a secondary, exploratory cell per client with a local engine, and D16 point 5 says that B reached the model
+is claimed only in local-engine cells, from a recording proxy. Part 2 announced these runs in public ("Clients that accept a custom
+endpoint will also run against open-weight models on a GPU instance we control"). Neither the cells nor the proxy were made before
+part 3 or part 4.
+
+**Change.**
+1. Exploratory cells, one repetition (D5): client × signal {none, `notifications/tools/list_changed`}, description change only,
+   stdio, the server and the three phases of D16 (call, change, call; the reopen phase reported apart, D16 point 6).
+2. Clients: only those whose own documented options point them at another model endpoint; each is checked in the VM before the
+   cells. Candidates: Qwen Code (OpenAI-compatible endpoint), Goose (Ollama provider), Codex CLI (`--oss --local-provider ollama`
+   or a configured provider), Claude Code only if the endpoint offers an Anthropic-compatible API. A client that cannot be pointed
+   at the endpoint is listed with the reason. The launch command of every phase, reopening included, comes from a separate file
+   (`tool-change/scripts/q3-clients-open-weight.json`), never from `q3-clients.json`.
+3. Model: `qwen3.8:27b-q8_0` served by Ollama on our GPU instance; tag and digest are recorded. Other open-weight models only as
+   single control cells, named as such.
+4. A recording proxy (`tool-change/scripts/record_proxy.py`) runs in the VM between the client and the endpoint, forwards every
+   request and response unchanged and writes, per request, the time, the model and each tool's name, a SHA-256 of its description
+   and the revision (A/B) it names; prompts and replies are not recorded.
+5. A cell is valid only if the proxy shows, for that client, requests to the intended model carrying revision A before the change;
+   otherwise it is discarded with the reason. Results are given per phase: phase 2 (requests with A after the change; the first
+   request with B and its delay, or "B not seen before the session closed"; whether the call succeeded) and phase 3 apart.
+
+**Why.** It is the only way to see which definition a client hands to the model, which the vendors' hosted models do not show, and
+it keeps the promise made in part 2.
+
+**Effect.** Exploratory. It cannot change H3, H5 or any confirmatory result, and it is reported as an addendum to part 3 and part 4.
