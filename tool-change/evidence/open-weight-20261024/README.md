@@ -11,7 +11,13 @@ points 1–6, published before any cell) fixes how.
   option for another endpoint.
 - Cells: 4 clients × signal {none, `notifications/tools/list_changed`} × 1 repetition, description change only, the three phases
   of D16 (call; change A→B; call; reopen and call). Order and seed in `plan.json`; host events in `host-log.jsonl`.
-- Run by `scripts/q3_open_weight_host.py`; analysed by `scripts/analyze_open_weight.py` → `RESULTS.json`.
+- Run by `scripts/q3_open_weight_host.py`; analysed by `scripts/analyze_open_weight.py` → `RESULTS.json`. The cells ran with the
+  orchestrator of commit 4040c9f. `record_proxy.py` was that of 4040c9f in the first cell and that of f22573f in cells 2–8; the
+  only change forwards and marks malformed tool metadata, and no cell had an inspection failure. Each cell's
+  `harness-sha256.txt` records the exact files.
+- `model.json`: the models on the instance as Ollama listed them (`/api/tags`) at the start of the session, with their digests.
+- Transport: Qwen Code closed some streamed requests early, and one upstream request ended without a response; the phase counts
+  are unaffected (`client_hung_up`, `endpoint_errors` in `RESULTS.json`).
 
 Per cell: `row.json` (the runner's record, with the phase times), `q3-server.log` (the lab server: notifications, `tools/list`,
 calls), `q3-control.json`, `proxy.jsonl` (one `request` line per request with the lab tool's entry and revision, `tools_total`, and
