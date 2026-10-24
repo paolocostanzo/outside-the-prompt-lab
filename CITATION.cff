@@ -10,5 +10,5 @@ repository-code: "https://github.com/paolocostanzo/outside-the-prompt-lab"
 license: MIT
 doi: "10.5281/zenodo.23300292"
 date-released: 2026-10-24
-version: 0.4.1
+version: 0.4.2
 keywords: [AI agents, MCP, workspace trust, tool approval, security measurement, reproducible lab]

@@ -73,8 +73,14 @@ def cell(d):
 
 def main():
     root = Path(sys.argv[1])
-    cells = [cell(d) for d in sorted(root.iterdir()) if (d / "row.json").exists() and (d / "proxy.jsonl").exists()]
-    json.dump({"model": MODEL, "cells": cells}, sys.stdout, indent=1)
+    plan = json.loads((root / "plan.json").read_text())
+    rep = plan.get("rep", 1)   # plans written before the field existed (D39 campaign of 24 Oct) had one repetition
+    expected = [f"{c['client']}__{c['signal']}__description__r{rep}" for c in plan["cells"]]
+    present = sorted(d.name for d in root.iterdir() if d.is_dir())
+    cells = [cell(root / n) for n in sorted(expected) if (root / n / "row.json").exists() and (root / n / "proxy.jsonl").exists()]
+    json.dump({"model": MODEL, "cells": cells,
+               "missing": [n for n in expected if n not in {c["cell"] for c in cells}],
+               "unexpected": [n for n in present if n not in expected]}, sys.stdout, indent=1)
     print()
 
 

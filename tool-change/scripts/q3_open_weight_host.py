@@ -13,13 +13,18 @@ host firewall does not accept connections from the VM and is left as it is. The 
       --out ../../results/q3/open-weight-20261025 --seed 20261025
 """
 import argparse
+import fcntl
+import hashlib
 import subprocess
 import json
 import random
+import sys
 import time
 from pathlib import Path
 
 import q3_host as qh
+
+STATE = Path.home() / ".agentlab-q4"  # shared with the Q4 orchestrators: one campaign at a time drives the VM
 
 def main():
     ap = argparse.ArgumentParser()
@@ -32,12 +37,30 @@ def main():
     ap.add_argument("--out", required=True)
     a = ap.parse_args()
     out = Path(a.out).resolve()
-    out.mkdir(parents=True, exist_ok=True)
-    h = qh.Host(out)
+    # the same guards as q4_events.py / q4_baseline.py, before any campaign state is read or written or the VM is touched
+    STATE.mkdir(exist_ok=True)
+    lock = open(STATE / "vm.lock", "w")
+    try:
+        fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+    except BlockingIOError:
+        sys.exit("another campaign is driving the VM (vm.lock): not starting")
+    if (STATE / "pending.json").exists():
+        sys.exit("a Q4 campaign has evidence pending in the VM (pending.json): rerun it first; nothing restored")
     cells = [{"client": c, "signal": s} for c in a.clients.split(",") for s in a.signals.split(",")]
     random.Random(a.seed).shuffle(cells)
-    (out / "plan.json").write_text(json.dumps({"made": qh.now(), "seed": a.seed, "snapshot": a.snapshot, "model_endpoint": a.model_endpoint,
-                                               "cells": cells}, indent=2))
+    here = Path(__file__).resolve().parent
+    plan = {"seed": a.seed, "snapshot": a.snapshot, "model_endpoint": a.model_endpoint, "rep": a.rep, "cells": cells,
+            "inputs_sha256": {f: hashlib.sha256((here / f).read_bytes()).hexdigest()
+                              for f in ("q3-clients-open-weight.json", "record_proxy.py", "run_q3_cell.py")}}
+    pf = out / "plan.json"
+    if pf.exists():   # a resume must be the same campaign: same arguments and inputs, or nothing is done
+        old = json.loads(pf.read_text())
+        if {k: old.get(k) for k in plan} != plan:
+            sys.exit(f"{pf} was made with other arguments or inputs; refusing to resume into this folder")
+    else:
+        out.mkdir(parents=True, exist_ok=True)
+        pf.write_text(json.dumps({"made": qh.now(), **plan}, indent=2))
+    h = qh.Host(out)
     try:
         run_cells(a, h, out, cells)
     finally:   # the VM is stopped whatever happened; the secret gate (open_weight_gate.py) runs before anything is published

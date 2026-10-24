@@ -84,7 +84,7 @@ only where a recording proxy shows it (local-engine cells).
 
 ## Requirements and tests
 
-Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (61 tests on 17 October 2026). The open-weight scripts have their own Python tests: `python3 -m unittest discover -s test -p 'test_*.py'` (18 tests, 24 October 2026).
+Node.js ≥ 22 and Python ≥ 3.11, no dependencies. `npm test` runs the suite (61 tests on 17 October 2026). The open-weight scripts have their own Python tests: `python3 -m unittest discover -s test -p 'test_*.py'` (23 tests, 24 October 2026).
 
 ## Interpretation limits
 

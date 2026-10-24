@@ -13,7 +13,7 @@ reaches the network. The matrix runners edit the clients' trust stores in `$HOME
 | Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
 | `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 18 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
-| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes; the open-weight cells promised in part 2 (D39, exploratory: what four clients send to an open-weight model before and after the change), 18 Python tests, evidence in `evidence/open-weight-20261024/` | *You approved the tool. Then it changed.* (20 Oct 2026); open-weight cells: *Would your logs have caught it?* (27 Oct 2026) |
+| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes; the open-weight cells promised in part 2 (D39, exploratory: what four clients send to an open-weight model before and after the change), 23 Python tests, evidence in `evidence/open-weight-20261024/` | *You approved the tool. Then it changed.* (20 Oct 2026); open-weight cells: *Would your logs have caught it?* (27 Oct 2026) |
 | `defence-coverage/` | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Both readings, the third reading's proposals and the author's adjudication (D22, D38), the final census and coverage tables of the published servers (`results-20261024/`), scripts, 28 tests | *Would your logs have caught it?* (27 Oct 2026) |
 | `telemetry/` | Q4 (RQ5) — what default client logs and host telemetry show for each event (D24–D37): inventory of default log locations, exporter run inside the VM, collection check, event and baseline orchestrators, quota observer, frozen detection rules of two authors, host rules, scoring and the H5 verdict, public evidence of every run and session, 221 tests | *Would your logs have caught it?* (27 Oct 2026) |
 | `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
@@ -32,7 +32,7 @@ node scripts/check-trust.mjs              # which projects have I already truste
 ```bash
 cd tool-change
 npm test                                  # 61 tests, Node >= 22 and Python >= 3.11, no dependencies
-python3 -m unittest discover -s test -p 'test_*.py'   # 18 tests: the open-weight recording proxy (D39)
+python3 -m unittest discover -s test -p 'test_*.py'   # 23 tests: the open-weight cells (D39): recording proxy, campaign guards
 node scripts/check-approvals.mjs          # which MCP tools have I approved permanently, and in which file?
 ```
 
@@ -47,12 +47,12 @@ run outside it.
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
-Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. See also `CITATION.cff`.
+Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. Version v0.4.2 (24 Oct 2026, the D39 orchestrator takes the shared VM lock and refuses a mismatched resume; the analysis follows the plan): see the release page. See also `CITATION.cff`.
 
 The study design (research questions, hypotheses, criteria, analysis plan, Q3 and Q4 protocols) was preregistered on
 11 October 2026: https://doi.org/10.5281/zenodo.23300369
 
-> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.1) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
+> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.2) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
 MIT.
