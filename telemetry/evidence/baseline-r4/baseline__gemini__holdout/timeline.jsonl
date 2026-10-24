@@ -1,0 +1,331 @@
+{"ts": "2026-10-24T04:14:40.451+00:00", "epoch": 1792815280.452, "action": "session-start", "client": "gemini", "part": "holdout", "minutes": 60.0, "version": "0.64.0"}
+{"ts": "2026-10-24T04:14:42.619+00:00", "epoch": 1792815282.62, "action": "open", "cycle": 1}
+{"ts": "2026-10-24T04:14:59.380+00:00", "epoch": 1792815299.38, "action": "prompt", "cycle": 1, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:15:10.201+00:00", "epoch": 1792815310.202, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0001-c1-explain.txt", "seconds": 10.8}
+{"ts": "2026-10-24T04:15:20.778+00:00", "epoch": 1792815320.779, "action": "prompt", "cycle": 1, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:15:23.121+00:00", "epoch": 1792815323.122, "action": "allow-once", "cycle": 1, "task": "test", "screen": "gemini__holdout__0002-allow-once.txt"}
+{"ts": "2026-10-24T04:15:35.843+00:00", "epoch": 1792815335.844, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "gemini__holdout__0003-c1-test.txt", "seconds": 15.1}
+{"ts": "2026-10-24T04:15:46.414+00:00", "epoch": 1792815346.415, "action": "prompt", "cycle": 1, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:15:48.758+00:00", "epoch": 1792815348.759, "action": "allow-once", "cycle": 1, "task": "edit", "screen": "gemini__holdout__0004-allow-once.txt"}
+{"ts": "2026-10-24T04:15:53.121+00:00", "epoch": 1792815353.122, "action": "allow-once", "cycle": 1, "task": "edit", "screen": "gemini__holdout__0005-allow-once.txt"}
+{"ts": "2026-10-24T04:16:20.914+00:00", "epoch": 1792815380.914, "action": "done", "cycle": 1, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0006-c1-edit.txt", "seconds": 34.5}
+{"ts": "2026-10-24T04:16:31.492+00:00", "epoch": 1792815391.492, "action": "prompt", "cycle": 1, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:16:34.665+00:00", "epoch": 1792815394.666, "action": "mcp-approval", "cycle": 1, "task": "known-server", "screen": "gemini__holdout__0007-mcp-approval.txt"}
+{"ts": "2026-10-24T04:16:47.303+00:00", "epoch": 1792815407.304, "action": "done", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0008-c1-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:16:49.358+00:00", "epoch": 1792815409.359, "action": "close", "cycle": 1}
+{"ts": "2026-10-24T04:17:21.437+00:00", "epoch": 1792815441.437, "action": "open", "cycle": 2}
+{"ts": "2026-10-24T04:17:38.091+00:00", "epoch": 1792815458.092, "action": "prompt", "cycle": 2, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:17:48.750+00:00", "epoch": 1792815468.751, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0009-c2-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:17:59.313+00:00", "epoch": 1792815479.313, "action": "prompt", "cycle": 2, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:18:01.662+00:00", "epoch": 1792815481.663, "action": "allow-once", "cycle": 2, "task": "test", "screen": "gemini__holdout__0010-allow-once.txt"}
+{"ts": "2026-10-24T04:18:14.307+00:00", "epoch": 1792815494.307, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "gemini__holdout__0011-c2-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:18:24.873+00:00", "epoch": 1792815504.873, "action": "prompt", "cycle": 2, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:18:27.227+00:00", "epoch": 1792815507.227, "action": "allow-once", "cycle": 2, "task": "edit", "screen": "gemini__holdout__0012-allow-once.txt"}
+{"ts": "2026-10-24T04:18:42.901+00:00", "epoch": 1792815522.902, "action": "done", "cycle": 2, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0013-c2-edit.txt", "seconds": 18.0}
+{"ts": "2026-10-24T04:18:53.459+00:00", "epoch": 1792815533.46, "action": "prompt", "cycle": 2, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:18:56.618+00:00", "epoch": 1792815536.619, "action": "mcp-approval", "cycle": 2, "task": "known-server", "screen": "gemini__holdout__0014-mcp-approval.txt"}
+{"ts": "2026-10-24T04:19:09.262+00:00", "epoch": 1792815549.262, "action": "done", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0015-c2-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:19:11.319+00:00", "epoch": 1792815551.32, "action": "close", "cycle": 2}
+{"ts": "2026-10-24T04:19:43.399+00:00", "epoch": 1792815583.4, "action": "open", "cycle": 3}
+{"ts": "2026-10-24T04:20:00.060+00:00", "epoch": 1792815600.06, "action": "prompt", "cycle": 3, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:20:10.680+00:00", "epoch": 1792815610.68, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0016-c3-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:20:21.248+00:00", "epoch": 1792815621.248, "action": "prompt", "cycle": 3, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:20:23.590+00:00", "epoch": 1792815623.591, "action": "allow-once", "cycle": 3, "task": "test", "screen": "gemini__holdout__0017-allow-once.txt"}
+{"ts": "2026-10-24T04:20:36.219+00:00", "epoch": 1792815636.22, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "gemini__holdout__0018-c3-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:20:46.800+00:00", "epoch": 1792815646.801, "action": "prompt", "cycle": 3, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:20:49.152+00:00", "epoch": 1792815649.153, "action": "allow-once", "cycle": 3, "task": "edit", "screen": "gemini__holdout__0019-allow-once.txt"}
+{"ts": "2026-10-24T04:21:01.798+00:00", "epoch": 1792815661.798, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0020-c3-edit.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:21:12.359+00:00", "epoch": 1792815672.359, "action": "prompt", "cycle": 3, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:21:15.523+00:00", "epoch": 1792815675.524, "action": "mcp-approval", "cycle": 3, "task": "known-server", "screen": "gemini__holdout__0021-mcp-approval.txt"}
+{"ts": "2026-10-24T04:21:28.166+00:00", "epoch": 1792815688.167, "action": "done", "cycle": 3, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0022-c3-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:21:30.218+00:00", "epoch": 1792815690.219, "action": "close", "cycle": 3}
+{"ts": "2026-10-24T04:22:02.299+00:00", "epoch": 1792815722.3, "action": "open", "cycle": 4}
+{"ts": "2026-10-24T04:22:18.992+00:00", "epoch": 1792815738.992, "action": "prompt", "cycle": 4, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:22:29.628+00:00", "epoch": 1792815749.629, "action": "done", "cycle": 4, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0023-c4-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:22:40.199+00:00", "epoch": 1792815760.2, "action": "prompt", "cycle": 4, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:22:42.546+00:00", "epoch": 1792815762.547, "action": "allow-once", "cycle": 4, "task": "test", "screen": "gemini__holdout__0024-allow-once.txt"}
+{"ts": "2026-10-24T04:22:55.180+00:00", "epoch": 1792815775.181, "action": "done", "cycle": 4, "task": "test", "error_reply": false, "screen": "gemini__holdout__0025-c4-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:23:05.728+00:00", "epoch": 1792815785.728, "action": "prompt", "cycle": 4, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:23:09.582+00:00", "epoch": 1792815789.582, "action": "allow-once", "cycle": 4, "task": "edit", "screen": "gemini__holdout__0026-allow-once.txt"}
+{"ts": "2026-10-24T04:23:22.213+00:00", "epoch": 1792815802.213, "action": "done", "cycle": 4, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0027-c4-edit.txt", "seconds": 16.5}
+{"ts": "2026-10-24T04:23:32.787+00:00", "epoch": 1792815812.788, "action": "prompt", "cycle": 4, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:23:35.944+00:00", "epoch": 1792815815.945, "action": "mcp-approval", "cycle": 4, "task": "known-server", "screen": "gemini__holdout__0028-mcp-approval.txt"}
+{"ts": "2026-10-24T04:23:48.573+00:00", "epoch": 1792815828.573, "action": "done", "cycle": 4, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0029-c4-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:23:50.624+00:00", "epoch": 1792815830.625, "action": "close", "cycle": 4}
+{"ts": "2026-10-24T04:24:22.705+00:00", "epoch": 1792815862.706, "action": "open", "cycle": 5}
+{"ts": "2026-10-24T04:24:39.377+00:00", "epoch": 1792815879.377, "action": "prompt", "cycle": 5, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:24:50.029+00:00", "epoch": 1792815890.03, "action": "done", "cycle": 5, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0030-c5-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:25:00.570+00:00", "epoch": 1792815900.57, "action": "prompt", "cycle": 5, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:25:02.937+00:00", "epoch": 1792815902.937, "action": "allow-once", "cycle": 5, "task": "test", "screen": "gemini__holdout__0031-allow-once.txt"}
+{"ts": "2026-10-24T04:25:15.572+00:00", "epoch": 1792815915.573, "action": "done", "cycle": 5, "task": "test", "error_reply": false, "screen": "gemini__holdout__0032-c5-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:25:26.151+00:00", "epoch": 1792815926.152, "action": "prompt", "cycle": 5, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:25:28.502+00:00", "epoch": 1792815928.503, "action": "allow-once", "cycle": 5, "task": "edit", "screen": "gemini__holdout__0033-allow-once.txt"}
+{"ts": "2026-10-24T04:25:44.170+00:00", "epoch": 1792815944.17, "action": "done", "cycle": 5, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0034-c5-edit.txt", "seconds": 18.0}
+{"ts": "2026-10-24T04:25:54.731+00:00", "epoch": 1792815954.732, "action": "prompt", "cycle": 5, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:25:57.900+00:00", "epoch": 1792815957.901, "action": "mcp-approval", "cycle": 5, "task": "known-server", "screen": "gemini__holdout__0035-mcp-approval.txt"}
+{"ts": "2026-10-24T04:26:10.539+00:00", "epoch": 1792815970.539, "action": "done", "cycle": 5, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0036-c5-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:26:12.586+00:00", "epoch": 1792815972.587, "action": "close", "cycle": 5}
+{"ts": "2026-10-24T04:26:44.667+00:00", "epoch": 1792816004.668, "action": "open", "cycle": 6}
+{"ts": "2026-10-24T04:27:01.322+00:00", "epoch": 1792816021.323, "action": "prompt", "cycle": 6, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:27:11.962+00:00", "epoch": 1792816031.962, "action": "done", "cycle": 6, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0037-c6-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:27:22.519+00:00", "epoch": 1792816042.52, "action": "prompt", "cycle": 6, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:27:24.860+00:00", "epoch": 1792816044.86, "action": "allow-once", "cycle": 6, "task": "test", "screen": "gemini__holdout__0038-allow-once.txt"}
+{"ts": "2026-10-24T04:27:37.482+00:00", "epoch": 1792816057.483, "action": "done", "cycle": 6, "task": "test", "error_reply": false, "screen": "gemini__holdout__0039-c6-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:27:48.060+00:00", "epoch": 1792816068.06, "action": "prompt", "cycle": 6, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:27:50.418+00:00", "epoch": 1792816070.419, "action": "allow-once", "cycle": 6, "task": "edit", "screen": "gemini__holdout__0040-allow-once.txt"}
+{"ts": "2026-10-24T04:28:21.272+00:00", "epoch": 1792816101.272, "action": "done", "cycle": 6, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0041-c6-edit.txt", "seconds": 33.2}
+{"ts": "2026-10-24T04:28:31.834+00:00", "epoch": 1792816111.835, "action": "prompt", "cycle": 6, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:28:34.993+00:00", "epoch": 1792816114.994, "action": "mcp-approval", "cycle": 6, "task": "known-server", "screen": "gemini__holdout__0042-mcp-approval.txt"}
+{"ts": "2026-10-24T04:28:47.625+00:00", "epoch": 1792816127.626, "action": "done", "cycle": 6, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0043-c6-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:28:49.675+00:00", "epoch": 1792816129.675, "action": "close", "cycle": 6}
+{"ts": "2026-10-24T04:29:21.782+00:00", "epoch": 1792816161.782, "action": "open", "cycle": 7}
+{"ts": "2026-10-24T04:29:38.422+00:00", "epoch": 1792816178.422, "action": "prompt", "cycle": 7, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:29:49.046+00:00", "epoch": 1792816189.046, "action": "done", "cycle": 7, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0044-c7-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:29:59.602+00:00", "epoch": 1792816199.602, "action": "prompt", "cycle": 7, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:30:01.943+00:00", "epoch": 1792816201.944, "action": "allow-once", "cycle": 7, "task": "test", "screen": "gemini__holdout__0045-allow-once.txt"}
+{"ts": "2026-10-24T04:30:14.579+00:00", "epoch": 1792816214.58, "action": "done", "cycle": 7, "task": "test", "error_reply": false, "screen": "gemini__holdout__0046-c7-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:30:25.152+00:00", "epoch": 1792816225.152, "action": "prompt", "cycle": 7, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:30:29.004+00:00", "epoch": 1792816229.005, "action": "allow-once", "cycle": 7, "task": "edit", "screen": "gemini__holdout__0047-allow-once.txt"}
+{"ts": "2026-10-24T04:30:59.832+00:00", "epoch": 1792816259.832, "action": "done", "cycle": 7, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0048-c7-edit.txt", "seconds": 34.7}
+{"ts": "2026-10-24T04:31:10.404+00:00", "epoch": 1792816270.405, "action": "prompt", "cycle": 7, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:31:13.570+00:00", "epoch": 1792816273.57, "action": "mcp-approval", "cycle": 7, "task": "known-server", "screen": "gemini__holdout__0049-mcp-approval.txt"}
+{"ts": "2026-10-24T04:31:26.191+00:00", "epoch": 1792816286.192, "action": "done", "cycle": 7, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0050-c7-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:31:28.239+00:00", "epoch": 1792816288.239, "action": "close", "cycle": 7}
+{"ts": "2026-10-24T04:32:00.309+00:00", "epoch": 1792816320.31, "action": "open", "cycle": 8}
+{"ts": "2026-10-24T04:32:16.971+00:00", "epoch": 1792816336.972, "action": "prompt", "cycle": 8, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:32:27.597+00:00", "epoch": 1792816347.597, "action": "done", "cycle": 8, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0051-c8-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:32:38.152+00:00", "epoch": 1792816358.152, "action": "prompt", "cycle": 8, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:32:40.502+00:00", "epoch": 1792816360.502, "action": "allow-once", "cycle": 8, "task": "test", "screen": "gemini__holdout__0052-allow-once.txt"}
+{"ts": "2026-10-24T04:32:53.112+00:00", "epoch": 1792816373.112, "action": "done", "cycle": 8, "task": "test", "error_reply": false, "screen": "gemini__holdout__0053-c8-test.txt", "seconds": 14.9}
+{"ts": "2026-10-24T04:33:03.686+00:00", "epoch": 1792816383.686, "action": "prompt", "cycle": 8, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:33:06.042+00:00", "epoch": 1792816386.042, "action": "allow-once", "cycle": 8, "task": "edit", "screen": "gemini__holdout__0054-allow-once.txt"}
+{"ts": "2026-10-24T04:33:27.780+00:00", "epoch": 1792816407.781, "action": "done", "cycle": 8, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0055-c8-edit.txt", "seconds": 24.1}
+{"ts": "2026-10-24T04:33:38.339+00:00", "epoch": 1792816418.34, "action": "prompt", "cycle": 8, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:33:41.503+00:00", "epoch": 1792816421.504, "action": "mcp-approval", "cycle": 8, "task": "known-server", "screen": "gemini__holdout__0056-mcp-approval.txt"}
+{"ts": "2026-10-24T04:33:54.131+00:00", "epoch": 1792816434.131, "action": "done", "cycle": 8, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0057-c8-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:33:56.176+00:00", "epoch": 1792816436.177, "action": "close", "cycle": 8}
+{"ts": "2026-10-24T04:34:28.261+00:00", "epoch": 1792816468.262, "action": "open", "cycle": 9}
+{"ts": "2026-10-24T04:34:44.922+00:00", "epoch": 1792816484.922, "action": "prompt", "cycle": 9, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:34:55.551+00:00", "epoch": 1792816495.552, "action": "done", "cycle": 9, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0058-c9-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:35:06.144+00:00", "epoch": 1792816506.144, "action": "prompt", "cycle": 9, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:35:08.493+00:00", "epoch": 1792816508.494, "action": "allow-once", "cycle": 9, "task": "test", "screen": "gemini__holdout__0059-allow-once.txt"}
+{"ts": "2026-10-24T04:35:21.123+00:00", "epoch": 1792816521.123, "action": "done", "cycle": 9, "task": "test", "error_reply": false, "screen": "gemini__holdout__0060-c9-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:35:31.693+00:00", "epoch": 1792816531.694, "action": "prompt", "cycle": 9, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:35:35.551+00:00", "epoch": 1792816535.552, "action": "allow-once", "cycle": 9, "task": "edit", "screen": "gemini__holdout__0061-allow-once.txt"}
+{"ts": "2026-10-24T04:35:39.903+00:00", "epoch": 1792816539.904, "action": "allow-once", "cycle": 9, "task": "edit", "screen": "gemini__holdout__0062-allow-once.txt"}
+{"ts": "2026-10-24T04:35:52.547+00:00", "epoch": 1792816552.548, "action": "done", "cycle": 9, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0063-c9-edit.txt", "seconds": 20.8}
+{"ts": "2026-10-24T04:36:03.117+00:00", "epoch": 1792816563.118, "action": "prompt", "cycle": 9, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:36:06.270+00:00", "epoch": 1792816566.271, "action": "mcp-approval", "cycle": 9, "task": "known-server", "screen": "gemini__holdout__0064-mcp-approval.txt"}
+{"ts": "2026-10-24T04:36:18.905+00:00", "epoch": 1792816578.906, "action": "done", "cycle": 9, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0065-c9-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:36:20.968+00:00", "epoch": 1792816580.969, "action": "close", "cycle": 9}
+{"ts": "2026-10-24T04:36:53.046+00:00", "epoch": 1792816613.046, "action": "open", "cycle": 10}
+{"ts": "2026-10-24T04:37:09.712+00:00", "epoch": 1792816629.712, "action": "prompt", "cycle": 10, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:37:20.347+00:00", "epoch": 1792816640.347, "action": "done", "cycle": 10, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0066-c10-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:37:30.913+00:00", "epoch": 1792816650.914, "action": "prompt", "cycle": 10, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:37:33.290+00:00", "epoch": 1792816653.29, "action": "allow-once", "cycle": 10, "task": "test", "screen": "gemini__holdout__0067-allow-once.txt"}
+{"ts": "2026-10-24T04:37:45.929+00:00", "epoch": 1792816665.929, "action": "done", "cycle": 10, "task": "test", "error_reply": false, "screen": "gemini__holdout__0068-c10-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:37:56.483+00:00", "epoch": 1792816676.483, "action": "prompt", "cycle": 10, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:37:58.826+00:00", "epoch": 1792816678.827, "action": "allow-once", "cycle": 10, "task": "edit", "screen": "gemini__holdout__0069-allow-once.txt"}
+{"ts": "2026-10-24T04:38:03.175+00:00", "epoch": 1792816683.176, "action": "allow-once", "cycle": 10, "task": "edit", "screen": "gemini__holdout__0070-allow-once.txt"}
+{"ts": "2026-10-24T04:38:23.382+00:00", "epoch": 1792816703.383, "action": "done", "cycle": 10, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0071-c10-edit.txt", "seconds": 26.9}
+{"ts": "2026-10-24T04:38:33.956+00:00", "epoch": 1792816713.956, "action": "prompt", "cycle": 10, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:38:37.118+00:00", "epoch": 1792816717.119, "action": "mcp-approval", "cycle": 10, "task": "known-server", "screen": "gemini__holdout__0072-mcp-approval.txt"}
+{"ts": "2026-10-24T04:38:49.761+00:00", "epoch": 1792816729.762, "action": "done", "cycle": 10, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0073-c10-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:38:51.822+00:00", "epoch": 1792816731.823, "action": "close", "cycle": 10}
+{"ts": "2026-10-24T04:39:23.892+00:00", "epoch": 1792816763.893, "action": "open", "cycle": 11}
+{"ts": "2026-10-24T04:39:40.584+00:00", "epoch": 1792816780.584, "action": "prompt", "cycle": 11, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:39:51.216+00:00", "epoch": 1792816791.217, "action": "done", "cycle": 11, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0074-c11-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:40:01.780+00:00", "epoch": 1792816801.78, "action": "prompt", "cycle": 11, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:40:04.134+00:00", "epoch": 1792816804.134, "action": "allow-once", "cycle": 11, "task": "test", "screen": "gemini__holdout__0075-allow-once.txt"}
+{"ts": "2026-10-24T04:40:16.771+00:00", "epoch": 1792816816.771, "action": "done", "cycle": 11, "task": "test", "error_reply": false, "screen": "gemini__holdout__0076-c11-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:40:27.327+00:00", "epoch": 1792816827.328, "action": "prompt", "cycle": 11, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:40:29.686+00:00", "epoch": 1792816829.686, "action": "allow-once", "cycle": 11, "task": "edit", "screen": "gemini__holdout__0077-allow-once.txt"}
+{"ts": "2026-10-24T04:40:42.330+00:00", "epoch": 1792816842.331, "action": "done", "cycle": 11, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0078-c11-edit.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:40:52.896+00:00", "epoch": 1792816852.897, "action": "prompt", "cycle": 11, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:40:56.053+00:00", "epoch": 1792816856.054, "action": "mcp-approval", "cycle": 11, "task": "known-server", "screen": "gemini__holdout__0079-mcp-approval.txt"}
+{"ts": "2026-10-24T04:41:08.687+00:00", "epoch": 1792816868.688, "action": "done", "cycle": 11, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0080-c11-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:41:10.733+00:00", "epoch": 1792816870.733, "action": "close", "cycle": 11}
+{"ts": "2026-10-24T04:41:42.809+00:00", "epoch": 1792816902.81, "action": "open", "cycle": 12}
+{"ts": "2026-10-24T04:41:59.474+00:00", "epoch": 1792816919.475, "action": "prompt", "cycle": 12, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:42:10.113+00:00", "epoch": 1792816930.114, "action": "done", "cycle": 12, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0081-c12-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:42:20.672+00:00", "epoch": 1792816940.673, "action": "prompt", "cycle": 12, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:42:23.020+00:00", "epoch": 1792816943.02, "action": "allow-once", "cycle": 12, "task": "test", "screen": "gemini__holdout__0082-allow-once.txt"}
+{"ts": "2026-10-24T04:42:35.656+00:00", "epoch": 1792816955.657, "action": "done", "cycle": 12, "task": "test", "error_reply": false, "screen": "gemini__holdout__0083-c12-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:42:46.227+00:00", "epoch": 1792816966.227, "action": "prompt", "cycle": 12, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:42:50.100+00:00", "epoch": 1792816970.1, "action": "allow-once", "cycle": 12, "task": "edit", "screen": "gemini__holdout__0084-allow-once.txt"}
+{"ts": "2026-10-24T04:42:54.439+00:00", "epoch": 1792816974.44, "action": "allow-once", "cycle": 12, "task": "edit", "screen": "gemini__holdout__0085-allow-once.txt"}
+{"ts": "2026-10-24T04:43:08.588+00:00", "epoch": 1792816988.588, "action": "done", "cycle": 12, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0086-c12-edit.txt", "seconds": 22.3}
+{"ts": "2026-10-24T04:43:19.154+00:00", "epoch": 1792816999.155, "action": "prompt", "cycle": 12, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:43:23.832+00:00", "epoch": 1792817003.832, "action": "mcp-approval", "cycle": 12, "task": "known-server", "screen": "gemini__holdout__0087-mcp-approval.txt"}
+{"ts": "2026-10-24T04:43:36.455+00:00", "epoch": 1792817016.456, "action": "done", "cycle": 12, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0088-c12-known-server.txt", "seconds": 17.3}
+{"ts": "2026-10-24T04:43:38.505+00:00", "epoch": 1792817018.505, "action": "close", "cycle": 12}
+{"ts": "2026-10-24T04:44:10.578+00:00", "epoch": 1792817050.579, "action": "open", "cycle": 13}
+{"ts": "2026-10-24T04:44:27.229+00:00", "epoch": 1792817067.23, "action": "prompt", "cycle": 13, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:44:37.860+00:00", "epoch": 1792817077.86, "action": "done", "cycle": 13, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0089-c13-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:44:48.421+00:00", "epoch": 1792817088.422, "action": "prompt", "cycle": 13, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:44:50.758+00:00", "epoch": 1792817090.759, "action": "allow-once", "cycle": 13, "task": "test", "screen": "gemini__holdout__0090-allow-once.txt"}
+{"ts": "2026-10-24T04:45:03.394+00:00", "epoch": 1792817103.394, "action": "done", "cycle": 13, "task": "test", "error_reply": false, "screen": "gemini__holdout__0091-c13-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:45:13.961+00:00", "epoch": 1792817113.962, "action": "prompt", "cycle": 13, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:45:16.299+00:00", "epoch": 1792817116.299, "action": "allow-once", "cycle": 13, "task": "edit", "screen": "gemini__holdout__0092-allow-once.txt"}
+{"ts": "2026-10-24T04:45:20.647+00:00", "epoch": 1792817120.647, "action": "allow-once", "cycle": 13, "task": "edit", "screen": "gemini__holdout__0093-allow-once.txt"}
+{"ts": "2026-10-24T04:45:33.281+00:00", "epoch": 1792817133.282, "action": "done", "cycle": 13, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0094-c13-edit.txt", "seconds": 19.3}
+{"ts": "2026-10-24T04:45:43.864+00:00", "epoch": 1792817143.864, "action": "prompt", "cycle": 13, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:45:47.035+00:00", "epoch": 1792817147.035, "action": "mcp-approval", "cycle": 13, "task": "known-server", "screen": "gemini__holdout__0095-mcp-approval.txt"}
+{"ts": "2026-10-24T04:45:59.665+00:00", "epoch": 1792817159.666, "action": "done", "cycle": 13, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0096-c13-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:46:01.716+00:00", "epoch": 1792817161.716, "action": "close", "cycle": 13}
+{"ts": "2026-10-24T04:46:33.787+00:00", "epoch": 1792817193.788, "action": "open", "cycle": 14}
+{"ts": "2026-10-24T04:46:50.459+00:00", "epoch": 1792817210.46, "action": "prompt", "cycle": 14, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:47:01.081+00:00", "epoch": 1792817221.081, "action": "done", "cycle": 14, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0097-c14-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:47:11.640+00:00", "epoch": 1792817231.64, "action": "prompt", "cycle": 14, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:47:13.990+00:00", "epoch": 1792817233.991, "action": "allow-once", "cycle": 14, "task": "test", "screen": "gemini__holdout__0098-allow-once.txt"}
+{"ts": "2026-10-24T04:47:26.605+00:00", "epoch": 1792817246.606, "action": "done", "cycle": 14, "task": "test", "error_reply": false, "screen": "gemini__holdout__0099-c14-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:47:37.184+00:00", "epoch": 1792817257.185, "action": "prompt", "cycle": 14, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:47:39.525+00:00", "epoch": 1792817259.526, "action": "allow-once", "cycle": 14, "task": "edit", "screen": "gemini__holdout__0100-allow-once.txt"}
+{"ts": "2026-10-24T04:47:43.883+00:00", "epoch": 1792817263.883, "action": "allow-once", "cycle": 14, "task": "edit", "screen": "gemini__holdout__0101-allow-once.txt"}
+{"ts": "2026-10-24T04:47:56.512+00:00", "epoch": 1792817276.513, "action": "done", "cycle": 14, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0102-c14-edit.txt", "seconds": 19.3}
+{"ts": "2026-10-24T04:48:07.063+00:00", "epoch": 1792817287.064, "action": "prompt", "cycle": 14, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:48:10.229+00:00", "epoch": 1792817290.229, "action": "mcp-approval", "cycle": 14, "task": "known-server", "screen": "gemini__holdout__0103-mcp-approval.txt"}
+{"ts": "2026-10-24T04:48:22.870+00:00", "epoch": 1792817302.871, "action": "done", "cycle": 14, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0104-c14-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:48:24.922+00:00", "epoch": 1792817304.923, "action": "close", "cycle": 14}
+{"ts": "2026-10-24T04:48:56.993+00:00", "epoch": 1792817336.994, "action": "open", "cycle": 15}
+{"ts": "2026-10-24T04:49:13.682+00:00", "epoch": 1792817353.683, "action": "prompt", "cycle": 15, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:49:24.313+00:00", "epoch": 1792817364.314, "action": "done", "cycle": 15, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0105-c15-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:49:34.889+00:00", "epoch": 1792817374.89, "action": "prompt", "cycle": 15, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:49:37.235+00:00", "epoch": 1792817377.236, "action": "allow-once", "cycle": 15, "task": "test", "screen": "gemini__holdout__0106-allow-once.txt"}
+{"ts": "2026-10-24T04:49:49.872+00:00", "epoch": 1792817389.872, "action": "done", "cycle": 15, "task": "test", "error_reply": false, "screen": "gemini__holdout__0107-c15-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:50:00.432+00:00", "epoch": 1792817400.433, "action": "prompt", "cycle": 15, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:50:04.300+00:00", "epoch": 1792817404.301, "action": "allow-once", "cycle": 15, "task": "edit", "screen": "gemini__holdout__0108-allow-once.txt"}
+{"ts": "2026-10-24T04:50:19.960+00:00", "epoch": 1792817419.961, "action": "done", "cycle": 15, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0109-c15-edit.txt", "seconds": 19.5}
+{"ts": "2026-10-24T04:50:30.524+00:00", "epoch": 1792817430.524, "action": "prompt", "cycle": 15, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:50:33.698+00:00", "epoch": 1792817433.699, "action": "mcp-approval", "cycle": 15, "task": "known-server", "screen": "gemini__holdout__0110-mcp-approval.txt"}
+{"ts": "2026-10-24T04:50:46.323+00:00", "epoch": 1792817446.323, "action": "done", "cycle": 15, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0111-c15-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:50:48.376+00:00", "epoch": 1792817448.377, "action": "close", "cycle": 15}
+{"ts": "2026-10-24T04:51:20.454+00:00", "epoch": 1792817480.454, "action": "open", "cycle": 16}
+{"ts": "2026-10-24T04:51:37.133+00:00", "epoch": 1792817497.134, "action": "prompt", "cycle": 16, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:51:47.766+00:00", "epoch": 1792817507.767, "action": "done", "cycle": 16, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0112-c16-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:51:58.331+00:00", "epoch": 1792817518.332, "action": "prompt", "cycle": 16, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:52:00.673+00:00", "epoch": 1792817520.673, "action": "allow-once", "cycle": 16, "task": "test", "screen": "gemini__holdout__0113-allow-once.txt"}
+{"ts": "2026-10-24T04:52:13.323+00:00", "epoch": 1792817533.324, "action": "done", "cycle": 16, "task": "test", "error_reply": false, "screen": "gemini__holdout__0114-c16-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:52:23.902+00:00", "epoch": 1792817543.902, "action": "prompt", "cycle": 16, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:52:27.771+00:00", "epoch": 1792817547.772, "action": "allow-once", "cycle": 16, "task": "edit", "screen": "gemini__holdout__0115-allow-once.txt"}
+{"ts": "2026-10-24T04:52:57.081+00:00", "epoch": 1792817577.081, "action": "done", "cycle": 16, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0116-c16-edit.txt", "seconds": 33.2}
+{"ts": "2026-10-24T04:53:07.637+00:00", "epoch": 1792817587.638, "action": "prompt", "cycle": 16, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:53:10.795+00:00", "epoch": 1792817590.795, "action": "mcp-approval", "cycle": 16, "task": "known-server", "screen": "gemini__holdout__0117-mcp-approval.txt"}
+{"ts": "2026-10-24T04:53:23.440+00:00", "epoch": 1792817603.441, "action": "done", "cycle": 16, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0118-c16-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:53:25.496+00:00", "epoch": 1792817605.497, "action": "close", "cycle": 16}
+{"ts": "2026-10-24T04:53:57.571+00:00", "epoch": 1792817637.571, "action": "open", "cycle": 17}
+{"ts": "2026-10-24T04:54:14.259+00:00", "epoch": 1792817654.259, "action": "prompt", "cycle": 17, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:54:24.892+00:00", "epoch": 1792817664.893, "action": "done", "cycle": 17, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0119-c17-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:54:35.455+00:00", "epoch": 1792817675.455, "action": "prompt", "cycle": 17, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:54:37.798+00:00", "epoch": 1792817677.799, "action": "allow-once", "cycle": 17, "task": "test", "screen": "gemini__holdout__0120-allow-once.txt"}
+{"ts": "2026-10-24T04:54:50.428+00:00", "epoch": 1792817690.428, "action": "done", "cycle": 17, "task": "test", "error_reply": false, "screen": "gemini__holdout__0121-c17-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:55:00.991+00:00", "epoch": 1792817700.992, "action": "prompt", "cycle": 17, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:55:03.354+00:00", "epoch": 1792817703.354, "action": "allow-once", "cycle": 17, "task": "edit", "screen": "gemini__holdout__0122-allow-once.txt"}
+{"ts": "2026-10-24T04:55:07.700+00:00", "epoch": 1792817707.7, "action": "allow-once", "cycle": 17, "task": "edit", "screen": "gemini__holdout__0123-allow-once.txt"}
+{"ts": "2026-10-24T04:55:37.008+00:00", "epoch": 1792817737.009, "action": "done", "cycle": 17, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0124-c17-edit.txt", "seconds": 36.0}
+{"ts": "2026-10-24T04:55:47.571+00:00", "epoch": 1792817747.572, "action": "prompt", "cycle": 17, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:55:50.746+00:00", "epoch": 1792817750.746, "action": "mcp-approval", "cycle": 17, "task": "known-server", "screen": "gemini__holdout__0125-mcp-approval.txt"}
+{"ts": "2026-10-24T04:56:03.391+00:00", "epoch": 1792817763.391, "action": "done", "cycle": 17, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0126-c17-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:56:05.444+00:00", "epoch": 1792817765.445, "action": "close", "cycle": 17}
+{"ts": "2026-10-24T04:56:37.518+00:00", "epoch": 1792817797.518, "action": "open", "cycle": 18}
+{"ts": "2026-10-24T04:56:54.160+00:00", "epoch": 1792817814.16, "action": "prompt", "cycle": 18, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:57:04.791+00:00", "epoch": 1792817824.792, "action": "done", "cycle": 18, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0127-c18-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:57:15.360+00:00", "epoch": 1792817835.361, "action": "prompt", "cycle": 18, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:57:17.702+00:00", "epoch": 1792817837.703, "action": "allow-once", "cycle": 18, "task": "test", "screen": "gemini__holdout__0128-allow-once.txt"}
+{"ts": "2026-10-24T04:57:30.344+00:00", "epoch": 1792817850.344, "action": "done", "cycle": 18, "task": "test", "error_reply": false, "screen": "gemini__holdout__0129-c18-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T04:57:40.905+00:00", "epoch": 1792817860.905, "action": "prompt", "cycle": 18, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T04:57:43.251+00:00", "epoch": 1792817863.252, "action": "allow-once", "cycle": 18, "task": "edit", "screen": "gemini__holdout__0130-allow-once.txt"}
+{"ts": "2026-10-24T04:57:58.933+00:00", "epoch": 1792817878.933, "action": "done", "cycle": 18, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0131-c18-edit.txt", "seconds": 18.0}
+{"ts": "2026-10-24T04:58:09.505+00:00", "epoch": 1792817889.506, "action": "prompt", "cycle": 18, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T04:58:12.667+00:00", "epoch": 1792817892.668, "action": "mcp-approval", "cycle": 18, "task": "known-server", "screen": "gemini__holdout__0132-mcp-approval.txt"}
+{"ts": "2026-10-24T04:58:25.289+00:00", "epoch": 1792817905.29, "action": "done", "cycle": 18, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0133-c18-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T04:58:27.343+00:00", "epoch": 1792817907.343, "action": "close", "cycle": 18}
+{"ts": "2026-10-24T04:58:59.419+00:00", "epoch": 1792817939.419, "action": "open", "cycle": 19}
+{"ts": "2026-10-24T04:59:16.071+00:00", "epoch": 1792817956.072, "action": "prompt", "cycle": 19, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T04:59:26.710+00:00", "epoch": 1792817966.711, "action": "done", "cycle": 19, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0134-c19-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T04:59:37.283+00:00", "epoch": 1792817977.283, "action": "prompt", "cycle": 19, "task": "test", "reads": 1}
+{"ts": "2026-10-24T04:59:39.624+00:00", "epoch": 1792817979.624, "action": "allow-once", "cycle": 19, "task": "test", "screen": "gemini__holdout__0135-allow-once.txt"}
+{"ts": "2026-10-24T04:59:52.250+00:00", "epoch": 1792817992.251, "action": "done", "cycle": 19, "task": "test", "error_reply": false, "screen": "gemini__holdout__0136-c19-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:00:02.803+00:00", "epoch": 1792818002.804, "action": "prompt", "cycle": 19, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:00:06.665+00:00", "epoch": 1792818006.666, "action": "allow-once", "cycle": 19, "task": "edit", "screen": "gemini__holdout__0137-allow-once.txt"}
+{"ts": "2026-10-24T05:00:11.012+00:00", "epoch": 1792818011.013, "action": "allow-once", "cycle": 19, "task": "edit", "screen": "gemini__holdout__0138-allow-once.txt"}
+{"ts": "2026-10-24T05:00:23.659+00:00", "epoch": 1792818023.66, "action": "done", "cycle": 19, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0139-c19-edit.txt", "seconds": 20.8}
+{"ts": "2026-10-24T05:00:34.227+00:00", "epoch": 1792818034.228, "action": "prompt", "cycle": 19, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:00:37.410+00:00", "epoch": 1792818037.41, "action": "mcp-approval", "cycle": 19, "task": "known-server", "screen": "gemini__holdout__0140-mcp-approval.txt"}
+{"ts": "2026-10-24T05:00:50.050+00:00", "epoch": 1792818050.05, "action": "done", "cycle": 19, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0141-c19-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:00:52.094+00:00", "epoch": 1792818052.095, "action": "close", "cycle": 19}
+{"ts": "2026-10-24T05:01:24.168+00:00", "epoch": 1792818084.168, "action": "open", "cycle": 20}
+{"ts": "2026-10-24T05:01:40.835+00:00", "epoch": 1792818100.835, "action": "prompt", "cycle": 20, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:01:51.482+00:00", "epoch": 1792818111.482, "action": "done", "cycle": 20, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0142-c20-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:02:02.044+00:00", "epoch": 1792818122.045, "action": "prompt", "cycle": 20, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:02:04.390+00:00", "epoch": 1792818124.391, "action": "allow-once", "cycle": 20, "task": "test", "screen": "gemini__holdout__0143-allow-once.txt"}
+{"ts": "2026-10-24T05:02:17.041+00:00", "epoch": 1792818137.041, "action": "done", "cycle": 20, "task": "test", "error_reply": false, "screen": "gemini__holdout__0144-c20-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:02:27.609+00:00", "epoch": 1792818147.609, "action": "prompt", "cycle": 20, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:02:29.958+00:00", "epoch": 1792818149.959, "action": "allow-once", "cycle": 20, "task": "edit", "screen": "gemini__holdout__0145-allow-once.txt"}
+{"ts": "2026-10-24T05:02:47.941+00:00", "epoch": 1792818167.942, "action": "allow-once", "cycle": 20, "task": "edit", "screen": "gemini__holdout__0146-allow-once.txt"}
+{"ts": "2026-10-24T05:03:00.578+00:00", "epoch": 1792818180.578, "action": "done", "cycle": 20, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0147-c20-edit.txt", "seconds": 33.0}
+{"ts": "2026-10-24T05:03:11.141+00:00", "epoch": 1792818191.141, "action": "prompt", "cycle": 20, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:03:14.303+00:00", "epoch": 1792818194.304, "action": "mcp-approval", "cycle": 20, "task": "known-server", "screen": "gemini__holdout__0148-mcp-approval.txt"}
+{"ts": "2026-10-24T05:03:26.946+00:00", "epoch": 1792818206.947, "action": "done", "cycle": 20, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0149-c20-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:03:28.999+00:00", "epoch": 1792818209.0, "action": "close", "cycle": 20}
+{"ts": "2026-10-24T05:04:01.075+00:00", "epoch": 1792818241.076, "action": "open", "cycle": 21}
+{"ts": "2026-10-24T05:04:17.773+00:00", "epoch": 1792818257.774, "action": "prompt", "cycle": 21, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:04:28.421+00:00", "epoch": 1792818268.421, "action": "done", "cycle": 21, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0150-c21-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:04:38.983+00:00", "epoch": 1792818278.984, "action": "prompt", "cycle": 21, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:04:41.325+00:00", "epoch": 1792818281.325, "action": "allow-once", "cycle": 21, "task": "test", "screen": "gemini__holdout__0151-allow-once.txt"}
+{"ts": "2026-10-24T05:04:53.963+00:00", "epoch": 1792818293.964, "action": "done", "cycle": 21, "task": "test", "error_reply": false, "screen": "gemini__holdout__0152-c21-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:05:04.518+00:00", "epoch": 1792818304.519, "action": "prompt", "cycle": 21, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:05:08.376+00:00", "epoch": 1792818308.377, "action": "allow-once", "cycle": 21, "task": "edit", "screen": "gemini__holdout__0153-allow-once.txt"}
+{"ts": "2026-10-24T05:05:21.017+00:00", "epoch": 1792818321.018, "action": "done", "cycle": 21, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0154-c21-edit.txt", "seconds": 16.5}
+{"ts": "2026-10-24T05:05:31.580+00:00", "epoch": 1792818331.58, "action": "prompt", "cycle": 21, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:05:34.746+00:00", "epoch": 1792818334.747, "action": "mcp-approval", "cycle": 21, "task": "known-server", "screen": "gemini__holdout__0155-mcp-approval.txt"}
+{"ts": "2026-10-24T05:05:47.382+00:00", "epoch": 1792818347.383, "action": "done", "cycle": 21, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0156-c21-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:05:49.434+00:00", "epoch": 1792818349.435, "action": "close", "cycle": 21}
+{"ts": "2026-10-24T05:06:21.516+00:00", "epoch": 1792818381.517, "action": "open", "cycle": 22}
+{"ts": "2026-10-24T05:06:38.245+00:00", "epoch": 1792818398.245, "action": "prompt", "cycle": 22, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:06:48.867+00:00", "epoch": 1792818408.867, "action": "done", "cycle": 22, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0157-c22-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:06:59.434+00:00", "epoch": 1792818419.434, "action": "prompt", "cycle": 22, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:07:01.780+00:00", "epoch": 1792818421.78, "action": "allow-once", "cycle": 22, "task": "test", "screen": "gemini__holdout__0158-allow-once.txt"}
+{"ts": "2026-10-24T05:07:14.417+00:00", "epoch": 1792818434.417, "action": "done", "cycle": 22, "task": "test", "error_reply": false, "screen": "gemini__holdout__0159-c22-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:07:24.985+00:00", "epoch": 1792818444.985, "action": "prompt", "cycle": 22, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:07:28.857+00:00", "epoch": 1792818448.857, "action": "allow-once", "cycle": 22, "task": "edit", "screen": "gemini__holdout__0160-allow-once.txt"}
+{"ts": "2026-10-24T05:07:39.262+00:00", "epoch": 1792818459.263, "action": "allow-once", "cycle": 22, "task": "edit", "screen": "gemini__holdout__0161-allow-once.txt"}
+{"ts": "2026-10-24T05:07:57.966+00:00", "epoch": 1792818477.967, "action": "done", "cycle": 22, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0162-c22-edit.txt", "seconds": 33.0}
+{"ts": "2026-10-24T05:08:08.532+00:00", "epoch": 1792818488.532, "action": "prompt", "cycle": 22, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:08:11.696+00:00", "epoch": 1792818491.696, "action": "mcp-approval", "cycle": 22, "task": "known-server", "screen": "gemini__holdout__0163-mcp-approval.txt"}
+{"ts": "2026-10-24T05:08:24.342+00:00", "epoch": 1792818504.342, "action": "done", "cycle": 22, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0164-c22-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:08:26.392+00:00", "epoch": 1792818506.392, "action": "close", "cycle": 22}
+{"ts": "2026-10-24T05:08:58.462+00:00", "epoch": 1792818538.462, "action": "open", "cycle": 23}
+{"ts": "2026-10-24T05:09:15.115+00:00", "epoch": 1792818555.116, "action": "prompt", "cycle": 23, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:09:25.755+00:00", "epoch": 1792818565.755, "action": "done", "cycle": 23, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0165-c23-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:09:36.324+00:00", "epoch": 1792818576.324, "action": "prompt", "cycle": 23, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:09:38.668+00:00", "epoch": 1792818578.669, "action": "allow-once", "cycle": 23, "task": "test", "screen": "gemini__holdout__0166-allow-once.txt"}
+{"ts": "2026-10-24T05:09:51.295+00:00", "epoch": 1792818591.295, "action": "done", "cycle": 23, "task": "test", "error_reply": false, "screen": "gemini__holdout__0167-c23-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:10:01.852+00:00", "epoch": 1792818601.852, "action": "prompt", "cycle": 23, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:10:05.715+00:00", "epoch": 1792818605.716, "action": "allow-once", "cycle": 23, "task": "edit", "screen": "gemini__holdout__0168-allow-once.txt"}
+{"ts": "2026-10-24T05:10:35.027+00:00", "epoch": 1792818635.028, "action": "done", "cycle": 23, "task": "edit", "error_reply": true, "screen": "gemini__holdout__0169-c23-edit.txt", "seconds": 33.2}
+{"ts": "2026-10-24T05:10:45.589+00:00", "epoch": 1792818645.589, "action": "prompt", "cycle": 23, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:10:48.749+00:00", "epoch": 1792818648.75, "action": "mcp-approval", "cycle": 23, "task": "known-server", "screen": "gemini__holdout__0170-mcp-approval.txt"}
+{"ts": "2026-10-24T05:11:01.384+00:00", "epoch": 1792818661.384, "action": "done", "cycle": 23, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0171-c23-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:11:03.441+00:00", "epoch": 1792818663.442, "action": "close", "cycle": 23}
+{"ts": "2026-10-24T05:11:35.521+00:00", "epoch": 1792818695.521, "action": "open", "cycle": 24}
+{"ts": "2026-10-24T05:11:52.185+00:00", "epoch": 1792818712.185, "action": "prompt", "cycle": 24, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:12:02.818+00:00", "epoch": 1792818722.818, "action": "done", "cycle": 24, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0172-c24-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:12:13.396+00:00", "epoch": 1792818733.396, "action": "prompt", "cycle": 24, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:12:15.747+00:00", "epoch": 1792818735.748, "action": "allow-once", "cycle": 24, "task": "test", "screen": "gemini__holdout__0173-allow-once.txt"}
+{"ts": "2026-10-24T05:12:28.376+00:00", "epoch": 1792818748.377, "action": "done", "cycle": 24, "task": "test", "error_reply": false, "screen": "gemini__holdout__0174-c24-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:12:38.941+00:00", "epoch": 1792818758.942, "action": "prompt", "cycle": 24, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T05:12:41.283+00:00", "epoch": 1792818761.283, "action": "allow-once", "cycle": 24, "task": "edit", "screen": "gemini__holdout__0175-allow-once.txt"}
+{"ts": "2026-10-24T05:13:01.510+00:00", "epoch": 1792818781.51, "action": "done", "cycle": 24, "task": "edit", "error_reply": false, "screen": "gemini__holdout__0176-c24-edit.txt", "seconds": 22.6}
+{"ts": "2026-10-24T05:13:12.089+00:00", "epoch": 1792818792.09, "action": "prompt", "cycle": 24, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T05:13:15.251+00:00", "epoch": 1792818795.251, "action": "mcp-approval", "cycle": 24, "task": "known-server", "screen": "gemini__holdout__0177-mcp-approval.txt"}
+{"ts": "2026-10-24T05:13:27.885+00:00", "epoch": 1792818807.885, "action": "done", "cycle": 24, "task": "known-server", "error_reply": false, "screen": "gemini__holdout__0178-c24-known-server.txt", "seconds": 15.8}
+{"ts": "2026-10-24T05:13:29.929+00:00", "epoch": 1792818809.929, "action": "close", "cycle": 24}
+{"ts": "2026-10-24T05:14:02.005+00:00", "epoch": 1792818842.005, "action": "open", "cycle": 25}
+{"ts": "2026-10-24T05:14:18.696+00:00", "epoch": 1792818858.696, "action": "prompt", "cycle": 25, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T05:14:29.333+00:00", "epoch": 1792818869.334, "action": "done", "cycle": 25, "task": "explain", "error_reply": false, "screen": "gemini__holdout__0179-c25-explain.txt", "seconds": 10.6}
+{"ts": "2026-10-24T05:14:39.907+00:00", "epoch": 1792818879.908, "action": "prompt", "cycle": 25, "task": "test", "reads": 1}
+{"ts": "2026-10-24T05:14:42.270+00:00", "epoch": 1792818882.271, "action": "allow-once", "cycle": 25, "task": "test", "screen": "gemini__holdout__0180-allow-once.txt"}
+{"ts": "2026-10-24T05:14:54.902+00:00", "epoch": 1792818894.902, "action": "done", "cycle": 25, "task": "test", "error_reply": false, "screen": "gemini__holdout__0181-c25-test.txt", "seconds": 15.0}
+{"ts": "2026-10-24T05:14:56.949+00:00", "epoch": 1792818896.95, "action": "close", "cycle": 25}
+{"ts": "2026-10-24T05:15:26.955+00:00", "epoch": 1792818926.956, "action": "session-end", "cycles": 25, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 25, "server_cycles": 24, "tasks_prompted": 98, "tasks_done": 98, "done_share": 1.0, "known_server_calls": 24, "known_server_calls_per_cycle": 1.0, "ok": true}}

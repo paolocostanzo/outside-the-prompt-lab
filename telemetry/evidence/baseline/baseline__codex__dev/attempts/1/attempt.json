@@ -1,0 +1,37 @@
+{
+ "status": "session-not-counted",
+ "at": "2026-10-23T08:31:58+00:00",
+ "problems": [
+  "quota observer: 1 capture error(s), e.g. 'no server running on /tmp/tmux-1000/default'",
+  "quota or rate limit reached (observer): 'usage limit' (stop: Paolo's rule)",
+  "quota or rate limit reached: 'usage limit' (stop: Paolo's rule)",
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 16, 'server_cycles': 15, 'tasks_prompted': 61, 'tasks_done': 60, 'done_share': 0.9836065573770492, 'known_server_calls': 15, 'known_server_calls_per_cycle': 1.0, 'ok': True}"
+ ],
+ "t0": 1792741854,
+ "t1": 1792744259,
+ "session": {
+  "client": "codex",
+  "part": "dev",
+  "minutes": 60.0,
+  "t_start": 1792741855.239602,
+  "t_end": 1792744258.9086974,
+  "definitions_served": [
+   "A"
+  ],
+  "definition_changed": false,
+  "workload": {
+   "cycles": 16,
+   "server_cycles": 15,
+   "tasks_prompted": 61,
+   "tasks_done": 60,
+   "done_share": 0.9836065573770492,
+   "known_server_calls": 15,
+   "known_server_calls_per_cycle": 1.0,
+   "ok": true
+  },
+  "quota_exhausted": true,
+  "quota_message": "usage limit",
+  "error_replies": 0,
+  "valid": false
+ }
+}

@@ -1,0 +1,12 @@
+{"ts": "2026-10-22T17:19:45+00:00", "event": "pre-revert", "run": "gemini__q3-silent__r1", "order6plus": 91}
+{"ts": "2026-10-22T17:20:31+00:00", "event": "run-start", "n": 1, "of": 3, "run": "gemini__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:23:07+00:00", "event": "run-end", "run": "gemini__q3-silent__r1", "rc": 0, "seconds": 135, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:23:07+00:00", "event": "pre-revert", "run": "gemini__q3-announced__r1", "order6plus": 16}
+{"ts": "2026-10-22T17:23:08+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:23:50+00:00", "event": "run-start", "n": 2, "of": 3, "run": "gemini__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:26:43+00:00", "event": "run-end", "run": "gemini__q3-announced__r1", "rc": 0, "seconds": 151, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:26:43+00:00", "event": "pre-revert", "run": "gemini__q5-start__r1", "order6plus": 61}
+{"ts": "2026-10-22T17:26:44+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:27:27+00:00", "event": "run-start", "n": 3, "of": 3, "run": "gemini__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:28:51+00:00", "event": "run-end", "run": "gemini__q5-start__r1", "rc": 0, "seconds": 63, "export": "ok", "client_logs": "wrote-nothing-in-session"}
+{"ts": "2026-10-22T17:28:51+00:00", "event": "events-done", "runs": 3}

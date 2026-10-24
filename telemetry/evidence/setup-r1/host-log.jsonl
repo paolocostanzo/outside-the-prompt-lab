@@ -1,0 +1,18 @@
+{"ts": "2026-10-22T13:35:43+00:00", "event": "session-start", "n": 1, "of": 6, "session": "baseline__goose__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T13:42:08+00:00", "event": "setup-session-recorded", "session": "baseline__goose__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 4, 'tasks_prompted': 16, 'tasks_done': 4, 'done_share': 0.25, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"]}
+{"ts": "2026-10-22T13:42:09+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T13:42:43+00:00", "event": "session-start", "n": 2, "of": 6, "session": "baseline__codex__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T13:53:30+00:00", "event": "setup-session-recorded", "session": "baseline__codex__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 4, 'tasks_prompted': 13, 'tasks_done': 12, 'done_share': 0.9230769230769231, 'known_server_calls': 3, 'known_server_calls_per_cycle': 0.75, 'ok': False}"]}
+{"ts": "2026-10-22T13:53:31+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T13:54:11+00:00", "event": "session-start", "n": 3, "of": 6, "session": "baseline__qwen__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T14:01:22+00:00", "event": "session-end", "session": "baseline__qwen__setup", "seconds": 409, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-22T14:01:23+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T14:01:59+00:00", "event": "session-start", "n": 4, "of": 6, "session": "baseline__claude-code__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T14:09:07+00:00", "event": "setup-session-recorded", "session": "baseline__claude-code__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 2, 'tasks_prompted': 5, 'tasks_done': 4, 'done_share': 0.8, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"]}
+{"ts": "2026-10-22T14:09:07+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T14:09:45+00:00", "event": "session-start", "n": 5, "of": 6, "session": "baseline__gemini__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T14:17:35+00:00", "event": "setup-session-recorded", "session": "baseline__gemini__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 2, 'tasks_prompted': 7, 'tasks_done': 7, 'done_share': 1.0, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"]}
+{"ts": "2026-10-22T14:17:36+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T14:18:12+00:00", "event": "session-start", "n": 6, "of": 6, "session": "baseline__cursor-agent__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T14:25:24+00:00", "event": "setup-session-recorded", "session": "baseline__cursor-agent__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 4, 'tasks_prompted': 15, 'tasks_done': 15, 'done_share': 1.0, 'known_server_calls': 3, 'known_server_calls_per_cycle': 0.75, 'ok': False}"]}
+{"ts": "2026-10-22T14:25:24+00:00", "event": "baseline-done", "sessions": 6, "local_engine_repetition": "not implemented, not done"}

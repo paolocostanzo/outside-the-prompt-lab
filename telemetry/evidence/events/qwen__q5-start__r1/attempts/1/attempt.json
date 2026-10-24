@@ -1,0 +1,10 @@
+{
+ "status": "not-usable",
+ "at": "2026-10-22T18:18:45+00:00",
+ "problems": [
+  "quota or rate limit reached: quota observer: 1 capture error(s), e.g. 'no server running on /tmp/tmux-1000/default' (stop: Paolo's rule)"
+ ],
+ "t0": 1792693080,
+ "t1": 1792693104,
+ "cell_rc": 0
+}

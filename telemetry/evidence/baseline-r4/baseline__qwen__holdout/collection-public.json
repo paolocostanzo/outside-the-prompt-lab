@@ -1,0 +1,68 @@
+{
+ "client": "qwen",
+ "start": 1792811566,
+ "end": 1792815181,
+ "export": "ok",
+ "client_logs": "wrote",
+ "files": 70,
+ "files_modified_in_session": 57,
+ "patterns": [
+  {
+   "pattern": "~/.qwen/tmp/**/logs.json",
+   "location": "present",
+   "files": 3,
+   "with_records_in_session": 1,
+   "without_timestamps": 2
+  },
+  {
+   "pattern": "~/.qwen/tmp/**/chats/**",
+   "location": "present",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.qwen/debug/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.qwen/logs/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.qwen/projects/**/chats/**",
+   "location": "present",
+   "files": 64,
+   "with_records_in_session": 27,
+   "without_timestamps": 33
+  },
+  {
+   "pattern": "~/.qwen/usage/**",
+   "location": "present",
+   "files": 2,
+   "with_records_in_session": 1,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.qwen/usage_record.jsonl",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 1,
+   "without_timestamps": 0
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.qwen/settings.json": "4bcc9daac83b75fe9177814214eb6ce425cc715077ad698307c8e9809a495478"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

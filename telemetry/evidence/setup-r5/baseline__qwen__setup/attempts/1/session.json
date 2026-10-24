@@ -1,0 +1,25 @@
+{
+ "client": "qwen",
+ "part": "setup",
+ "minutes": 15.0,
+ "t_start": 1792759204.9469976,
+ "t_end": 1792759824.7652185,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 3,
+  "server_cycles": 3,
+  "tasks_prompted": 12,
+  "tasks_done": 11,
+  "done_share": 0.9166666666666666,
+  "known_server_calls": 2,
+  "known_server_calls_per_cycle": 0.6666666666666666,
+  "ok": false
+ },
+ "quota_exhausted": true,
+ "quota_message": "exceeded your current quota",
+ "error_replies": 0,
+ "valid": false
+}

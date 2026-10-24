@@ -1,0 +1,25 @@
+{
+ "client": "gemini",
+ "part": "holdout",
+ "minutes": 60.0,
+ "t_start": 1792815274.6089401,
+ "t_end": 1792818926.9560173,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 25,
+  "server_cycles": 24,
+  "tasks_prompted": 98,
+  "tasks_done": 98,
+  "done_share": 1.0,
+  "known_server_calls": 24,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 7,
+ "valid": true
+}

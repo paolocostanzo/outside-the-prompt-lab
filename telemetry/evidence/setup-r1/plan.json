@@ -1,0 +1,62 @@
+{
+ "created": "2026-10-22T13:34:59+00:00",
+ "frozen": {
+  "snapshot": "q4-base-20261017",
+  "seed": 20261019,
+  "minutes": 6.0,
+  "gap_hours": 6,
+  "clients": [
+   "claude-code",
+   "codex",
+   "gemini",
+   "qwen",
+   "cursor-agent",
+   "goose"
+  ],
+  "parts": [
+   "setup"
+  ],
+  "inventory_sha256": "f21271690dcd1c41eff7709d5ed13ad259fa04a846e42dc3f0019398f760eeeb",
+  "candidates_sha256": "040eab3bf9997c7533ec4062ed1e27728eb0ee3a90f251d37d835a882f4befcd",
+  "harness": {
+   "commit": "b1d6104b6d64e0a4254129a2fffabaf4de1f03ff",
+   "trees": {
+    "tool-change": "0bd7e6c1fb40ab5ec8ddd86f553dcac042266d1d",
+    "trusting-a-repo": "f32afac2819087cb6030ae919b353a9c4aa4f03f",
+    "telemetry": "8bdb9baf336dcd2fc9560ebb00ccda1f507d33b8"
+   }
+  }
+ },
+ "runs": [
+  {
+   "client": "goose",
+   "part": "setup",
+   "name": "baseline__goose__setup"
+  },
+  {
+   "client": "codex",
+   "part": "setup",
+   "name": "baseline__codex__setup"
+  },
+  {
+   "client": "qwen",
+   "part": "setup",
+   "name": "baseline__qwen__setup"
+  },
+  {
+   "client": "claude-code",
+   "part": "setup",
+   "name": "baseline__claude-code__setup"
+  },
+  {
+   "client": "gemini",
+   "part": "setup",
+   "name": "baseline__gemini__setup"
+  },
+  {
+   "client": "cursor-agent",
+   "part": "setup",
+   "name": "baseline__cursor-agent__setup"
+  }
+ ]
+}

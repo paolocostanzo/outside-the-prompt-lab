@@ -1,0 +1,24 @@
+{
+ "client": "codex",
+ "part": "dev",
+ "name": "baseline__codex__dev",
+ "t0": 1792778806,
+ "t1": 1792782425,
+ "clock_skew_s": 0.12,
+ "waited_s": 0,
+ "session_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "workload": {
+  "cycles": 23,
+  "server_cycles": 23,
+  "tasks_prompted": 92,
+  "tasks_done": 92,
+  "done_share": 1.0,
+  "known_server_calls": 23,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ }
+}

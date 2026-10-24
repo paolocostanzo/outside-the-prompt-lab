@@ -1,0 +1,14 @@
+{"ts": "2026-10-22T13:54:11.928+00:00", "epoch": 1792677251.929, "action": "session-start", "client": "qwen", "part": "setup", "minutes": 6.0, "version": "0.25.1"}
+{"ts": "2026-10-22T13:54:14.051+00:00", "epoch": 1792677254.052, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T13:54:20.813+00:00", "epoch": 1792677260.814, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T13:55:06.346+00:00", "epoch": 1792677306.346, "action": "done", "cycle": 1, "task": "explain", "seconds": 45.5, "screen": "qwen__setup__0001-c1-explain.txt"}
+{"ts": "2026-10-22T13:55:06.974+00:00", "epoch": 1792677306.974, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T13:55:30.565+00:00", "epoch": 1792677330.566, "action": "allow-once", "cycle": 1, "task": "test", "screen": "qwen__setup__0002-allow-once.txt"}
+{"ts": "2026-10-22T13:55:52.332+00:00", "epoch": 1792677352.333, "action": "done", "cycle": 1, "task": "test", "seconds": 45.3, "screen": "qwen__setup__0003-c1-test.txt"}
+{"ts": "2026-10-22T13:55:52.961+00:00", "epoch": 1792677352.961, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T13:56:44.555+00:00", "epoch": 1792677404.556, "action": "done", "cycle": 1, "task": "edit", "seconds": 51.6, "screen": "qwen__setup__0004-c1-edit.txt"}
+{"ts": "2026-10-22T13:56:45.185+00:00", "epoch": 1792677405.186, "action": "prompt", "cycle": 1, "task": "known-server"}
+{"ts": "2026-10-22T13:57:26.975+00:00", "epoch": 1792677446.975, "action": "mcp-approval", "cycle": 1, "task": "known-server", "screen": "qwen__setup__0005-mcp-approval.txt"}
+{"ts": "2026-10-22T14:00:27.921+00:00", "epoch": 1792677627.921, "action": "done", "cycle": 1, "task": "known-server", "seconds": 222.7, "screen": "qwen__setup__0006-c1-known-server.txt"}
+{"ts": "2026-10-22T14:00:29.974+00:00", "epoch": 1792677629.974, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T14:00:59.976+00:00", "epoch": 1792677659.977, "action": "session-end", "cycles": 1, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 1, "tasks_prompted": 4, "tasks_done": 4, "done_share": 1.0, "known_server_calls": 1, "known_server_calls_per_cycle": 1.0, "ok": true}}

@@ -1,0 +1,129 @@
+{"ts": "2026-10-22T18:02:56+00:00", "event": "pre-revert", "run": "goose__q3-silent__r1", "order6plus": 27}
+{"ts": "2026-10-22T18:02:57+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:03:37+00:00", "event": "run-start", "n": 1, "of": 30, "run": "goose__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:07:24+00:00", "event": "run-end", "run": "goose__q3-silent__r1", "rc": 0, "seconds": 205, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:07:24+00:00", "event": "pre-revert", "run": "codex__q3-announced__r1", "order6plus": 63}
+{"ts": "2026-10-22T18:07:25+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:08:11+00:00", "event": "run-start", "n": 2, "of": 30, "run": "codex__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:12:04+00:00", "event": "run-end", "run": "codex__q3-announced__r1", "rc": 0, "seconds": 209, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:12:04+00:00", "event": "pre-revert", "run": "qwen__q3-silent__r1", "order6plus": 42}
+{"ts": "2026-10-22T18:12:05+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:12:32+00:00", "event": "run-start", "n": 3, "of": 30, "run": "qwen__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:14:13+00:00", "event": "run-end", "run": "qwen__q3-silent__r1", "rc": 0, "seconds": 79, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:14:13+00:00", "event": "pre-revert", "run": "claude-code__q3-silent__r1", "order6plus": 22}
+{"ts": "2026-10-22T18:14:14+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:14:42+00:00", "event": "run-start", "n": 4, "of": 30, "run": "claude-code__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:16:05+00:00", "event": "run-end", "run": "claude-code__q3-silent__r1", "rc": 0, "seconds": 60, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:16:05+00:00", "event": "pre-revert", "run": "claude-code__q5-start__r1", "order6plus": 11}
+{"ts": "2026-10-22T18:16:06+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:16:42+00:00", "event": "run-start", "n": 5, "of": 30, "run": "claude-code__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:17:32+00:00", "event": "run-end", "run": "claude-code__q5-start__r1", "rc": 0, "seconds": 29, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:17:32+00:00", "event": "pre-revert", "run": "qwen__q5-start__r1", "order6plus": 38}
+{"ts": "2026-10-22T18:17:33+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:18:00+00:00", "event": "run-start", "n": 6, "of": 30, "run": "qwen__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:18:45+00:00", "event": "abort-run", "run": "qwen__q5-start__r1", "problems": ["quota or rate limit reached: quota observer: 1 capture error(s), e.g. 'no server running on /tmp/tmux-1000/default' (stop: Paolo's rule)"], "kept": "/home/brainonion/Desktop/redazione/lab/results/q4/events/qwen__q5-start__r1/attempts/1", "hint": "VM left as it is for inspection: look at it before rerunning, a rerun powers it off; then rerun the same command (the plan is kept)"}
+{"ts": "2026-10-22T18:19:39+00:00", "event": "pre-revert", "run": "qwen__q5-start__r1", "order6plus": 3}
+{"ts": "2026-10-22T18:19:40+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:20:20+00:00", "event": "run-start", "n": 6, "of": 30, "run": "qwen__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:21:04+00:00", "event": "run-end", "run": "qwen__q5-start__r1", "rc": 0, "seconds": 23, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:21:04+00:00", "event": "pre-revert", "run": "gemini__q5-start__r1", "order6plus": 36}
+{"ts": "2026-10-22T18:21:05+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:21:36+00:00", "event": "run-start", "n": 7, "of": 30, "run": "gemini__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:23:00+00:00", "event": "run-end", "run": "gemini__q5-start__r1", "rc": 0, "seconds": 62, "export": "ok", "client_logs": "wrote-nothing-in-session"}
+{"ts": "2026-10-22T18:23:00+00:00", "event": "pre-revert", "run": "qwen__q3-announced__r1", "order6plus": 3}
+{"ts": "2026-10-22T18:23:01+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:23:35+00:00", "event": "run-start", "n": 8, "of": 30, "run": "qwen__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:25:24+00:00", "event": "run-end", "run": "qwen__q3-announced__r1", "rc": 0, "seconds": 88, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:25:24+00:00", "event": "pre-revert", "run": "gemini__q3-silent__r1", "order6plus": 118}
+{"ts": "2026-10-22T18:25:25+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:25:59+00:00", "event": "run-start", "n": 9, "of": 30, "run": "gemini__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:32:23+00:00", "event": "abort-run", "run": "gemini__q3-silent__r1", "problems": ["quota or rate limit reached: quota or rate limit reached (observer): 'Usage limit' (stop: Paolo's rule) (stop: Paolo's rule)"], "kept": "/home/brainonion/Desktop/redazione/lab/results/q4/events/gemini__q3-silent__r1/attempts/1", "hint": "VM left as it is for inspection: look at it before rerunning, a rerun powers it off; then rerun the same command (the plan is kept)"}
+{"ts": "2026-10-23T07:05:58+00:00", "event": "pre-revert", "run": "gemini__q3-silent__r1", "order6plus": 91}
+{"ts": "2026-10-23T07:06:00+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:06:43+00:00", "event": "run-start", "n": 9, "of": 30, "run": "gemini__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:08:24+00:00", "event": "run-end", "run": "gemini__q3-silent__r1", "rc": 0, "seconds": 80, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:08:24+00:00", "event": "pre-revert", "run": "gemini__q3-announced__r1", "order6plus": 23}
+{"ts": "2026-10-23T07:08:25+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:09:09+00:00", "event": "run-start", "n": 10, "of": 30, "run": "gemini__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:10:45+00:00", "event": "run-end", "run": "gemini__q3-announced__r1", "rc": 0, "seconds": 74, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:10:45+00:00", "event": "pre-revert", "run": "claude-code__q3-announced__r1", "order6plus": 1}
+{"ts": "2026-10-23T07:10:46+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:11:27+00:00", "event": "run-start", "n": 11, "of": 30, "run": "claude-code__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:12:49+00:00", "event": "run-end", "run": "claude-code__q3-announced__r1", "rc": 0, "seconds": 60, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:12:49+00:00", "event": "pre-revert", "run": "codex__q3-silent__r1", "order6plus": 41}
+{"ts": "2026-10-23T07:12:50+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:13:29+00:00", "event": "run-start", "n": 12, "of": 30, "run": "codex__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:15:12+00:00", "event": "run-end", "run": "codex__q3-silent__r1", "rc": 0, "seconds": 77, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:15:12+00:00", "event": "pre-revert", "run": "codex__q5-start__r1", "order6plus": 12}
+{"ts": "2026-10-23T07:15:13+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:15:52+00:00", "event": "run-start", "n": 13, "of": 30, "run": "codex__q5-start__r1", "ip": "192.168.122.70", "boot_s": 2, "push_rc": 0}
+{"ts": "2026-10-23T07:16:45+00:00", "event": "run-end", "run": "codex__q5-start__r1", "rc": 0, "seconds": 28, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:16:45+00:00", "event": "pre-revert", "run": "goose__q5-start__r1", "order6plus": 0}
+{"ts": "2026-10-23T07:16:46+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:17:29+00:00", "event": "run-start", "n": 14, "of": 30, "run": "goose__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:18:21+00:00", "event": "run-end", "run": "goose__q5-start__r1", "rc": 0, "seconds": 29, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:18:21+00:00", "event": "pre-revert", "run": "goose__q3-announced__r1", "order6plus": 2}
+{"ts": "2026-10-23T07:18:22+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:19:08+00:00", "event": "run-start", "n": 15, "of": 30, "run": "goose__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:20:25+00:00", "event": "run-end", "run": "goose__q3-announced__r1", "rc": 0, "seconds": 54, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:20:25+00:00", "event": "pre-revert", "run": "qwen__q3-announced__r2", "order6plus": 2}
+{"ts": "2026-10-23T07:20:26+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:21:06+00:00", "event": "run-start", "n": 16, "of": 30, "run": "qwen__q3-announced__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:22:33+00:00", "event": "run-end", "run": "qwen__q3-announced__r2", "rc": 0, "seconds": 65, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:22:33+00:00", "event": "pre-revert", "run": "goose__q3-silent__r2", "order6plus": 25}
+{"ts": "2026-10-23T07:22:34+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:23:16+00:00", "event": "run-start", "n": 17, "of": 30, "run": "goose__q3-silent__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:24:30+00:00", "event": "run-end", "run": "goose__q3-silent__r2", "rc": 0, "seconds": 52, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:24:30+00:00", "event": "pre-revert", "run": "qwen__q5-start__r2", "order6plus": 64}
+{"ts": "2026-10-23T07:24:32+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:25:14+00:00", "event": "run-start", "n": 18, "of": 30, "run": "qwen__q5-start__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:25:58+00:00", "event": "run-end", "run": "qwen__q5-start__r2", "rc": 0, "seconds": 23, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:25:58+00:00", "event": "pre-revert", "run": "codex__q3-silent__r2", "order6plus": 22}
+{"ts": "2026-10-23T07:25:59+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:26:40+00:00", "event": "run-start", "n": 19, "of": 30, "run": "codex__q3-silent__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:28:29+00:00", "event": "run-end", "run": "codex__q3-silent__r2", "rc": 0, "seconds": 82, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:28:29+00:00", "event": "pre-revert", "run": "gemini__q5-start__r2", "order6plus": 9}
+{"ts": "2026-10-23T07:28:30+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:29:11+00:00", "event": "run-start", "n": 20, "of": 30, "run": "gemini__q5-start__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:30:36+00:00", "event": "run-end", "run": "gemini__q5-start__r2", "rc": 0, "seconds": 64, "export": "ok", "client_logs": "wrote-nothing-in-session"}
+{"ts": "2026-10-23T07:30:36+00:00", "event": "pre-revert", "run": "gemini__q3-announced__r2", "order6plus": 32}
+{"ts": "2026-10-23T07:30:37+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:31:19+00:00", "event": "run-start", "n": 21, "of": 30, "run": "gemini__q3-announced__r2", "ip": "192.168.122.70", "boot_s": 2, "push_rc": 0}
+{"ts": "2026-10-23T07:32:55+00:00", "event": "run-end", "run": "gemini__q3-announced__r2", "rc": 0, "seconds": 75, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:32:55+00:00", "event": "pre-revert", "run": "codex__q3-announced__r2", "order6plus": 0}
+{"ts": "2026-10-23T07:32:56+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:33:30+00:00", "event": "run-start", "n": 22, "of": 30, "run": "codex__q3-announced__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:35:14+00:00", "event": "run-end", "run": "codex__q3-announced__r2", "rc": 0, "seconds": 76, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:35:14+00:00", "event": "pre-revert", "run": "goose__q5-start__r2", "order6plus": 13}
+{"ts": "2026-10-23T07:35:15+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:35:53+00:00", "event": "run-start", "n": 23, "of": 30, "run": "goose__q5-start__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:36:44+00:00", "event": "run-end", "run": "goose__q5-start__r2", "rc": 0, "seconds": 29, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:36:44+00:00", "event": "pre-revert", "run": "claude-code__q3-announced__r2", "order6plus": 38}
+{"ts": "2026-10-23T07:36:45+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:37:20+00:00", "event": "run-start", "n": 24, "of": 30, "run": "claude-code__q3-announced__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:38:46+00:00", "event": "run-end", "run": "claude-code__q3-announced__r2", "rc": 0, "seconds": 64, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:38:46+00:00", "event": "pre-revert", "run": "claude-code__q3-silent__r2", "order6plus": 80}
+{"ts": "2026-10-23T07:38:47+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:39:24+00:00", "event": "run-start", "n": 25, "of": 30, "run": "claude-code__q3-silent__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:40:53+00:00", "event": "run-end", "run": "claude-code__q3-silent__r2", "rc": 0, "seconds": 67, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:40:53+00:00", "event": "pre-revert", "run": "codex__q5-start__r2", "order6plus": 18}
+{"ts": "2026-10-23T07:40:54+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:41:28+00:00", "event": "run-start", "n": 26, "of": 30, "run": "codex__q5-start__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:42:18+00:00", "event": "run-end", "run": "codex__q5-start__r2", "rc": 0, "seconds": 26, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:42:18+00:00", "event": "pre-revert", "run": "claude-code__q5-start__r2", "order6plus": 11}
+{"ts": "2026-10-23T07:42:19+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:42:57+00:00", "event": "run-start", "n": 27, "of": 30, "run": "claude-code__q5-start__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:43:47+00:00", "event": "run-end", "run": "claude-code__q5-start__r2", "rc": 0, "seconds": 28, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:43:47+00:00", "event": "pre-revert", "run": "goose__q3-announced__r2", "order6plus": 51}
+{"ts": "2026-10-23T07:43:48+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:44:25+00:00", "event": "run-start", "n": 28, "of": 30, "run": "goose__q3-announced__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:45:39+00:00", "event": "run-end", "run": "goose__q3-announced__r2", "rc": 0, "seconds": 52, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:45:39+00:00", "event": "pre-revert", "run": "gemini__q3-silent__r2", "order6plus": 92}
+{"ts": "2026-10-23T07:45:40+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:46:15+00:00", "event": "run-start", "n": 29, "of": 30, "run": "gemini__q3-silent__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:47:53+00:00", "event": "run-end", "run": "gemini__q3-silent__r2", "rc": 0, "seconds": 76, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:47:53+00:00", "event": "pre-revert", "run": "qwen__q3-silent__r2", "order6plus": 26}
+{"ts": "2026-10-23T07:47:54+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T07:48:38+00:00", "event": "run-start", "n": 30, "of": 30, "run": "qwen__q3-silent__r2", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-23T07:50:05+00:00", "event": "run-end", "run": "qwen__q3-silent__r2", "rc": 0, "seconds": 66, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-23T07:50:05+00:00", "event": "events-done", "runs": 30}

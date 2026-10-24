@@ -1,0 +1,49 @@
+{
+ "created": "2026-10-22T17:19:45+00:00",
+ "frozen": {
+  "snapshot": "q4-base-20261017",
+  "seed": 20261018,
+  "clients": [
+   "gemini"
+  ],
+  "reps": 1,
+  "q5_cell": {
+   "claude-code": "after-decision",
+   "codex": "after-decision",
+   "gemini": "after-decision",
+   "qwen": "after-decision",
+   "cursor-agent": "after-decision",
+   "goose": "open-in-repo"
+  },
+  "inventory_sha256": "f21271690dcd1c41eff7709d5ed13ad259fa04a846e42dc3f0019398f760eeeb",
+  "candidates_sha256": "040eab3bf9997c7533ec4062ed1e27728eb0ee3a90f251d37d835a882f4befcd",
+  "harness": {
+   "commit": "be9317ce60f8de19b9154d3ef442ff60321e02c1",
+   "trees": {
+    "tool-change": "0bd7e6c1fb40ab5ec8ddd86f553dcac042266d1d",
+    "trusting-a-repo": "f32afac2819087cb6030ae919b353a9c4aa4f03f",
+    "telemetry": "18154864cfe6c63a2dd05c9394ecb96d317c5eb7"
+   }
+  }
+ },
+ "runs": [
+  {
+   "rep": 1,
+   "client": "gemini",
+   "event": "q3-silent",
+   "name": "gemini__q3-silent__r1"
+  },
+  {
+   "rep": 1,
+   "client": "gemini",
+   "event": "q3-announced",
+   "name": "gemini__q3-announced__r1"
+  },
+  {
+   "rep": 1,
+   "client": "gemini",
+   "event": "q5-start",
+   "name": "gemini__q5-start__r1"
+  }
+ ]
+}

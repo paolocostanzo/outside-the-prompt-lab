@@ -1,0 +1,7 @@
+{"ts": "2026-10-22T16:03:27+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T16:04:05+00:00", "event": "session-start", "n": 1, "of": 2, "session": "baseline__goose__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T16:20:06+00:00", "event": "setup-session-recorded", "session": "baseline__goose__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 4, 'server_cycles': 3, 'tasks_prompted': 14, 'tasks_done': 6, 'done_share': 0.42857142857142855, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"]}
+{"ts": "2026-10-22T16:20:08+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T16:20:50+00:00", "event": "session-start", "n": 2, "of": 2, "session": "baseline__gemini__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T16:37:28+00:00", "event": "setup-session-recorded", "session": "baseline__gemini__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 3, 'server_cycles': 2, 'tasks_prompted': 9, 'tasks_done': 7, 'done_share': 0.7777777777777778, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"]}
+{"ts": "2026-10-22T16:37:28+00:00", "event": "baseline-done", "sessions": 2, "local_engine_repetition": "not implemented, not done"}

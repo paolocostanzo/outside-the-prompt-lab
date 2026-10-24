@@ -1,0 +1,24 @@
+{
+ "client": "claude-code",
+ "part": "dev",
+ "name": "baseline__claude-code__dev",
+ "t0": 1792749064,
+ "t1": 1792752715,
+ "clock_skew_s": 0.183,
+ "waited_s": 0,
+ "session_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "workload": {
+  "cycles": 26,
+  "server_cycles": 25,
+  "tasks_prompted": 101,
+  "tasks_done": 101,
+  "done_share": 1.0,
+  "known_server_calls": 25,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ }
+}

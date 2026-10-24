@@ -1,0 +1,15 @@
+{
+ "rep": 1,
+ "client": "claude-code",
+ "event": "q3-announced",
+ "name": "claude-code__q3-announced__r1",
+ "t0": 1792691085,
+ "t1": 1792691145,
+ "clock_skew_s": 0.161,
+ "cell_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "ground_truth": "copied and checked"
+}

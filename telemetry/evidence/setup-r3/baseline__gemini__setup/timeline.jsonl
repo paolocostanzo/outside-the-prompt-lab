@@ -1,0 +1,30 @@
+{"ts": "2026-10-22T16:20:55.737+00:00", "epoch": 1792686055.738, "action": "session-start", "client": "gemini", "part": "setup", "minutes": 15.0, "version": "0.64.0"}
+{"ts": "2026-10-22T16:20:57.846+00:00", "epoch": 1792686057.847, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T16:21:14.567+00:00", "epoch": 1792686074.567, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T16:22:33.518+00:00", "epoch": 1792686153.519, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "gemini__setup__0001-c1-explain.txt", "seconds": 78.9}
+{"ts": "2026-10-22T16:22:44.077+00:00", "epoch": 1792686164.078, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T16:23:31.921+00:00", "epoch": 1792686211.922, "action": "allow-once", "cycle": 1, "task": "test", "screen": "gemini__setup__0002-allow-once.txt"}
+{"ts": "2026-10-22T16:24:36.135+00:00", "epoch": 1792686276.136, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "gemini__setup__0003-c1-test.txt", "seconds": 112.0}
+{"ts": "2026-10-22T16:24:46.698+00:00", "epoch": 1792686286.699, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T16:26:00.392+00:00", "epoch": 1792686360.393, "action": "allow-once", "cycle": 1, "task": "edit", "screen": "gemini__setup__0004-allow-once.txt"}
+{"ts": "2026-10-22T16:28:47.656+00:00", "epoch": 1792686527.656, "action": "timeout", "cycle": 1, "task": "edit", "error_reply": false, "screen": "gemini__setup__0005-c1-edit-timeout.txt"}
+{"ts": "2026-10-22T16:28:47.656+00:00", "epoch": 1792686527.656, "action": "skipped-after-failure", "cycle": 1, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-22T16:28:49.699+00:00", "epoch": 1792686529.699, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T16:29:21.797+00:00", "epoch": 1792686561.797, "action": "open", "cycle": 2}
+{"ts": "2026-10-22T16:29:38.452+00:00", "epoch": 1792686578.453, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-22T16:30:36.104+00:00", "epoch": 1792686636.105, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "gemini__setup__0006-c2-explain.txt", "seconds": 57.6}
+{"ts": "2026-10-22T16:30:46.666+00:00", "epoch": 1792686646.667, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-22T16:31:11.775+00:00", "epoch": 1792686671.776, "action": "allow-once", "cycle": 2, "task": "test", "screen": "gemini__setup__0007-allow-once.txt"}
+{"ts": "2026-10-22T16:31:48.660+00:00", "epoch": 1792686708.66, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "gemini__setup__0008-c2-test.txt", "seconds": 62.0}
+{"ts": "2026-10-22T16:31:59.211+00:00", "epoch": 1792686719.212, "action": "prompt", "cycle": 2, "task": "edit"}
+{"ts": "2026-10-22T16:32:47.053+00:00", "epoch": 1792686767.054, "action": "allow-once", "cycle": 2, "task": "edit", "screen": "gemini__setup__0009-allow-once.txt"}
+{"ts": "2026-10-22T16:34:26.137+00:00", "epoch": 1792686866.137, "action": "done", "cycle": 2, "task": "edit", "error_reply": false, "screen": "gemini__setup__0010-c2-edit.txt", "seconds": 146.9}
+{"ts": "2026-10-22T16:34:36.711+00:00", "epoch": 1792686876.712, "action": "prompt", "cycle": 2, "task": "known-server"}
+{"ts": "2026-10-22T16:34:50.490+00:00", "epoch": 1792686890.491, "action": "mcp-approval", "cycle": 2, "task": "known-server", "screen": "gemini__setup__0011-mcp-approval.txt"}
+{"ts": "2026-10-22T16:35:10.710+00:00", "epoch": 1792686910.711, "action": "done", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "gemini__setup__0012-c2-known-server.txt", "seconds": 34.0}
+{"ts": "2026-10-22T16:35:12.765+00:00", "epoch": 1792686912.766, "action": "close", "cycle": 2}
+{"ts": "2026-10-22T16:35:44.840+00:00", "epoch": 1792686944.841, "action": "open", "cycle": 3}
+{"ts": "2026-10-22T16:36:01.502+00:00", "epoch": 1792686961.503, "action": "prompt", "cycle": 3, "task": "explain"}
+{"ts": "2026-10-22T16:36:33.361+00:00", "epoch": 1792686993.362, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "gemini__setup__0013-c3-explain.txt", "seconds": 31.8}
+{"ts": "2026-10-22T16:36:35.402+00:00", "epoch": 1792686995.402, "action": "close", "cycle": 3}
+{"ts": "2026-10-22T16:37:05.404+00:00", "epoch": 1792687025.404, "action": "session-end", "cycles": 3, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 3, "server_cycles": 2, "tasks_prompted": 9, "tasks_done": 7, "done_share": 0.7777777777777778, "known_server_calls": 1, "known_server_calls_per_cycle": 0.5, "ok": false}}

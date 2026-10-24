@@ -1,0 +1,451 @@
+{
+ "rules": {
+  "claude-code/q5-start": {
+   "event_runs": [
+    {
+     "run": "claude-code__q5-start__r1",
+     "event_time": null,
+     "end": 1792693151,
+     "status": "no-event",
+     "hits": []
+    },
+    {
+     "run": "claude-code__q5-start__r2",
+     "event_time": null,
+     "end": 1792741525,
+     "status": "no-event",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__claude-code__holdout",
+     "t0": 1792807850.343241,
+     "t1": 1792811482.614189,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "claude-code/q3-announced": {
+   "event_runs": [
+    {
+     "run": "claude-code__q3-announced__r1",
+     "event_time": 1792739506.484,
+     "end": 1792739667,
+     "status": "ok",
+     "hits": [
+      1792739506.489
+     ]
+    },
+    {
+     "run": "claude-code__q3-announced__r2",
+     "event_time": 1792741061.433,
+     "end": 1792741224,
+     "status": "ok",
+     "hits": [
+      1792741061.438
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__claude-code__holdout",
+     "t0": 1792807850.343241,
+     "t1": 1792811482.614189,
+     "hits": [],
+     "covered_windows": 46
+    }
+   ]
+  },
+  "claude-code/q3-silent": {
+   "event_runs": [
+    {
+     "run": "claude-code__q3-silent__r1",
+     "event_time": 1792692901.776,
+     "end": 1792693062,
+     "status": "ok",
+     "hits": [
+      1792692934.365,
+      1792692935.369
+     ]
+    },
+    {
+     "run": "claude-code__q3-silent__r2",
+     "event_time": 1792741185.591,
+     "end": 1792741351,
+     "status": "ok",
+     "hits": [
+      1792741220.92,
+      1792741223.418
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__claude-code__holdout",
+     "t0": 1792807850.343241,
+     "t1": 1792811482.614189,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "codex/q5-start": {
+   "event_runs": [
+    {
+     "run": "codex__q5-start__r1",
+     "event_time": 1792739763.121,
+     "end": 1792739900,
+     "status": "ok",
+     "hits": [
+      1792739763.293592
+     ]
+    },
+    {
+     "run": "codex__q5-start__r2",
+     "event_time": 1792741296.977,
+     "end": 1792741434,
+     "status": "ok",
+     "hits": [
+      1792741297.2499757
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__codex__holdout",
+     "t0": 1792804103.6591809,
+     "t1": 1792807743.3410597,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "codex/q3-announced": {
+   "event_runs": [
+    {
+     "run": "codex__q3-announced__r1",
+     "event_time": 1792692652.857,
+     "end": 1792692820,
+     "status": "ok",
+     "hits": [
+      1792692652.8584063,
+      1792692652.8585033
+     ]
+    },
+    {
+     "run": "codex__q3-announced__r2",
+     "event_time": 1792740836.825,
+     "end": 1792741006,
+     "status": "ok",
+     "hits": [
+      1792740836.8264449,
+      1792740836.8266082
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__codex__holdout",
+     "t0": 1792804103.6591809,
+     "t1": 1792807743.3410597,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "codex/q3-silent": {
+   "event_runs": [
+    {
+     "run": "codex__q3-silent__r1",
+     "event_time": 1792739642.577,
+     "end": 1792739806,
+     "status": "ok",
+     "hits": []
+    },
+    {
+     "run": "codex__q3-silent__r2",
+     "event_time": 1792740430.659,
+     "end": 1792740602,
+     "status": "ok",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__codex__holdout",
+     "t0": 1792804103.6591809,
+     "t1": 1792807743.3410597,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "gemini/q5-start": {
+   "event_runs": [
+    {
+     "run": "gemini__q5-start__r1",
+     "event_time": 1792693315.463,
+     "end": 1792693478,
+     "status": "ok",
+     "hits": []
+    },
+    {
+     "run": "gemini__q5-start__r2",
+     "event_time": 1792740570.881,
+     "end": 1792740735,
+     "status": "ok",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__gemini__holdout",
+     "t0": 1792815274.6089401,
+     "t1": 1792818926.9560173,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "gemini/q3-announced": {
+   "event_runs": [
+    {
+     "run": "gemini__q3-announced__r1",
+     "event_time": 1792739377.403,
+     "end": 1792739543,
+     "status": "ok",
+     "hits": [
+      1792739377.928
+     ]
+    },
+    {
+     "run": "gemini__q3-announced__r2",
+     "event_time": 1792740705.871,
+     "end": 1792740874,
+     "status": "ok",
+     "hits": [
+      1792740706.391
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__gemini__holdout",
+     "t0": 1792815274.6089401,
+     "t1": 1792818926.9560173,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "gemini/q3-silent": {
+   "event_runs": [
+    {
+     "run": "gemini__q3-silent__r1",
+     "event_time": 1792739230.532,
+     "end": 1792739403,
+     "status": "ok",
+     "hits": []
+    },
+    {
+     "run": "gemini__q3-silent__r2",
+     "event_time": 1792741604.97,
+     "end": 1792741771,
+     "status": "ok",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__gemini__holdout",
+     "t0": 1792815274.6089401,
+     "t1": 1792818926.9560173,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "qwen/q5-start": {
+   "event_runs": [
+    {
+     "run": "qwen__q5-start__r1",
+     "event_time": 1792693229.63,
+     "end": 1792693363,
+     "status": "ok",
+     "hits": []
+    },
+    {
+     "run": "qwen__q5-start__r2",
+     "event_time": 1792740322.849,
+     "end": 1792740457,
+     "status": "ok",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__qwen__holdout",
+     "t0": 1792811566.8501263,
+     "t1": 1792815181.6609433,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "qwen/q3-announced": {
+   "event_runs": [
+    {
+     "run": "qwen__q3-announced__r1",
+     "event_time": 1792693443.97,
+     "end": 1792693623,
+     "status": "ok",
+     "hits": [
+      1792693485.695
+     ]
+    },
+    {
+     "run": "qwen__q3-announced__r2",
+     "event_time": 1792740088.999,
+     "end": 1792740251,
+     "status": "ok",
+     "hits": [
+      1792740122.542
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__qwen__holdout",
+     "t0": 1792811566.8501263,
+     "t1": 1792815181.6609433,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "qwen/q3-silent": {
+   "event_runs": [
+    {
+     "run": "qwen__q3-silent__r1",
+     "event_time": 1792692781.035,
+     "end": 1792692951,
+     "status": "ok",
+     "hits": [
+      1792692818.578
+     ]
+    },
+    {
+     "run": "qwen__q3-silent__r2",
+     "event_time": 1792741741.385,
+     "end": 1792741904,
+     "status": "ok",
+     "hits": [
+      1792741774.791
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__qwen__holdout",
+     "t0": 1792811566.8501263,
+     "t1": 1792815181.6609433,
+     "hits": [],
+     "covered_windows": 60
+    }
+   ]
+  },
+  "goose/q5-start": {
+   "event_runs": [
+    {
+     "run": "goose__q5-start__r1",
+     "event_time": null,
+     "end": 1792739998,
+     "status": "no-event",
+     "hits": []
+    },
+    {
+     "run": "goose__q5-start__r2",
+     "event_time": null,
+     "end": 1792741102,
+     "status": "no-event",
+     "hits": []
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__goose__holdout",
+     "t0": 1792822746.0124645,
+     "t1": 1792826399.4980066,
+     "hits": [],
+     "covered_windows": null
+    }
+   ]
+  },
+  "goose/q3-announced": {
+   "event_runs": [
+    {
+     "run": "goose__q3-announced__r1",
+     "event_time": 1792739965.533,
+     "end": 1792740122,
+     "status": "ok",
+     "hits": [
+      1792739995.658232
+     ]
+    },
+    {
+     "run": "goose__q3-announced__r2",
+     "event_time": 1792741480.813,
+     "end": 1792741637,
+     "status": "ok",
+     "hits": [
+      1792741511.017018
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__goose__holdout",
+     "t0": 1792822746.0124645,
+     "t1": 1792826399.4980066,
+     "hits": [],
+     "covered_windows": 1
+    }
+   ]
+  },
+  "goose/q3-silent": {
+   "event_runs": [
+    {
+     "run": "goose__q3-silent__r1",
+     "event_time": 1792692237.707,
+     "end": 1792692542,
+     "status": "ok",
+     "hits": [
+      1792692272.260533
+     ]
+    },
+    {
+     "run": "goose__q3-silent__r2",
+     "event_time": 1792740211.62,
+     "end": 1792740368,
+     "status": "ok",
+     "hits": [
+      1792740241.946963
+     ]
+    }
+   ],
+   "holdout": [
+    {
+     "session": "baseline__goose__holdout",
+     "t0": 1792822746.0124645,
+     "t1": 1792826399.4980066,
+     "hits": [],
+     "covered_windows": 1
+    }
+   ]
+  }
+ },
+ "missing": [],
+ "incomplete_clients": []
+}

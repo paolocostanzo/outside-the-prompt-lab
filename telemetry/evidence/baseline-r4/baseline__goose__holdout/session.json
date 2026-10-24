@@ -1,0 +1,25 @@
+{
+ "client": "goose",
+ "part": "holdout",
+ "minutes": 60.0,
+ "t_start": 1792822746.0124645,
+ "t_end": 1792826399.4980066,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 30,
+  "server_cycles": 29,
+  "tasks_prompted": 119,
+  "tasks_done": 119,
+  "done_share": 1.0,
+  "known_server_calls": 29,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 0,
+ "valid": true
+}

@@ -1,0 +1,24 @@
+{
+ "client": "codex",
+ "part": "holdout",
+ "name": "baseline__codex__holdout",
+ "t0": 1792804103,
+ "t1": 1792807743,
+ "clock_skew_s": 0.12,
+ "waited_s": 6652,
+ "session_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "workload": {
+  "cycles": 24,
+  "server_cycles": 23,
+  "tasks_prompted": 95,
+  "tasks_done": 95,
+  "done_share": 1.0,
+  "known_server_calls": 23,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ }
+}

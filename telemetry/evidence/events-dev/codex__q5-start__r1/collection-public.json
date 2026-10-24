@@ -1,0 +1,75 @@
+{
+ "client": "codex",
+ "start": 1792691358,
+ "end": 1792691386,
+ "export": "ok",
+ "client_logs": "wrote",
+ "files": 15,
+ "files_modified_in_session": 11,
+ "patterns": [
+  {
+   "pattern": "~/.codex/sessions/**/*.jsonl",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 1,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.codex/log/**",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 0,
+   "without_timestamps": 1
+  },
+  {
+   "pattern": "~/.codex/logs_*.sqlite",
+   "location": "present",
+   "files": 3,
+   "with_records_in_session": 3,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.codex/history.jsonl",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.codex/session_index.jsonl",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 0,
+   "without_timestamps": 1
+  },
+  {
+   "pattern": "~/.codex/state_*.sqlite",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.codex/thread_history_*.sqlite",
+   "location": "present",
+   "files": 3,
+   "with_records_in_session": 0,
+   "without_timestamps": 3
+  },
+  {
+   "pattern": "~/.codex/app-server-daemon/*.log*",
+   "location": "present",
+   "files": 4,
+   "with_records_in_session": 0,
+   "without_timestamps": 4
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.codex/config.toml": "f4791174f3c55edc0853271426e5686383556fb103426dbc494a27164c94d4c5"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

@@ -1,0 +1,133 @@
+{"ts": "2026-10-23T10:53:13.573+00:00", "epoch": 1792752793.574, "action": "session-start", "client": "qwen", "part": "dev", "minutes": 60.0, "version": "0.25.1"}
+{"ts": "2026-10-23T10:53:15.705+00:00", "epoch": 1792752795.706, "action": "open", "cycle": 1}
+{"ts": "2026-10-23T10:53:32.517+00:00", "epoch": 1792752812.517, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-23T10:54:24.095+00:00", "epoch": 1792752864.096, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "qwen__dev__0001-c1-explain.txt", "seconds": 51.6}
+{"ts": "2026-10-23T10:54:34.661+00:00", "epoch": 1792752874.662, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-23T10:54:58.970+00:00", "epoch": 1792752898.97, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "qwen__dev__0002-c1-test.txt", "seconds": 24.3}
+{"ts": "2026-10-23T10:55:09.536+00:00", "epoch": 1792752909.536, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-23T10:55:27.762+00:00", "epoch": 1792752927.762, "action": "done", "cycle": 1, "task": "edit", "error_reply": false, "screen": "qwen__dev__0003-c1-edit.txt", "seconds": 18.2}
+{"ts": "2026-10-23T10:55:38.341+00:00", "epoch": 1792752938.341, "action": "prompt", "cycle": 1, "task": "known-server"}
+{"ts": "2026-10-23T10:55:52.064+00:00", "epoch": 1792752952.064, "action": "done", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "qwen__dev__0004-c1-known-server.txt", "seconds": 13.7}
+{"ts": "2026-10-23T10:55:54.119+00:00", "epoch": 1792752954.12, "action": "close", "cycle": 1}
+{"ts": "2026-10-23T10:56:26.189+00:00", "epoch": 1792752986.19, "action": "open", "cycle": 2}
+{"ts": "2026-10-23T10:56:39.804+00:00", "epoch": 1792752999.805, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-23T10:56:53.457+00:00", "epoch": 1792753013.458, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "qwen__dev__0005-c2-explain.txt", "seconds": 13.6}
+{"ts": "2026-10-23T10:57:04.025+00:00", "epoch": 1792753024.025, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-23T10:57:16.163+00:00", "epoch": 1792753036.164, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "qwen__dev__0006-c2-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T10:57:26.706+00:00", "epoch": 1792753046.706, "action": "prompt", "cycle": 2, "task": "edit"}
+{"ts": "2026-10-23T11:01:27.908+00:00", "epoch": 1792753287.908, "action": "timeout", "cycle": 2, "task": "edit", "error_reply": false, "screen": "qwen__dev__0007-c2-edit-timeout.txt"}
+{"ts": "2026-10-23T11:01:27.908+00:00", "epoch": 1792753287.909, "action": "skipped-after-failure", "cycle": 2, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:01:29.959+00:00", "epoch": 1792753289.96, "action": "close", "cycle": 2}
+{"ts": "2026-10-23T11:02:02.035+00:00", "epoch": 1792753322.036, "action": "open", "cycle": 3}
+{"ts": "2026-10-23T11:02:15.649+00:00", "epoch": 1792753335.649, "action": "prompt", "cycle": 3, "task": "explain"}
+{"ts": "2026-10-23T11:02:27.795+00:00", "epoch": 1792753347.795, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "qwen__dev__0008-c3-explain.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:02:38.354+00:00", "epoch": 1792753358.355, "action": "prompt", "cycle": 3, "task": "test"}
+{"ts": "2026-10-23T11:02:50.493+00:00", "epoch": 1792753370.494, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "qwen__dev__0009-c3-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:03:01.071+00:00", "epoch": 1792753381.071, "action": "prompt", "cycle": 3, "task": "edit"}
+{"ts": "2026-10-23T11:03:17.796+00:00", "epoch": 1792753397.797, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "qwen__dev__0010-c3-edit.txt", "seconds": 16.7}
+{"ts": "2026-10-23T11:03:28.344+00:00", "epoch": 1792753408.345, "action": "prompt", "cycle": 3, "task": "known-server"}
+{"ts": "2026-10-23T11:03:55.701+00:00", "epoch": 1792753435.702, "action": "done", "cycle": 3, "task": "known-server", "error_reply": false, "screen": "qwen__dev__0011-c3-known-server.txt", "seconds": 27.3}
+{"ts": "2026-10-23T11:03:57.749+00:00", "epoch": 1792753437.749, "action": "close", "cycle": 3}
+{"ts": "2026-10-23T11:04:29.824+00:00", "epoch": 1792753469.825, "action": "open", "cycle": 4}
+{"ts": "2026-10-23T11:04:43.441+00:00", "epoch": 1792753483.441, "action": "prompt", "cycle": 4, "task": "explain"}
+{"ts": "2026-10-23T11:04:55.568+00:00", "epoch": 1792753495.569, "action": "done", "cycle": 4, "task": "explain", "error_reply": false, "screen": "qwen__dev__0012-c4-explain.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:05:06.121+00:00", "epoch": 1792753506.122, "action": "prompt", "cycle": 4, "task": "test"}
+{"ts": "2026-10-23T11:05:37.308+00:00", "epoch": 1792753537.308, "action": "allow-once", "cycle": 4, "task": "test", "screen": "qwen__dev__0013-allow-once.txt"}
+{"ts": "2026-10-23T11:05:55.988+00:00", "epoch": 1792753555.989, "action": "done", "cycle": 4, "task": "test", "error_reply": false, "screen": "qwen__dev__0014-c4-test.txt", "seconds": 49.9}
+{"ts": "2026-10-23T11:06:06.573+00:00", "epoch": 1792753566.574, "action": "prompt", "cycle": 4, "task": "edit"}
+{"ts": "2026-10-23T11:10:07.783+00:00", "epoch": 1792753807.784, "action": "timeout", "cycle": 4, "task": "edit", "error_reply": false, "screen": "qwen__dev__0015-c4-edit-timeout.txt"}
+{"ts": "2026-10-23T11:10:07.783+00:00", "epoch": 1792753807.784, "action": "skipped-after-failure", "cycle": 4, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:10:09.833+00:00", "epoch": 1792753809.833, "action": "close", "cycle": 4}
+{"ts": "2026-10-23T11:10:41.903+00:00", "epoch": 1792753841.903, "action": "open", "cycle": 5}
+{"ts": "2026-10-23T11:10:55.566+00:00", "epoch": 1792753855.567, "action": "prompt", "cycle": 5, "task": "explain"}
+{"ts": "2026-10-23T11:11:09.224+00:00", "epoch": 1792753869.224, "action": "done", "cycle": 5, "task": "explain", "error_reply": false, "screen": "qwen__dev__0016-c5-explain.txt", "seconds": 13.6}
+{"ts": "2026-10-23T11:11:19.781+00:00", "epoch": 1792753879.781, "action": "prompt", "cycle": 5, "task": "test"}
+{"ts": "2026-10-23T11:11:31.934+00:00", "epoch": 1792753891.934, "action": "done", "cycle": 5, "task": "test", "error_reply": false, "screen": "qwen__dev__0017-c5-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:11:42.490+00:00", "epoch": 1792753902.49, "action": "prompt", "cycle": 5, "task": "edit"}
+{"ts": "2026-10-23T11:15:43.671+00:00", "epoch": 1792754143.672, "action": "timeout", "cycle": 5, "task": "edit", "error_reply": false, "screen": "qwen__dev__0018-c5-edit-timeout.txt"}
+{"ts": "2026-10-23T11:15:43.671+00:00", "epoch": 1792754143.672, "action": "skipped-after-failure", "cycle": 5, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:15:45.727+00:00", "epoch": 1792754145.727, "action": "close", "cycle": 5}
+{"ts": "2026-10-23T11:16:17.815+00:00", "epoch": 1792754177.815, "action": "open", "cycle": 6}
+{"ts": "2026-10-23T11:16:31.469+00:00", "epoch": 1792754191.47, "action": "prompt", "cycle": 6, "task": "explain"}
+{"ts": "2026-10-23T11:16:48.193+00:00", "epoch": 1792754208.193, "action": "done", "cycle": 6, "task": "explain", "error_reply": false, "screen": "qwen__dev__0019-c6-explain.txt", "seconds": 16.7}
+{"ts": "2026-10-23T11:16:58.762+00:00", "epoch": 1792754218.763, "action": "prompt", "cycle": 6, "task": "test"}
+{"ts": "2026-10-23T11:17:10.910+00:00", "epoch": 1792754230.911, "action": "done", "cycle": 6, "task": "test", "error_reply": false, "screen": "qwen__dev__0020-c6-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:17:21.480+00:00", "epoch": 1792754241.481, "action": "prompt", "cycle": 6, "task": "edit"}
+{"ts": "2026-10-23T11:21:22.695+00:00", "epoch": 1792754482.695, "action": "timeout", "cycle": 6, "task": "edit", "error_reply": false, "screen": "qwen__dev__0021-c6-edit-timeout.txt"}
+{"ts": "2026-10-23T11:21:22.695+00:00", "epoch": 1792754482.695, "action": "skipped-after-failure", "cycle": 6, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:21:24.751+00:00", "epoch": 1792754484.751, "action": "close", "cycle": 6}
+{"ts": "2026-10-23T11:21:56.818+00:00", "epoch": 1792754516.819, "action": "open", "cycle": 7}
+{"ts": "2026-10-23T11:22:10.455+00:00", "epoch": 1792754530.455, "action": "prompt", "cycle": 7, "task": "explain"}
+{"ts": "2026-10-23T11:22:34.712+00:00", "epoch": 1792754554.713, "action": "done", "cycle": 7, "task": "explain", "error_reply": false, "screen": "qwen__dev__0022-c7-explain.txt", "seconds": 24.2}
+{"ts": "2026-10-23T11:22:45.278+00:00", "epoch": 1792754565.278, "action": "prompt", "cycle": 7, "task": "test"}
+{"ts": "2026-10-23T11:23:11.088+00:00", "epoch": 1792754591.089, "action": "done", "cycle": 7, "task": "test", "error_reply": false, "screen": "qwen__dev__0023-c7-test.txt", "seconds": 25.8}
+{"ts": "2026-10-23T11:23:21.674+00:00", "epoch": 1792754601.675, "action": "prompt", "cycle": 7, "task": "edit"}
+{"ts": "2026-10-23T11:27:22.820+00:00", "epoch": 1792754842.82, "action": "timeout", "cycle": 7, "task": "edit", "error_reply": false, "screen": "qwen__dev__0024-c7-edit-timeout.txt"}
+{"ts": "2026-10-23T11:27:22.820+00:00", "epoch": 1792754842.82, "action": "skipped-after-failure", "cycle": 7, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:27:24.871+00:00", "epoch": 1792754844.872, "action": "close", "cycle": 7}
+{"ts": "2026-10-23T11:27:56.955+00:00", "epoch": 1792754876.955, "action": "open", "cycle": 8}
+{"ts": "2026-10-23T11:28:10.577+00:00", "epoch": 1792754890.577, "action": "prompt", "cycle": 8, "task": "explain"}
+{"ts": "2026-10-23T11:28:30.278+00:00", "epoch": 1792754910.278, "action": "done", "cycle": 8, "task": "explain", "error_reply": false, "screen": "qwen__dev__0025-c8-explain.txt", "seconds": 19.7}
+{"ts": "2026-10-23T11:28:40.833+00:00", "epoch": 1792754920.834, "action": "prompt", "cycle": 8, "task": "test"}
+{"ts": "2026-10-23T11:28:56.037+00:00", "epoch": 1792754936.037, "action": "done", "cycle": 8, "task": "test", "error_reply": false, "screen": "qwen__dev__0026-c8-test.txt", "seconds": 15.2}
+{"ts": "2026-10-23T11:29:06.602+00:00", "epoch": 1792754946.603, "action": "prompt", "cycle": 8, "task": "edit"}
+{"ts": "2026-10-23T11:33:07.758+00:00", "epoch": 1792755187.758, "action": "timeout", "cycle": 8, "task": "edit", "error_reply": false, "screen": "qwen__dev__0027-c8-edit-timeout.txt"}
+{"ts": "2026-10-23T11:33:07.758+00:00", "epoch": 1792755187.758, "action": "skipped-after-failure", "cycle": 8, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:33:09.808+00:00", "epoch": 1792755189.809, "action": "close", "cycle": 8}
+{"ts": "2026-10-23T11:33:41.883+00:00", "epoch": 1792755221.884, "action": "open", "cycle": 9}
+{"ts": "2026-10-23T11:33:55.509+00:00", "epoch": 1792755235.509, "action": "prompt", "cycle": 9, "task": "explain"}
+{"ts": "2026-10-23T11:37:56.600+00:00", "epoch": 1792755476.601, "action": "timeout", "cycle": 9, "task": "explain", "error_reply": false, "screen": "qwen__dev__0028-c9-explain-timeout.txt"}
+{"ts": "2026-10-23T11:37:56.600+00:00", "epoch": 1792755476.601, "action": "skipped-after-failure", "cycle": 9, "task": "test", "after": "timeout"}
+{"ts": "2026-10-23T11:37:56.600+00:00", "epoch": 1792755476.601, "action": "skipped-after-failure", "cycle": 9, "task": "edit", "after": "timeout"}
+{"ts": "2026-10-23T11:37:56.600+00:00", "epoch": 1792755476.601, "action": "skipped-after-failure", "cycle": 9, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:37:58.654+00:00", "epoch": 1792755478.655, "action": "close", "cycle": 9}
+{"ts": "2026-10-23T11:38:30.721+00:00", "epoch": 1792755510.721, "action": "open", "cycle": 10}
+{"ts": "2026-10-23T11:38:44.350+00:00", "epoch": 1792755524.35, "action": "prompt", "cycle": 10, "task": "explain"}
+{"ts": "2026-10-23T11:38:58.017+00:00", "epoch": 1792755538.017, "action": "done", "cycle": 10, "task": "explain", "error_reply": false, "screen": "qwen__dev__0029-c10-explain.txt", "seconds": 13.7}
+{"ts": "2026-10-23T11:39:08.574+00:00", "epoch": 1792755548.574, "action": "prompt", "cycle": 10, "task": "test"}
+{"ts": "2026-10-23T11:39:22.247+00:00", "epoch": 1792755562.247, "action": "done", "cycle": 10, "task": "test", "error_reply": false, "screen": "qwen__dev__0030-c10-test.txt", "seconds": 13.7}
+{"ts": "2026-10-23T11:39:32.812+00:00", "epoch": 1792755572.813, "action": "prompt", "cycle": 10, "task": "edit"}
+{"ts": "2026-10-23T11:39:39.721+00:00", "epoch": 1792755579.722, "action": "unexpected-question", "cycle": 10, "task": "edit", "screen": "qwen__dev__0031-unexpected-question.txt"}
+{"ts": "2026-10-23T11:39:52.357+00:00", "epoch": 1792755592.358, "action": "no-evidence", "cycle": 10, "task": "edit", "error_reply": false, "screen": "qwen__dev__0032-c10-edit.txt", "seconds": 19.5}
+{"ts": "2026-10-23T11:40:02.921+00:00", "epoch": 1792755602.922, "action": "prompt", "cycle": 10, "task": "known-server"}
+{"ts": "2026-10-23T11:40:18.139+00:00", "epoch": 1792755618.14, "action": "done", "cycle": 10, "task": "known-server", "error_reply": false, "screen": "qwen__dev__0033-c10-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-23T11:40:20.183+00:00", "epoch": 1792755620.184, "action": "close", "cycle": 10}
+{"ts": "2026-10-23T11:40:52.271+00:00", "epoch": 1792755652.272, "action": "open", "cycle": 11}
+{"ts": "2026-10-23T11:41:05.927+00:00", "epoch": 1792755665.927, "action": "prompt", "cycle": 11, "task": "explain"}
+{"ts": "2026-10-23T11:41:19.583+00:00", "epoch": 1792755679.584, "action": "done", "cycle": 11, "task": "explain", "error_reply": false, "screen": "qwen__dev__0034-c11-explain.txt", "seconds": 13.6}
+{"ts": "2026-10-23T11:41:30.146+00:00", "epoch": 1792755690.146, "action": "prompt", "cycle": 11, "task": "test"}
+{"ts": "2026-10-23T11:41:42.293+00:00", "epoch": 1792755702.293, "action": "done", "cycle": 11, "task": "test", "error_reply": false, "screen": "qwen__dev__0035-c11-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:41:52.873+00:00", "epoch": 1792755712.873, "action": "prompt", "cycle": 11, "task": "edit"}
+{"ts": "2026-10-23T11:42:06.539+00:00", "epoch": 1792755726.54, "action": "done", "cycle": 11, "task": "edit", "error_reply": false, "screen": "qwen__dev__0036-c11-edit.txt", "seconds": 13.7}
+{"ts": "2026-10-23T11:42:17.109+00:00", "epoch": 1792755737.11, "action": "prompt", "cycle": 11, "task": "known-server"}
+{"ts": "2026-10-23T11:42:32.297+00:00", "epoch": 1792755752.298, "action": "done", "cycle": 11, "task": "known-server", "error_reply": false, "screen": "qwen__dev__0037-c11-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-23T11:42:34.364+00:00", "epoch": 1792755754.365, "action": "close", "cycle": 11}
+{"ts": "2026-10-23T11:43:06.436+00:00", "epoch": 1792755786.436, "action": "open", "cycle": 12}
+{"ts": "2026-10-23T11:43:20.068+00:00", "epoch": 1792755800.069, "action": "prompt", "cycle": 12, "task": "explain"}
+{"ts": "2026-10-23T11:43:32.204+00:00", "epoch": 1792755812.205, "action": "done", "cycle": 12, "task": "explain", "error_reply": false, "screen": "qwen__dev__0038-c12-explain.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:43:42.774+00:00", "epoch": 1792755822.775, "action": "prompt", "cycle": 12, "task": "test"}
+{"ts": "2026-10-23T11:43:54.923+00:00", "epoch": 1792755834.924, "action": "done", "cycle": 12, "task": "test", "error_reply": false, "screen": "qwen__dev__0039-c12-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:44:05.488+00:00", "epoch": 1792755845.488, "action": "prompt", "cycle": 12, "task": "edit"}
+{"ts": "2026-10-23T11:44:17.642+00:00", "epoch": 1792755857.642, "action": "done", "cycle": 12, "task": "edit", "error_reply": false, "screen": "qwen__dev__0040-c12-edit.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:44:28.203+00:00", "epoch": 1792755868.204, "action": "prompt", "cycle": 12, "task": "known-server"}
+{"ts": "2026-10-23T11:44:41.866+00:00", "epoch": 1792755881.866, "action": "done", "cycle": 12, "task": "known-server", "error_reply": false, "screen": "qwen__dev__0041-c12-known-server.txt", "seconds": 13.6}
+{"ts": "2026-10-23T11:44:43.910+00:00", "epoch": 1792755883.911, "action": "close", "cycle": 12}
+{"ts": "2026-10-23T11:45:15.982+00:00", "epoch": 1792755915.983, "action": "open", "cycle": 13}
+{"ts": "2026-10-23T11:45:29.596+00:00", "epoch": 1792755929.597, "action": "prompt", "cycle": 13, "task": "explain"}
+{"ts": "2026-10-23T11:45:41.758+00:00", "epoch": 1792755941.759, "action": "done", "cycle": 13, "task": "explain", "error_reply": false, "screen": "qwen__dev__0042-c13-explain.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:45:52.322+00:00", "epoch": 1792755952.322, "action": "prompt", "cycle": 13, "task": "test"}
+{"ts": "2026-10-23T11:46:04.470+00:00", "epoch": 1792755964.47, "action": "done", "cycle": 13, "task": "test", "error_reply": false, "screen": "qwen__dev__0043-c13-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:46:15.050+00:00", "epoch": 1792755975.051, "action": "prompt", "cycle": 13, "task": "edit"}
+{"ts": "2026-10-23T11:50:16.161+00:00", "epoch": 1792756216.162, "action": "timeout", "cycle": 13, "task": "edit", "error_reply": false, "screen": "qwen__dev__0044-c13-edit-timeout.txt"}
+{"ts": "2026-10-23T11:50:16.161+00:00", "epoch": 1792756216.162, "action": "skipped-after-failure", "cycle": 13, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:50:18.207+00:00", "epoch": 1792756218.208, "action": "close", "cycle": 13}
+{"ts": "2026-10-23T11:50:50.283+00:00", "epoch": 1792756250.284, "action": "open", "cycle": 14}
+{"ts": "2026-10-23T11:51:03.917+00:00", "epoch": 1792756263.918, "action": "prompt", "cycle": 14, "task": "explain"}
+{"ts": "2026-10-23T11:51:16.057+00:00", "epoch": 1792756276.057, "action": "done", "cycle": 14, "task": "explain", "error_reply": false, "screen": "qwen__dev__0045-c14-explain.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:51:26.606+00:00", "epoch": 1792756286.607, "action": "prompt", "cycle": 14, "task": "test"}
+{"ts": "2026-10-23T11:51:38.753+00:00", "epoch": 1792756298.753, "action": "done", "cycle": 14, "task": "test", "error_reply": false, "screen": "qwen__dev__0046-c14-test.txt", "seconds": 12.1}
+{"ts": "2026-10-23T11:51:49.312+00:00", "epoch": 1792756309.313, "action": "prompt", "cycle": 14, "task": "edit"}
+{"ts": "2026-10-23T11:55:50.477+00:00", "epoch": 1792756550.477, "action": "timeout", "cycle": 14, "task": "edit", "error_reply": false, "screen": "qwen__dev__0047-c14-edit-timeout.txt"}
+{"ts": "2026-10-23T11:55:50.477+00:00", "epoch": 1792756550.477, "action": "skipped-after-failure", "cycle": 14, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-23T11:55:52.524+00:00", "epoch": 1792756552.525, "action": "close", "cycle": 14}
+{"ts": "2026-10-23T11:56:22.531+00:00", "epoch": 1792756582.532, "action": "session-end", "cycles": 14, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 14, "server_cycles": 14, "tasks_prompted": 56, "tasks_done": 35, "done_share": 0.625, "known_server_calls": 5, "known_server_calls_per_cycle": 0.35714285714285715, "ok": false}}

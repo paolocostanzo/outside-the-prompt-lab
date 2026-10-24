@@ -1,0 +1,15 @@
+{
+ "rep": 1,
+ "client": "qwen",
+ "event": "q3-announced",
+ "name": "qwen__q3-announced__r1",
+ "t0": 1792693415,
+ "t1": 1792693503,
+ "clock_skew_s": 0.22,
+ "cell_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "ground_truth": "copied and checked"
+}

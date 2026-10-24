@@ -1,0 +1,15 @@
+{"ts": "2026-10-22T14:58:07.677+00:00", "epoch": 1792681087.678, "action": "session-start", "client": "goose", "part": "setup", "minutes": 6.0, "version": "1.54.0"}
+{"ts": "2026-10-22T14:58:09.784+00:00", "epoch": 1792681089.785, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T14:58:21.947+00:00", "epoch": 1792681101.948, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T14:58:44.705+00:00", "epoch": 1792681124.705, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "goose__setup__0001-c1-explain.txt", "seconds": 22.7}
+{"ts": "2026-10-22T14:58:55.263+00:00", "epoch": 1792681135.264, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T14:59:13.469+00:00", "epoch": 1792681153.47, "action": "no-evidence", "cycle": 1, "task": "test", "error_reply": true, "screen": "goose__setup__0002-c1-test.txt", "seconds": 18.2}
+{"ts": "2026-10-22T14:59:24.063+00:00", "epoch": 1792681164.064, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T15:03:25.220+00:00", "epoch": 1792681405.221, "action": "timeout", "cycle": 1, "task": "edit", "error_reply": false, "screen": "goose__setup__0003-c1-edit-timeout.txt"}
+{"ts": "2026-10-22T15:03:25.220+00:00", "epoch": 1792681405.221, "action": "skipped-after-failure", "cycle": 1, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-22T15:03:27.269+00:00", "epoch": 1792681407.269, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T15:03:59.345+00:00", "epoch": 1792681439.345, "action": "open", "cycle": 2}
+{"ts": "2026-10-22T15:04:11.453+00:00", "epoch": 1792681451.453, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-22T15:04:35.727+00:00", "epoch": 1792681475.727, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "goose__setup__0004-c2-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-22T15:04:37.773+00:00", "epoch": 1792681477.774, "action": "close", "cycle": 2}
+{"ts": "2026-10-22T15:05:07.776+00:00", "epoch": 1792681507.776, "action": "session-end", "cycles": 2, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 2, "server_cycles": 1, "tasks_prompted": 5, "tasks_done": 2, "done_share": 0.4, "known_server_calls": 0, "known_server_calls_per_cycle": 0.0, "ok": false}}

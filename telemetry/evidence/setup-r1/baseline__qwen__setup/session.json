@@ -1,0 +1,23 @@
+{
+ "client": "qwen",
+ "part": "setup",
+ "minutes": 6.0,
+ "t_start": 1792677251.8032768,
+ "t_end": 1792677659.9769115,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 1,
+  "tasks_prompted": 4,
+  "tasks_done": 4,
+  "done_share": 1.0,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "valid": true
+}

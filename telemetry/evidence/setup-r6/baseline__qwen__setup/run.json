@@ -1,0 +1,24 @@
+{
+ "client": "qwen",
+ "part": "setup",
+ "name": "baseline__qwen__setup",
+ "t0": 1792767660,
+ "t1": 1792768566,
+ "clock_skew_s": 0.169,
+ "session_rc": 0,
+ "export": "ok",
+ "valid": false,
+ "problems": [
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 19, 'server_cycles': 19, 'tasks_prompted': 76, 'tasks_done': 0, 'done_share': 0.0, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"
+ ],
+ "workload": {
+  "cycles": 19,
+  "server_cycles": 19,
+  "tasks_prompted": 76,
+  "tasks_done": 0,
+  "done_share": 0.0,
+  "known_server_calls": 0,
+  "known_server_calls_per_cycle": 0.0,
+  "ok": false
+ }
+}

@@ -1,0 +1,54 @@
+{
+ "client": "claude-code",
+ "start": 1792691085,
+ "end": 1792691145,
+ "export": "ok",
+ "client_logs": "wrote",
+ "files": 353,
+ "files_modified_in_session": 4,
+ "patterns": [
+  {
+   "pattern": "~/.claude/projects/**/*.jsonl",
+   "location": "present",
+   "files": 20,
+   "with_records_in_session": 2,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.cache/claude-cli-nodejs/**/*.jsonl",
+   "location": "present",
+   "files": 333,
+   "with_records_in_session": 2,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.claude/debug/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.claude/logs/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.claude/statsig/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.claude/settings.json": "9d2146d0fcc50195f3472b8d60f68fe8cf225d86937a19182d8ff119a3828dfe"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

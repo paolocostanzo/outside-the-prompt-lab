@@ -1,0 +1,15 @@
+{
+ "rep": 2,
+ "client": "qwen",
+ "event": "q5-start",
+ "name": "qwen__q5-start__r2",
+ "t0": 1792740314,
+ "t1": 1792740337,
+ "clock_skew_s": 0.2,
+ "cell_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "ground_truth": "copied and checked"
+}

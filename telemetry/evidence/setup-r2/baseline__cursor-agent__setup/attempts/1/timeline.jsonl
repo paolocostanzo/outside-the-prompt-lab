@@ -1,0 +1,7 @@
+{"ts": "2026-10-22T15:40:28.085+00:00", "epoch": 1792683628.086, "action": "session-start", "client": "cursor-agent", "part": "setup", "minutes": 6.0, "version": "2026.10.14-941492e"}
+{"ts": "2026-10-22T15:40:30.211+00:00", "epoch": 1792683630.212, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T15:40:44.142+00:00", "epoch": 1792683644.142, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T15:40:45.699+00:00", "epoch": 1792683645.7, "action": "quota", "cycle": 1, "task": "explain", "message": "usage limit", "screen": "cursor-agent__setup__0001-quota.txt"}
+{"ts": "2026-10-22T15:40:45.735+00:00", "epoch": 1792683645.736, "action": "quota", "cycle": 1, "task": "explain", "error_reply": false, "screen": "cursor-agent__setup__0002-c1-explain-quota.txt"}
+{"ts": "2026-10-22T15:40:47.794+00:00", "epoch": 1792683647.794, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T15:40:47.795+00:00", "epoch": 1792683647.795, "action": "session-end", "cycles": 1, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 1, "server_cycles": 0, "tasks_prompted": 1, "tasks_done": 0, "done_share": 0.0, "known_server_calls": 0, "known_server_calls_per_cycle": 0.0, "ok": false}}

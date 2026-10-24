@@ -1,0 +1,61 @@
+{"ts": "2026-10-22T17:29:33+00:00", "event": "pre-revert", "run": "gemini__q3-announced__r1", "order6plus": 38}
+{"ts": "2026-10-22T17:29:35+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:30:17+00:00", "event": "run-start", "n": 1, "of": 15, "run": "gemini__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:32:51+00:00", "event": "run-end", "run": "gemini__q3-announced__r1", "rc": 0, "seconds": 133, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:32:51+00:00", "event": "pre-revert", "run": "goose__q3-silent__r1", "order6plus": 39}
+{"ts": "2026-10-22T17:32:52+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:33:38+00:00", "event": "run-start", "n": 2, "of": 15, "run": "goose__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:35:12+00:00", "event": "run-end", "run": "goose__q3-silent__r1", "rc": 0, "seconds": 72, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:35:12+00:00", "event": "pre-revert", "run": "goose__q3-announced__r1", "order6plus": 10}
+{"ts": "2026-10-22T17:35:14+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:35:49+00:00", "event": "run-start", "n": 3, "of": 15, "run": "goose__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:37:32+00:00", "event": "run-end", "run": "goose__q3-announced__r1", "rc": 0, "seconds": 81, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:37:32+00:00", "event": "pre-revert", "run": "gemini__q5-start__r1", "order6plus": 51}
+{"ts": "2026-10-22T17:37:33+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:38:18+00:00", "event": "run-start", "n": 4, "of": 15, "run": "gemini__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:39:43+00:00", "event": "run-end", "run": "gemini__q5-start__r1", "rc": 0, "seconds": 63, "export": "ok", "client_logs": "wrote-nothing-in-session"}
+{"ts": "2026-10-22T17:39:43+00:00", "event": "pre-revert", "run": "qwen__q3-silent__r1", "order6plus": 3}
+{"ts": "2026-10-22T17:39:44+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:40:17+00:00", "event": "run-start", "n": 5, "of": 15, "run": "qwen__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:42:30+00:00", "event": "run-end", "run": "qwen__q3-silent__r1", "rc": 0, "seconds": 112, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:42:30+00:00", "event": "pre-revert", "run": "goose__q5-start__r1", "order6plus": 11}
+{"ts": "2026-10-22T17:42:31+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:43:10+00:00", "event": "run-start", "n": 6, "of": 15, "run": "goose__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:44:01+00:00", "event": "run-end", "run": "goose__q5-start__r1", "rc": 0, "seconds": 30, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:44:01+00:00", "event": "pre-revert", "run": "claude-code__q3-announced__r1", "order6plus": 5}
+{"ts": "2026-10-22T17:44:02+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:44:45+00:00", "event": "run-start", "n": 7, "of": 15, "run": "claude-code__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:46:07+00:00", "event": "run-end", "run": "claude-code__q3-announced__r1", "rc": 0, "seconds": 60, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:46:07+00:00", "event": "pre-revert", "run": "gemini__q3-silent__r1", "order6plus": 6}
+{"ts": "2026-10-22T17:46:08+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:46:43+00:00", "event": "run-start", "n": 8, "of": 15, "run": "gemini__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:48:30+00:00", "event": "run-end", "run": "gemini__q3-silent__r1", "rc": 0, "seconds": 85, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:48:30+00:00", "event": "pre-revert", "run": "codex__q5-start__r1", "order6plus": 21}
+{"ts": "2026-10-22T17:48:31+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:49:18+00:00", "event": "run-start", "n": 9, "of": 15, "run": "codex__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:50:09+00:00", "event": "run-end", "run": "codex__q5-start__r1", "rc": 0, "seconds": 28, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:50:09+00:00", "event": "pre-revert", "run": "claude-code__q5-start__r1", "order6plus": 29}
+{"ts": "2026-10-22T17:50:10+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:50:48+00:00", "event": "run-start", "n": 10, "of": 15, "run": "claude-code__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:51:37+00:00", "event": "run-end", "run": "claude-code__q5-start__r1", "rc": 0, "seconds": 28, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:51:37+00:00", "event": "pre-revert", "run": "claude-code__q3-silent__r1", "order6plus": 16}
+{"ts": "2026-10-22T17:51:39+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:52:20+00:00", "event": "run-start", "n": 11, "of": 15, "run": "claude-code__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:53:45+00:00", "event": "run-end", "run": "claude-code__q3-silent__r1", "rc": 0, "seconds": 63, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:53:45+00:00", "event": "pre-revert", "run": "codex__q3-announced__r1", "order6plus": 3}
+{"ts": "2026-10-22T17:53:46+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:54:27+00:00", "event": "run-start", "n": 12, "of": 15, "run": "codex__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:56:06+00:00", "event": "run-end", "run": "codex__q3-announced__r1", "rc": 0, "seconds": 74, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:56:06+00:00", "event": "pre-revert", "run": "qwen__q5-start__r1", "order6plus": 8}
+{"ts": "2026-10-22T17:56:07+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:56:47+00:00", "event": "run-start", "n": 13, "of": 15, "run": "qwen__q5-start__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:57:31+00:00", "event": "run-end", "run": "qwen__q5-start__r1", "rc": 0, "seconds": 23, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:57:31+00:00", "event": "pre-revert", "run": "codex__q3-silent__r1", "order6plus": 11}
+{"ts": "2026-10-22T17:57:33+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T17:58:12+00:00", "event": "run-start", "n": 14, "of": 15, "run": "codex__q3-silent__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T17:59:52+00:00", "event": "run-end", "run": "codex__q3-silent__r1", "rc": 0, "seconds": 74, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T17:59:52+00:00", "event": "pre-revert", "run": "qwen__q3-announced__r1", "order6plus": 17}
+{"ts": "2026-10-22T17:59:53+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T18:00:34+00:00", "event": "run-start", "n": 15, "of": 15, "run": "qwen__q3-announced__r1", "ip": "192.168.122.70", "boot_s": 1, "push_rc": 0}
+{"ts": "2026-10-22T18:02:32+00:00", "event": "run-end", "run": "qwen__q3-announced__r1", "rc": 0, "seconds": 96, "export": "ok", "client_logs": "wrote"}
+{"ts": "2026-10-22T18:02:32+00:00", "event": "events-done", "runs": 15}

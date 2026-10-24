@@ -1,0 +1,61 @@
+{
+ "client": "cursor-agent",
+ "start": 1792678692,
+ "end": 1792679096,
+ "export": "ok",
+ "client_logs": "wrote",
+ "files": 35,
+ "files_modified_in_session": 25,
+ "patterns": [
+  {
+   "pattern": "~/.cursor/chats/**",
+   "location": "present",
+   "files": 26,
+   "with_records_in_session": 0,
+   "without_timestamps": 26
+  },
+  {
+   "pattern": "~/.cursor/agent-cli-state.json",
+   "location": "present",
+   "files": 1,
+   "with_records_in_session": 0,
+   "without_timestamps": 1
+  },
+  {
+   "pattern": "~/.cursor/logs/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.local/share/cursor-agent/**/*.log",
+   "location": "present",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.cursor/projects/**/agent-transcripts/**/*.jsonl",
+   "location": "present",
+   "files": 6,
+   "with_records_in_session": 0,
+   "without_timestamps": 6
+  },
+  {
+   "pattern": "~/.cursor/projects/**/worker.log",
+   "location": "present",
+   "files": 2,
+   "with_records_in_session": 0,
+   "without_timestamps": 2
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.cursor/cli-config.json": "868f789d70fb16ba5fcd8c6eca2e1841ff53b342be366404aa0d4d6ba7148f1c"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

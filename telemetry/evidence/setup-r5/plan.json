@@ -1,0 +1,32 @@
+{
+ "created": "2026-10-23T12:39:20+00:00",
+ "frozen": {
+  "snapshot": "q4-base-20261017",
+  "seed": 20261019,
+  "minutes": 15.0,
+  "gap_hours": 6,
+  "clients": [
+   "qwen"
+  ],
+  "parts": [
+   "setup"
+  ],
+  "inventory_sha256": "f21271690dcd1c41eff7709d5ed13ad259fa04a846e42dc3f0019398f760eeeb",
+  "candidates_sha256": "040eab3bf9997c7533ec4062ed1e27728eb0ee3a90f251d37d835a882f4befcd",
+  "harness": {
+   "commit": "b50af0b714e910344d10a79c4f34ab53b37503eb",
+   "trees": {
+    "tool-change": "0bd7e6c1fb40ab5ec8ddd86f553dcac042266d1d",
+    "trusting-a-repo": "f32afac2819087cb6030ae919b353a9c4aa4f03f",
+    "telemetry": "2a57d98caf7b711838a133afcd08673cbb3e2ad3"
+   }
+  }
+ },
+ "runs": [
+  {
+   "client": "qwen",
+   "part": "setup",
+   "name": "baseline__qwen__setup"
+  }
+ ]
+}

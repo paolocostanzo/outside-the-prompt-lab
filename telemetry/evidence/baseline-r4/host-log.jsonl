@@ -1,0 +1,36 @@
+{"ts": "2026-10-23T18:04:05+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T18:06:46+00:00", "event": "session-start", "n": 1, "of": 10, "session": "baseline__codex__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T19:08:08+00:00", "event": "session-end", "session": "baseline__codex__dev", "seconds": 3619, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T19:08:10+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T19:08:51+00:00", "event": "session-start", "n": 2, "of": 10, "session": "baseline__claude-code__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T20:10:08+00:00", "event": "session-end", "session": "baseline__claude-code__dev", "seconds": 3642, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T20:10:09+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T20:10:52+00:00", "event": "session-start", "n": 3, "of": 10, "session": "baseline__qwen__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T21:11:58+00:00", "event": "session-end", "session": "baseline__qwen__dev", "seconds": 3643, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T21:11:59+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T21:12:44+00:00", "event": "session-start", "n": 4, "of": 10, "session": "baseline__gemini__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T22:14:08+00:00", "event": "session-end", "session": "baseline__gemini__dev", "seconds": 3663, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T22:14:09+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T22:14:55+00:00", "event": "session-start", "n": 5, "of": 10, "session": "baseline__goose__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T23:16:12+00:00", "event": "session-end", "session": "baseline__goose__dev", "seconds": 3652, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T23:16:12+00:00", "event": "holdout-wait", "session": "baseline__codex__holdout", "wait_s": 6652}
+{"ts": "2026-10-24T01:07:06+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T01:08:23+00:00", "event": "session-start", "n": 6, "of": 10, "session": "baseline__codex__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T02:10:01+00:00", "event": "session-end", "session": "baseline__codex__holdout", "seconds": 3640, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-24T02:10:02+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T02:10:48+00:00", "event": "session-start", "n": 7, "of": 10, "session": "baseline__claude-code__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T03:11:56+00:00", "event": "session-end", "session": "baseline__claude-code__holdout", "seconds": 3634, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-24T03:11:57+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T03:12:46+00:00", "event": "session-start", "n": 8, "of": 10, "session": "baseline__qwen__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T04:13:24+00:00", "event": "session-end", "session": "baseline__qwen__holdout", "seconds": 3615, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-24T04:13:24+00:00", "event": "holdout-wait", "session": "baseline__gemini__holdout", "wait_s": 22}
+{"ts": "2026-10-24T04:13:48+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T04:14:33+00:00", "event": "session-start", "n": 9, "of": 10, "session": "baseline__gemini__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T05:15:48+00:00", "event": "session-end", "session": "baseline__gemini__holdout", "seconds": 3654, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-24T05:15:49+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T05:16:36+00:00", "event": "session-start", "n": 10, "of": 10, "session": "baseline__goose__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T06:17:36+00:00", "event": "abort-session", "session": "baseline__goose__holdout", "problems": ["quota observer: 1 capture error(s), e.g. 'has-session: no current target'"], "kept": "/home/brainonion/Desktop/redazione/lab/results/q4/baseline-r4/baseline__goose__holdout/attempts/1", "hint": "VM left as it is: look at it and at the attempt before rerunning, a rerun powers it off; fix the cause, then rerun the same command (the plan is kept)"}
+{"ts": "2026-10-24T06:18:20+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-24T06:19:05+00:00", "event": "session-start", "n": 10, "of": 10, "session": "baseline__goose__holdout", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-24T07:20:24+00:00", "event": "session-end", "session": "baseline__goose__holdout", "seconds": 3654, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-24T07:20:24+00:00", "event": "baseline-done", "sessions": 10, "local_engine_repetition": "not implemented, not done"}

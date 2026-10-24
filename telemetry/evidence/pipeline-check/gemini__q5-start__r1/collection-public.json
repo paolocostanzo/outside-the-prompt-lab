@@ -1,0 +1,40 @@
+{
+ "client": "gemini",
+ "start": 1792690047,
+ "end": 1792690110,
+ "export": "ok",
+ "client_logs": "wrote-nothing-in-session",
+ "files": 9,
+ "files_modified_in_session": 0,
+ "patterns": [
+  {
+   "pattern": "~/.gemini/tmp/**/logs.json",
+   "location": "present",
+   "files": 2,
+   "with_records_in_session": 0,
+   "without_timestamps": 2
+  },
+  {
+   "pattern": "~/.gemini/tmp/**/chats/**",
+   "location": "present",
+   "files": 7,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.gemini/logs/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.gemini/settings.json": "0577b020ff6eeecf6b8c10ef0661d2c6727a67b2bc1f33c63db521117534df40"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

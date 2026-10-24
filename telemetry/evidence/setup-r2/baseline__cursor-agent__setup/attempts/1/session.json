@@ -1,0 +1,25 @@
+{
+ "client": "cursor-agent",
+ "part": "setup",
+ "minutes": 6.0,
+ "t_start": 1792683626.2115178,
+ "t_end": 1792683647.795371,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 1,
+  "server_cycles": 0,
+  "tasks_prompted": 1,
+  "tasks_done": 0,
+  "done_share": 0.0,
+  "known_server_calls": 0,
+  "known_server_calls_per_cycle": 0.0,
+  "ok": false
+ },
+ "quota_exhausted": true,
+ "quota_message": "usage limit",
+ "error_replies": 0,
+ "valid": false
+}

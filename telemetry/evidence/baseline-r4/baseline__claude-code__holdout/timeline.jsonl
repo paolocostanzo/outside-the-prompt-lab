@@ -1,0 +1,242 @@
+{"ts": "2026-10-24T02:10:50.502+00:00", "epoch": 1792807850.502, "action": "session-start", "client": "claude-code", "part": "holdout", "minutes": 60.0, "version": "2.1.300 (Claude Code)"}
+{"ts": "2026-10-24T02:10:52.851+00:00", "epoch": 1792807852.852, "action": "open", "cycle": 1}
+{"ts": "2026-10-24T02:11:06.544+00:00", "epoch": 1792807866.545, "action": "prompt", "cycle": 1, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:11:30.885+00:00", "epoch": 1792807890.886, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0001-c1-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:11:41.464+00:00", "epoch": 1792807901.464, "action": "prompt", "cycle": 1, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:11:56.658+00:00", "epoch": 1792807916.659, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0002-c1-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:12:07.246+00:00", "epoch": 1792807927.247, "action": "prompt", "cycle": 1, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:12:22.491+00:00", "epoch": 1792807942.491, "action": "done", "cycle": 1, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0003-c1-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:12:33.058+00:00", "epoch": 1792807953.059, "action": "prompt", "cycle": 1, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:12:48.271+00:00", "epoch": 1792807968.271, "action": "done", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0004-c1-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:12:50.322+00:00", "epoch": 1792807970.322, "action": "close", "cycle": 1}
+{"ts": "2026-10-24T02:13:22.408+00:00", "epoch": 1792808002.409, "action": "open", "cycle": 2}
+{"ts": "2026-10-24T02:13:34.536+00:00", "epoch": 1792808014.536, "action": "prompt", "cycle": 2, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:13:58.894+00:00", "epoch": 1792808038.894, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0005-c2-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:14:09.451+00:00", "epoch": 1792808049.452, "action": "prompt", "cycle": 2, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:14:24.668+00:00", "epoch": 1792808064.669, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0006-c2-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:14:35.239+00:00", "epoch": 1792808075.24, "action": "prompt", "cycle": 2, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:14:59.568+00:00", "epoch": 1792808099.568, "action": "done", "cycle": 2, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0007-c2-edit.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:15:10.129+00:00", "epoch": 1792808110.129, "action": "prompt", "cycle": 2, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:15:28.385+00:00", "epoch": 1792808128.386, "action": "done", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0008-c2-known-server.txt", "seconds": 18.2}
+{"ts": "2026-10-24T02:15:30.439+00:00", "epoch": 1792808130.44, "action": "close", "cycle": 2}
+{"ts": "2026-10-24T02:16:02.525+00:00", "epoch": 1792808162.526, "action": "open", "cycle": 3}
+{"ts": "2026-10-24T02:16:14.675+00:00", "epoch": 1792808174.676, "action": "prompt", "cycle": 3, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:16:38.978+00:00", "epoch": 1792808198.979, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0009-c3-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:16:49.130+00:00", "epoch": 1792808209.13, "action": "prompt", "cycle": 3, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:17:04.336+00:00", "epoch": 1792808224.337, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0010-c3-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:17:14.923+00:00", "epoch": 1792808234.924, "action": "prompt", "cycle": 3, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:17:30.121+00:00", "epoch": 1792808250.122, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0011-c3-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:17:40.680+00:00", "epoch": 1792808260.681, "action": "prompt", "cycle": 3, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:17:57.422+00:00", "epoch": 1792808277.422, "action": "done", "cycle": 3, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0012-c3-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:17:59.476+00:00", "epoch": 1792808279.477, "action": "close", "cycle": 3}
+{"ts": "2026-10-24T02:18:31.566+00:00", "epoch": 1792808311.566, "action": "open", "cycle": 4}
+{"ts": "2026-10-24T02:18:43.704+00:00", "epoch": 1792808323.705, "action": "prompt", "cycle": 4, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:19:08.035+00:00", "epoch": 1792808348.035, "action": "done", "cycle": 4, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0013-c4-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:19:18.588+00:00", "epoch": 1792808358.589, "action": "prompt", "cycle": 4, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:19:33.773+00:00", "epoch": 1792808373.774, "action": "done", "cycle": 4, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0014-c4-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:19:44.343+00:00", "epoch": 1792808384.344, "action": "prompt", "cycle": 4, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:19:59.549+00:00", "epoch": 1792808399.549, "action": "done", "cycle": 4, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0015-c4-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:20:10.106+00:00", "epoch": 1792808410.107, "action": "prompt", "cycle": 4, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:20:26.836+00:00", "epoch": 1792808426.837, "action": "done", "cycle": 4, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0016-c4-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:20:28.912+00:00", "epoch": 1792808428.913, "action": "close", "cycle": 4}
+{"ts": "2026-10-24T02:21:00.987+00:00", "epoch": 1792808460.988, "action": "open", "cycle": 5}
+{"ts": "2026-10-24T02:21:13.115+00:00", "epoch": 1792808473.116, "action": "prompt", "cycle": 5, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:21:37.434+00:00", "epoch": 1792808497.434, "action": "done", "cycle": 5, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0017-c5-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:21:47.999+00:00", "epoch": 1792808507.999, "action": "prompt", "cycle": 5, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:22:01.660+00:00", "epoch": 1792808521.661, "action": "done", "cycle": 5, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0018-c5-test.txt", "seconds": 13.6}
+{"ts": "2026-10-24T02:22:12.226+00:00", "epoch": 1792808532.226, "action": "prompt", "cycle": 5, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:22:24.402+00:00", "epoch": 1792808544.403, "action": "done", "cycle": 5, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0019-c5-edit.txt", "seconds": 12.2}
+{"ts": "2026-10-24T02:22:34.979+00:00", "epoch": 1792808554.98, "action": "prompt", "cycle": 5, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:22:48.665+00:00", "epoch": 1792808568.665, "action": "done", "cycle": 5, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0020-c5-known-server.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:22:50.717+00:00", "epoch": 1792808570.717, "action": "close", "cycle": 5}
+{"ts": "2026-10-24T02:23:22.790+00:00", "epoch": 1792808602.79, "action": "open", "cycle": 6}
+{"ts": "2026-10-24T02:23:34.909+00:00", "epoch": 1792808614.91, "action": "prompt", "cycle": 6, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:23:59.217+00:00", "epoch": 1792808639.217, "action": "done", "cycle": 6, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0021-c6-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:24:09.791+00:00", "epoch": 1792808649.792, "action": "prompt", "cycle": 6, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:24:23.474+00:00", "epoch": 1792808663.475, "action": "done", "cycle": 6, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0022-c6-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:24:34.029+00:00", "epoch": 1792808674.03, "action": "prompt", "cycle": 6, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:24:47.733+00:00", "epoch": 1792808687.734, "action": "done", "cycle": 6, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0023-c6-edit.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:24:58.327+00:00", "epoch": 1792808698.327, "action": "prompt", "cycle": 6, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:25:13.523+00:00", "epoch": 1792808713.523, "action": "done", "cycle": 6, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0024-c6-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:25:15.578+00:00", "epoch": 1792808715.578, "action": "close", "cycle": 6}
+{"ts": "2026-10-24T02:25:47.657+00:00", "epoch": 1792808747.657, "action": "open", "cycle": 7}
+{"ts": "2026-10-24T02:25:59.835+00:00", "epoch": 1792808759.836, "action": "prompt", "cycle": 7, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:26:24.160+00:00", "epoch": 1792808784.16, "action": "done", "cycle": 7, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0025-c7-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:26:34.718+00:00", "epoch": 1792808794.719, "action": "prompt", "cycle": 7, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:26:48.392+00:00", "epoch": 1792808808.393, "action": "done", "cycle": 7, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0026-c7-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:26:58.963+00:00", "epoch": 1792808818.964, "action": "prompt", "cycle": 7, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:27:15.672+00:00", "epoch": 1792808835.672, "action": "done", "cycle": 7, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0027-c7-edit.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:27:26.251+00:00", "epoch": 1792808846.251, "action": "prompt", "cycle": 7, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:27:43.011+00:00", "epoch": 1792808863.012, "action": "done", "cycle": 7, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0028-c7-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:27:45.091+00:00", "epoch": 1792808865.091, "action": "close", "cycle": 7}
+{"ts": "2026-10-24T02:28:17.165+00:00", "epoch": 1792808897.165, "action": "open", "cycle": 8}
+{"ts": "2026-10-24T02:28:29.274+00:00", "epoch": 1792808909.275, "action": "prompt", "cycle": 8, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:28:55.081+00:00", "epoch": 1792808935.082, "action": "done", "cycle": 8, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0029-c8-explain.txt", "seconds": 25.8}
+{"ts": "2026-10-24T02:29:05.643+00:00", "epoch": 1792808945.644, "action": "prompt", "cycle": 8, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:29:20.848+00:00", "epoch": 1792808960.849, "action": "done", "cycle": 8, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0030-c8-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:29:31.391+00:00", "epoch": 1792808971.392, "action": "prompt", "cycle": 8, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:29:52.668+00:00", "epoch": 1792808992.669, "action": "done", "cycle": 8, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0031-c8-edit.txt", "seconds": 21.3}
+{"ts": "2026-10-24T02:30:03.235+00:00", "epoch": 1792809003.236, "action": "prompt", "cycle": 8, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:30:19.964+00:00", "epoch": 1792809019.964, "action": "done", "cycle": 8, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0032-c8-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:30:22.019+00:00", "epoch": 1792809022.02, "action": "close", "cycle": 8}
+{"ts": "2026-10-24T02:30:54.098+00:00", "epoch": 1792809054.098, "action": "open", "cycle": 9}
+{"ts": "2026-10-24T02:31:06.272+00:00", "epoch": 1792809066.273, "action": "prompt", "cycle": 9, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:31:30.584+00:00", "epoch": 1792809090.585, "action": "done", "cycle": 9, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0033-c9-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:31:41.143+00:00", "epoch": 1792809101.144, "action": "prompt", "cycle": 9, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:31:54.856+00:00", "epoch": 1792809114.857, "action": "done", "cycle": 9, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0034-c9-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:32:05.422+00:00", "epoch": 1792809125.423, "action": "prompt", "cycle": 9, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:32:20.660+00:00", "epoch": 1792809140.66, "action": "done", "cycle": 9, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0035-c9-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:32:31.241+00:00", "epoch": 1792809151.242, "action": "prompt", "cycle": 9, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:32:46.459+00:00", "epoch": 1792809166.459, "action": "done", "cycle": 9, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0036-c9-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:32:48.517+00:00", "epoch": 1792809168.517, "action": "close", "cycle": 9}
+{"ts": "2026-10-24T02:33:20.593+00:00", "epoch": 1792809200.593, "action": "open", "cycle": 10}
+{"ts": "2026-10-24T02:33:32.710+00:00", "epoch": 1792809212.711, "action": "prompt", "cycle": 10, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:33:57.022+00:00", "epoch": 1792809237.023, "action": "done", "cycle": 10, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0037-c10-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:34:07.571+00:00", "epoch": 1792809247.572, "action": "prompt", "cycle": 10, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:34:21.251+00:00", "epoch": 1792809261.252, "action": "done", "cycle": 10, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0038-c10-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:34:31.815+00:00", "epoch": 1792809271.816, "action": "prompt", "cycle": 10, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:34:51.571+00:00", "epoch": 1792809291.572, "action": "done", "cycle": 10, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0039-c10-edit.txt", "seconds": 19.7}
+{"ts": "2026-10-24T02:35:02.152+00:00", "epoch": 1792809302.153, "action": "prompt", "cycle": 10, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:35:17.364+00:00", "epoch": 1792809317.365, "action": "done", "cycle": 10, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0040-c10-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:35:19.418+00:00", "epoch": 1792809319.419, "action": "close", "cycle": 10}
+{"ts": "2026-10-24T02:35:51.502+00:00", "epoch": 1792809351.502, "action": "open", "cycle": 11}
+{"ts": "2026-10-24T02:36:03.636+00:00", "epoch": 1792809363.636, "action": "prompt", "cycle": 11, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:36:27.911+00:00", "epoch": 1792809387.911, "action": "done", "cycle": 11, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0041-c11-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:36:38.474+00:00", "epoch": 1792809398.474, "action": "prompt", "cycle": 11, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:36:59.758+00:00", "epoch": 1792809419.759, "action": "done", "cycle": 11, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0042-c11-test.txt", "seconds": 21.3}
+{"ts": "2026-10-24T02:37:10.315+00:00", "epoch": 1792809430.316, "action": "prompt", "cycle": 11, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:37:36.157+00:00", "epoch": 1792809456.157, "action": "done", "cycle": 11, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0043-c11-edit.txt", "seconds": 25.8}
+{"ts": "2026-10-24T02:37:46.719+00:00", "epoch": 1792809466.72, "action": "prompt", "cycle": 11, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:38:03.466+00:00", "epoch": 1792809483.466, "action": "done", "cycle": 11, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0044-c11-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:38:05.532+00:00", "epoch": 1792809485.533, "action": "close", "cycle": 11}
+{"ts": "2026-10-24T02:38:37.607+00:00", "epoch": 1792809517.608, "action": "open", "cycle": 12}
+{"ts": "2026-10-24T02:38:49.748+00:00", "epoch": 1792809529.748, "action": "prompt", "cycle": 12, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:39:14.019+00:00", "epoch": 1792809554.019, "action": "done", "cycle": 12, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0045-c12-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:39:24.576+00:00", "epoch": 1792809564.577, "action": "prompt", "cycle": 12, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:39:44.338+00:00", "epoch": 1792809584.338, "action": "done", "cycle": 12, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0046-c12-test.txt", "seconds": 19.7}
+{"ts": "2026-10-24T02:39:54.900+00:00", "epoch": 1792809594.901, "action": "prompt", "cycle": 12, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:40:17.705+00:00", "epoch": 1792809617.706, "action": "done", "cycle": 12, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0047-c12-edit.txt", "seconds": 22.8}
+{"ts": "2026-10-24T02:40:28.271+00:00", "epoch": 1792809628.271, "action": "prompt", "cycle": 12, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:40:49.550+00:00", "epoch": 1792809649.55, "action": "done", "cycle": 12, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0048-c12-known-server.txt", "seconds": 21.3}
+{"ts": "2026-10-24T02:40:51.617+00:00", "epoch": 1792809651.618, "action": "close", "cycle": 12}
+{"ts": "2026-10-24T02:41:23.710+00:00", "epoch": 1792809683.711, "action": "open", "cycle": 13}
+{"ts": "2026-10-24T02:41:35.860+00:00", "epoch": 1792809695.861, "action": "prompt", "cycle": 13, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:42:00.161+00:00", "epoch": 1792809720.161, "action": "done", "cycle": 13, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0049-c13-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:42:10.721+00:00", "epoch": 1792809730.722, "action": "prompt", "cycle": 13, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:42:25.921+00:00", "epoch": 1792809745.922, "action": "done", "cycle": 13, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0050-c13-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:42:36.470+00:00", "epoch": 1792809756.471, "action": "prompt", "cycle": 13, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:42:54.720+00:00", "epoch": 1792809774.721, "action": "done", "cycle": 13, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0051-c13-edit.txt", "seconds": 18.2}
+{"ts": "2026-10-24T02:43:05.293+00:00", "epoch": 1792809785.294, "action": "prompt", "cycle": 13, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:43:25.072+00:00", "epoch": 1792809805.072, "action": "done", "cycle": 13, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0052-c13-known-server.txt", "seconds": 19.8}
+{"ts": "2026-10-24T02:43:27.117+00:00", "epoch": 1792809807.117, "action": "close", "cycle": 13}
+{"ts": "2026-10-24T02:43:59.203+00:00", "epoch": 1792809839.204, "action": "open", "cycle": 14}
+{"ts": "2026-10-24T02:44:11.369+00:00", "epoch": 1792809851.369, "action": "prompt", "cycle": 14, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:44:35.673+00:00", "epoch": 1792809875.674, "action": "done", "cycle": 14, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0053-c14-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:44:46.236+00:00", "epoch": 1792809886.236, "action": "prompt", "cycle": 14, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:45:02.959+00:00", "epoch": 1792809902.96, "action": "done", "cycle": 14, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0054-c14-test.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:45:13.530+00:00", "epoch": 1792809913.531, "action": "prompt", "cycle": 14, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:45:28.744+00:00", "epoch": 1792809928.744, "action": "done", "cycle": 14, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0055-c14-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:45:39.299+00:00", "epoch": 1792809939.299, "action": "prompt", "cycle": 14, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:45:54.507+00:00", "epoch": 1792809954.508, "action": "done", "cycle": 14, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0056-c14-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:45:56.602+00:00", "epoch": 1792809956.603, "action": "close", "cycle": 14}
+{"ts": "2026-10-24T02:46:28.677+00:00", "epoch": 1792809988.678, "action": "open", "cycle": 15}
+{"ts": "2026-10-24T02:46:40.804+00:00", "epoch": 1792810000.805, "action": "prompt", "cycle": 15, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:47:05.092+00:00", "epoch": 1792810025.092, "action": "done", "cycle": 15, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0057-c15-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:47:15.655+00:00", "epoch": 1792810035.656, "action": "prompt", "cycle": 15, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:47:29.319+00:00", "epoch": 1792810049.319, "action": "done", "cycle": 15, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0058-c15-test.txt", "seconds": 13.6}
+{"ts": "2026-10-24T02:47:39.888+00:00", "epoch": 1792810059.888, "action": "prompt", "cycle": 15, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:47:58.159+00:00", "epoch": 1792810078.159, "action": "done", "cycle": 15, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0059-c15-edit.txt", "seconds": 18.3}
+{"ts": "2026-10-24T02:48:08.743+00:00", "epoch": 1792810088.744, "action": "prompt", "cycle": 15, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:48:23.994+00:00", "epoch": 1792810103.995, "action": "done", "cycle": 15, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0060-c15-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:48:26.068+00:00", "epoch": 1792810106.069, "action": "close", "cycle": 15}
+{"ts": "2026-10-24T02:48:58.139+00:00", "epoch": 1792810138.14, "action": "open", "cycle": 16}
+{"ts": "2026-10-24T02:49:10.262+00:00", "epoch": 1792810150.263, "action": "prompt", "cycle": 16, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:49:34.556+00:00", "epoch": 1792810174.556, "action": "done", "cycle": 16, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0061-c16-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:49:45.151+00:00", "epoch": 1792810185.152, "action": "prompt", "cycle": 16, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:50:00.363+00:00", "epoch": 1792810200.363, "action": "done", "cycle": 16, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0062-c16-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:50:10.944+00:00", "epoch": 1792810210.945, "action": "prompt", "cycle": 16, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:50:30.754+00:00", "epoch": 1792810230.755, "action": "done", "cycle": 16, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0063-c16-edit.txt", "seconds": 19.8}
+{"ts": "2026-10-24T02:50:41.327+00:00", "epoch": 1792810241.328, "action": "prompt", "cycle": 16, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:50:56.545+00:00", "epoch": 1792810256.546, "action": "done", "cycle": 16, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0064-c16-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:50:58.603+00:00", "epoch": 1792810258.603, "action": "close", "cycle": 16}
+{"ts": "2026-10-24T02:51:30.677+00:00", "epoch": 1792810290.678, "action": "open", "cycle": 17}
+{"ts": "2026-10-24T02:51:42.835+00:00", "epoch": 1792810302.836, "action": "prompt", "cycle": 17, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:52:07.118+00:00", "epoch": 1792810327.118, "action": "done", "cycle": 17, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0065-c17-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:52:17.695+00:00", "epoch": 1792810337.695, "action": "prompt", "cycle": 17, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:52:31.355+00:00", "epoch": 1792810351.356, "action": "done", "cycle": 17, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0066-c17-test.txt", "seconds": 13.6}
+{"ts": "2026-10-24T02:52:41.945+00:00", "epoch": 1792810361.946, "action": "prompt", "cycle": 17, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:52:57.177+00:00", "epoch": 1792810377.177, "action": "done", "cycle": 17, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0067-c17-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:53:07.765+00:00", "epoch": 1792810387.765, "action": "prompt", "cycle": 17, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:53:22.966+00:00", "epoch": 1792810402.967, "action": "done", "cycle": 17, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0068-c17-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:53:25.031+00:00", "epoch": 1792810405.031, "action": "close", "cycle": 17}
+{"ts": "2026-10-24T02:53:57.111+00:00", "epoch": 1792810437.111, "action": "open", "cycle": 18}
+{"ts": "2026-10-24T02:54:09.259+00:00", "epoch": 1792810449.259, "action": "prompt", "cycle": 18, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:54:33.535+00:00", "epoch": 1792810473.535, "action": "done", "cycle": 18, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0069-c18-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:54:44.095+00:00", "epoch": 1792810484.096, "action": "prompt", "cycle": 18, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:54:57.759+00:00", "epoch": 1792810497.759, "action": "done", "cycle": 18, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0070-c18-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T02:55:08.323+00:00", "epoch": 1792810508.324, "action": "prompt", "cycle": 18, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:55:28.125+00:00", "epoch": 1792810528.126, "action": "done", "cycle": 18, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0071-c18-edit.txt", "seconds": 19.8}
+{"ts": "2026-10-24T02:55:38.703+00:00", "epoch": 1792810538.703, "action": "prompt", "cycle": 18, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:55:55.439+00:00", "epoch": 1792810555.44, "action": "done", "cycle": 18, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0072-c18-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T02:55:57.496+00:00", "epoch": 1792810557.496, "action": "close", "cycle": 18}
+{"ts": "2026-10-24T02:56:29.570+00:00", "epoch": 1792810589.571, "action": "open", "cycle": 19}
+{"ts": "2026-10-24T02:56:41.711+00:00", "epoch": 1792810601.712, "action": "prompt", "cycle": 19, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:57:06.010+00:00", "epoch": 1792810626.011, "action": "done", "cycle": 19, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0073-c19-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:57:16.571+00:00", "epoch": 1792810636.571, "action": "prompt", "cycle": 19, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:57:31.785+00:00", "epoch": 1792810651.786, "action": "done", "cycle": 19, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0074-c19-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:57:42.343+00:00", "epoch": 1792810662.344, "action": "prompt", "cycle": 19, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T02:57:57.530+00:00", "epoch": 1792810677.53, "action": "done", "cycle": 19, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0075-c19-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:58:08.093+00:00", "epoch": 1792810688.094, "action": "prompt", "cycle": 19, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T02:58:23.331+00:00", "epoch": 1792810703.332, "action": "done", "cycle": 19, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0076-c19-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T02:58:25.391+00:00", "epoch": 1792810705.392, "action": "close", "cycle": 19}
+{"ts": "2026-10-24T02:58:57.488+00:00", "epoch": 1792810737.488, "action": "open", "cycle": 20}
+{"ts": "2026-10-24T02:59:09.601+00:00", "epoch": 1792810749.601, "action": "prompt", "cycle": 20, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T02:59:33.917+00:00", "epoch": 1792810773.917, "action": "done", "cycle": 20, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0077-c20-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T02:59:44.463+00:00", "epoch": 1792810784.464, "action": "prompt", "cycle": 20, "task": "test", "reads": 1}
+{"ts": "2026-10-24T02:59:59.674+00:00", "epoch": 1792810799.675, "action": "done", "cycle": 20, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0078-c20-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:00:10.230+00:00", "epoch": 1792810810.231, "action": "prompt", "cycle": 20, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T03:00:25.433+00:00", "epoch": 1792810825.434, "action": "done", "cycle": 20, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0079-c20-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:00:36.008+00:00", "epoch": 1792810836.008, "action": "prompt", "cycle": 20, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T03:00:51.213+00:00", "epoch": 1792810851.213, "action": "done", "cycle": 20, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0080-c20-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:00:53.261+00:00", "epoch": 1792810853.262, "action": "close", "cycle": 20}
+{"ts": "2026-10-24T03:01:25.332+00:00", "epoch": 1792810885.333, "action": "open", "cycle": 21}
+{"ts": "2026-10-24T03:01:37.451+00:00", "epoch": 1792810897.452, "action": "prompt", "cycle": 21, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T03:02:01.755+00:00", "epoch": 1792810921.756, "action": "done", "cycle": 21, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0081-c21-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T03:02:12.319+00:00", "epoch": 1792810932.32, "action": "prompt", "cycle": 21, "task": "test", "reads": 1}
+{"ts": "2026-10-24T03:02:27.509+00:00", "epoch": 1792810947.51, "action": "done", "cycle": 21, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0082-c21-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:02:38.087+00:00", "epoch": 1792810958.088, "action": "prompt", "cycle": 21, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T03:02:51.765+00:00", "epoch": 1792810971.766, "action": "done", "cycle": 21, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0083-c21-edit.txt", "seconds": 13.7}
+{"ts": "2026-10-24T03:03:02.332+00:00", "epoch": 1792810982.332, "action": "prompt", "cycle": 21, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T03:03:17.550+00:00", "epoch": 1792810997.55, "action": "done", "cycle": 21, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0084-c21-known-server.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:03:19.616+00:00", "epoch": 1792810999.616, "action": "close", "cycle": 21}
+{"ts": "2026-10-24T03:03:51.705+00:00", "epoch": 1792811031.705, "action": "open", "cycle": 22}
+{"ts": "2026-10-24T03:04:03.839+00:00", "epoch": 1792811043.84, "action": "prompt", "cycle": 22, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T03:04:28.163+00:00", "epoch": 1792811068.164, "action": "done", "cycle": 22, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0085-c22-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T03:04:38.723+00:00", "epoch": 1792811078.724, "action": "prompt", "cycle": 22, "task": "test", "reads": 1}
+{"ts": "2026-10-24T03:04:53.929+00:00", "epoch": 1792811093.93, "action": "done", "cycle": 22, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0086-c22-test.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:05:04.500+00:00", "epoch": 1792811104.5, "action": "prompt", "cycle": 22, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T03:05:24.273+00:00", "epoch": 1792811124.273, "action": "done", "cycle": 22, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0087-c22-edit.txt", "seconds": 19.8}
+{"ts": "2026-10-24T03:05:34.834+00:00", "epoch": 1792811134.834, "action": "prompt", "cycle": 22, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T03:05:48.546+00:00", "epoch": 1792811148.547, "action": "done", "cycle": 22, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0088-c22-known-server.txt", "seconds": 13.7}
+{"ts": "2026-10-24T03:05:50.603+00:00", "epoch": 1792811150.603, "action": "close", "cycle": 22}
+{"ts": "2026-10-24T03:06:22.693+00:00", "epoch": 1792811182.694, "action": "open", "cycle": 23}
+{"ts": "2026-10-24T03:06:34.863+00:00", "epoch": 1792811194.864, "action": "prompt", "cycle": 23, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T03:06:59.209+00:00", "epoch": 1792811219.209, "action": "done", "cycle": 23, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0089-c23-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T03:07:09.779+00:00", "epoch": 1792811229.78, "action": "prompt", "cycle": 23, "task": "test", "reads": 1}
+{"ts": "2026-10-24T03:07:23.467+00:00", "epoch": 1792811243.468, "action": "done", "cycle": 23, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0090-c23-test.txt", "seconds": 13.7}
+{"ts": "2026-10-24T03:07:34.032+00:00", "epoch": 1792811254.033, "action": "prompt", "cycle": 23, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T03:07:52.278+00:00", "epoch": 1792811272.278, "action": "done", "cycle": 23, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0091-c23-edit.txt", "seconds": 18.2}
+{"ts": "2026-10-24T03:08:02.844+00:00", "epoch": 1792811282.845, "action": "prompt", "cycle": 23, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T03:08:19.594+00:00", "epoch": 1792811299.594, "action": "done", "cycle": 23, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0092-c23-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T03:08:21.673+00:00", "epoch": 1792811301.673, "action": "close", "cycle": 23}
+{"ts": "2026-10-24T03:08:53.749+00:00", "epoch": 1792811333.749, "action": "open", "cycle": 24}
+{"ts": "2026-10-24T03:09:05.886+00:00", "epoch": 1792811345.887, "action": "prompt", "cycle": 24, "task": "explain", "reads": 1}
+{"ts": "2026-10-24T03:09:30.173+00:00", "epoch": 1792811370.174, "action": "done", "cycle": 24, "task": "explain", "error_reply": false, "screen": "claude-code__holdout__0093-c24-explain.txt", "seconds": 24.3}
+{"ts": "2026-10-24T03:09:40.731+00:00", "epoch": 1792811380.732, "action": "prompt", "cycle": 24, "task": "test", "reads": 1}
+{"ts": "2026-10-24T03:09:57.441+00:00", "epoch": 1792811397.442, "action": "done", "cycle": 24, "task": "test", "error_reply": false, "screen": "claude-code__holdout__0094-c24-test.txt", "seconds": 16.7}
+{"ts": "2026-10-24T03:10:08.022+00:00", "epoch": 1792811408.023, "action": "prompt", "cycle": 24, "task": "edit", "reads": 1}
+{"ts": "2026-10-24T03:10:23.217+00:00", "epoch": 1792811423.218, "action": "done", "cycle": 24, "task": "edit", "error_reply": false, "screen": "claude-code__holdout__0095-c24-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-24T03:10:33.788+00:00", "epoch": 1792811433.788, "action": "prompt", "cycle": 24, "task": "known-server", "reads": 1}
+{"ts": "2026-10-24T03:10:50.545+00:00", "epoch": 1792811450.546, "action": "done", "cycle": 24, "task": "known-server", "error_reply": false, "screen": "claude-code__holdout__0096-c24-known-server.txt", "seconds": 16.7}
+{"ts": "2026-10-24T03:10:52.607+00:00", "epoch": 1792811452.608, "action": "close", "cycle": 24}
+{"ts": "2026-10-24T03:11:22.614+00:00", "epoch": 1792811482.614, "action": "session-end", "cycles": 24, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 24, "server_cycles": 24, "tasks_prompted": 96, "tasks_done": 96, "done_share": 1.0, "known_server_calls": 24, "known_server_calls_per_cycle": 1.0, "ok": true}}

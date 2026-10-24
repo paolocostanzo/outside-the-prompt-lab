@@ -1,0 +1,23 @@
+{
+ "client": "claude-code",
+ "part": "setup",
+ "name": "baseline__claude-code__setup",
+ "t0": 1792677719,
+ "t1": 1792678123,
+ "clock_skew_s": 0.165,
+ "session_rc": 0,
+ "export": "ok",
+ "valid": false,
+ "problems": [
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 2, 'tasks_prompted': 5, 'tasks_done': 4, 'done_share': 0.8, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"
+ ],
+ "workload": {
+  "cycles": 2,
+  "tasks_prompted": 5,
+  "tasks_done": 4,
+  "done_share": 0.8,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 0.5,
+  "ok": false
+ }
+}

@@ -1,0 +1,24 @@
+{
+ "client": "qwen",
+ "part": "holdout",
+ "name": "baseline__qwen__holdout",
+ "t0": 1792811566,
+ "t1": 1792815181,
+ "clock_skew_s": 0.115,
+ "waited_s": 0,
+ "session_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "workload": {
+  "cycles": 27,
+  "server_cycles": 27,
+  "tasks_prompted": 108,
+  "tasks_done": 108,
+  "done_share": 1.0,
+  "known_server_calls": 27,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ }
+}

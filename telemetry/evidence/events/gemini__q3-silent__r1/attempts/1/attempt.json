@@ -1,0 +1,10 @@
+{
+ "status": "not-usable",
+ "at": "2026-10-22T18:32:23+00:00",
+ "problems": [
+  "quota or rate limit reached: quota or rate limit reached (observer): 'Usage limit' (stop: Paolo's rule) (stop: Paolo's rule)"
+ ],
+ "t0": 1792693559,
+ "t1": 1792693921,
+ "cell_rc": 0
+}

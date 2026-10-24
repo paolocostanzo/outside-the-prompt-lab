@@ -1,0 +1,188 @@
+{
+ "all_clients": {
+  "h5_holds": true,
+  "event_types": {
+   "q3-announced": {
+    "measurable_pairs": 5,
+    "distinguishable": true
+   },
+   "q3-silent": {
+    "measurable_pairs": 5,
+    "distinguishable": false
+   },
+   "q5-start": {
+    "measurable_pairs": 3,
+    "distinguishable": false
+   }
+  }
+ },
+ "pairs": {
+  "claude-code/q3-announced": {
+   "client": "claude-code",
+   "event": "q3-announced",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "claude-code/q3-silent": {
+   "client": "claude-code",
+   "event": "q3-silent",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "claude-code/q3-silent--changed": {
+   "client": "claude-code",
+   "event": "q3-silent--changed",
+   "measurable": false,
+   "tells_apart": null,
+   "preliminary": false,
+   "detected": "0/0",
+   "fp_windows": "0/60"
+  },
+  "claude-code/q5-start": {
+   "client": "claude-code",
+   "event": "q5-start",
+   "measurable": false,
+   "tells_apart": null,
+   "preliminary": false,
+   "detected": "0/0",
+   "fp_windows": "0/60"
+  },
+  "codex/q3-announced": {
+   "client": "codex",
+   "event": "q3-announced",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "codex/q3-silent": {
+   "client": "codex",
+   "event": "q3-silent",
+   "measurable": true,
+   "tells_apart": false,
+   "preliminary": false,
+   "detected": "0/2",
+   "fp_windows": "0/60"
+  },
+  "codex/q5-start": {
+   "client": "codex",
+   "event": "q5-start",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "gemini/q3-announced": {
+   "client": "gemini",
+   "event": "q3-announced",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "gemini/q3-silent": {
+   "client": "gemini",
+   "event": "q3-silent",
+   "measurable": true,
+   "tells_apart": false,
+   "preliminary": false,
+   "detected": "0/2",
+   "fp_windows": "0/60"
+  },
+  "gemini/q5-start": {
+   "client": "gemini",
+   "event": "q5-start",
+   "measurable": true,
+   "tells_apart": false,
+   "preliminary": false,
+   "detected": "0/2",
+   "fp_windows": "0/60"
+  },
+  "goose/q3-announced": {
+   "client": "goose",
+   "event": "q3-announced",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "goose/q3-silent": {
+   "client": "goose",
+   "event": "q3-silent",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "goose/q5-start": {
+   "client": "goose",
+   "event": "q5-start",
+   "measurable": false,
+   "tells_apart": null,
+   "preliminary": false,
+   "detected": "0/0",
+   "fp_windows": "0/60"
+  },
+  "qwen/q3-announced": {
+   "client": "qwen",
+   "event": "q3-announced",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "qwen/q3-silent": {
+   "client": "qwen",
+   "event": "q3-silent",
+   "measurable": true,
+   "tells_apart": true,
+   "preliminary": false,
+   "detected": "2/2",
+   "fp_windows": "0/60"
+  },
+  "qwen/q5-start": {
+   "client": "qwen",
+   "event": "q5-start",
+   "measurable": true,
+   "tells_apart": false,
+   "preliminary": false,
+   "detected": "0/2",
+   "fp_windows": "0/60"
+  }
+ },
+ "not_measurable": [
+  "claude-code/q3-silent--changed",
+  "claude-code/q5-start",
+  "goose/q5-start"
+ ],
+ "incomplete_clients": [],
+ "missing": [],
+ "provisional": false,
+ "h5_holds": true,
+ "event_types": {
+  "q3-announced": {
+   "measurable_pairs": 5,
+   "distinguishable": true
+  },
+  "q3-silent": {
+   "measurable_pairs": 5,
+   "distinguishable": false
+  },
+  "q5-start": {
+   "measurable_pairs": 3,
+   "distinguishable": false
+  }
+ }
+}

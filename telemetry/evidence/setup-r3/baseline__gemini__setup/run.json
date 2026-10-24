@@ -1,0 +1,24 @@
+{
+ "client": "gemini",
+ "part": "setup",
+ "name": "baseline__gemini__setup",
+ "t0": 1792686050,
+ "t1": 1792687025,
+ "clock_skew_s": 0.165,
+ "session_rc": 0,
+ "export": "ok",
+ "valid": false,
+ "problems": [
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 3, 'server_cycles': 2, 'tasks_prompted': 9, 'tasks_done': 7, 'done_share': 0.7777777777777778, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"
+ ],
+ "workload": {
+  "cycles": 3,
+  "server_cycles": 2,
+  "tasks_prompted": 9,
+  "tasks_done": 7,
+  "done_share": 0.7777777777777778,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 0.5,
+  "ok": false
+ }
+}

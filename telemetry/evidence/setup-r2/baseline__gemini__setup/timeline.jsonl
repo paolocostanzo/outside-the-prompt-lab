@@ -1,0 +1,13 @@
+{"ts": "2026-10-22T15:30:17.560+00:00", "epoch": 1792683017.561, "action": "session-start", "client": "gemini", "part": "setup", "minutes": 6.0, "version": "0.64.0"}
+{"ts": "2026-10-22T15:30:19.647+00:00", "epoch": 1792683019.648, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T15:30:36.437+00:00", "epoch": 1792683036.438, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T15:33:15.760+00:00", "epoch": 1792683195.76, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "gemini__setup__0001-c1-explain.txt", "seconds": 159.3}
+{"ts": "2026-10-22T15:33:26.317+00:00", "epoch": 1792683206.318, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T15:35:30.012+00:00", "epoch": 1792683330.012, "action": "allow-once", "cycle": 1, "task": "test", "screen": "gemini__setup__0002-allow-once.txt"}
+{"ts": "2026-10-22T15:35:54.773+00:00", "epoch": 1792683354.774, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "gemini__setup__0003-c1-test.txt", "seconds": 148.4}
+{"ts": "2026-10-22T15:36:05.358+00:00", "epoch": 1792683365.358, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T15:37:35.749+00:00", "epoch": 1792683455.75, "action": "allow-once", "cycle": 1, "task": "edit", "screen": "gemini__setup__0004-allow-once.txt"}
+{"ts": "2026-10-22T15:38:13.462+00:00", "epoch": 1792683493.462, "action": "allow-once", "cycle": 1, "task": "edit", "screen": "gemini__setup__0005-allow-once.txt"}
+{"ts": "2026-10-22T15:38:48.870+00:00", "epoch": 1792683528.871, "action": "done", "cycle": 1, "task": "edit", "error_reply": false, "screen": "gemini__setup__0006-c1-edit.txt", "seconds": 163.5}
+{"ts": "2026-10-22T15:38:50.925+00:00", "epoch": 1792683530.926, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T15:39:20.927+00:00", "epoch": 1792683560.927, "action": "session-end", "cycles": 1, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 1, "server_cycles": 0, "tasks_prompted": 3, "tasks_done": 3, "done_share": 1.0, "known_server_calls": 0, "known_server_calls_per_cycle": 0.0, "ok": false}}

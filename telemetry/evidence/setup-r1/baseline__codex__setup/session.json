@@ -1,0 +1,23 @@
+{
+ "client": "codex",
+ "part": "setup",
+ "minutes": 6.0,
+ "t_start": 1792676564.5184283,
+ "t_end": 1792677177.0502124,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 4,
+  "tasks_prompted": 13,
+  "tasks_done": 12,
+  "done_share": 0.9230769230769231,
+  "known_server_calls": 3,
+  "known_server_calls_per_cycle": 0.75,
+  "ok": false
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "valid": false
+}

@@ -1,0 +1,3 @@
+{"ts": "2026-10-22T17:02:06+00:00", "event": "session-start", "n": 1, "of": 1, "session": "baseline__goose__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T17:18:46+00:00", "event": "setup-session-recorded", "session": "baseline__goose__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 3, 'server_cycles': 2, 'tasks_prompted': 11, 'tasks_done': 9, 'done_share': 0.8181818181818182, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"]}
+{"ts": "2026-10-22T17:18:46+00:00", "event": "baseline-done", "sessions": 1, "local_engine_repetition": "not implemented, not done"}

@@ -1,0 +1,4 @@
+{"ts": "2026-10-23T14:58:49+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T15:01:00+00:00", "event": "session-start", "n": 1, "of": 1, "session": "baseline__qwen__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T15:16:29+00:00", "event": "setup-session-recorded", "session": "baseline__qwen__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 19, 'server_cycles': 19, 'tasks_prompted': 76, 'tasks_done': 0, 'done_share': 0.0, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"]}
+{"ts": "2026-10-23T15:16:29+00:00", "event": "baseline-done", "sessions": 1, "local_engine_repetition": "not implemented, not done"}

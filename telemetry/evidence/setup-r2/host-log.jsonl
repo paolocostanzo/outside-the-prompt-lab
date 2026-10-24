@@ -1,0 +1,17 @@
+{"ts": "2026-10-22T14:58:06+00:00", "event": "session-start", "n": 1, "of": 6, "session": "baseline__goose__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T15:05:31+00:00", "event": "setup-session-recorded", "session": "baseline__goose__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 2, 'server_cycles': 1, 'tasks_prompted': 5, 'tasks_done': 2, 'done_share': 0.4, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"]}
+{"ts": "2026-10-22T15:05:32+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T15:06:13+00:00", "event": "session-start", "n": 2, "of": 6, "session": "baseline__codex__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T15:13:25+00:00", "event": "session-end", "session": "baseline__codex__setup", "seconds": 399, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-22T15:13:26+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T15:14:10+00:00", "event": "session-start", "n": 3, "of": 6, "session": "baseline__qwen__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T15:21:36+00:00", "event": "session-end", "session": "baseline__qwen__setup", "seconds": 424, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-22T15:21:37+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T15:22:21+00:00", "event": "session-start", "n": 4, "of": 6, "session": "baseline__claude-code__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T15:29:36+00:00", "event": "session-end", "session": "baseline__claude-code__setup", "seconds": 411, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-22T15:29:37+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T15:30:12+00:00", "event": "session-start", "n": 5, "of": 6, "session": "baseline__gemini__setup", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-22T15:39:43+00:00", "event": "setup-session-recorded", "session": "baseline__gemini__setup", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 1, 'server_cycles': 0, 'tasks_prompted': 3, 'tasks_done': 3, 'done_share': 1.0, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"]}
+{"ts": "2026-10-22T15:39:44+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-22T15:40:25+00:00", "event": "session-start", "n": 6, "of": 6, "session": "baseline__cursor-agent__setup", "ip": "192.168.122.70", "boot_s": 2}
+{"ts": "2026-10-22T15:41:09+00:00", "event": "abort-session", "session": "baseline__cursor-agent__setup", "problems": ["quota or rate limit reached (observer): 'usage limit' (stop: Paolo's rule)", "quota or rate limit reached: 'usage limit' (stop: Paolo's rule)", "session not valid: definitions ['A'], changed False, workload {'cycles': 1, 'server_cycles': 0, 'tasks_prompted': 1, 'tasks_done': 0, 'done_share': 0.0, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"], "kept": "/home/brainonion/Desktop/redazione/lab/results/q4/setup-r2/baseline__cursor-agent__setup/attempts/1", "hint": "VM left as it is: look at it and at the attempt before rerunning, a rerun powers it off; fix the cause, then rerun the same command (the plan is kept)"}

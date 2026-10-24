@@ -1,0 +1,82 @@
+{
+ "created": "2026-10-23T16:59:55+00:00",
+ "frozen": {
+  "snapshot": "q4-base-20261023b",
+  "seed": 20261019,
+  "minutes": 60.0,
+  "gap_hours": 6.0,
+  "clients": [
+   "claude-code",
+   "codex",
+   "gemini",
+   "qwen",
+   "goose"
+  ],
+  "parts": [
+   "dev",
+   "holdout"
+  ],
+  "inventory_sha256": "acea093d32f5bea37f2102a2d16d014e4014b2a5b2a6528264eeaf4c8e9631c1",
+  "candidates_sha256": "040eab3bf9997c7533ec4062ed1e27728eb0ee3a90f251d37d835a882f4befcd",
+  "harness": {
+   "commit": "cf7740754c8e8e4a49f7c71313dcfbf2158ec1a0",
+   "trees": {
+    "tool-change": "0bd7e6c1fb40ab5ec8ddd86f553dcac042266d1d",
+    "trusting-a-repo": "f32afac2819087cb6030ae919b353a9c4aa4f03f",
+    "telemetry": "1f521f4d0c39b1f9ce1c5d1706a9daa8b383df05"
+   }
+  }
+ },
+ "runs": [
+  {
+   "client": "codex",
+   "part": "dev",
+   "name": "baseline__codex__dev"
+  },
+  {
+   "client": "claude-code",
+   "part": "dev",
+   "name": "baseline__claude-code__dev"
+  },
+  {
+   "client": "qwen",
+   "part": "dev",
+   "name": "baseline__qwen__dev"
+  },
+  {
+   "client": "gemini",
+   "part": "dev",
+   "name": "baseline__gemini__dev"
+  },
+  {
+   "client": "goose",
+   "part": "dev",
+   "name": "baseline__goose__dev"
+  },
+  {
+   "client": "codex",
+   "part": "holdout",
+   "name": "baseline__codex__holdout"
+  },
+  {
+   "client": "claude-code",
+   "part": "holdout",
+   "name": "baseline__claude-code__holdout"
+  },
+  {
+   "client": "qwen",
+   "part": "holdout",
+   "name": "baseline__qwen__holdout"
+  },
+  {
+   "client": "gemini",
+   "part": "holdout",
+   "name": "baseline__gemini__holdout"
+  },
+  {
+   "client": "goose",
+   "part": "holdout",
+   "name": "baseline__goose__holdout"
+  }
+ ]
+}

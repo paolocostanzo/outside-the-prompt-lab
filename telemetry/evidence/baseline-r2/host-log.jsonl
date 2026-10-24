@@ -1,0 +1,9 @@
+{"ts": "2026-10-23T08:47:48+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T08:48:30+00:00", "event": "session-start", "n": 1, "of": 10, "session": "baseline__codex__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T09:50:16+00:00", "event": "session-end", "session": "baseline__codex__dev", "seconds": 3646, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T09:50:18+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T09:51:04+00:00", "event": "session-start", "n": 2, "of": 10, "session": "baseline__claude-code__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T10:52:29+00:00", "event": "session-end", "session": "baseline__claude-code__dev", "seconds": 3651, "export": "ok", "workload_ok": true}
+{"ts": "2026-10-23T10:52:30+00:00", "event": "vm-powered-off-before-restore", "state": "running", "rc": 0, "state_after": "shut off"}
+{"ts": "2026-10-23T10:53:12+00:00", "event": "session-start", "n": 3, "of": 10, "session": "baseline__qwen__dev", "ip": "192.168.122.70", "boot_s": 1}
+{"ts": "2026-10-23T11:56:43+00:00", "event": "abort-session", "session": "baseline__qwen__dev", "problems": ["session not valid: definitions ['A'], changed False, workload {'cycles': 14, 'server_cycles': 14, 'tasks_prompted': 56, 'tasks_done': 35, 'done_share': 0.625, 'known_server_calls': 5, 'known_server_calls_per_cycle': 0.35714285714285715, 'ok': False}"], "kept": "/home/brainonion/Desktop/redazione/lab/results/q4/baseline-r2/baseline__qwen__dev/attempts/1", "hint": "VM left as it is: look at it and at the attempt before rerunning, a rerun powers it off; fix the cause, then rerun the same command (the plan is kept)"}

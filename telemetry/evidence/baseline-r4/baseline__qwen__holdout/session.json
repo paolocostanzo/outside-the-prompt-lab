@@ -1,0 +1,25 @@
+{
+ "client": "qwen",
+ "part": "holdout",
+ "minutes": 60.0,
+ "t_start": 1792811566.8501263,
+ "t_end": 1792815181.6609433,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 27,
+  "server_cycles": 27,
+  "tasks_prompted": 108,
+  "tasks_done": 108,
+  "done_share": 1.0,
+  "known_server_calls": 27,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 0,
+ "valid": true
+}

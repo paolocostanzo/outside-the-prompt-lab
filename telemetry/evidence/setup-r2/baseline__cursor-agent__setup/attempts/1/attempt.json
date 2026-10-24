@@ -1,0 +1,36 @@
+{
+ "status": "session-not-counted",
+ "at": "2026-10-22T15:41:09+00:00",
+ "problems": [
+  "quota or rate limit reached (observer): 'usage limit' (stop: Paolo's rule)",
+  "quota or rate limit reached: 'usage limit' (stop: Paolo's rule)",
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 1, 'server_cycles': 0, 'tasks_prompted': 1, 'tasks_done': 0, 'done_share': 0.0, 'known_server_calls': 0, 'known_server_calls_per_cycle': 0.0, 'ok': False}"
+ ],
+ "t0": 1792683625,
+ "t1": 1792683647,
+ "session": {
+  "client": "cursor-agent",
+  "part": "setup",
+  "minutes": 6.0,
+  "t_start": 1792683626.2115178,
+  "t_end": 1792683647.795371,
+  "definitions_served": [
+   "A"
+  ],
+  "definition_changed": false,
+  "workload": {
+   "cycles": 1,
+   "server_cycles": 0,
+   "tasks_prompted": 1,
+   "tasks_done": 0,
+   "done_share": 0.0,
+   "known_server_calls": 0,
+   "known_server_calls_per_cycle": 0.0,
+   "ok": false
+  },
+  "quota_exhausted": true,
+  "quota_message": "usage limit",
+  "error_replies": 0,
+  "valid": false
+ }
+}

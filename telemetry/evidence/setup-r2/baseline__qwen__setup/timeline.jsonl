@@ -1,0 +1,20 @@
+{"ts": "2026-10-22T15:14:11.238+00:00", "epoch": 1792682051.24, "action": "session-start", "client": "qwen", "part": "setup", "minutes": 6.0, "version": "0.25.1"}
+{"ts": "2026-10-22T15:14:13.403+00:00", "epoch": 1792682053.403, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T15:14:30.141+00:00", "epoch": 1792682070.141, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T15:14:57.473+00:00", "epoch": 1792682097.473, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "qwen__setup__0001-c1-explain.txt", "seconds": 27.3}
+{"ts": "2026-10-22T15:15:08.044+00:00", "epoch": 1792682108.045, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T15:15:25.570+00:00", "epoch": 1792682125.571, "action": "allow-once", "cycle": 1, "task": "test", "screen": "qwen__setup__0002-allow-once.txt"}
+{"ts": "2026-10-22T15:15:41.240+00:00", "epoch": 1792682141.24, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "qwen__setup__0003-c1-test.txt", "seconds": 33.2}
+{"ts": "2026-10-22T15:15:51.819+00:00", "epoch": 1792682151.82, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T15:16:29.791+00:00", "epoch": 1792682189.792, "action": "done", "cycle": 1, "task": "edit", "error_reply": false, "screen": "qwen__setup__0004-c1-edit.txt", "seconds": 38.0}
+{"ts": "2026-10-22T15:16:47.940+00:00", "epoch": 1792682207.941, "action": "prompt", "cycle": 1, "task": "known-server"}
+{"ts": "2026-10-22T15:18:06.139+00:00", "epoch": 1792682286.14, "action": "mcp-approval", "cycle": 1, "task": "known-server", "screen": "qwen__setup__0005-mcp-approval.txt"}
+{"ts": "2026-10-22T15:18:27.855+00:00", "epoch": 1792682307.856, "action": "done", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "qwen__setup__0006-c1-known-server.txt", "seconds": 99.9}
+{"ts": "2026-10-22T15:18:29.913+00:00", "epoch": 1792682309.914, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T15:19:01.990+00:00", "epoch": 1792682341.99, "action": "open", "cycle": 2}
+{"ts": "2026-10-22T15:19:15.616+00:00", "epoch": 1792682355.617, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-22T15:19:49.006+00:00", "epoch": 1792682389.006, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "qwen__setup__0007-c2-explain.txt", "seconds": 33.4}
+{"ts": "2026-10-22T15:19:59.567+00:00", "epoch": 1792682399.567, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-22T15:20:42.025+00:00", "epoch": 1792682442.026, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "qwen__setup__0008-c2-test.txt", "seconds": 42.4}
+{"ts": "2026-10-22T15:20:44.078+00:00", "epoch": 1792682444.079, "action": "close", "cycle": 2}
+{"ts": "2026-10-22T15:21:14.080+00:00", "epoch": 1792682474.081, "action": "session-end", "cycles": 2, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 2, "server_cycles": 1, "tasks_prompted": 6, "tasks_done": 6, "done_share": 1.0, "known_server_calls": 1, "known_server_calls_per_cycle": 1.0, "ok": true}}

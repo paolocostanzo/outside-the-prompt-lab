@@ -1,0 +1,40 @@
+{
+ "client": "goose",
+ "start": 1792741465,
+ "end": 1792741517,
+ "export": "ok",
+ "client_logs": "wrote",
+ "files": 18,
+ "files_modified_in_session": 15,
+ "patterns": [
+  {
+   "pattern": "~/.local/state/goose/logs/**",
+   "location": "present",
+   "files": 15,
+   "with_records_in_session": 0,
+   "without_timestamps": 15
+  },
+  {
+   "pattern": "~/.local/share/goose/sessions/**",
+   "location": "present",
+   "files": 3,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  },
+  {
+   "pattern": "~/.config/goose/sessions/**",
+   "location": "absent",
+   "files": 0,
+   "with_records_in_session": 0,
+   "without_timestamps": 0
+  }
+ ],
+ "logging_config": {
+  "settings_sha256": {
+   "~/.config/goose/config.yaml": "5d8c06dc6c32e1af6e9babe924806b8dd2fae0bd22c28c6a4f01dd144b98b90b"
+  },
+  "env_logging_variables": [
+   "LOGNAME"
+  ]
+ }
+}

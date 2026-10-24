@@ -1,0 +1,25 @@
+{
+ "client": "claude-code",
+ "part": "holdout",
+ "minutes": 60.0,
+ "t_start": 1792807850.343241,
+ "t_end": 1792811482.614189,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 24,
+  "server_cycles": 24,
+  "tasks_prompted": 96,
+  "tasks_done": 96,
+  "done_share": 1.0,
+  "known_server_calls": 24,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 0,
+ "valid": true
+}

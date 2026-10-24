@@ -1,0 +1,24 @@
+{
+ "client": "goose",
+ "part": "setup",
+ "name": "baseline__goose__setup",
+ "t0": 1792688526,
+ "t1": 1792689500,
+ "clock_skew_s": 0.155,
+ "session_rc": 0,
+ "export": "ok",
+ "valid": false,
+ "problems": [
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 3, 'server_cycles': 2, 'tasks_prompted': 11, 'tasks_done': 9, 'done_share': 0.8181818181818182, 'known_server_calls': 1, 'known_server_calls_per_cycle': 0.5, 'ok': False}"
+ ],
+ "workload": {
+  "cycles": 3,
+  "server_cycles": 2,
+  "tasks_prompted": 11,
+  "tasks_done": 9,
+  "done_share": 0.8181818181818182,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 0.5,
+  "ok": false
+ }
+}

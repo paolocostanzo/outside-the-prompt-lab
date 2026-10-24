@@ -1,0 +1,24 @@
+{
+ "client": "qwen",
+ "part": "setup",
+ "name": "baseline__qwen__setup",
+ "t0": 1792773793,
+ "t1": 1792774741,
+ "clock_skew_s": 0.124,
+ "waited_s": 0,
+ "session_rc": 0,
+ "push_rc": 0,
+ "export": "ok",
+ "export_reason": null,
+ "client_logs": "wrote",
+ "workload": {
+  "cycles": 7,
+  "server_cycles": 6,
+  "tasks_prompted": 27,
+  "tasks_done": 27,
+  "done_share": 1.0,
+  "known_server_calls": 6,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ }
+}

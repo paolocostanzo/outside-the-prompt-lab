@@ -1,0 +1,3 @@
+{"ts":"2026-10-23T07:16:03.263Z","event":"start","client":"codex","source":".codex/config.toml","pid":2734,"ppid":2550}
+{"ts":"2026-10-23T07:16:03.290Z","event":"initialize","client":"codex","source":".codex/config.toml","pid":2734,"ppid":2550}
+{"ts":"2026-10-23T07:16:18.149Z","event":"sigterm","client":"codex","source":".codex/config.toml","pid":2734,"ppid":2550}

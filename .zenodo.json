@@ -12,10 +12,13 @@
   "keywords": [
     "AI agents",
     "MCP",
-    "workspace trust",
-    "tool approval",
+    "audit logs",
+    "detection",
+    "reproducible lab",
     "security measurement",
-    "reproducible lab"
+    "telemetry",
+    "tool approval",
+    "workspace trust"
   ],
-  "description": "Harmless canaries, MCP lab servers, test-repository generators, matrix runners, coders and read-only checks used in the 'Outside the Prompt' series to measure trust boundaries of AI coding agents: which project-declared MCP servers start and under which decision (part 2), and whether a client notices when an approved MCP tool's definition changes (part 3), with the per-run evidence, SHA-256 manifests and the preregistration deviations. No attack payloads: every component only records that it ran or what it served."
+  "description": "Harmless canaries, MCP lab servers, test-repository generators, matrix runners, coders, read-only checks, a telemetry exporter and frozen detection rules used in the 'Outside the Prompt' series to measure trust boundaries of AI coding agents: which project-declared MCP servers start and under which decision (part 2), whether a client notices when an approved MCP tool's definition changes (part 3), and what default client logs and host telemetry show of those events, with the coverage of output-side defences in official MCP servers (part 4); with the per-run evidence, SHA-256 manifests and the preregistration deviations. No attack payloads: every component only records that it ran or what it served."
 }

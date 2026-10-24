@@ -1,0 +1,25 @@
+{
+ "client": "goose",
+ "part": "setup",
+ "minutes": 15.0,
+ "t_start": 1792688527.4165583,
+ "t_end": 1792689500.7052698,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 3,
+  "server_cycles": 2,
+  "tasks_prompted": 11,
+  "tasks_done": 9,
+  "done_share": 0.8181818181818182,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 0.5,
+  "ok": false
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 0,
+ "valid": false
+}

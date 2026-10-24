@@ -1,0 +1,23 @@
+{
+ "client": "gemini",
+ "part": "setup",
+ "minutes": 6.0,
+ "t_start": 1792678185.8881657,
+ "t_end": 1792678633.029723,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 2,
+  "tasks_prompted": 7,
+  "tasks_done": 7,
+  "done_share": 1.0,
+  "known_server_calls": 1,
+  "known_server_calls_per_cycle": 0.5,
+  "ok": false
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "valid": false
+}

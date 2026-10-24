@@ -1,0 +1,38 @@
+{"ts": "2026-10-22T16:04:07.893+00:00", "epoch": 1792685047.894, "action": "session-start", "client": "goose", "part": "setup", "minutes": 15.0, "version": "1.54.0"}
+{"ts": "2026-10-22T16:04:10.182+00:00", "epoch": 1792685050.182, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T16:04:22.331+00:00", "epoch": 1792685062.331, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T16:05:09.335+00:00", "epoch": 1792685109.335, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "goose__setup__0001-c1-explain.txt", "seconds": 47.0}
+{"ts": "2026-10-22T16:05:19.925+00:00", "epoch": 1792685119.925, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T16:05:45.782+00:00", "epoch": 1792685145.782, "action": "no-evidence", "cycle": 1, "task": "test", "error_reply": false, "screen": "goose__setup__0002-c1-test.txt", "seconds": 25.8}
+{"ts": "2026-10-22T16:05:56.340+00:00", "epoch": 1792685156.341, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T16:06:41.905+00:00", "epoch": 1792685201.905, "action": "no-evidence", "cycle": 1, "task": "edit", "error_reply": false, "screen": "goose__setup__0003-c1-edit.txt", "seconds": 45.5}
+{"ts": "2026-10-22T16:06:52.451+00:00", "epoch": 1792685212.452, "action": "prompt", "cycle": 1, "task": "known-server"}
+{"ts": "2026-10-22T16:07:15.178+00:00", "epoch": 1792685235.178, "action": "no-evidence", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "goose__setup__0004-c1-known-server.txt", "seconds": 22.7}
+{"ts": "2026-10-22T16:07:17.231+00:00", "epoch": 1792685237.232, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T16:07:49.303+00:00", "epoch": 1792685269.303, "action": "open", "cycle": 2}
+{"ts": "2026-10-22T16:08:01.410+00:00", "epoch": 1792685281.411, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-22T16:08:40.834+00:00", "epoch": 1792685320.835, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "goose__setup__0005-c2-explain.txt", "seconds": 39.4}
+{"ts": "2026-10-22T16:08:51.394+00:00", "epoch": 1792685331.395, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-22T16:09:18.708+00:00", "epoch": 1792685358.708, "action": "no-evidence", "cycle": 2, "task": "test", "error_reply": false, "screen": "goose__setup__0006-c2-test.txt", "seconds": 27.3}
+{"ts": "2026-10-22T16:09:29.297+00:00", "epoch": 1792685369.297, "action": "prompt", "cycle": 2, "task": "edit"}
+{"ts": "2026-10-22T16:10:19.321+00:00", "epoch": 1792685419.322, "action": "no-evidence", "cycle": 2, "task": "edit", "error_reply": false, "screen": "goose__setup__0007-c2-edit.txt", "seconds": 50.0}
+{"ts": "2026-10-22T16:10:29.881+00:00", "epoch": 1792685429.882, "action": "prompt", "cycle": 2, "task": "known-server"}
+{"ts": "2026-10-22T16:10:49.609+00:00", "epoch": 1792685449.61, "action": "no-evidence", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "goose__setup__0008-c2-known-server.txt", "seconds": 19.7}
+{"ts": "2026-10-22T16:10:51.659+00:00", "epoch": 1792685451.659, "action": "close", "cycle": 2}
+{"ts": "2026-10-22T16:11:23.726+00:00", "epoch": 1792685483.727, "action": "open", "cycle": 3}
+{"ts": "2026-10-22T16:11:35.834+00:00", "epoch": 1792685495.835, "action": "prompt", "cycle": 3, "task": "explain"}
+{"ts": "2026-10-22T16:12:04.654+00:00", "epoch": 1792685524.654, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "goose__setup__0009-c3-explain.txt", "seconds": 28.8}
+{"ts": "2026-10-22T16:12:15.223+00:00", "epoch": 1792685535.224, "action": "prompt", "cycle": 3, "task": "test"}
+{"ts": "2026-10-22T16:12:37.974+00:00", "epoch": 1792685557.975, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "goose__setup__0010-c3-test.txt", "seconds": 22.7}
+{"ts": "2026-10-22T16:12:48.537+00:00", "epoch": 1792685568.537, "action": "prompt", "cycle": 3, "task": "edit"}
+{"ts": "2026-10-22T16:13:03.701+00:00", "epoch": 1792685583.701, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "goose__setup__0011-c3-edit.txt", "seconds": 15.2}
+{"ts": "2026-10-22T16:13:14.258+00:00", "epoch": 1792685594.259, "action": "prompt", "cycle": 3, "task": "known-server"}
+{"ts": "2026-10-22T16:17:15.400+00:00", "epoch": 1792685835.401, "action": "timeout", "cycle": 3, "task": "known-server", "error_reply": false, "screen": "goose__setup__0012-c3-known-server-timeout.txt"}
+{"ts": "2026-10-22T16:17:17.470+00:00", "epoch": 1792685837.471, "action": "close", "cycle": 3}
+{"ts": "2026-10-22T16:17:49.556+00:00", "epoch": 1792685869.557, "action": "open", "cycle": 4}
+{"ts": "2026-10-22T16:18:01.665+00:00", "epoch": 1792685881.666, "action": "prompt", "cycle": 4, "task": "explain"}
+{"ts": "2026-10-22T16:18:41.033+00:00", "epoch": 1792685921.034, "action": "done", "cycle": 4, "task": "explain", "error_reply": false, "screen": "goose__setup__0013-c4-explain.txt", "seconds": 39.4}
+{"ts": "2026-10-22T16:18:51.596+00:00", "epoch": 1792685931.597, "action": "prompt", "cycle": 4, "task": "test"}
+{"ts": "2026-10-22T16:19:09.797+00:00", "epoch": 1792685949.797, "action": "no-evidence", "cycle": 4, "task": "test", "error_reply": false, "screen": "goose__setup__0014-c4-test.txt", "seconds": 18.2}
+{"ts": "2026-10-22T16:19:11.841+00:00", "epoch": 1792685951.842, "action": "close", "cycle": 4}
+{"ts": "2026-10-22T16:19:41.843+00:00", "epoch": 1792685981.844, "action": "session-end", "cycles": 4, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 4, "server_cycles": 3, "tasks_prompted": 14, "tasks_done": 6, "done_share": 0.42857142857142855, "known_server_calls": 0, "known_server_calls_per_cycle": 0.0, "ok": false}}

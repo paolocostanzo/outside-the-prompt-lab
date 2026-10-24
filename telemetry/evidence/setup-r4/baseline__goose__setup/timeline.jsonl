@@ -1,0 +1,29 @@
+{"ts": "2026-10-22T17:02:08.377+00:00", "epoch": 1792688528.377, "action": "session-start", "client": "goose", "part": "setup", "minutes": 15.0, "version": "1.54.0"}
+{"ts": "2026-10-22T17:02:10.475+00:00", "epoch": 1792688530.475, "action": "open", "cycle": 1}
+{"ts": "2026-10-22T17:02:22.649+00:00", "epoch": 1792688542.65, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-22T17:03:32.401+00:00", "epoch": 1792688612.401, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "goose__setup__0001-c1-explain.txt", "seconds": 69.7}
+{"ts": "2026-10-22T17:03:42.962+00:00", "epoch": 1792688622.963, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-22T17:05:13.988+00:00", "epoch": 1792688713.989, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "goose__setup__0002-c1-test.txt", "seconds": 91.0}
+{"ts": "2026-10-22T17:05:24.561+00:00", "epoch": 1792688724.561, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-22T17:09:25.609+00:00", "epoch": 1792688965.609, "action": "timeout", "cycle": 1, "task": "edit", "error_reply": false, "screen": "goose__setup__0003-c1-edit-timeout.txt"}
+{"ts": "2026-10-22T17:09:25.609+00:00", "epoch": 1792688965.609, "action": "skipped-after-failure", "cycle": 1, "task": "known-server", "after": "timeout"}
+{"ts": "2026-10-22T17:09:27.670+00:00", "epoch": 1792688967.67, "action": "close", "cycle": 1}
+{"ts": "2026-10-22T17:09:59.740+00:00", "epoch": 1792688999.741, "action": "open", "cycle": 2}
+{"ts": "2026-10-22T17:10:11.832+00:00", "epoch": 1792689011.833, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-22T17:12:23.710+00:00", "epoch": 1792689143.711, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "goose__setup__0004-c2-explain.txt", "seconds": 131.9}
+{"ts": "2026-10-22T17:12:34.277+00:00", "epoch": 1792689154.278, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-22T17:13:04.595+00:00", "epoch": 1792689184.596, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "goose__setup__0005-c2-test.txt", "seconds": 30.3}
+{"ts": "2026-10-22T17:13:15.166+00:00", "epoch": 1792689195.166, "action": "prompt", "cycle": 2, "task": "edit"}
+{"ts": "2026-10-22T17:14:06.717+00:00", "epoch": 1792689246.718, "action": "done", "cycle": 2, "task": "edit", "error_reply": false, "screen": "goose__setup__0006-c2-edit.txt", "seconds": 51.5}
+{"ts": "2026-10-22T17:14:17.265+00:00", "epoch": 1792689257.266, "action": "prompt", "cycle": 2, "task": "known-server"}
+{"ts": "2026-10-22T17:14:44.556+00:00", "epoch": 1792689284.557, "action": "done", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "goose__setup__0007-c2-known-server.txt", "seconds": 27.3}
+{"ts": "2026-10-22T17:14:46.605+00:00", "epoch": 1792689286.606, "action": "close", "cycle": 2}
+{"ts": "2026-10-22T17:15:18.680+00:00", "epoch": 1792689318.68, "action": "open", "cycle": 3}
+{"ts": "2026-10-22T17:15:30.791+00:00", "epoch": 1792689330.792, "action": "prompt", "cycle": 3, "task": "explain"}
+{"ts": "2026-10-22T17:15:58.082+00:00", "epoch": 1792689358.083, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "goose__setup__0008-c3-explain.txt", "seconds": 27.3}
+{"ts": "2026-10-22T17:16:08.649+00:00", "epoch": 1792689368.649, "action": "prompt", "cycle": 3, "task": "test"}
+{"ts": "2026-10-22T17:16:52.614+00:00", "epoch": 1792689412.614, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "goose__setup__0009-c3-test.txt", "seconds": 43.9}
+{"ts": "2026-10-22T17:17:03.158+00:00", "epoch": 1792689423.158, "action": "prompt", "cycle": 3, "task": "edit"}
+{"ts": "2026-10-22T17:17:48.644+00:00", "epoch": 1792689468.644, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "goose__setup__0010-c3-edit.txt", "seconds": 45.5}
+{"ts": "2026-10-22T17:17:50.700+00:00", "epoch": 1792689470.701, "action": "close", "cycle": 3}
+{"ts": "2026-10-22T17:18:20.704+00:00", "epoch": 1792689500.705, "action": "session-end", "cycles": 3, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 3, "server_cycles": 2, "tasks_prompted": 11, "tasks_done": 9, "done_share": 0.8181818181818182, "known_server_calls": 1, "known_server_calls_per_cycle": 0.5, "ok": false}}

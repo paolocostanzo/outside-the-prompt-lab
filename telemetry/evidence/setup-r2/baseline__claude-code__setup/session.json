@@ -1,0 +1,25 @@
+{
+ "client": "claude-code",
+ "part": "setup",
+ "minutes": 6.0,
+ "t_start": 1792682541.9782288,
+ "t_end": 1792682952.5088685,
+ "definitions_served": [
+  "A"
+ ],
+ "definition_changed": false,
+ "workload": {
+  "cycles": 3,
+  "server_cycles": 3,
+  "tasks_prompted": 12,
+  "tasks_done": 12,
+  "done_share": 1.0,
+  "known_server_calls": 3,
+  "known_server_calls_per_cycle": 1.0,
+  "ok": true
+ },
+ "quota_exhausted": false,
+ "quota_message": null,
+ "error_replies": 0,
+ "valid": true
+}

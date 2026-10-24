@@ -1,0 +1,23 @@
+{
+ "client": "cursor-agent",
+ "part": "setup",
+ "name": "baseline__cursor-agent__setup",
+ "t0": 1792678692,
+ "t1": 1792679096,
+ "clock_skew_s": 0.172,
+ "session_rc": 0,
+ "export": "ok",
+ "valid": false,
+ "problems": [
+  "session not valid: definitions ['A'], changed False, workload {'cycles': 4, 'tasks_prompted': 15, 'tasks_done': 15, 'done_share': 1.0, 'known_server_calls': 3, 'known_server_calls_per_cycle': 0.75, 'ok': False}"
+ ],
+ "workload": {
+  "cycles": 4,
+  "tasks_prompted": 15,
+  "tasks_done": 15,
+  "done_share": 1.0,
+  "known_server_calls": 3,
+  "known_server_calls_per_cycle": 0.75,
+  "ok": false
+ }
+}

@@ -1,0 +1,33 @@
+{"ts": "2026-10-23T12:40:05.135+00:00", "epoch": 1792759205.136, "action": "session-start", "client": "qwen", "part": "setup", "minutes": 15.0, "version": "0.25.1"}
+{"ts": "2026-10-23T12:40:07.259+00:00", "epoch": 1792759207.26, "action": "open", "cycle": 1}
+{"ts": "2026-10-23T12:40:23.996+00:00", "epoch": 1792759223.997, "action": "prompt", "cycle": 1, "task": "explain"}
+{"ts": "2026-10-23T12:40:37.646+00:00", "epoch": 1792759237.646, "action": "done", "cycle": 1, "task": "explain", "error_reply": false, "screen": "qwen__setup__0001-c1-explain.txt", "seconds": 13.6}
+{"ts": "2026-10-23T12:40:48.189+00:00", "epoch": 1792759248.189, "action": "prompt", "cycle": 1, "task": "test"}
+{"ts": "2026-10-23T12:41:13.996+00:00", "epoch": 1792759273.997, "action": "done", "cycle": 1, "task": "test", "error_reply": false, "screen": "qwen__setup__0002-c1-test.txt", "seconds": 25.8}
+{"ts": "2026-10-23T12:41:24.576+00:00", "epoch": 1792759284.577, "action": "prompt", "cycle": 1, "task": "edit"}
+{"ts": "2026-10-23T12:42:16.173+00:00", "epoch": 1792759336.174, "action": "done", "cycle": 1, "task": "edit", "error_reply": false, "screen": "qwen__setup__0003-c1-edit.txt", "seconds": 51.6}
+{"ts": "2026-10-23T12:42:26.733+00:00", "epoch": 1792759346.733, "action": "prompt", "cycle": 1, "task": "known-server"}
+{"ts": "2026-10-23T12:42:49.493+00:00", "epoch": 1792759369.494, "action": "done", "cycle": 1, "task": "known-server", "error_reply": false, "screen": "qwen__setup__0004-c1-known-server.txt", "seconds": 22.7}
+{"ts": "2026-10-23T12:42:51.540+00:00", "epoch": 1792759371.541, "action": "close", "cycle": 1}
+{"ts": "2026-10-23T12:43:23.618+00:00", "epoch": 1792759403.619, "action": "open", "cycle": 2}
+{"ts": "2026-10-23T12:43:37.240+00:00", "epoch": 1792759417.24, "action": "prompt", "cycle": 2, "task": "explain"}
+{"ts": "2026-10-23T12:43:59.999+00:00", "epoch": 1792759439.999, "action": "done", "cycle": 2, "task": "explain", "error_reply": false, "screen": "qwen__setup__0005-c2-explain.txt", "seconds": 22.7}
+{"ts": "2026-10-23T12:44:10.551+00:00", "epoch": 1792759450.551, "action": "prompt", "cycle": 2, "task": "test"}
+{"ts": "2026-10-23T12:44:40.907+00:00", "epoch": 1792759480.908, "action": "done", "cycle": 2, "task": "test", "error_reply": false, "screen": "qwen__setup__0006-c2-test.txt", "seconds": 30.3}
+{"ts": "2026-10-23T12:44:51.472+00:00", "epoch": 1792759491.472, "action": "prompt", "cycle": 2, "task": "edit"}
+{"ts": "2026-10-23T12:45:27.870+00:00", "epoch": 1792759527.87, "action": "done", "cycle": 2, "task": "edit", "error_reply": false, "screen": "qwen__setup__0007-c2-edit.txt", "seconds": 36.4}
+{"ts": "2026-10-23T12:45:38.417+00:00", "epoch": 1792759538.418, "action": "prompt", "cycle": 2, "task": "known-server"}
+{"ts": "2026-10-23T12:46:17.876+00:00", "epoch": 1792759577.877, "action": "done", "cycle": 2, "task": "known-server", "error_reply": false, "screen": "qwen__setup__0008-c2-known-server.txt", "seconds": 39.4}
+{"ts": "2026-10-23T12:46:19.928+00:00", "epoch": 1792759579.928, "action": "close", "cycle": 2}
+{"ts": "2026-10-23T12:46:52.001+00:00", "epoch": 1792759612.001, "action": "open", "cycle": 3}
+{"ts": "2026-10-23T12:47:05.645+00:00", "epoch": 1792759625.646, "action": "prompt", "cycle": 3, "task": "explain"}
+{"ts": "2026-10-23T12:47:28.414+00:00", "epoch": 1792759648.415, "action": "done", "cycle": 3, "task": "explain", "error_reply": false, "screen": "qwen__setup__0009-c3-explain.txt", "seconds": 22.8}
+{"ts": "2026-10-23T12:47:38.979+00:00", "epoch": 1792759658.98, "action": "prompt", "cycle": 3, "task": "test"}
+{"ts": "2026-10-23T12:48:00.228+00:00", "epoch": 1792759680.228, "action": "done", "cycle": 3, "task": "test", "error_reply": false, "screen": "qwen__setup__0010-c3-test.txt", "seconds": 21.2}
+{"ts": "2026-10-23T12:48:10.786+00:00", "epoch": 1792759690.787, "action": "prompt", "cycle": 3, "task": "edit"}
+{"ts": "2026-10-23T12:48:27.485+00:00", "epoch": 1792759707.486, "action": "done", "cycle": 3, "task": "edit", "error_reply": false, "screen": "qwen__setup__0011-c3-edit.txt", "seconds": 16.7}
+{"ts": "2026-10-23T12:48:38.043+00:00", "epoch": 1792759718.043, "action": "prompt", "cycle": 3, "task": "known-server"}
+{"ts": "2026-10-23T12:50:22.710+00:00", "epoch": 1792759822.71, "action": "quota", "cycle": 3, "task": "known-server", "message": "exceeded your current quota", "screen": "qwen__setup__0012-quota.txt"}
+{"ts": "2026-10-23T12:50:22.722+00:00", "epoch": 1792759822.722, "action": "quota", "cycle": 3, "task": "known-server", "error_reply": false, "screen": "qwen__setup__0013-c3-known-server-quota.txt"}
+{"ts": "2026-10-23T12:50:24.763+00:00", "epoch": 1792759824.763, "action": "close", "cycle": 3}
+{"ts": "2026-10-23T12:50:24.764+00:00", "epoch": 1792759824.765, "action": "session-end", "cycles": 3, "definitions_served": ["A"], "definition_changed": false, "workload": {"cycles": 3, "server_cycles": 3, "tasks_prompted": 12, "tasks_done": 11, "done_share": 0.9166666666666666, "known_server_calls": 2, "known_server_calls_per_cycle": 0.6666666666666666, "ok": false}}
