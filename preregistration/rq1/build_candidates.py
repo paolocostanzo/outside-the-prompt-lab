@@ -4,10 +4,18 @@ dated query, with the text a screener needs. Mechanical only: no inclusion decis
 
     python3 preregistration/rq1/build_candidates.py RAWDIR OUT.json
 """
-import glob, json, pathlib, sys
+import glob, gzip, json, pathlib, sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from query_frame import text_of_ghsa  # noqa: E402
+
+
+def load(path):
+    """A raw file as saved by query_frame.py, or its gzip copy (the two full GHSA dumps are committed compressed)."""
+    path = pathlib.Path(path)
+    if not path.exists() and path.with_name(path.name + ".gz").exists():
+        return json.loads(gzip.decompress(path.with_name(path.name + ".gz").read_bytes()))
+    return json.loads(path.read_text())
 
 
 def main(raw, out):
@@ -16,8 +24,8 @@ def main(raw, out):
         return c.setdefault(k, {"id": k, "ghsa": [], "sources": [], "keywords": [], "published": None, "title": "",
                                 "text": "", "packages": [], "refs": []})
     for kind in ("reviewed", "unreviewed"):
-        adv = {a["ghsa_id"]: a for a in json.loads((raw / f"ghsa-{kind}.json").read_text())}
-        for h in json.loads((raw / f"ghsa-{kind}-keyword-hits.json").read_text()):
+        adv = {a["ghsa_id"]: a for a in load(raw / f"ghsa-{kind}.json")}
+        for h in load(raw / f"ghsa-{kind}-keyword-hits.json"):
             a = adv[h["ghsa_id"]]; r = row(a.get("cve_id") or a["ghsa_id"])
             r["ghsa"].append(a["ghsa_id"]); r["sources"].append("ghsa-" + kind); r["keywords"] += h["keywords"]
             r["published"] = min(filter(None, [r["published"], a.get("published_at")]))
@@ -29,7 +37,7 @@ def main(raw, out):
             if a.get("source_code_location"): r["refs"].append(a["source_code_location"])
     for f in sorted(glob.glob(str(raw / "nvd-*.json"))):
         kw = pathlib.Path(f).stem[4:]
-        for v in json.loads(pathlib.Path(f).read_text()):
+        for v in load(f):
             cve = v["cve"]; r = row(cve["id"])
             if "nvd" not in r["sources"]: r["sources"].append("nvd")
             r["keywords"].append(kw)

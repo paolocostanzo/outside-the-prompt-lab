@@ -1,0 +1,18 @@
+timeline,date,event,timeline_type,decision,reason,maps_to,final_reason,final_note
+main,2026-06,Claude Code advisory CVE-2026-55607 (git config during worktree operations),Advisory,exclude,pilot C01 (D3/D41),CVE-2026-55607,pilot C01,pilot C01 (D3/D41)
+main,2026-06-29,Claude Code git-config execution fixed in 2.1.196 (GitSpawn write-up),Vuln fix,exclude,pilot C02 (same disclosure as GitSpawn),,pilot C02,pilot C02 (same disclosure as GitSpawn)
+main,2026-06-30,UW agentic browsers same-origin study with PoC on Atlas,Research,exclude,type Research not Vuln/Advisory; has a product PoC (Atlas),,T,timeline type 'Research' is not vulnerability or advisory (§3)
+main,2026-07-15,PromptFiction (Claude Desktop),Vuln,exclude,pilot C03,,pilot C03,pilot C03
+main,2026-07-21,Azure DevOps MCP server confused deputy (Manifold),Vuln,exclude,pilot C09,,pilot C09,pilot C09
+main,2026-08-06,Black Hat talk on AI browsers (Opera AI; Comet; Atlas),Talk,exclude,type Talk; [UNVERIFIED] secondary source only,,T,timeline type 'Talk' is not vulnerability or advisory (§3)
+main,2026-08-12,Encrypted reasoning blocks returned by model APIs,Research,exclude,E2 model API not a tool-using agent; [UNVERIFIED],,E2,E2 model API not a tool-using agent; [UNVERIFIED]
+main,2026-08-19,Splunk advisory SVD-2026-0808 (Splunk MCP Server app),Advisory,include,timeline stratum; query also finds it,CVE-2026-76404,,
+main,2026-08-27,Kiro workspace exfiltration (Mindgard),Vuln (disclosure),exclude,pilot C10,,pilot C10,pilot C10
+main,2026-09-01,Second git-config path in Claude Code 2.1.252 (GitSpawn),Vuln,exclude,pilot C02,,pilot C02,pilot C02
+main,2026-09-02,GitSpawn: 8 flaws in 7 CLI agents,Vuln,exclude,pilot C02,CVE-2026-72718;CVE-2026-19590;CVE-2026-19592;CVE-2026-19593,pilot C02,pilot C02
+second,2026-07-06,GitLost (GitHub Agentic Workflows),Indirect prompt injection,exclude,pilot C08,,pilot C08,pilot C08
+second,2026-07-09,CVE-2026-59726 RufRoot (Ruflo),Missing authentication,exclude,pilot C05,CVE-2026-59726,pilot C05,pilot C05
+second,2026-07-15,CVE-2026-59950 MCP Python SDK WebSocket transport,Origin validation,exclude,pilot C06,CVE-2026-59950,pilot C06,pilot C06
+second,2026-07-15,DeepJack (Cursor deeplinks),URL-handler argument injection,exclude,pilot C04,,pilot C04,pilot C04
+second,2026-07-23,CVE-2026-15015 MountDev AI MCP Connector for WordPress <=1.6.1,OAuth authorization bypass,exclude,pilot C07,CVE-2026-15015,pilot C07,pilot C07
+second,2026-09-09,Workflow Identity Hijacking (Noma; Google instance unspecified),Confused deputy,exclude,no product or version named for the reported instance (E4?),,E4,no product or version named for the reported instance

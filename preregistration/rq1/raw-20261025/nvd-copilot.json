@@ -1,0 +1,3648 @@
+[
+ {
+  "cve": {
+   "id": "CVE-2026-9132",
+   "sourceIdentifier": "product-cna@github.com",
+   "published": "2026-06-30T21:16:30.960",
+   "lastModified": "2026-07-02T15:35:27.577",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "A missing authorization vulnerability was identified in GitHub Enterprise Server that allowed an authenticated user to read source code from private repositories they did not have access to. The\n   Copilot pull request description diff summary endpoint accepted a cross-repository comparison range and rendered the resulting diff without verifying that the requesting user was authorized to view\n   the target repository. Exploitation required an authenticated account on the instance with read access to at least one repository to use as the comparison base. This vulnerability affected all\n   versions of GitHub Enterprise Server prior to 3.21 and was fixed in versions 3.17.17, 3.18.11, 3.19.8, and 3.20.4. This vulnerability was reported via the GitHub Bug Bounty program."
+    }
+   ],
+   "affected": [
+    {
+     "source": "product-cna@github.com",
+     "affectedData": [
+      {
+       "vendor": "GitHub",
+       "product": "Enterprise Server",
+       "defaultStatus": "unaffected",
+       "versions": [
+        {
+         "version": "3.17.0",
+         "lessThanOrEqual": "3.17.16",
+         "versionType": "semver",
+         "status": "affected",
+         "changes": [
+          {
+           "at": "3.17.17",
+           "status": "unaffected"
+          }
+         ]
+        },
+        {
+         "version": "3.18.0",
+         "lessThanOrEqual": "3.18.10",
+         "versionType": "semver",
+         "status": "affected",
+         "changes": [
+          {
+           "at": "3.18.11",
+           "status": "unaffected"
+          }
+         ]
+        },
+        {
+         "version": "3.19.0",
+         "lessThanOrEqual": "3.19.7",
+         "versionType": "semver",
+         "status": "affected",
+         "changes": [
+          {
+           "at": "3.19.8",
+           "status": "unaffected"
+          }
+         ]
+        },
+        {
+         "version": "3.20.0",
+         "lessThanOrEqual": "3.20.3",
+         "versionType": "semver",
+         "status": "affected",
+         "changes": [
+          {
+           "at": "3.20.4",
+           "status": "unaffected"
+          }
+         ]
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV40": [
+     {
+      "source": "product-cna@github.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "4.0",
+       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "baseScore": 6.0,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "attackRequirements": "PRESENT",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "vulnConfidentialityImpact": "HIGH",
+       "vulnIntegrityImpact": "NONE",
+       "vulnAvailabilityImpact": "NONE",
+       "subConfidentialityImpact": "NONE",
+       "subIntegrityImpact": "NONE",
+       "subAvailabilityImpact": "NONE",
+       "exploitMaturity": "NOT_DEFINED",
+       "confidentialityRequirement": "NOT_DEFINED",
+       "integrityRequirement": "NOT_DEFINED",
+       "availabilityRequirement": "NOT_DEFINED",
+       "modifiedAttackVector": "NOT_DEFINED",
+       "modifiedAttackComplexity": "NOT_DEFINED",
+       "modifiedAttackRequirements": "NOT_DEFINED",
+       "modifiedPrivilegesRequired": "NOT_DEFINED",
+       "modifiedUserInteraction": "NOT_DEFINED",
+       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+       "modifiedSubIntegrityImpact": "NOT_DEFINED",
+       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+       "Safety": "NOT_DEFINED",
+       "Automatable": "NOT_DEFINED",
+       "Recovery": "NOT_DEFINED",
+       "valueDensity": "NOT_DEFINED",
+       "vulnerabilityResponseEffort": "NOT_DEFINED",
+       "providerUrgency": "NOT_DEFINED"
+      }
+     }
+    ],
+    "cvssMetricV31": [
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-01T15:37:41.106015Z",
+       "id": "CVE-2026-9132",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "product-cna@github.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-862"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:github:enterprise_server:*:*:*:*:*:*:*:*",
+         "versionEndExcluding": "3.17.17",
+         "matchCriteriaId": "2EBDB435-5723-482A-8F7F-9A8987D76B4A"
+        },
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:github:enterprise_server:*:*:*:*:*:*:*:*",
+         "versionStartIncluding": "3.18.0",
+         "versionEndExcluding": "3.18.11",
+         "matchCriteriaId": "0553891C-ED0B-4D2C-A832-29996F0CE8B2"
+        },
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:github:enterprise_server:*:*:*:*:*:*:*:*",
+         "versionStartIncluding": "3.19.0",
+         "versionEndExcluding": "3.19.8",
+         "matchCriteriaId": "E67B4A61-E777-4B50-8DFC-DDF6292C4771"
+        },
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:github:enterprise_server:*:*:*:*:*:*:*:*",
+         "versionStartIncluding": "3.20.0",
+         "versionEndExcluding": "3.20.4",
+         "matchCriteriaId": "A51E85E4-FF55-497C-A39F-F69E224E63BD"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://docs.github.com/en/enterprise-server@3.17/admin/release-notes#3.17.17-features",
+     "source": "product-cna@github.com",
+     "tags": [
+      "Release Notes"
+     ]
+    },
+    {
+     "url": "https://docs.github.com/en/enterprise-server@3.18/admin/release-notes#3.18.11-features",
+     "source": "product-cna@github.com",
+     "tags": [
+      "Release Notes"
+     ]
+    },
+    {
+     "url": "https://docs.github.com/en/enterprise-server@3.19/admin/release-notes#3.19.8-features",
+     "source": "product-cna@github.com",
+     "tags": [
+      "Release Notes"
+     ]
+    },
+    {
+     "url": "https://docs.github.com/en/enterprise-server@3.20/admin/release-notes#3.20.4-features",
+     "source": "product-cna@github.com",
+     "tags": [
+      "Release Notes"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-41106",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-02T23:16:50.867",
+   "lastModified": "2026-07-07T14:24:12.110",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Url redirection to untrusted site ('open redirect') in M365 Copilot allows an unauthorized attacker to elevate privileges over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N",
+       "baseScore": 9.3,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.8
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N",
+       "baseScore": 9.3,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.8
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-06T00:00:00+00:00",
+       "id": "CVE-2026-41106",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-601"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "E4A390D9-7457-430A-82CC-A24DA275BF06"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-41106",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-47282",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-14T17:16:49.383",
+   "lastModified": "2026-10-24T21:10:00.130",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Insufficiently protected credentials in GitHub Copilot and Visual Studio Code allows an unauthorized attacker to disclose information over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Credenciales insuficientemente protegidas en GitHub Copilot y Visual Studio Code permiten a un atacante no autorizado divulgar información a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Visual Studio Code",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "1.128.1",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-15T13:44:58.136470Z",
+       "id": "CVE-2026-47282",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-200"
+      },
+      {
+       "lang": "en",
+       "value": "CWE-522"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:visual_studio_code:*:*:*:*:*:-:*:*",
+         "versionEndExcluding": "1.128.1",
+         "matchCriteriaId": "E293A140-5134-401A-BE24-19A351D4E7CF"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-47282",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Release Notes",
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-48561",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-14T17:16:49.753",
+   "lastModified": "2026-07-26T18:17:38.233",
+   "vulnStatus": "Modified",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in Copilot Chat (Microsoft Edge) allows an unauthorized attacker to execute code over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge Copilot for Android",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "publication",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge Copilot for IOS",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "publication",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
+       "baseScore": 9.6,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 6.0
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-15T03:58:36.577100Z",
+       "id": "CVE-2026-48561",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:android:*:*",
+         "matchCriteriaId": "2D37C2C3-A2A0-41D9-8C71-F0191702189D"
+        },
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:iphone_os:*:*",
+         "matchCriteriaId": "87BE1CC9-4319-44AB-B88A-16CF1DBE7444"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-48561",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-50510",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-14T18:17:58.233",
+   "lastModified": "2026-10-24T21:10:00.130",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper restriction of names for files and other resources in Github Copilot allows an unauthorized attacker to execute code locally."
+    },
+    {
+     "lang": "es",
+     "value": "Restricción inadecuada de nombres para archivos y otros recursos en Github Copilot permite a un atacante no autorizado ejecutar código localmente."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "GitHub Copilot Plugin for JetBrains IDEs",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "1.13.0-251",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+       "baseScore": 7.8,
+       "baseSeverity": "HIGH",
+       "attackVector": "LOCAL",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 1.8,
+      "impactScore": 5.9
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+       "baseScore": 7.8,
+       "baseSeverity": "HIGH",
+       "attackVector": "LOCAL",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 1.8,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-15T03:58:32.778830Z",
+       "id": "CVE-2026-50510",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-641"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:github_copilot:*:*:*:*:*:jetbrains:*:*",
+         "versionEndExcluding": "1.13.0-251",
+         "matchCriteriaId": "F857B5B7-C031-4725-B7A6-BBC2697A34B6"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-50510",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory",
+      "Product"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-55145",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-14T18:18:21.520",
+   "lastModified": "2026-10-24T21:10:00.130",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in Outlook Copilot allows an authorized attacker to perform tampering over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Neutralización incorrecta de elementos especiales utilizados en un comando (’inyección de comandos’) en Outlook Copilot permite a un atacante autorizado realizar manipulaciones a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:U/C:H/I:L/A:N",
+       "baseScore": 6.3,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "LOW",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.1,
+      "impactScore": 4.2
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
+       "baseScore": 7.1,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "LOW",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 4.2
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-14T18:49:46.518586Z",
+       "id": "CVE-2026-55145",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "4460C154-CAA1-49B9-8016-EFE5602C6E1C"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-55145",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-58617",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-14T18:18:44.260",
+   "lastModified": "2026-10-24T21:10:00.130",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper access control in Microsoft 365 Copilot for iOS allows an unauthorized attacker to elevate privileges over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Control de acceso inadecuado en Microsoft 365 Copilot para iOS permite a un atacante no autorizado elevar privilegios a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot for iOS",
+       "versions": [
+        {
+         "version": "1.0",
+         "lessThan": "2.111.4",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:N",
+       "baseScore": 8.1,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.2
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "baseScore": 9.8,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-14T18:26:55.713971Z",
+       "id": "CVE-2026-58617",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-284"
+      }
+     ]
+    },
+    {
+     "source": "nvd@nist.gov",
+     "type": "Primary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "NVD-CWE-Other"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:*:*:*:*:*:iphone_os:*:*",
+         "versionEndExcluding": "2.111.4",
+         "matchCriteriaId": "0135DD9F-68E0-4ECC-B556-7E19D971AB56"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-58617",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-59864",
+   "sourceIdentifier": "security-advisories@github.com",
+   "published": "2026-07-16T16:19:15.240",
+   "lastModified": "2026-10-24T20:10:00.137",
+   "vulnStatus": "Deferred",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Kiota is an OpenAPI based HTTP Client code generator. Prior to 1.29.1 and 1.32.5, `kiota plugin add` and `kiota plugin generate` (with `-t APIPlugin`) emitted attacker-controlled static_template.file values from x-ai-adaptive-card and x-ai-capabilities into generated Microsoft 365 Copilot and Teams plugin manifests without path validation, allowing ../, absolute, rooted, UNC, Windows drive, or URI paths in response_semantics.static_template.file to cause path traversal or out-of-package file inclusion when the generated plugin was deployed. This issue is fixed in version 1.29.1 and 1.32.5."
+    },
+    {
+     "lang": "es",
+     "value": "Kiota es un generador de código de cliente HTTP basado en OpenAPI. Antes de la versión 1.32.5, “kiota plugin add” y “kiota plugin generate” (con “-t APIPlugin”) emitían valores de static_template.file controlados por el atacante desde x-ai-adaptive-card y x-ai-capabilities en los manifiestos de plugin generados de Microsoft 365 Copilot y Teams sin validación de ruta, permitiendo que rutas .. / , absolutas, raíz, UNC, de unidad de Windows o URI en response_semantics.static_template.file causaran salto de ruta o inclusión de ficheros fuera del paquete cuando el plugin generado era desplegado. Este problema está solucionado en la versión 1.32.5."
+    }
+   ],
+   "affected": [
+    {
+     "source": "security-advisories@github.com",
+     "affectedData": [
+      {
+       "vendor": "microsoft",
+       "product": "kiota",
+       "versions": [
+        {
+         "version": ">= 1.30.0, < 1.31.1",
+         "status": "affected"
+        },
+        {
+         "version": "< 1.29.1",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV40": [
+     {
+      "source": "security-advisories@github.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "4.0",
+       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
+       "baseScore": 9.3,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "attackRequirements": "NONE",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "vulnConfidentialityImpact": "HIGH",
+       "vulnIntegrityImpact": "HIGH",
+       "vulnAvailabilityImpact": "HIGH",
+       "subConfidentialityImpact": "NONE",
+       "subIntegrityImpact": "NONE",
+       "subAvailabilityImpact": "NONE",
+       "exploitMaturity": "NOT_DEFINED",
+       "confidentialityRequirement": "NOT_DEFINED",
+       "integrityRequirement": "NOT_DEFINED",
+       "availabilityRequirement": "NOT_DEFINED",
+       "modifiedAttackVector": "NOT_DEFINED",
+       "modifiedAttackComplexity": "NOT_DEFINED",
+       "modifiedAttackRequirements": "NOT_DEFINED",
+       "modifiedPrivilegesRequired": "NOT_DEFINED",
+       "modifiedUserInteraction": "NOT_DEFINED",
+       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
+       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
+       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
+       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
+       "modifiedSubIntegrityImpact": "NOT_DEFINED",
+       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
+       "Safety": "NOT_DEFINED",
+       "Automatable": "NOT_DEFINED",
+       "Recovery": "NOT_DEFINED",
+       "valueDensity": "NOT_DEFINED",
+       "vulnerabilityResponseEffort": "NOT_DEFINED",
+       "providerUrgency": "NOT_DEFINED"
+      }
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-16T00:00:00+00:00",
+       "id": "CVE-2026-59864",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "yes"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "security-advisories@github.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-22"
+      },
+      {
+       "lang": "en",
+       "value": "CWE-829"
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://github.com/microsoft/kiota/commit/9a185994a4e549b7bba3cc2beffb9736aa902e79",
+     "source": "security-advisories@github.com"
+    },
+    {
+     "url": "https://github.com/microsoft/kiota/pull/7892",
+     "source": "security-advisories@github.com"
+    },
+    {
+     "url": "https://github.com/microsoft/kiota/releases/tag/v1.32.5",
+     "source": "security-advisories@github.com"
+    },
+    {
+     "url": "https://github.com/microsoft/kiota/security/advisories/GHSA-4jwf-m4wg-8p66",
+     "source": "security-advisories@github.com"
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-9810",
+   "sourceIdentifier": "contact@wpscan.com",
+   "published": "2026-07-17T07:16:38.230",
+   "lastModified": "2026-07-17T15:44:29.553",
+   "vulnStatus": "Deferred",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "The AI Copilot  WordPress plugin before 1.5.4 does not bind OAuth access tokens to a WordPress user, and accepts any valid token as an administrator session, allowing unauthenticated attackers who complete the public OAuth flow to execute privileged MCP tools as an administrator, including arbitrary user creation and role escalation."
+    }
+   ],
+   "affected": [
+    {
+     "source": "contact@wpscan.com",
+     "affectedData": [
+      {
+       "vendor": "Unknown",
+       "product": "AI Copilot",
+       "defaultStatus": "unaffected",
+       "versions": [
+        {
+         "version": "0",
+         "lessThan": "1.5.4",
+         "versionType": "semver",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "baseScore": 9.8,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-17T12:54:53.080286Z",
+       "id": "CVE-2026-9810",
+       "options": [
+        {
+         "exploitation": "poc"
+        },
+        {
+         "automatable": "yes"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-269"
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://wpscan.com/vulnerability/6378a370-fe2f-48e7-984f-6e6c575dba60/",
+     "source": "contact@wpscan.com"
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-13009",
+   "sourceIdentifier": "security@wordfence.com",
+   "published": "2026-07-23T10:16:48.240",
+   "lastModified": "2026-07-23T16:17:13.413",
+   "vulnStatus": "Deferred",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "The AI Copilot – Content Generator plugin for WordPress is vulnerable to generic SQL Injection via 'order[0][dir]' Parameter in all versions up to, and including, 1.5.4 due to insufficient escaping on the user supplied parameter and lack of sufficient preparation on the existing SQL query. This makes it possible for authenticated attackers, with subscriber-level access and above, to append additional SQL queries into already existing queries that can be used to extract sensitive information from the database. The required waic-nonce is emitted on the front-end whenever the [waic_form] or [aiwu-form] shortcode is rendered, enabling contributor-level users who can publish shortcodes to obtain a valid nonce and reach the vulnerable AJAX handler, which performs no capability check beyond nonce verification when the shortcodes are not already embedded in a page."
+    }
+   ],
+   "affected": [
+    {
+     "source": "security@wordfence.com",
+     "affectedData": [
+      {
+       "vendor": "wupsales",
+       "product": "AI Copilot – Content Generator",
+       "defaultStatus": "unaffected",
+       "versions": [
+        {
+         "version": "0",
+         "lessThanOrEqual": "1.5.4",
+         "versionType": "semver",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "security@wordfence.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-23T16:05:37.418865Z",
+       "id": "CVE-2026-13009",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "security@wordfence.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-89"
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/classes/model.php#L162",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/classes/table.php#L259",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/workspace/controller.php#L17",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/workspace/models/tasks.php#L266",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/changeset?reponame=&old=3612849%40ai-copilot-content-generator&new=3612849%40ai-copilot-content-generator",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://www.wordfence.com/threat-intel/vulnerabilities/id/2a965a23-5594-4925-8104-6f387a60ab49?source=cve",
+     "source": "security@wordfence.com"
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-50517",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-07-24T01:17:02.257",
+   "lastModified": "2026-10-24T13:10:00.147",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Deserialization of untrusted data in M365 Copilot allows an authorized attacker to execute code over a network."
+    },
+    {
+     "lang": "es",
+     "value": "La deserialización de datos no confiables en M365 Copilot permite a un atacante autorizado ejecutar código a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+       "baseScore": 9.9,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.1,
+      "impactScore": 6.0
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-07-24T00:00:00+00:00",
+       "id": "CVE-2026-50517",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-502"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "E4A390D9-7457-430A-82CC-A24DA275BF06"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-50517",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-59118",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-07T00:16:33.923",
+   "lastModified": "2026-10-24T16:10:00.153",
+   "vulnStatus": "Modified",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper authorization in Copilot Cowork allows an unauthorized attacker to elevate privileges over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Autorización indebida en Microsoft Power Apps permite a un atacante no autorizado escalar privilegios a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Copilot Cowork",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:N",
+       "baseScore": 9.3,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.8
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-06T00:00:00+00:00",
+       "id": "CVE-2026-59118",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-285"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:power_apps:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "420F7BF6-15F9-4C35-8F16-3C4E0066BFC1"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-59118",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-14526",
+   "sourceIdentifier": "security@wordfence.com",
+   "published": "2026-08-08T07:17:08.297",
+   "lastModified": "2026-08-12T21:00:52.257",
+   "vulnStatus": "Deferred",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "The AI Copilot – Content Generator plugin for WordPress is vulnerable to authorization bypass in all versions up to, and including, 1.5.6. This is due to the plugin not properly verifying that a user is authorized to perform an action. This makes it possible for unauthenticated attackers to create a new administrator-level user account and achieve full site takeover by saving and executing a malicious workflow containing a wp_create_user action node specifying role=administrator. This vulnerability is exploitable by unauthenticated attackers on any site where the [aiwu-form] shortcode or public chatbot is rendered on a frontend page, as the waic-nonce value is emitted into publicly accessible JavaScript (WAIC_DATA.waicNonce) on those pages, rendering the nonce check a non-functional authorization barrier."
+    }
+   ],
+   "affected": [
+    {
+     "source": "security@wordfence.com",
+     "affectedData": [
+      {
+       "vendor": "wupsales",
+       "product": "AI Copilot – Content Generator",
+       "defaultStatus": "unaffected",
+       "versions": [
+        {
+         "version": "0",
+         "lessThanOrEqual": "1.5.6",
+         "versionType": "semver",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "security@wordfence.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
+       "baseScore": 9.8,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-11T01:23:32.869783Z",
+       "id": "CVE-2026-14526",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "yes"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "security@wordfence.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-269"
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/classes/assets.php#L96",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/classes/frame.php#L211",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/forms/views/forms.php#L87",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/workflow/blocks/actions/wp_create_user.php#L107",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/workflow/controller.php#L39",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.4/modules/workflow/controller.php#L86",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/classes/assets.php#L96",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/classes/frame.php#L211",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/modules/forms/views/forms.php#L87",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/modules/workflow/blocks/actions/wp_create_user.php#L107",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/modules/workflow/controller.php#L39",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://plugins.trac.wordpress.org/browser/ai-copilot-content-generator/tags/1.5.6/modules/workflow/controller.php#L86",
+     "source": "security@wordfence.com"
+    },
+    {
+     "url": "https://www.wordfence.com/threat-intel/vulnerabilities/id/e28ae1a3-abc6-484c-abc7-1e0b958fa30b?source=cve",
+     "source": "security@wordfence.com"
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-65675",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-11T17:18:55.427",
+   "lastModified": "2026-10-24T16:10:00.153",
+   "vulnStatus": "Modified",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "No cwe for this issue in Visual Studio Code CoPilot Chat Extension allows an unauthorized attacker to bypass a security feature over a network."
+    },
+    {
+     "lang": "es",
+     "value": "No CWE para este problema en la extensión de chat CoPilot de Visual Studio Code permite a un atacante no autorizado eludir una característica de seguridad a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Visual Studio Code CoPilot Chat Extension",
+       "versions": [
+        {
+         "version": "0.27.0",
+         "lessThan": "1.132.1",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:L",
+       "baseScore": 7.1,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "NONE",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "LOW"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 4.2
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "NONE",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-12T13:46:57.515616Z",
+       "id": "CVE-2026-65675",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-862"
+      }
+     ]
+    },
+    {
+     "source": "nvd@nist.gov",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "NVD-CWE-noinfo"
+      }
+     ]
+    },
+    {
+     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-284"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "operator": "AND",
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:github_copilot_chat:-:*:*:*:*:visual_studio_code:*:*",
+         "matchCriteriaId": "DDAB286A-DFBF-4E3F-8164-CAA636159844"
+        }
+       ]
+      },
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": false,
+         "criteria": "cpe:2.3:a:microsoft:visual_studio_code:*:*:*:*:*:-:*:*",
+         "versionEndExcluding": "1.132.1",
+         "matchCriteriaId": "3A1F4131-0417-47EE-A4F9-E7064447A6D3"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-65675",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-70335",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-11T17:19:11.153",
+   "lastModified": "2026-10-24T16:10:00.153",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in an os command ('os command injection') in GitHub Copilot and Visual Studio Code allows an unauthorized attacker to elevate privileges locally."
+    },
+    {
+     "lang": "es",
+     "value": "Neutralización incorrecta de elementos especiales utilizados en un comyo del sistema operativo (’inyección de comyos del SO’) en GitHub Copilot y Visual Studio Code permite a un atacante no autorizado elevar privilegios localmente."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Visual Studio Code",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "1.132.1",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+       "baseScore": 7.8,
+       "baseSeverity": "HIGH",
+       "attackVector": "LOCAL",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 1.8,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-11T18:20:24.546154Z",
+       "id": "CVE-2026-70335",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-78"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:visual_studio_code:*:*:*:*:*:*:*:*",
+         "versionEndExcluding": "1.132.1",
+         "matchCriteriaId": "EA5D3EF3-09B9-466B-A9B4-BA8A955061E0"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-70335",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Patch",
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-24301",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-18T14:17:01.897",
+   "lastModified": "2026-10-22T22:10:00.250",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in Microsoft Copilot allows an unauthorized attacker to disclose information over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Neutralización incorrecta de elementos especiales utilizados en un comando (’inyección de comandos’) en Microsoft Copilot permite a un atacante no autorizado divulgar información a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Copilot Web",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
+       "baseScore": 8.8,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.9
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 7.5,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-18T14:46:29.495886Z",
+       "id": "CVE-2026-24301",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "4460C154-CAA1-49B9-8016-EFE5602C6E1C"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-24301",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-69855",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-20T22:18:01.003",
+   "lastModified": "2026-10-18T20:10:00.110",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Server-side request forgery (ssrf) in Microsoft Copilot in Azure allows an authorized attacker to disclose information over a network."
+    },
+    {
+     "lang": "es",
+     "value": "Falsificación de petición del lado del servidor (SSRF) en Microsoft Copilot en Azure permite a un atacante autorizado divulgar información a través de una red."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Copilot in Azure",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+       "baseScore": 7.7,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.1,
+      "impactScore": 4.0
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-21T13:10:34.694773Z",
+       "id": "CVE-2026-69855",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-918"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:azure_copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "5407F4E8-6A0E-4B6B-8668-70BBC0AF4CB0"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-69855",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-58616",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-08-28T20:18:44.927",
+   "lastModified": "2026-09-11T17:17:12.280",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Concurrent execution using shared resource with improper synchronization ('race condition') in Copilot Chat (Microsoft Edge) allows an authorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge (Chromium-based)",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge for Android",
+       "versions": [
+        {
+         "version": "1.0.0.0",
+         "lessThan": "152.0.4191.52",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge for iOS",
+       "versions": [
+        {
+         "version": "1.0.0.0",
+         "lessThan": "152.0.4191.52",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge for Linux",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "152.0.4191.52",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge for MAC",
+       "versions": [
+        {
+         "version": "1.0.0.0",
+         "lessThan": "152.0.4191.52",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      },
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Edge for Windows",
+       "versions": [
+        {
+         "version": "1.0.0.0",
+         "lessThan": "152.0.4191.52",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:L/I:L/A:N",
+       "baseScore": 4.4,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "LOW",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "LOW",
+       "integrityImpact": "LOW",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 1.3,
+      "impactScore": 2.7
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:R/S:C/C:L/I:N/A:N",
+       "baseScore": 3.0,
+       "baseSeverity": "LOW",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "LOW",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "LOW",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 1.3,
+      "impactScore": 1.4
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-08-28T20:15:16.258744Z",
+       "id": "CVE-2026-58616",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-362"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:edge_chromium:*:*:*:*:-:*:*:*",
+         "versionEndExcluding": "152.0.4191.53",
+         "matchCriteriaId": "3F91281C-0214-4002-992E-2EEF8E72193E"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-58616",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-80098",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-03T23:17:20.350",
+   "lastModified": "2026-09-08T17:53:07.297",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper verification of cryptographic signature in Copilot Studio allows an unauthorized attacker to elevate privileges over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Copilot Studio",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:L/I:H/A:N",
+       "baseScore": 9.3,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "LOW",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 4.7
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
+       "baseScore": 10.0,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 6.0
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-04T00:00:00+00:00",
+       "id": "CVE-2026-80098",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "yes"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-347"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:copilot_studio:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "7859CFCD-C125-4992-9DCD-A843175DF9BE"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-80098",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-81380",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-08T18:20:54.330",
+   "lastModified": "2026-09-23T19:51:23.410",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in GitHub Copilot and Visual Studio Code allows an unauthorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Visual Studio Code",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "1.136.2",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:U/C:H/I:N/A:N",
+       "baseScore": 5.3,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 1.6,
+      "impactScore": 3.6
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 5.9,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.2,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-08T19:49:49.100830Z",
+       "id": "CVE-2026-81380",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:visual_studio_code:*:*:*:*:*:-:*:*",
+         "versionEndExcluding": "1.136.2",
+         "matchCriteriaId": "B2E65938-F774-4081-8D0C-35496C069561"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81380",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-81381",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-08T18:20:54.470",
+   "lastModified": "2026-09-15T13:31:41.243",
+   "vulnStatus": "Analyzed",
+   "cveTags": [],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Insufficiently protected credentials in GitHub Copilot and Visual Studio Code allows an unauthorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Visual Studio Code",
+       "versions": [
+        {
+         "version": "1.0.0",
+         "lessThan": "1.136.2",
+         "versionType": "custom",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
+       "baseScore": 6.5,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 3.6
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 7.5,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-08T19:49:44.889719Z",
+       "id": "CVE-2026-81381",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-522"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:visual_studio_code:*:*:*:*:*:-:*:*",
+         "versionEndExcluding": "1.136.2",
+         "matchCriteriaId": "B2E65938-F774-4081-8D0C-35496C069561"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-81381",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory",
+      "Patch"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-55946",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-17T23:17:46.687",
+   "lastModified": "2026-10-14T23:17:56.073",
+   "vulnStatus": "Modified",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Ai command injection in Microsoft Copilot allows an unauthorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:N/A:N",
+       "baseScore": 6.1,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "NONE",
+       "userInteraction": "REQUIRED",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 1.6,
+      "impactScore": 4.0
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:H/I:N/A:N",
+       "baseScore": 5.9,
+       "baseSeverity": "MEDIUM",
+       "attackVector": "NETWORK",
+       "attackComplexity": "HIGH",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 2.2,
+      "impactScore": 3.6
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-19T03:56:40.835292Z",
+       "id": "CVE-2026-55946",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "4460C154-CAA1-49B9-8016-EFE5602C6E1C"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-55946",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-78501",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-17T23:18:45.770",
+   "lastModified": "2026-10-14T23:19:04.093",
+   "vulnStatus": "Modified",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in Microsoft 365 Copilot's Business Chat allows an unauthorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot's Business Chat",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+       "baseScore": 8.6,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 4.0
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:N/A:N",
+       "baseScore": 8.6,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "NONE",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.9,
+      "impactScore": 4.0
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-18T14:11:07.081015Z",
+       "id": "CVE-2026-78501",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      },
+      {
+       "lang": "en",
+       "value": "CWE-923"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot_chat:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "431CBC2E-E9C8-4A85-B619-F7782685F815"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-78501",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Patch",
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-85885",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-17T23:18:53.080",
+   "lastModified": "2026-09-25T20:00:26.797",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Improper neutralization of special elements used in a command ('command injection') in M365 Copilot allows an authorized attacker to elevate privileges over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:H/A:H",
+       "baseScore": 9.9,
+       "baseSeverity": "CRITICAL",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 3.1,
+      "impactScore": 6.0
+     },
+     {
+      "source": "nvd@nist.gov",
+      "type": "Primary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
+       "baseScore": 8.8,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "UNCHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "HIGH",
+       "availabilityImpact": "HIGH"
+      },
+      "exploitabilityScore": 2.8,
+      "impactScore": 5.9
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-18T00:00:00+00:00",
+       "id": "CVE-2026-85885",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "total"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-77"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "E4A390D9-7457-430A-82CC-A24DA275BF06"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85885",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ },
+ {
+  "cve": {
+   "id": "CVE-2026-85887",
+   "sourceIdentifier": "secure@microsoft.com",
+   "published": "2026-09-18T00:17:47.920",
+   "lastModified": "2026-09-28T18:37:31.143",
+   "vulnStatus": "Analyzed",
+   "cveTags": [
+    {
+     "sourceIdentifier": "secure@microsoft.com",
+     "tags": [
+      "exclusively-hosted-service"
+     ]
+    }
+   ],
+   "descriptions": [
+    {
+     "lang": "en",
+     "value": "Incorrect permission assignment for critical resource in M365 Copilot allows an authorized attacker to disclose information over a network."
+    }
+   ],
+   "affected": [
+    {
+     "source": "secure@microsoft.com",
+     "affectedData": [
+      {
+       "vendor": "Microsoft",
+       "product": "Microsoft 365 Copilot",
+       "versions": [
+        {
+         "version": "-",
+         "status": "affected"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "metrics": {
+    "cvssMetricV31": [
+     {
+      "source": "secure@microsoft.com",
+      "type": "Secondary",
+      "cvssData": {
+       "version": "3.1",
+       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:C/C:H/I:N/A:N",
+       "baseScore": 7.7,
+       "baseSeverity": "HIGH",
+       "attackVector": "NETWORK",
+       "attackComplexity": "LOW",
+       "privilegesRequired": "LOW",
+       "userInteraction": "NONE",
+       "scope": "CHANGED",
+       "confidentialityImpact": "HIGH",
+       "integrityImpact": "NONE",
+       "availabilityImpact": "NONE"
+      },
+      "exploitabilityScore": 3.1,
+      "impactScore": 4.0
+     }
+    ],
+    "ssvcV203": [
+     {
+      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
+      "ssvcData": {
+       "timestamp": "2026-09-18T13:35:20.282568Z",
+       "id": "CVE-2026-85887",
+       "options": [
+        {
+         "exploitation": "none"
+        },
+        {
+         "automatable": "no"
+        },
+        {
+         "technicalImpact": "partial"
+        }
+       ],
+       "role": "CISA Coordinator",
+       "version": "2.0.3"
+      }
+     }
+    ]
+   },
+   "weaknesses": [
+    {
+     "source": "secure@microsoft.com",
+     "type": "Secondary",
+     "description": [
+      {
+       "lang": "en",
+       "value": "CWE-732"
+      }
+     ]
+    }
+   ],
+   "configurations": [
+    {
+     "nodes": [
+      {
+       "operator": "OR",
+       "negate": false,
+       "cpeMatch": [
+        {
+         "vulnerable": true,
+         "criteria": "cpe:2.3:a:microsoft:365_copilot:-:*:*:*:*:*:*:*",
+         "matchCriteriaId": "E4A390D9-7457-430A-82CC-A24DA275BF06"
+        }
+       ]
+      }
+     ]
+    }
+   ],
+   "references": [
+    {
+     "url": "https://msrc.microsoft.com/update-guide/vulnerability/CVE-2026-85887",
+     "source": "secure@microsoft.com",
+     "tags": [
+      "Vendor Advisory"
+     ]
+    }
+   ]
+  }
+ }
+]

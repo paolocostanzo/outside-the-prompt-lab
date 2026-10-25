@@ -1,0 +1,6 @@
+record,date,url,kind
+CVE-2026-13236,2026-06-24,https://www.drupal.org/sa-contrib-2026-056,vendor advisory
+CVE-2026-13237,2026-06-24,https://www.drupal.org/sa-contrib-2026-057,vendor advisory
+CVE-2026-15995,2026-07-17,https://www.ibm.com/support/pages/node/7280311,vendor advisory
+CVE-2026-38924,2026-07-13,https://dash.security/blog/cve-2026-38924-unauthenticated-rce-in-the-serena-mcp-server,researcher write-up (byline date; page metadata says 2026-10-22)
+CVE-2026-30623,2026-04-15,https://www.ox.security/blog/mcp-supply-chain-advisory-rce-vulnerabilities-across-the-ai-ecosystem,researcher write-up (datePublished)

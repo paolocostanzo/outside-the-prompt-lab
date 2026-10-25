@@ -1,0 +1,536 @@
+record,first_disclosure,source_url,kind,all_dates
+CVE-2025-32394,2026-06-23,https://github.com/Significant-Gravitas/AutoGPT/security/advisories/GHSA-955p-gpfx-r66j,repository advisory,2026-06-23 repository advisory; 2026-06-26 CVE record (NVD)
+CVE-2025-65720,2026-07-16,https://github.com/advisories/GHSA-8j86-h8gg-797p,global GHSA,2026-07-16 global GHSA
+CVE-2025-71336,2025-09-13,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-6933-jpx5-q87q,repository advisory,2025-09-13 repository advisory; 2026-06-26 global GHSA
+CVE-2026-10750,2026-07-01,https://github.com/advisories/GHSA-mggr-4wrj-4f4g,global GHSA,2026-07-01 global GHSA; 2026-07-01 CVE record (NVD)
+CVE-2026-11720,2026-06-29,https://github.com/advisories/GHSA-vwxw-jrg6-9jxv,global GHSA,2026-06-29 global GHSA
+CVE-2026-11918,2026-09-15,https://github.com/advisories/GHSA-x4xw-xv9j-3c3q,global GHSA,2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-12763,2026-09-14,https://github.com/advisories/GHSA-vhrg-69rg-gwv4,global GHSA,2026-09-14 global GHSA; 2026-09-14 CVE record (NVD)
+CVE-2026-12940,2026-07-30,https://github.com/advisories/GHSA-gx45-8jc3-gqqr,global GHSA,2026-07-30 global GHSA; 2026-07-30 CVE record (NVD)
+CVE-2026-13236,2026-06-24,https://www.drupal.org/sa-contrib-2026-056,vendor advisory,2026-06-24 vendor advisory; 2026-07-10 CVE record (NVD)
+CVE-2026-13237,2026-06-24,https://www.drupal.org/sa-contrib-2026-057,vendor advisory,2026-06-24 vendor advisory; 2026-07-10 CVE record (NVD)
+CVE-2026-13341,2026-05-15,https://github.com/Kong/mcp-konnect/security/advisories/GHSA-7767-3m3w-2p44,repository advisory,2026-05-15 repository advisory; 2026-07-03 global GHSA; 2026-07-03 CVE record (NVD)
+CVE-2026-13437,2026-06-29,https://github.com/advisories/GHSA-fw4j-fj8v-q67w,global GHSA,2026-06-29 global GHSA; 2026-06-29 CVE record (NVD)
+CVE-2026-13489,2026-06-28,https://github.com/advisories/GHSA-2vm4-w283-mr2p,global GHSA,2026-06-28 global GHSA; 2026-06-28 CVE record (NVD)
+CVE-2026-13493,2026-06-28,https://github.com/advisories/GHSA-cjxx-6mf8-hqmw,global GHSA,2026-06-28 global GHSA
+CVE-2026-13524,2026-06-29,https://github.com/advisories/GHSA-9c5h-h4mj-p5ch,global GHSA,2026-06-29 global GHSA; 2026-06-29 CVE record (NVD)
+CVE-2026-13745,2026-04-24,https://github.com/google-github-actions/run-gemini-cli/security/advisories/GHSA-wpqr-6v78-jr5g,repository advisory,2026-04-24 repository advisory; 2026-09-10 global GHSA; 2026-09-10 CVE record (NVD)
+CVE-2026-14471,2026-07-06,https://github.com/agentic-community/mcp-gateway-registry/security/advisories/GHSA-79qc-vqfr-xx5q,repository advisory,2026-07-06 repository advisory; 2026-07-06 CVE record (NVD)
+CVE-2026-14537,2026-07-31,https://github.com/advisories/GHSA-f8h2-c55w-8m5p,global GHSA,2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-14538,2026-07-31,https://github.com/advisories/GHSA-24pp-m59v-92j8,global GHSA,2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-14539,2026-07-31,https://github.com/advisories/GHSA-623p-8r6m-hwc6,global GHSA,2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-14540,2026-07-31,https://github.com/advisories/GHSA-3x3x-8ffg-ghcv,global GHSA,2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-14541,2026-07-31,https://github.com/advisories/GHSA-656w-qf75-c5gf,global GHSA,2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-14699,2026-07-05,https://github.com/advisories/GHSA-mf9r-r6pc-8fc6,global GHSA,2026-07-05 global GHSA
+CVE-2026-14702,2026-07-05,https://github.com/advisories/GHSA-cf27-pvxx-xmcj,global GHSA,2026-07-05 global GHSA
+CVE-2026-14748,2026-07-05,https://github.com/advisories/GHSA-qq5h-499r-fxfj,global GHSA,2026-07-05 global GHSA; 2026-07-05 CVE record (NVD)
+CVE-2026-14869,2026-07-28,https://github.com/advisories/GHSA-rhh5-3xrh-6535,global GHSA,2026-07-28 global GHSA
+CVE-2026-14898,2026-07-06,https://github.com/advisories/GHSA-gj6m-4qqg-3cw8,global GHSA,2026-07-06 global GHSA; 2026-07-06 CVE record (NVD)
+CVE-2026-14916,2026-09-16,https://github.com/advisories/GHSA-5qvf-77w7-x85r,global GHSA,2026-09-16 global GHSA; 2026-09-16 CVE record (NVD)
+CVE-2026-15138,2026-07-09,https://github.com/advisories/GHSA-mh32-g5q6-4x93,global GHSA,2026-07-09 global GHSA; 2026-07-09 CVE record (NVD)
+CVE-2026-15189,2026-07-09,https://github.com/advisories/GHSA-rx6v-r244-h59w,global GHSA,2026-07-09 global GHSA; 2026-07-09 CVE record (NVD)
+CVE-2026-15415,2026-07-17,https://github.com/awslabs/mcp/security/advisories/GHSA-6x7f-488g-75wm,repository advisory,2026-07-17 repository advisory; 2026-07-17 CVE record (NVD)
+CVE-2026-15501,2026-07-12,https://github.com/advisories/GHSA-hhgm-hv3h-m233,global GHSA,2026-07-12 global GHSA; 2026-07-12 CVE record (NVD)
+CVE-2026-15522,2026-07-13,https://github.com/advisories/GHSA-9cqv-qvmj-xrc4,global GHSA,2026-07-13 global GHSA
+CVE-2026-15524,2026-07-13,https://github.com/advisories/GHSA-xj39-q498-f3c8,global GHSA,2026-07-13 global GHSA
+CVE-2026-15526,2026-07-13,https://github.com/advisories/GHSA-v62x-f943-965f,global GHSA,2026-07-13 global GHSA
+CVE-2026-15528,2026-07-13,https://github.com/advisories/GHSA-c7fc-wmwf-cvvh,global GHSA,2026-07-13 global GHSA
+CVE-2026-15583,2026-07-15,https://github.com/advisories/GHSA-7cfp-pmw3-4j7r,global GHSA,2026-07-15 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-15643,2026-07-14,https://nvd.nist.gov/vuln/detail/CVE-2026-15643,CVE record (NVD),2026-07-14 CVE record (NVD)
+CVE-2026-15737,2026-07-16,https://github.com/aws/bedrock-agentcore-sdk-python/security/advisories/GHSA-hqf8-7w95-9r33,repository advisory,2026-07-16 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-15746,2026-07-15,https://github.com/strands-agents/tools/security/advisories/GHSA-ppcf-fpr3-x46v,repository advisory,2026-07-15 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-15749,2026-07-14,https://github.com/advisories/GHSA-r83c-hc4j-pvc5,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-15750,2026-07-14,https://nvd.nist.gov/vuln/detail/CVE-2026-15750,CVE record (NVD),2026-07-14 CVE record (NVD); 2026-07-15 global GHSA
+CVE-2026-15751,2026-07-14,https://nvd.nist.gov/vuln/detail/CVE-2026-15751,CVE record (NVD),2026-07-14 CVE record (NVD); 2026-07-15 global GHSA
+CVE-2026-15829,2026-07-21,https://github.com/advisories/GHSA-wvx3-gvxv-cmxc,global GHSA,2026-07-21 global GHSA; 2026-07-21 CVE record (NVD)
+CVE-2026-15988,2026-08-01,https://github.com/advisories/GHSA-rw28-999g-8cc4,global GHSA,2026-08-01 global GHSA; 2026-08-01 CVE record (NVD)
+CVE-2026-15995,2026-07-17,https://nvd.nist.gov/vuln/detail/CVE-2026-15995,CVE record (NVD),2026-07-17 CVE record (NVD); 2026-07-17 vendor advisory
+CVE-2026-16133,2026-07-18,https://github.com/advisories/GHSA-9gx9-7vc6-hh65,global GHSA,2026-07-18 global GHSA; 2026-07-18 CVE record (NVD)
+CVE-2026-16326,2026-07-29,https://github.com/advisories/GHSA-6c5r-pj95-xvqv,global GHSA,2026-07-29 global GHSA
+CVE-2026-16328,2026-07-29,https://github.com/advisories/GHSA-5h6c-295f-7pp3,global GHSA,2026-07-29 global GHSA
+CVE-2026-16481,2026-07-27,https://github.com/advisories/GHSA-qr8r-mqp7-36xx,global GHSA,2026-07-27 global GHSA
+CVE-2026-16496,2026-07-28,https://github.com/advisories/GHSA-4crw-p722-vr7h,global GHSA,2026-07-28 global GHSA; 2026-07-28 CVE record (NVD)
+CVE-2026-16498,2026-07-28,https://github.com/advisories/GHSA-vq72-755f-9mrm,global GHSA,2026-07-28 global GHSA
+CVE-2026-16584,2026-07-23,https://github.com/awslabs/mcp/security/advisories/GHSA-29w2-fq35-v728,repository advisory,2026-07-23 repository advisory; 2026-07-23 CVE record (NVD); 2026-07-24 global GHSA
+CVE-2026-17433,2026-07-26,https://github.com/advisories/GHSA-6frr-4xvp-cwch,global GHSA,2026-07-26 global GHSA; 2026-07-26 CVE record (NVD)
+CVE-2026-17434,2026-07-26,https://github.com/advisories/GHSA-m5r3-634q-m3rj,global GHSA,2026-07-26 global GHSA
+CVE-2026-17623,2026-08-05,https://github.com/advisories/GHSA-7rx7-4wfr-4qqv,global GHSA,2026-08-05 global GHSA; 2026-08-05 CVE record (NVD)
+CVE-2026-17626,2026-08-05,https://github.com/advisories/GHSA-f93f-mcp7-xm47,global GHSA,2026-08-05 global GHSA; 2026-08-05 CVE record (NVD)
+CVE-2026-18482,2026-08-20,https://github.com/advisories/GHSA-cmg9-62q9-xmww,global GHSA,2026-08-20 global GHSA; 2026-08-20 CVE record (NVD)
+CVE-2026-18486,2026-09-04,https://github.com/advisories/GHSA-2hj7-884r-x6jr,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-18489,2026-09-04,https://github.com/advisories/GHSA-x9rc-p36x-296j,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-18655,2026-08-03,https://github.com/awslabs/mcp/security/advisories/GHSA-xwj6-8x5h-hjp6,repository advisory,2026-08-03 repository advisory; 2026-08-03 CVE record (NVD)
+CVE-2026-18875,2026-09-23,https://github.com/advisories/GHSA-6r8h-q9qx-q8m5,global GHSA,2026-09-23 global GHSA; 2026-09-23 CVE record (NVD)
+CVE-2026-18905,2026-09-04,https://github.com/advisories/GHSA-p4cr-j9h3-9c8p,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-18954,2026-08-05,https://github.com/advisories/GHSA-w95p-h69m-853r,global GHSA,2026-08-05 global GHSA; 2026-08-05 repository advisory; 2026-08-05 CVE record (NVD)
+CVE-2026-18991,2026-08-06,https://github.com/advisories/GHSA-q94p-g4rh-r9rf,global GHSA,2026-08-06 global GHSA
+CVE-2026-19038,2026-08-06,https://github.com/advisories/GHSA-h7vv-3j7j-4c9x,global GHSA,2026-08-06 global GHSA
+CVE-2026-19039,2026-08-06,https://github.com/advisories/GHSA-26qx-2c8w-xjfx,global GHSA,2026-08-06 global GHSA; 2026-08-06 CVE record (NVD)
+CVE-2026-19040,2026-08-06,https://github.com/advisories/GHSA-p5w2-mr8m-c9xj,global GHSA,2026-08-06 global GHSA; 2026-08-06 CVE record (NVD)
+CVE-2026-19041,2026-08-06,https://github.com/advisories/GHSA-pcgr-7p2p-x7w8,global GHSA,2026-08-06 global GHSA; 2026-08-06 CVE record (NVD)
+CVE-2026-19044,2026-08-06,https://github.com/advisories/GHSA-rjcp-8q3w-gjhq,global GHSA,2026-08-06 global GHSA
+CVE-2026-19136,2026-09-10,https://github.com/advisories/GHSA-w44r-4p8w-x8cm,global GHSA,2026-09-10 global GHSA; 2026-09-10 CVE record (NVD)
+CVE-2026-19202,2026-09-22,https://nvd.nist.gov/vuln/detail/CVE-2026-19202,CVE record (NVD),2026-09-22 CVE record (NVD); 2026-09-23 global GHSA
+CVE-2026-19244,2026-08-07,https://github.com/advisories/GHSA-qwp6-wxvx-2jc8,global GHSA,2026-08-07 global GHSA; 2026-08-07 CVE record (NVD)
+CVE-2026-19263,2026-08-08,https://github.com/advisories/GHSA-c8c4-xf97-vvc8,global GHSA,2026-08-08 global GHSA; 2026-08-08 CVE record (NVD)
+CVE-2026-19266,2026-08-08,https://github.com/advisories/GHSA-fjwc-rc47-268g,global GHSA,2026-08-08 global GHSA
+CVE-2026-19268,2026-08-08,https://nvd.nist.gov/vuln/detail/CVE-2026-19268,CVE record (NVD),2026-08-08 CVE record (NVD)
+CVE-2026-19270,2026-08-08,https://github.com/advisories/GHSA-h8jj-pqww-5m4w,global GHSA,2026-08-08 global GHSA; 2026-08-08 CVE record (NVD)
+CVE-2026-19279,2026-08-08,https://github.com/advisories/GHSA-jgc6-5vgc-hvqg,global GHSA,2026-08-08 global GHSA; 2026-08-08 CVE record (NVD)
+CVE-2026-19281,2026-08-08,https://github.com/advisories/GHSA-wgq9-x672-9734,global GHSA,2026-08-08 global GHSA
+CVE-2026-19282,2026-08-08,https://github.com/advisories/GHSA-rrf2-j3h9-99wg,global GHSA,2026-08-08 global GHSA
+CVE-2026-19287,2026-08-08,https://github.com/advisories/GHSA-6cmv-x2ph-3gc2,global GHSA,2026-08-08 global GHSA
+CVE-2026-19288,2026-08-08,https://github.com/advisories/GHSA-4p6x-rj5h-hg93,global GHSA,2026-08-08 global GHSA
+CVE-2026-19323,2026-08-09,https://github.com/advisories/GHSA-g23h-49jw-gw6q,global GHSA,2026-08-09 global GHSA
+CVE-2026-19324,2026-08-09,https://github.com/advisories/GHSA-3r2r-p86c-vj94,global GHSA,2026-08-09 global GHSA
+CVE-2026-19325,2026-08-09,https://github.com/advisories/GHSA-46jg-c454-8hm3,global GHSA,2026-08-09 global GHSA
+CVE-2026-19328,2026-08-09,https://github.com/advisories/GHSA-866p-rrc7-6r5x,global GHSA,2026-08-09 global GHSA
+CVE-2026-19329,2026-08-09,https://github.com/advisories/GHSA-5pgh-4pr5-mhm8,global GHSA,2026-08-09 global GHSA; 2026-08-09 CVE record (NVD)
+CVE-2026-19330,2026-08-09,https://github.com/advisories/GHSA-rgqf-fgw4-cmhv,global GHSA,2026-08-09 global GHSA
+CVE-2026-19331,2026-08-09,https://github.com/advisories/GHSA-6p38-w68x-9w82,global GHSA,2026-08-09 global GHSA
+CVE-2026-19332,2026-08-09,https://github.com/advisories/GHSA-92x2-9gq9-2w2v,global GHSA,2026-08-09 global GHSA; 2026-08-09 CVE record (NVD)
+CVE-2026-19333,2026-08-09,https://github.com/advisories/GHSA-xw8f-8xpv-55vg,global GHSA,2026-08-09 global GHSA
+CVE-2026-19334,2026-08-09,https://github.com/advisories/GHSA-pq7w-6xmw-3jgj,global GHSA,2026-08-09 global GHSA
+CVE-2026-19336,2026-08-09,https://github.com/advisories/GHSA-xgwr-j735-3wg4,global GHSA,2026-08-09 global GHSA
+CVE-2026-19337,2026-08-09,https://github.com/advisories/GHSA-jg2j-2qmx-58vq,global GHSA,2026-08-09 global GHSA; 2026-08-09 CVE record (NVD)
+CVE-2026-19338,2026-08-09,https://github.com/advisories/GHSA-q9qj-38cq-3792,global GHSA,2026-08-09 global GHSA; 2026-08-09 CVE record (NVD)
+CVE-2026-19339,2026-08-09,https://github.com/advisories/GHSA-jgm8-jqmm-5rc5,global GHSA,2026-08-09 global GHSA
+CVE-2026-19365,2026-08-09,https://github.com/advisories/GHSA-xm38-q6p9-jrgg,global GHSA,2026-08-09 global GHSA
+CVE-2026-19368,2026-08-09,https://github.com/advisories/GHSA-5r3x-hrv2-fg58,global GHSA,2026-08-09 global GHSA
+CVE-2026-19369,2026-08-09,https://github.com/advisories/GHSA-rmrp-j9qh-xwh9,global GHSA,2026-08-09 global GHSA
+CVE-2026-19370,2026-08-10,https://github.com/advisories/GHSA-w5g7-c885-pm69,global GHSA,2026-08-10 global GHSA
+CVE-2026-19371,2026-08-10,https://github.com/advisories/GHSA-g57q-682f-hr5f,global GHSA,2026-08-10 global GHSA
+CVE-2026-19372,2026-08-10,https://github.com/advisories/GHSA-pxv6-pv74-gcg3,global GHSA,2026-08-10 global GHSA
+CVE-2026-19373,2026-08-10,https://github.com/advisories/GHSA-m2hf-r4mh-rrq8,global GHSA,2026-08-10 global GHSA
+CVE-2026-19374,2026-08-10,https://github.com/advisories/GHSA-g33v-9g6g-xm9p,global GHSA,2026-08-10 global GHSA
+CVE-2026-19375,2026-08-10,https://github.com/advisories/GHSA-wmf6-8cmx-6fp6,global GHSA,2026-08-10 global GHSA
+CVE-2026-19516,2026-08-11,https://github.com/advisories/GHSA-fr94-7cqc-vjrq,global GHSA,2026-08-11 global GHSA; 2026-08-11 CVE record (NVD)
+CVE-2026-19591,2026-09-01,https://github.com/advisories/GHSA-2frj-4qr5-m2rf,global GHSA,2026-09-01 global GHSA; 2026-09-01 CVE record (NVD)
+CVE-2026-19645,2026-09-04,https://github.com/advisories/GHSA-x7m8-9qr5-36gh,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-19751,2026-08-13,https://nvd.nist.gov/vuln/detail/CVE-2026-19751,CVE record (NVD),2026-08-13 CVE record (NVD); 2026-08-14 global GHSA
+CVE-2026-19752,2026-08-13,https://nvd.nist.gov/vuln/detail/CVE-2026-19752,CVE record (NVD),2026-08-13 CVE record (NVD); 2026-08-14 global GHSA
+CVE-2026-19753,2026-08-13,https://nvd.nist.gov/vuln/detail/CVE-2026-19753,CVE record (NVD),2026-08-13 CVE record (NVD); 2026-08-14 global GHSA
+CVE-2026-19765,2026-08-14,https://github.com/advisories/GHSA-4324-vhrx-x39p,global GHSA,2026-08-14 global GHSA
+CVE-2026-19770,2026-08-14,https://github.com/advisories/GHSA-fhw4-v2hr-j5m2,global GHSA,2026-08-14 global GHSA
+CVE-2026-19889,2026-08-27,https://nvd.nist.gov/vuln/detail/CVE-2026-19889,CVE record (NVD),2026-08-27 CVE record (NVD)
+CVE-2026-19956,2026-08-16,https://github.com/advisories/GHSA-8xwh-hx55-jjpr,global GHSA,2026-08-16 global GHSA
+CVE-2026-19957,2026-08-17,https://github.com/advisories/GHSA-28cc-rvx4-c58g,global GHSA,2026-08-17 global GHSA
+CVE-2026-19958,2026-08-17,https://github.com/advisories/GHSA-hwgh-c22g-48rj,global GHSA,2026-08-17 global GHSA
+CVE-2026-19964,2026-08-17,https://github.com/advisories/GHSA-g33m-cxj9-5gvx,global GHSA,2026-08-17 global GHSA
+CVE-2026-19978,2026-08-17,https://github.com/advisories/GHSA-2wr2-48g3-wphx,global GHSA,2026-08-17 global GHSA
+CVE-2026-19984,2026-08-17,https://github.com/advisories/GHSA-xvcx-vvm4-3qwc,global GHSA,2026-08-17 global GHSA; 2026-08-17 CVE record (NVD)
+CVE-2026-24301,2026-08-18,https://github.com/advisories/GHSA-9q66-w589-xv8x,global GHSA,2026-08-18 global GHSA; 2026-08-18 CVE record (NVD)
+CVE-2026-30618,2026-07-15,https://nvd.nist.gov/vuln/detail/CVE-2026-30618,CVE record (NVD),2026-07-15 CVE record (NVD); 2026-07-16 global GHSA
+CVE-2026-30623,2026-04-15,https://www.ox.security/blog/mcp-supply-chain-advisory-rce-vulnerabilities-across-the-ai-ecosystem,researcher write-up (datePublished),2026-04-15 researcher write-up (datePublished); 2026-07-15 CVE record (NVD); 2026-07-16 global GHSA
+CVE-2026-34884,2026-08-18,https://github.com/advisories/GHSA-fvf9-f2mx-m7qp,global GHSA,2026-08-18 global GHSA; 2026-08-18 CVE record (NVD)
+CVE-2026-37006,2026-08-27,https://github.com/advisories/GHSA-4pfw-7888-8q2g,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-38924,2026-07-13,https://dash.security/blog/cve-2026-38924-unauthenticated-rce-in-the-serena-mcp-server,researcher write-up (byline date; page metadata says 2026-10-22),2026-07-13 researcher write-up (byline date; page metadata says 2026-10-22); 2026-09-14 global GHSA; 2026-09-14 CVE record (NVD)
+CVE-2026-41106,2026-07-02,https://nvd.nist.gov/vuln/detail/CVE-2026-41106,CVE record (NVD),2026-07-02 CVE record (NVD); 2026-07-03 global GHSA
+CVE-2026-4339,2026-06-26,https://github.com/advisories/GHSA-p3qg-h7r3-79xr,global GHSA,2026-06-26 global GHSA; 2026-06-26 CVE record (NVD)
+CVE-2026-44192,2026-07-22,https://github.com/advisories/GHSA-v5cc-389h-39x6,global GHSA,2026-07-22 global GHSA; 2026-07-22 CVE record (NVD)
+CVE-2026-44934,2026-05-27,https://github.com/rancher/rancher-ai-agent/security/advisories/GHSA-5r2r-h824-fr5v,repository advisory,2026-05-27 repository advisory; 2026-07-06 CVE record (NVD)
+CVE-2026-44968,2026-05-13,https://github.com/dbt-labs/dbt-mcp/security/advisories/GHSA-xpww-f6pm-cfhq,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-44969,2026-05-13,https://github.com/dbt-labs/dbt-mcp/security/advisories/GHSA-7xgw-6qf3-7w59,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-44970,2026-05-13,https://github.com/dbt-labs/dbt-mcp/security/advisories/GHSA-jj54-r8gm-2fcf,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-45018,2026-08-25,https://github.com/Chainlit/chainlit/security/advisories/GHSA-w3fx-mc44-mf6j,repository advisory,2026-08-25 repository advisory; 2026-08-25 global GHSA
+CVE-2026-45019,2026-08-25,https://github.com/Chainlit/chainlit/security/advisories/GHSA-hvfh-5mj3-5f3j,repository advisory,2026-08-25 repository advisory; 2026-08-25 global GHSA
+CVE-2026-45805,2026-05-19,https://github.com/penpot/penpot/security/advisories/GHSA-22qr-rp27-j9wm,repository advisory,2026-05-19 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-46339,2026-05-13,https://github.com/decolua/9router/security/advisories/GHSA-fhh6-4qxv-rpqj,repository advisory,2026-05-13 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-46341,2026-05-13,https://github.com/apify/apify-mcp-server/security/advisories/GHSA-jwp7-wg77-3w9v,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-46406,2026-06-25,https://github.com/anthropics/claude-code/security/advisories/GHSA-4vp2-6q8c-pvq2,repository advisory,2026-06-25 repository advisory; 2026-06-29 CVE record (NVD)
+CVE-2026-46512,2026-05-13,https://github.com/mwtcmi/frogman/security/advisories/GHSA-pxfc-q72v-jh8m,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-46513,2026-05-13,https://github.com/mwtcmi/frogman/security/advisories/GHSA-9xf5-9ghq-p6cw,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-46514,2026-05-13,https://github.com/mwtcmi/frogman/security/advisories/GHSA-3p65-2prr-cfvf,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-46515,2026-05-13,https://github.com/mwtcmi/frogman/security/advisories/GHSA-q4c4-5cr4-8q47,repository advisory,2026-05-13 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-46555,2026-05-16,https://github.com/verygoodplugins/whatsapp-mcp/security/advisories/GHSA-7jj9-4qqq-4xc4,repository advisory,2026-05-16 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-46678,2026-05-20,https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-cqp8-fcvh-x7r3,repository advisory,2026-05-20 repository advisory; 2026-07-29 CVE record (NVD)
+CVE-2026-46701,2026-05-16,https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-j3vx-cx2r-pvg8,repository advisory,2026-05-16 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-47128,2026-05-17,https://github.com/nolabs-ai/nono/security/advisories/GHSA-27vp-2mmc-vmh3,repository advisory,2026-05-17 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-47211,2026-05-20,https://github.com/Q00/ouroboros/security/advisories/GHSA-c4m7-2gwp-vw76,repository advisory,2026-05-20 repository advisory; 2026-08-03 CVE record (NVD)
+CVE-2026-47255,2026-05-18,https://github.com/agenticmail/agenticmail/security/advisories/GHSA-wjjv-3mj2-39hf,repository advisory,2026-05-18 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-47282,2026-07-14,https://github.com/advisories/GHSA-3v99-gw88-f2cw,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-47394,2026-05-19,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-9cr9-25q5-8prj,repository advisory,2026-05-19 repository advisory; 2026-07-21 CVE record (NVD)
+CVE-2026-47427,2026-07-20,https://github.com/github/github-mcp-server/security/advisories/GHSA-w4q6-qw23-4rg7,repository advisory,2026-07-20 repository advisory; 2026-07-28 global GHSA; 2026-07-28 CVE record (NVD)
+CVE-2026-47708,2026-05-19,https://github.com/SepineTam/mcp-for-stata/security/advisories/GHSA-4p62-hqp5-g644,repository advisory,2026-05-19 repository advisory; 2026-07-21 CVE record (NVD)
+CVE-2026-47751,2026-05-20,https://github.com/anthropics/claude-code-action/security/advisories/GHSA-8q5r-mmjf-575q,repository advisory,2026-05-20 repository advisory; 2026-07-16 CVE record (NVD)
+CVE-2026-47769,2026-05-20,https://github.com/Work90210/APIFold/security/advisories/GHSA-x82h-9r8v-m672,repository advisory,2026-05-20 repository advisory; 2026-07-23 CVE record (NVD)
+CVE-2026-48039,2026-05-20,https://github.com/pipeboard-co/meta-ads-mcp/security/advisories/GHSA-9gw6-46qc-99vr,repository advisory,2026-05-20 repository advisory; 2026-08-07 CVE record (NVD)
+CVE-2026-48529,2026-06-09,https://github.com/github/github-mcp-server/security/advisories/GHSA-pjp5-fpmr-3349,repository advisory,2026-06-09 repository advisory; 2026-06-26 CVE record (NVD)
+CVE-2026-48561,2026-07-14,https://github.com/advisories/GHSA-m97f-w34x-vq3w,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-49257,2026-05-25,https://github.com/startreedata/mcp-pinot/security/advisories/GHSA-73cv-556c-w3g6,repository advisory,2026-05-25 repository advisory; 2026-06-26 global GHSA
+CVE-2026-49291,2026-05-25,https://github.com/doobidoo/mcp-memory-service/security/advisories/GHSA-2r68-g678-7qr3,repository advisory,2026-05-25 repository advisory; 2026-06-26 global GHSA
+CVE-2026-49353,2026-06-13,https://github.com/decolua/9router/security/advisories/GHSA-6g2f-w7g3-77vf,repository advisory,2026-06-13 repository advisory; 2026-07-02 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-49357,2026-05-25,https://github.com/dtwang/line-desktop-mcp/security/advisories/GHSA-4hf8-5mjm-rfgq,repository advisory,2026-05-25 repository advisory; 2026-06-26 global GHSA
+CVE-2026-49471,2026-07-01,https://github.com/oraios/serena/security/advisories/GHSA-37h2-6p4f-mp3q,repository advisory,2026-07-01 repository advisory; 2026-07-07 CVE record (NVD); 2026-07-08 global GHSA
+CVE-2026-49856,2026-05-27,https://github.com/vmoranv/jshookmcp/security/advisories/GHSA-c5r6-m4mr-8q5j,repository advisory,2026-05-27 repository advisory; 2026-07-01 global GHSA; 2026-08-13 CVE record (NVD)
+CVE-2026-49857,2026-05-27,https://github.com/ymw0407/auth-fetch-mcp/security/advisories/GHSA-pvrj-8cg3-j5f8,repository advisory,2026-05-27 repository advisory; 2026-07-01 global GHSA; 2026-08-13 CVE record (NVD)
+CVE-2026-49986,2026-05-27,https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g,repository advisory,2026-05-27 repository advisory; 2026-07-01 global GHSA; 2026-08-14 CVE record (NVD)
+CVE-2026-49988,2026-05-27,https://github.com/yamadashy/repomix/security/advisories/GHSA-hwpp-h97w-2h3j,repository advisory,2026-05-27 repository advisory; 2026-07-01 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-50027,2026-05-28,https://github.com/doobidoo/mcp-memory-service/security/advisories/GHSA-84hp-mqvj-3p8h,repository advisory,2026-05-28 repository advisory; 2026-07-02 global GHSA; 2026-08-14 CVE record (NVD)
+CVE-2026-50125,2026-06-10,https://github.com/StacklokLabs/mkp/security/advisories/GHSA-qw5r-ppcg-f8rj,repository advisory,2026-06-10 repository advisory; 2026-07-14 global GHSA; 2026-09-17 CVE record (NVD)
+CVE-2026-50143,2026-05-28,https://github.com/apify/apify-mcp-server/security/advisories/GHSA-6gr2-qh89-hxwm,repository advisory,2026-05-28 repository advisory; 2026-07-01 global GHSA; 2026-08-18 CVE record (NVD)
+CVE-2026-50158,2026-06-06,https://github.com/eat-pray-ai/yutu/security/advisories/GHSA-2c7f-fxww-6w6c,repository advisory,2026-06-06 repository advisory; 2026-07-14 global GHSA; 2026-09-17 CVE record (NVD)
+CVE-2026-50181,2026-05-28,https://github.com/langroid/langroid/security/advisories/GHSA-fg23-3346-88f5,repository advisory,2026-05-28 repository advisory; 2026-07-10 CVE record (NVD)
+CVE-2026-50510,2026-07-14,https://github.com/advisories/GHSA-hjgg-v5cf-x59v,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-50517,2026-07-24,https://github.com/advisories/GHSA-cfm3-7vpc-px47,global GHSA,2026-07-24 global GHSA; 2026-07-24 CVE record (NVD)
+CVE-2026-50757,2026-07-21,https://github.com/advisories/GHSA-5rgr-3gcc-7fph,global GHSA,2026-07-21 global GHSA
+CVE-2026-50758,2026-07-21,https://github.com/advisories/GHSA-vcgq-93c9-35cm,global GHSA,2026-07-21 global GHSA; 2026-07-21 CVE record (NVD)
+CVE-2026-51994,2026-09-24,https://github.com/advisories/GHSA-8rrr-xx35-4q6h,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-51995,2026-09-24,https://github.com/advisories/GHSA-5wmf-76f4-cg47,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-51996,2026-09-24,https://github.com/advisories/GHSA-mvq8-g2rm-4rhm,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-51997,2026-09-24,https://github.com/advisories/GHSA-v65w-6crh-cp3h,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-52001,2026-09-24,https://github.com/advisories/GHSA-4gh6-j99c-x6g2,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-52830,2026-05-29,https://github.com/leshchenko1979/fast-mcp-telegram/security/advisories/GHSA-rxw2-pc8j-vxwm,repository advisory,2026-05-29 repository advisory; 2026-07-02 global GHSA; 2026-07-02 CVE record (NVD)
+CVE-2026-52869,2026-06-05,https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-jpw9-pfvf-9f58,repository advisory,2026-06-05 repository advisory; 2026-07-15 CVE record (NVD); 2026-07-16 global GHSA
+CVE-2026-52870,2026-06-05,https://github.com/modelcontextprotocol/python-sdk/security/advisories/GHSA-hvrp-rf83-w775,repository advisory,2026-06-05 repository advisory; 2026-07-15 CVE record (NVD); 2026-07-16 global GHSA
+CVE-2026-53509,2026-05-31,https://github.com/ondata/ckan-mcp-server/security/advisories/GHSA-g84h-j7jj-x32p,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA; 2026-08-21 CVE record (NVD)
+CVE-2026-53512,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-pw9m-5jxm-xr6h,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-53518,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-7w99-5wm4-3g79,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-53708,2026-06-15,https://github.com/IBM/mcp-context-forge/security/advisories/GHSA-9hgc-g3w5-67cm,repository advisory,2026-06-15 repository advisory; 2026-08-14 global GHSA; 2026-09-14 CVE record (NVD)
+CVE-2026-53710,2026-08-24,https://github.com/IBM/mcp-context-forge/security/advisories/GHSA-xm98-3vcf-fph7,repository advisory,2026-08-24 repository advisory; 2026-08-24 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-53766,2026-06-16,https://github.com/ChromeDevTools/chrome-devtools-mcp/security/advisories/GHSA-8qf9-62x2-82pp,repository advisory,2026-06-16 repository advisory; 2026-08-17 global GHSA
+CVE-2026-53814,2026-05-28,https://github.com/openclaw/openclaw/security/advisories/GHSA-6fvr-66p3-3qj4,repository advisory,2026-05-28 repository advisory; 2026-07-02 global GHSA
+CVE-2026-53818,2026-05-28,https://github.com/openclaw/openclaw/security/advisories/GHSA-rj6p-xmxr-qj4h,repository advisory,2026-05-28 repository advisory; 2026-07-02 global GHSA
+CVE-2026-53937,2026-06-02,https://github.com/modelcontextprotocol/kotlin-sdk/security/advisories/GHSA-74gp-qhv5-v493,repository advisory,2026-06-02 repository advisory; 2026-09-09 CVE record (NVD)
+CVE-2026-53957,2026-06-12,https://github.com/contentful/contentful-mcp-server/security/advisories/GHSA-2xhg-73j7-rrgx,repository advisory,2026-06-12 repository advisory; 2026-08-19 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-53965,2026-08-14,https://github.com/modelcontextprotocol/php-sdk/security/advisories/GHSA-7m52-jw36-44r3,repository advisory,2026-08-14 repository advisory; 2026-08-19 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-54052,2026-06-03,https://github.com/czlonkowski/n8n-mcp/security/advisories/GHSA-j6r7-6fhx-77wx,repository advisory,2026-06-03 repository advisory; 2026-07-14 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-54149,2026-06-22,https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-4pr3-9xhm-98x5,repository advisory,2026-06-22 repository advisory; 2026-07-10 CVE record (NVD)
+CVE-2026-54249,2026-06-10,https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-h7p7-w5gc-xj3w,repository advisory,2026-06-10 repository advisory; 2026-07-29 CVE record (NVD)
+CVE-2026-54446,2026-06-04,https://github.com/Labs64/NetLicensing-MCP/security/advisories/GHSA-x9vc-9ffq-p3gj,repository advisory,2026-06-04 repository advisory; 2026-07-14 global GHSA; 2026-09-17 CVE record (NVD)
+CVE-2026-54449,2026-06-04,https://github.com/langbot-app/LangBot/security/advisories/GHSA-3pvh-63gf-j9mw,repository advisory,2026-06-04 repository advisory; 2026-07-15 global GHSA; 2026-08-20 CVE record (NVD)
+CVE-2026-54450,2026-06-04,https://github.com/stacklok/toolhive/security/advisories/GHSA-pph6-vfjv-vpjw,repository advisory,2026-06-04 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-54504,2026-06-04,https://github.com/andrea9293/mcp-documentation-server/security/advisories/GHSA-6f5r-5672-72j7,repository advisory,2026-06-04 repository advisory; 2026-07-15 global GHSA; 2026-09-17 CVE record (NVD)
+CVE-2026-54519,2026-06-05,https://github.com/vmDeshpande/ai-agent-automation/security/advisories/GHSA-qv97-83w4-ff86,repository advisory,2026-06-05 repository advisory; 2026-09-17 CVE record (NVD)
+CVE-2026-54520,2026-06-05,https://github.com/vmDeshpande/ai-agent-automation/security/advisories/GHSA-cm8g-8jfq-887p,repository advisory,2026-06-05 repository advisory; 2026-09-17 CVE record (NVD)
+CVE-2026-54547,2026-06-05,https://github.com/pipeboard-co/meta-ads-mcp/security/advisories/GHSA-2v2f-mvfg-ph56,repository advisory,2026-06-05 repository advisory; 2026-07-17 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-54549,2026-06-05,https://github.com/pipeboard-co/meta-ads-mcp/security/advisories/GHSA-45gf-fjxp-cjpq,repository advisory,2026-06-05 repository advisory; 2026-07-17 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-54561,2026-06-06,https://github.com/mkreyman/mcp-memory-keeper/security/advisories/GHSA-f7wf-v2vw-mpcx,repository advisory,2026-06-06 repository advisory; 2026-07-17 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-54618,2026-06-07,https://github.com/jimprosser/obsidian-web-mcp/security/advisories/GHSA-hwhg-mrjc-8g43,repository advisory,2026-06-07 repository advisory; 2026-09-17 CVE record (NVD)
+CVE-2026-54688,2026-06-11,https://github.com/ihor-sokoliuk/mcp-searxng/security/advisories/GHSA-q87f-qc2r-2gw4,repository advisory,2026-06-11 repository advisory; 2026-08-19 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-54689,2026-06-11,https://github.com/ihor-sokoliuk/mcp-searxng/security/advisories/GHSA-wppf-h75h-6pm6,repository advisory,2026-06-11 repository advisory; 2026-08-19 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-54785,2026-06-09,https://github.com/eLyiN/gemini-bridge/security/advisories/GHSA-c5px-58j2-7fqp,repository advisory,2026-06-09 repository advisory; 2026-07-31 global GHSA; 2026-07-31 CVE record (NVD)
+CVE-2026-55071,2026-06-10,https://github.com/SepineTam/mcp-for-stata/security/advisories/GHSA-49m4-vp58-wgc9,repository advisory,2026-06-10 repository advisory; 2026-08-12 global GHSA; 2026-09-21 CVE record (NVD)
+CVE-2026-55145,2026-07-14,https://github.com/advisories/GHSA-534g-wpcr-fm9q,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-55156,2026-06-10,https://github.com/ooples/token-optimizer-mcp/security/advisories/GHSA-76pc-mqxp-3rq5,repository advisory,2026-06-10 repository advisory; 2026-08-14 global GHSA
+CVE-2026-55157,2026-06-10,https://github.com/ooples/token-optimizer-mcp/security/advisories/GHSA-49mq-fc6q-3h46,repository advisory,2026-06-10 repository advisory; 2026-08-14 global GHSA
+CVE-2026-55435,2026-06-12,https://github.com/coder/coder/security/advisories/GHSA-wqxv-w64v-5wh6,repository advisory,2026-06-12 repository advisory; 2026-07-06 global GHSA
+CVE-2026-55529,2026-06-13,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-wj6g-v78p-6fx3,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55531,2026-06-13,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-wv94-5qcp-6m36,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55532,2026-06-13,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-pvph-5j39-v8qc,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55534,2026-06-13,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-7ww9-85pg-cv4x,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA
+CVE-2026-55538,2026-06-13,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-r7v3-x45f-g7hp,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA
+CVE-2026-55544,2026-06-13,https://github.com/pdovhomilja/nextcrm-app/security/advisories/GHSA-c9vg-c532-ppqx,repository advisory,2026-06-13 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-55546,2026-06-13,https://github.com/QWED-AI/qwed-mcp/security/advisories/GHSA-mw6r-2hvm-4rp2,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55550,2026-06-13,https://github.com/pdovhomilja/nextcrm-app/security/advisories/GHSA-wv63-cq38-qg58,repository advisory,2026-06-13 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-55557,2026-06-13,https://github.com/That1Drifter/browse-mcp/security/advisories/GHSA-m9mq-7m7q-xc6p,repository advisory,2026-06-13 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55580,2026-06-14,https://github.com/sonirico/mcp-shell/security/advisories/GHSA-f5pj-2738-996m,repository advisory,2026-06-14 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55581,2026-06-14,https://github.com/sonirico/mcp-shell/security/advisories/GHSA-3x77-wg38-92r3,repository advisory,2026-06-14 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55582,2026-06-14,https://github.com/sonirico/mcp-shell/security/advisories/GHSA-74hp-mggr-hv58,repository advisory,2026-06-14 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55604,2026-06-14,https://github.com/arikusi/deepseek-mcp-server/security/advisories/GHSA-fh3r-g96v-f578,repository advisory,2026-06-14 repository advisory; 2026-07-09 CVE record (NVD); 2026-08-25 global GHSA
+CVE-2026-55605,2026-06-14,https://github.com/arikusi/deepseek-mcp-server/security/advisories/GHSA-72f3-6w86-7rv3,repository advisory,2026-06-14 repository advisory; 2026-07-09 CVE record (NVD); 2026-08-25 global GHSA
+CVE-2026-55608,2026-06-14,https://github.com/czlonkowski/n8n-mcp/security/advisories/GHSA-2cf7-hpwf-47h9,repository advisory,2026-06-14 repository advisory; 2026-07-14 global GHSA; 2026-07-15 CVE record (NVD)
+CVE-2026-55609,2026-06-14,https://github.com/ruvnet/sublinear-time-solver/security/advisories/GHSA-xc9g-j69q-37xw,repository advisory,2026-06-14 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55637,2026-06-15,https://github.com/GeiserX/genieacs-mcp/security/advisories/GHSA-cmwv-wf9p-p8wx,repository advisory,2026-06-15 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55640,2026-06-14,https://github.com/cbcoutinho/nextcloud-mcp-server/security/advisories/GHSA-8vh3-g2qg-2h2c,repository advisory,2026-06-14 repository advisory; 2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-55786,2026-05-30,https://github.com/flytohub/flyto-core/security/advisories/GHSA-h9f9-h6gm-wc85,repository advisory,2026-05-30 repository advisory; 2026-07-06 global GHSA
+CVE-2026-55837,2026-06-16,https://github.com/dbt-labs/dbt-mcp/security/advisories/GHSA-jr33-mw75-7j8f,repository advisory,2026-06-16 repository advisory; 2026-09-14 CVE record (NVD)
+CVE-2026-55887,2026-06-16,https://github.com/docker/mcp-gateway/security/advisories/GHSA-r2xf-7jw5-pjg6,repository advisory,2026-06-16 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-55946,2026-09-17,https://nvd.nist.gov/vuln/detail/CVE-2026-55946,CVE record (NVD),2026-09-17 CVE record (NVD); 2026-09-18 global GHSA
+CVE-2026-57124,2026-06-17,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-p75f-6fp4-p57w,repository advisory,2026-06-17 repository advisory; 2026-09-14 CVE record (NVD)
+CVE-2026-57134,2026-06-17,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-4qq2-2j2x-x62c,repository advisory,2026-06-17 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-57139,2026-06-17,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-j4f3-55x4-r6q2,repository advisory,2026-06-17 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-57441,2026-06-17,https://github.com/bitbonsai/mcpvault/security/advisories/GHSA-j99q-93c9-h869,repository advisory,2026-06-17 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-57442,2026-06-18,https://github.com/bitbonsai/mcpvault/security/advisories/GHSA-9c83-rr99-vfwj,repository advisory,2026-06-18 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-57494,2026-06-18,https://github.com/agenticmail/agenticmail/security/advisories/GHSA-hjwc-26pj-v3pm,repository advisory,2026-06-18 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-57495,2026-06-18,https://github.com/agenticmail/agenticmail/security/advisories/GHSA-fq4x-789w-jg5h,repository advisory,2026-06-18 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-57586,2026-06-18,https://github.com/naranor/agent-coderag/security/advisories/GHSA-wg5p-8h9p-3mr7,repository advisory,2026-06-18 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-57860,2026-07-17,https://github.com/advisories/GHSA-6p2j-g97c-79wf,global GHSA,2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+CVE-2026-57922,2026-06-26,https://github.com/advisories/GHSA-r8gf-2mrm-r9vw,global GHSA,2026-06-26 global GHSA; 2026-06-26 CVE record (NVD)
+CVE-2026-58057,2026-06-28,https://github.com/advisories/GHSA-rqqr-m697-6jq3,global GHSA,2026-06-28 global GHSA; 2026-06-28 CVE record (NVD)
+CVE-2026-58168,2026-06-30,https://github.com/advisories/GHSA-jg88-rvpc-qvxj,global GHSA,2026-06-30 global GHSA; 2026-06-30 CVE record (NVD)
+CVE-2026-58171,2026-06-30,https://github.com/advisories/GHSA-mjrq-xg2m-qg94,global GHSA,2026-06-30 global GHSA; 2026-06-30 CVE record (NVD)
+CVE-2026-58195,2026-06-18,https://github.com/ruvnet/agentic-flow/security/advisories/GHSA-vcv2-r9jh-99m5,repository advisory,2026-06-18 repository advisory; 2026-07-17 CVE record (NVD)
+CVE-2026-58196,2026-06-26,https://github.com/stacklok/toolhive/security/advisories/GHSA-pr64-jmmf-jp54,repository advisory,2026-06-26 repository advisory; 2026-07-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-58197,2026-07-28,https://github.com/stacklok/toolhive/security/advisories/GHSA-qg2g-g9w3-m5h8,repository advisory,2026-07-28 repository advisory; 2026-09-18 global GHSA; 2026-09-18 CVE record (NVD)
+CVE-2026-58201,2026-06-19,https://github.com/merill/lokka/security/advisories/GHSA-g2gw-q38m-vjfc,repository advisory,2026-06-19 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-58446,2026-06-30,https://nvd.nist.gov/vuln/detail/CVE-2026-58446,CVE record (NVD),2026-06-30 CVE record (NVD); 2026-07-01 global GHSA
+CVE-2026-58483,2026-06-18,https://github.com/ihor-sokoliuk/mcp-searxng/security/advisories/GHSA-xcqx-9jf5-w339,repository advisory,2026-06-18 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-58485,2026-06-18,https://github.com/ihor-sokoliuk/mcp-searxng/security/advisories/GHSA-mrvx-jmjw-vggc,repository advisory,2026-06-18 repository advisory; 2026-09-15 CVE record (NVD)
+CVE-2026-58500,2026-06-19,https://github.com/appium/appium-mcp/security/advisories/GHSA-x975-rgx4-5fh4,repository advisory,2026-06-19 repository advisory; 2026-07-13 CVE record (NVD)
+CVE-2026-58616,2026-08-28,https://github.com/advisories/GHSA-c7hh-86mm-w7m5,global GHSA,2026-08-28 global GHSA; 2026-08-28 CVE record (NVD)
+CVE-2026-58617,2026-07-14,https://github.com/advisories/GHSA-fw44-xwgm-pf69,global GHSA,2026-07-14 global GHSA; 2026-07-14 CVE record (NVD)
+CVE-2026-59118,2026-08-07,https://nvd.nist.gov/vuln/detail/CVE-2026-59118,CVE record (NVD),2026-08-07 CVE record (NVD)
+CVE-2026-59176,2026-06-20,https://github.com/jordanburke/functype/security/advisories/GHSA-wcjj-9m6g-2fr2,repository advisory,2026-06-20 repository advisory; 2026-09-09 global GHSA
+CVE-2026-59207,2026-06-24,https://github.com/n8n-io/n8n/security/advisories/GHSA-h44j-f5r5-ph73,repository advisory,2026-06-24 repository advisory; 2026-07-09 CVE record (NVD); 2026-07-22 global GHSA
+CVE-2026-59279,2026-08-21,https://github.com/advisories/GHSA-2g9x-r8w8-qjff,global GHSA,2026-08-21 global GHSA; 2026-08-21 CVE record (NVD)
+CVE-2026-59723,2026-06-23,https://github.com/cline/cline/security/advisories/GHSA-3cj3-hqcr-g934,repository advisory,2026-06-23 repository advisory; 2026-07-08 CVE record (NVD); 2026-09-24 global GHSA
+CVE-2026-59809,2026-08-08,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-853m-gvvm-6rvx,repository advisory,2026-08-08 repository advisory; 2026-08-22 global GHSA; 2026-08-22 CVE record (NVD)
+CVE-2026-59822,2026-06-30,https://github.com/BerriAI/litellm/security/advisories/GHSA-7488-6r32-c95q,repository advisory,2026-06-30 repository advisory; 2026-07-08 CVE record (NVD); 2026-07-22 global GHSA
+CVE-2026-59864,2026-07-03,https://github.com/microsoft/kiota/security/advisories/GHSA-4jwf-m4wg-8p66,repository advisory,2026-07-03 repository advisory; 2026-07-16 CVE record (NVD); 2026-07-24 global GHSA
+CVE-2026-59971,2026-06-21,https://github.com/designcomputer/mysql_mcp_server/security/advisories/GHSA-rqfv-2mw9-78g2,repository advisory,2026-06-21 repository advisory; 2026-09-11 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-59973,2026-06-22,https://github.com/agentfront/frontmcp/security/advisories/GHSA-65h7-9wrw-629c,repository advisory,2026-06-22 repository advisory; 2026-09-11 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-60083,2026-08-08,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-c8r8-95hg-mp34,repository advisory,2026-08-08 repository advisory; 2026-08-22 global GHSA; 2026-08-22 CVE record (NVD)
+CVE-2026-61427,2026-06-25,https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-hc5v-gxvj-58wh,repository advisory,2026-06-25 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-61459,2026-07-10,https://github.com/advisories/GHSA-wmg3-h8mf-wgvr,global GHSA,2026-07-10 global GHSA; 2026-07-10 CVE record (NVD)
+CVE-2026-61462,2026-07-13,https://github.com/advisories/GHSA-5383-j2p9-qfg3,global GHSA,2026-07-13 global GHSA; 2026-07-13 CVE record (NVD)
+CVE-2026-61559,2026-07-01,https://github.com/zereight/gitlab-mcp/security/advisories/GHSA-2h44-8472-frjj,repository advisory,2026-07-01 repository advisory; 2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-61560,2026-06-22,https://github.com/zereight/gitlab-mcp/security/advisories/GHSA-cv3r-c5h8-f4g5,repository advisory,2026-06-22 repository advisory; 2026-09-15 CVE record (NVD); 2026-09-16 global GHSA
+CVE-2026-61568,2026-07-03,https://github.com/zereight/gitlab-mcp/security/advisories/GHSA-vmp7-252j-cwp7,repository advisory,2026-07-03 repository advisory; 2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-61612,2026-06-22,https://github.com/ondata/ckan-mcp-server/security/advisories/GHSA-798p-78g2-v556,repository advisory,2026-06-22 repository advisory; 2026-09-21 CVE record (NVD); 2026-09-22 global GHSA
+CVE-2026-61613,2026-07-06,https://github.com/cursor/cursor/security/advisories/GHSA-whx2-4gvm-m3r3,repository advisory,2026-07-06 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-61647,2026-06-23,https://github.com/roomi-fields/notebooklm-mcp/security/advisories/GHSA-jjhp-8crj-mppq,repository advisory,2026-06-23 repository advisory; 2026-09-21 CVE record (NVD); 2026-09-22 global GHSA
+CVE-2026-61742,2026-06-24,https://github.com/bytebase/dbhub/security/advisories/GHSA-fm8p-53ww-hf6w,repository advisory,2026-06-24 repository advisory; 2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-61788,2026-06-24,https://github.com/bytebase/dbhub/security/advisories/GHSA-mwwr-p57h-56pf,repository advisory,2026-06-24 repository advisory; 2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-62195,2026-06-30,https://github.com/openclaw/openclaw/security/advisories/GHSA-52xj-c9p8-78cv,repository advisory,2026-06-30 repository advisory; 2026-07-13 CVE record (NVD); 2026-07-14 global GHSA
+CVE-2026-62208,2026-06-30,https://github.com/openclaw/openclaw/security/advisories/GHSA-9c3v-684m-579c,repository advisory,2026-06-30 repository advisory; 2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+CVE-2026-62312,2026-07-10,https://github.com/decolua/9router/security/advisories/GHSA-63p9-g54h-prrp,repository advisory,2026-07-10 repository advisory; 2026-07-15 CVE record (NVD)
+CVE-2026-62674,2026-06-29,https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-jrrm-9hc7-2v3h,repository advisory,2026-06-29 repository advisory; 2026-08-21 CVE record (NVD); 2026-09-02 global GHSA
+CVE-2026-62675,2026-06-29,https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-756x-9hf6-q4h4,repository advisory,2026-06-29 repository advisory; 2026-08-21 CVE record (NVD)
+CVE-2026-62676,2026-06-29,https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-7mqg-cx4g-x2rf,repository advisory,2026-06-29 repository advisory; 2026-08-21 CVE record (NVD); 2026-09-02 global GHSA
+CVE-2026-62677,2026-06-29,https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-p8rw-8qj3-hf33,repository advisory,2026-06-29 repository advisory; 2026-08-21 CVE record (NVD); 2026-09-02 global GHSA
+CVE-2026-63093,2026-07-17,https://github.com/advisories/GHSA-prfr-jc65-hr23,global GHSA,2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+CVE-2026-63118,2026-07-08,https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-rjr6-rcgv-9m7m,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-63119,2026-07-08,https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-7683-3w9x-ch42,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-63127,2026-06-29,https://github.com/modelcontextprotocol/rust-sdk/security/advisories/GHSA-33f5-2c5q-wgwj,repository advisory,2026-06-29 repository advisory; 2026-09-16 global GHSA; 2026-09-16 CVE record (NVD)
+CVE-2026-63128,2026-06-29,https://github.com/modelcontextprotocol/rust-sdk/security/advisories/GHSA-9pj6-vhgr-3mwh,repository advisory,2026-06-29 repository advisory; 2026-09-16 global GHSA; 2026-09-16 CVE record (NVD)
+CVE-2026-63646,2026-07-20,https://github.com/1Panel-dev/CordysCRM/security/advisories/GHSA-46p5-m7pq-82hm,repository advisory,2026-07-20 repository advisory; 2026-09-18 CVE record (NVD)
+CVE-2026-63732,2026-07-03,https://github.com/decolua/9router/security/advisories/GHSA-4922-8r65-fq26,repository advisory,2026-07-03 repository advisory; 2026-07-23 CVE record (NVD); 2026-07-24 global GHSA
+CVE-2026-64650,2026-07-20,https://github.com/vercel/ai/security/advisories/GHSA-qw9h-448j-6rph,repository advisory,2026-07-20 repository advisory; 2026-07-20 CVE record (NVD)
+CVE-2026-64684,2026-07-02,https://github.com/modelcontextprotocol/rust-sdk/security/advisories/GHSA-9g45-5xwm-f3wc,repository advisory,2026-07-02 repository advisory; 2026-09-16 CVE record (NVD); 2026-09-17 global GHSA
+CVE-2026-65015,2026-07-08,https://github.com/n8n-io/n8n/security/advisories/GHSA-x5vx-c2c8-m3w9,repository advisory,2026-07-08 repository advisory; 2026-07-22 CVE record (NVD)
+CVE-2026-65056,2026-07-21,https://github.com/advisories/GHSA-r9hf-v7rm-5h4j,global GHSA,2026-07-21 global GHSA; 2026-07-21 CVE record (NVD)
+CVE-2026-65594,2026-07-08,https://github.com/n8n-io/n8n/security/advisories/GHSA-q5xf-xhwf-cwqf,repository advisory,2026-07-08 repository advisory; 2026-07-22 global GHSA; 2026-07-22 CVE record (NVD)
+CVE-2026-65675,2026-08-11,https://github.com/advisories/GHSA-pgm3-v47m-2q8v,global GHSA,2026-08-11 global GHSA; 2026-08-11 CVE record (NVD)
+CVE-2026-65695,2026-07-23,https://github.com/advisories/GHSA-jp99-gp4p-v5cc,global GHSA,2026-07-23 global GHSA
+CVE-2026-65698,2026-07-23,https://github.com/advisories/GHSA-739h-jx7m-fc7g,global GHSA,2026-07-23 global GHSA; 2026-07-23 CVE record (NVD)
+CVE-2026-65975,2026-07-11,https://github.com/pydantic/pydantic-ai/security/advisories/GHSA-jpr8-2v3g-wgf9,repository advisory,2026-07-11 repository advisory; 2026-07-29 CVE record (NVD)
+CVE-2026-66004,2026-07-24,https://github.com/advisories/GHSA-4h8q-hh2j-755w,global GHSA,2026-07-24 global GHSA
+CVE-2026-66012,2026-07-13,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-cvhv-7xhj-xjp8,repository advisory,2026-07-13 repository advisory; 2026-07-25 global GHSA; 2026-07-25 CVE record (NVD)
+CVE-2026-66027,2026-07-24,https://github.com/advisories/GHSA-59cg-fj2q-33c4,global GHSA,2026-07-24 global GHSA; 2026-07-24 CVE record (NVD)
+CVE-2026-66065,2026-06-18,https://github.com/Q00/ouroboros/security/advisories/GHSA-jv2h-4p9v-wf5w,repository advisory,2026-06-18 repository advisory; 2026-08-03 CVE record (NVD)
+CVE-2026-67333,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-86j7-9j95-vpqj,repository advisory,2026-05-31 repository advisory; 2026-08-01 global GHSA; 2026-08-01 CVE record (NVD)
+CVE-2026-67336,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-9h47-pqcx-hjr4,repository advisory,2026-05-31 repository advisory; 2026-08-01 global GHSA; 2026-08-01 CVE record (NVD)
+CVE-2026-67357,2026-07-17,https://github.com/ArcadeData/arcadedb/security/advisories/GHSA-p9wc-4fhr-78wm,repository advisory,2026-07-17 repository advisory; 2026-08-02 global GHSA; 2026-08-02 CVE record (NVD)
+CVE-2026-67425,2026-07-07,https://github.com/flytohub/flyto-core/security/advisories/GHSA-qq9q-xgm3-xv9g,repository advisory,2026-07-07 repository advisory; 2026-07-30 global GHSA
+CVE-2026-67427,2026-07-07,https://github.com/flytohub/flyto-core/security/advisories/GHSA-hr7p-wg7r-hg9m,repository advisory,2026-07-07 repository advisory; 2026-07-30 global GHSA
+CVE-2026-67428,2026-07-08,https://github.com/flytohub/flyto-core/security/advisories/GHSA-pgwh-4jj4-qm8v,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-67429,2026-07-07,https://github.com/flytohub/flyto-core/security/advisories/GHSA-2956-977x-2w3r,repository advisory,2026-07-07 repository advisory; 2026-07-30 global GHSA
+CVE-2026-67430,2026-07-08,https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-52jp-gj8w-j6xh,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-67431,2026-07-08,https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-5p9g-j988-pcwv,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-67432,2026-07-08,https://github.com/modelcontextprotocol/ruby-sdk/security/advisories/GHSA-h669-8m4g-r2hc,repository advisory,2026-07-08 repository advisory; 2026-07-29 CVE record (NVD); 2026-07-30 global GHSA
+CVE-2026-67531,2026-07-26,https://github.com/agentfront/frontmcp/security/advisories/GHSA-mp29-fxh8-92px,repository advisory,2026-07-26 repository advisory; 2026-08-06 CVE record (NVD)
+CVE-2026-68578,2026-07-17,https://github.com/ArcadeData/arcadedb/security/advisories/GHSA-6x73-v3rc-f57c,repository advisory,2026-07-17 repository advisory; 2026-08-02 global GHSA; 2026-08-02 CVE record (NVD)
+CVE-2026-69253,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-wg86-r78f-74mp,repository advisory,2026-07-29 repository advisory; 2026-08-04 global GHSA
+CVE-2026-69255,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-vmv7-4m6c-3cg5,repository advisory,2026-07-29 repository advisory; 2026-08-04 global GHSA
+CVE-2026-69257,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-c6xh-wv4j-ppv5,repository advisory,2026-07-29 repository advisory; 2026-08-04 global GHSA; 2026-08-04 CVE record (NVD)
+CVE-2026-69263,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-xc48-889x-5qmw,repository advisory,2026-07-29 repository advisory; 2026-08-04 global GHSA; 2026-08-04 CVE record (NVD)
+CVE-2026-69855,2026-08-20,https://nvd.nist.gov/vuln/detail/CVE-2026-69855,CVE record (NVD),2026-08-20 CVE record (NVD); 2026-08-21 global GHSA
+CVE-2026-70335,2026-08-11,https://github.com/advisories/GHSA-hj52-q5wj-vpwg,global GHSA,2026-08-11 global GHSA; 2026-08-11 CVE record (NVD)
+CVE-2026-71424,2026-07-20,https://github.com/onyx-dot-app/onyx/security/advisories/GHSA-q62f-rv3h-f822,repository advisory,2026-07-20 repository advisory; 2026-08-17 CVE record (NVD)
+CVE-2026-72768,2026-07-22,https://github.com/n8n-io/n8n/security/advisories/GHSA-vhf8-cg2h-cg3p,repository advisory,2026-07-22 repository advisory; 2026-08-11 global GHSA; 2026-08-11 CVE record (NVD)
+CVE-2026-73037,2026-08-13,https://github.com/advisories/GHSA-7wvw-5p69-5396,global GHSA,2026-08-13 global GHSA; 2026-08-13 CVE record (NVD)
+CVE-2026-73217,2026-07-14,https://github.com/cursor/cursor/security/advisories/GHSA-p9g2-cr55-cw9c,repository advisory,2026-07-14 repository advisory; 2026-08-11 CVE record (NVD)
+CVE-2026-73218,2026-07-14,https://github.com/cursor/cursor/security/advisories/GHSA-v4xv-rqh3-w9mc,repository advisory,2026-07-14 repository advisory; 2026-08-11 CVE record (NVD)
+CVE-2026-73222,2026-07-14,https://github.com/davila7/claude-code-templates/security/advisories/GHSA-79wm-x847-7cvg,repository advisory,2026-07-14 repository advisory; 2026-08-11 CVE record (NVD); 2026-09-03 global GHSA
+CVE-2026-73296,2026-08-10,https://github.com/microsoft/UFO/security/advisories/GHSA-24fq-m9rr-g3mm,repository advisory,2026-08-10 repository advisory; 2026-08-12 CVE record (NVD)
+CVE-2026-73485,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-c5hr-rc98-xp3g,repository advisory,2026-07-29 repository advisory; 2026-08-13 CVE record (NVD)
+CVE-2026-73487,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-w7x8-q2gp-5cgg,repository advisory,2026-07-29 repository advisory; 2026-08-13 CVE record (NVD)
+CVE-2026-73496,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-wm45-qh3g-v83f,repository advisory,2026-07-10 repository advisory; 2026-09-14 CVE record (NVD)
+CVE-2026-73497,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-489g-7rxv-6c8q,repository advisory,2026-07-10 repository advisory; 2026-09-14 CVE record (NVD)
+CVE-2026-73498,2026-07-10,https://github.com/advisories/GHSA-g5r6-gv6m-f5jv,global GHSA,2026-07-10 global GHSA; 2026-07-10 repository advisory; 2026-08-12 CVE record (NVD)
+CVE-2026-73601,2026-07-29,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-g98q-rm45-q9h8,repository advisory,2026-07-29 repository advisory; 2026-08-13 global GHSA; 2026-08-13 CVE record (NVD)
+CVE-2026-73614,2026-07-28,https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-743h-jr5x-mpcr,repository advisory,2026-07-28 repository advisory; 2026-08-13 global GHSA; 2026-08-13 CVE record (NVD)
+CVE-2026-73844,2026-07-09,https://github.com/ondata/ckan-mcp-server/security/advisories/GHSA-6f9w-9hf2-5rg3,repository advisory,2026-07-09 repository advisory; 2026-08-14 CVE record (NVD); 2026-09-03 global GHSA
+CVE-2026-73845,2026-07-09,https://github.com/ondata/ckan-mcp-server/security/advisories/GHSA-83x6-42hr-jc76,repository advisory,2026-07-09 repository advisory; 2026-08-14 CVE record (NVD); 2026-09-02 global GHSA
+CVE-2026-73846,2026-07-09,https://github.com/ondata/ckan-mcp-server/security/advisories/GHSA-78x9-fhhx-v2g6,repository advisory,2026-07-09 repository advisory; 2026-08-14 CVE record (NVD); 2026-09-03 global GHSA
+CVE-2026-74798,2026-08-03,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-43jx-gxq4-jpjc,repository advisory,2026-08-03 repository advisory; 2026-08-17 global GHSA; 2026-08-17 CVE record (NVD)
+CVE-2026-74842,2026-08-17,https://github.com/advisories/GHSA-644r-p44g-r6g9,global GHSA,2026-08-17 global GHSA
+CVE-2026-74858,2026-08-17,https://github.com/advisories/GHSA-c33j-cj33-6649,global GHSA,2026-08-17 global GHSA
+CVE-2026-75060,2026-08-17,https://github.com/advisories/GHSA-5686-8wvm-pm8w,global GHSA,2026-08-17 global GHSA; 2026-08-17 CVE record (NVD)
+CVE-2026-75130,2026-08-18,https://github.com/advisories/GHSA-97r6-3rgm-v39r,global GHSA,2026-08-18 global GHSA; 2026-08-18 CVE record (NVD)
+CVE-2026-75149,2026-08-19,https://github.com/advisories/GHSA-gfgh-xp6v-q37q,global GHSA,2026-08-19 global GHSA; 2026-08-19 CVE record (NVD)
+CVE-2026-75845,2026-08-04,https://github.com/ArcadeData/arcadedb/security/advisories/GHSA-pff6-hp53-pj54,repository advisory,2026-08-04 repository advisory; 2026-08-18 global GHSA; 2026-08-18 CVE record (NVD)
+CVE-2026-75857,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-g29h-pfmp-qp9r,repository advisory,2026-07-16 repository advisory; 2026-08-18 CVE record (NVD); 2026-09-04 global GHSA
+CVE-2026-75858,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-wrj3-vj8c-784f,repository advisory,2026-07-16 repository advisory; 2026-08-18 CVE record (NVD); 2026-09-04 global GHSA
+CVE-2026-75859,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-62f5-cp2p-vq95,repository advisory,2026-07-16 repository advisory; 2026-09-04 global GHSA
+CVE-2026-75871,2026-08-27,https://nvd.nist.gov/vuln/detail/CVE-2026-75871,CVE record (NVD),2026-08-27 CVE record (NVD)
+CVE-2026-75911,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-gx45-xrj5-g6c4,repository advisory,2026-07-16 repository advisory; 2026-09-04 global GHSA
+CVE-2026-75914,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-w7wx-5q49-r59w,repository advisory,2026-07-16 repository advisory; 2026-09-04 global GHSA
+CVE-2026-75915,2026-07-16,https://github.com/codewhale-hq/Codewhale/security/advisories/GHSA-h539-c7r8-3xq4,repository advisory,2026-07-16 repository advisory; 2026-09-04 global GHSA
+CVE-2026-76391,2026-08-19,https://nvd.nist.gov/vuln/detail/CVE-2026-76391,CVE record (NVD),2026-08-19 CVE record (NVD)
+CVE-2026-76404,2026-08-19,https://nvd.nist.gov/vuln/detail/CVE-2026-76404,CVE record (NVD),2026-08-19 CVE record (NVD); 2026-08-20 global GHSA
+CVE-2026-7646,2026-08-05,https://github.com/advisories/GHSA-x37c-x545-wrmw,global GHSA,2026-08-05 global GHSA; 2026-08-05 CVE record (NVD)
+CVE-2026-7663,2026-06-30,https://github.com/advisories/GHSA-5wjx-cxqm-p8r4,global GHSA,2026-06-30 global GHSA; 2026-06-30 CVE record (NVD)
+CVE-2026-77068,2026-08-05,https://github.com/n8n-io/n8n/security/advisories/GHSA-6h4x-896x-fw5m,repository advisory,2026-08-05 repository advisory; 2026-08-20 global GHSA; 2026-08-20 CVE record (NVD)
+CVE-2026-77073,2026-08-05,https://github.com/n8n-io/n8n/security/advisories/GHSA-vfrj-582q-mvcp,repository advisory,2026-08-05 repository advisory; 2026-08-20 global GHSA; 2026-08-20 CVE record (NVD)
+CVE-2026-77242,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-72fm-whvq-jghf,repository advisory,2026-07-10 repository advisory; 2026-09-22 CVE record (NVD)
+CVE-2026-77243,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-3r68-hf9h-887v,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77244,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-wrhw-j3f9-8vc6,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77246,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-wv8v-v4c5-v75j,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77247,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f6pj-qv47-g96w,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77248,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-cc5h-2pwp-pvcc,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77249,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-v9m3-wfh8-5646,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77250,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-g5xv-mhgm-v5f6,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77251,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-w66g-j6c4-hcfc,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77252,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-rqwg-9346-fjjv,repository advisory,2026-07-10 repository advisory; 2026-09-22 CVE record (NVD)
+CVE-2026-77253,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-vc25-24vv-fxxm,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77254,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-vc8m-84rp-53hx,repository advisory,2026-07-10 repository advisory; 2026-09-22 CVE record (NVD)
+CVE-2026-77255,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-2xj6-xx86-cwwc,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77256,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-76pr-5669-3xf5,repository advisory,2026-07-10 repository advisory; 2026-09-22 CVE record (NVD)
+CVE-2026-77257,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-mrq8-fv7v-hhjg,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77258,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-93xw-j965-9mx3,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77259,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6cr4-ccf3-x7h4,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77260,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f4p7-qx46-wc5j,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77261,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6529-c226-h328,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77262,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-p6hp-93wp-fh6p,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77265,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-49xv-9743-pw8w,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77266,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-mfv2-4wvm-9pgp,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77267,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-5wf4-jqxh-8gm3,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77268,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-4596-2p6p-28cv,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77269,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-h7wj-5v37-59r2,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77270,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-f26r-j276-ggg4,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77271,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-6vmq-24h2-pj7j,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77272,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-g2r2-3j32-j27x,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77274,2026-07-10,https://github.com/sooperset/mcp-atlassian/security/advisories/GHSA-hgcf-4mq8-5266,repository advisory,2026-07-10 repository advisory; 2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-77321,2026-07-11,https://github.com/liketrek/TREK/security/advisories/GHSA-qvw8-w937-vcmq,repository advisory,2026-07-11 repository advisory; 2026-09-24 CVE record (NVD)
+CVE-2026-77339,2026-08-16,https://github.com/F1bonacc1/process-compose/security/advisories/GHSA-5gm3-9crp-6g3v,repository advisory,2026-08-16 repository advisory; 2026-09-18 global GHSA; 2026-09-18 CVE record (NVD)
+CVE-2026-77516,2026-09-02,https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-383v-fx78-pphm,repository advisory,2026-09-02 repository advisory; 2026-09-21 CVE record (NVD)
+CVE-2026-77518,2026-09-02,https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-x65c-w438-c58f,repository advisory,2026-09-02 repository advisory; 2026-09-21 CVE record (NVD)
+CVE-2026-77519,2026-09-02,https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-r6g6-69fh-c39q,repository advisory,2026-09-02 repository advisory; 2026-09-21 CVE record (NVD)
+CVE-2026-77521,2026-09-02,https://github.com/1Panel-dev/MaxKB/security/advisories/GHSA-f36j-f34j-h3rx,repository advisory,2026-09-02 repository advisory; 2026-09-21 CVE record (NVD)
+CVE-2026-7755,2026-07-17,https://github.com/advisories/GHSA-m94m-8f9x-f6r4,global GHSA,2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+CVE-2026-77822,2026-09-04,https://github.com/advisories/GHSA-2pmv-2qcc-jcgq,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-77825,2026-09-24,https://github.com/advisories/GHSA-6xjp-r2qh-2fj7,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-78430,2026-08-24,https://github.com/advisories/GHSA-w4rf-x2r6-4q2w,global GHSA,2026-08-24 global GHSA; 2026-08-24 CVE record (NVD)
+CVE-2026-78501,2026-09-17,https://nvd.nist.gov/vuln/detail/CVE-2026-78501,CVE record (NVD),2026-09-17 CVE record (NVD); 2026-09-18 global GHSA
+CVE-2026-78573,2026-09-10,https://nvd.nist.gov/vuln/detail/CVE-2026-78573,CVE record (NVD),2026-09-10 CVE record (NVD); 2026-09-11 global GHSA
+CVE-2026-78575,2026-09-10,https://nvd.nist.gov/vuln/detail/CVE-2026-78575,CVE record (NVD),2026-09-10 CVE record (NVD); 2026-09-11 global GHSA
+CVE-2026-79622,2026-08-25,https://github.com/advisories/GHSA-x2cf-fchr-rw88,global GHSA,2026-08-25 global GHSA
+CVE-2026-79743,2026-04-19,https://github.com/samanhappy/mcphub/security/advisories/GHSA-p3h2-2j4p-p83g,repository advisory,2026-04-19 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79744,2026-08-17,https://github.com/samanhappy/mcphub/security/advisories/GHSA-4gc8-885f-qj36,repository advisory,2026-08-17 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79745,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-6cvf-cfch-4g7m,repository advisory,2026-08-23 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79746,2026-08-22,https://github.com/samanhappy/mcphub/security/advisories/GHSA-454m-4vm6-842f,repository advisory,2026-08-22 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79747,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-9wx9-prgc-gmjr,repository advisory,2026-08-23 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79748,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-mx89-jjx9-gjr8,repository advisory,2026-08-23 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79749,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-pr4x-3pc7-2fhw,repository advisory,2026-08-23 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79750,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-wfqf-hqwq-8wvf,repository advisory,2026-08-23 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-79786,2026-08-25,https://github.com/advisories/GHSA-g3gf-mwj7-2hc4,global GHSA,2026-08-25 global GHSA; 2026-08-25 CVE record (NVD)
+CVE-2026-80098,2026-09-03,https://nvd.nist.gov/vuln/detail/CVE-2026-80098,CVE record (NVD),2026-09-03 CVE record (NVD); 2026-09-04 global GHSA
+CVE-2026-80347,2026-08-26,https://nvd.nist.gov/vuln/detail/CVE-2026-80347,CVE record (NVD),2026-08-26 CVE record (NVD); 2026-09-24 global GHSA
+CVE-2026-81091,2026-08-27,https://github.com/advisories/GHSA-23qx-5wch-w72w,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81092,2026-08-27,https://github.com/advisories/GHSA-8g5x-gj7x-mxgm,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81093,2026-08-27,https://github.com/advisories/GHSA-gghj-77w7-6r3h,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81094,2026-08-27,https://github.com/advisories/GHSA-g448-x63h-m2m3,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81095,2026-08-27,https://github.com/advisories/GHSA-x76c-qpjv-crcp,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81096,2026-08-27,https://github.com/advisories/GHSA-rg68-wg77-c3wm,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81098,2026-08-27,https://github.com/advisories/GHSA-j929-p4w2-gfw7,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81099,2026-08-27,https://github.com/advisories/GHSA-p943-9hp2-h27q,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81100,2026-08-27,https://github.com/advisories/GHSA-wm9h-qwfm-wf3g,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81101,2026-08-27,https://github.com/advisories/GHSA-qxwr-hgm6-9xxf,global GHSA,2026-08-27 global GHSA
+CVE-2026-81102,2026-08-27,https://github.com/advisories/GHSA-37q3-f6jc-625w,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81315,2026-08-30,https://github.com/ash-project/ash_ai/security/advisories/GHSA-c92r-f3rr-q49h,repository advisory,2026-08-30 repository advisory; 2026-08-31 CVE record (NVD)
+CVE-2026-81380,2026-09-08,https://github.com/advisories/GHSA-r64m-65x5-h3wx,global GHSA,2026-09-08 global GHSA; 2026-09-08 CVE record (NVD)
+CVE-2026-81381,2026-09-08,https://github.com/advisories/GHSA-8qwj-prhm-6mp3,global GHSA,2026-09-08 global GHSA; 2026-09-08 CVE record (NVD)
+CVE-2026-81421,2026-08-27,https://github.com/advisories/GHSA-77f3-qj56-x322,global GHSA,2026-08-27 global GHSA
+CVE-2026-81485,2026-08-27,https://github.com/advisories/GHSA-fm3p-f44p-hf47,global GHSA,2026-08-27 global GHSA
+CVE-2026-81486,2026-08-27,https://github.com/advisories/GHSA-r93x-r7qx-vp33,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81491,2026-08-27,https://github.com/advisories/GHSA-cfj4-56c7-w9x6,global GHSA,2026-08-27 global GHSA
+CVE-2026-81735,2026-08-27,https://github.com/advisories/GHSA-p68p-fq8j-3639,global GHSA,2026-08-27 global GHSA; 2026-08-27 CVE record (NVD)
+CVE-2026-81835,2026-08-28,https://github.com/advisories/GHSA-q2jq-8pm2-fj8h,global GHSA,2026-08-28 global GHSA; 2026-08-28 CVE record (NVD)
+CVE-2026-81845,2026-08-28,https://github.com/advisories/GHSA-j8g6-hw52-mhg7,global GHSA,2026-08-28 global GHSA; 2026-08-28 CVE record (NVD)
+CVE-2026-81846,2026-09-01,https://github.com/advisories/GHSA-29cr-9cjx-c8cg,global GHSA,2026-09-01 global GHSA; 2026-09-01 CVE record (NVD)
+CVE-2026-81848,2026-08-28,https://github.com/advisories/GHSA-c36x-c574-mpfp,global GHSA,2026-08-28 global GHSA
+CVE-2026-81941,2026-09-10,https://nvd.nist.gov/vuln/detail/CVE-2026-81941,CVE record (NVD),2026-09-10 CVE record (NVD); 2026-09-11 global GHSA
+CVE-2026-82021,2026-08-28,https://github.com/advisories/GHSA-w9gw-vgmg-q67h,global GHSA,2026-08-28 global GHSA; 2026-08-28 CVE record (NVD)
+CVE-2026-82111,2026-08-28,https://github.com/advisories/GHSA-947f-v6gc-m8c7,global GHSA,2026-08-28 global GHSA
+CVE-2026-82217,2026-08-31,https://nvd.nist.gov/vuln/detail/CVE-2026-82217,CVE record (NVD),2026-08-31 CVE record (NVD)
+CVE-2026-82233,2026-08-13,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-p23f-cm6q-2qp8,repository advisory,2026-08-13 repository advisory; 2026-08-28 global GHSA; 2026-08-28 CVE record (NVD)
+CVE-2026-82456,2026-08-11,https://github.com/argoproj-labs/mcp-for-argocd/security/advisories/GHSA-rp45-5x3v-48mr,repository advisory,2026-08-11 repository advisory; 2026-08-29 global GHSA; 2026-08-29 CVE record (NVD)
+CVE-2026-82905,2026-08-31,https://nvd.nist.gov/vuln/detail/CVE-2026-82905,CVE record (NVD),2026-08-31 CVE record (NVD)
+CVE-2026-84201,2026-09-01,https://github.com/advisories/GHSA-j4m2-645j-49qh,global GHSA,2026-09-01 global GHSA
+CVE-2026-84289,2026-09-01,https://nvd.nist.gov/vuln/detail/CVE-2026-84289,CVE record (NVD),2026-09-01 CVE record (NVD); 2026-09-02 global GHSA
+CVE-2026-8446,2026-08-05,https://nvd.nist.gov/vuln/detail/CVE-2026-8446,CVE record (NVD),2026-08-05 CVE record (NVD)
+CVE-2026-84779,2026-09-03,https://github.com/advisories/GHSA-m35q-543g-q7p4,global GHSA,2026-09-03 global GHSA; 2026-09-03 CVE record (NVD)
+CVE-2026-84885,2026-09-03,https://github.com/advisories/GHSA-5wcc-3m77-2xf5,global GHSA,2026-09-03 global GHSA
+CVE-2026-84886,2026-09-03,https://github.com/advisories/GHSA-wvcq-2rcq-fqc9,global GHSA,2026-09-03 global GHSA
+CVE-2026-84887,2026-09-03,https://github.com/advisories/GHSA-3j2w-rmqf-7fcr,global GHSA,2026-09-03 global GHSA
+CVE-2026-85025,2026-09-10,https://github.com/advisories/GHSA-j9vg-5378-pr5p,global GHSA,2026-09-10 global GHSA; 2026-09-10 CVE record (NVD)
+CVE-2026-85166,2026-08-19,https://github.com/n8n-io/n8n/security/advisories/GHSA-4r56-g65c-fm83,repository advisory,2026-08-19 repository advisory; 2026-09-03 global GHSA; 2026-09-03 CVE record (NVD)
+CVE-2026-85306,2026-09-03,https://github.com/advisories/GHSA-vfr3-w6gw-h5gr,global GHSA,2026-09-03 global GHSA; 2026-09-03 CVE record (NVD)
+CVE-2026-85580,2026-08-21,https://github.com/siyuan-note/siyuan/security/advisories/GHSA-mmgw-3mx9-cfwp,repository advisory,2026-08-21 repository advisory; 2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-85606,2026-09-04,https://github.com/advisories/GHSA-q267-2jg6-m7vc,global GHSA,2026-09-04 global GHSA
+CVE-2026-85620,2026-09-04,https://github.com/advisories/GHSA-cm87-gp55-7cgj,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-85626,2026-09-04,https://github.com/advisories/GHSA-p58h-f635-vjjm,global GHSA,2026-09-04 global GHSA
+CVE-2026-85654,2026-09-04,https://github.com/advisories/GHSA-hh4r-pcm9-jh93,global GHSA,2026-09-04 global GHSA
+CVE-2026-85660,2026-09-04,https://github.com/advisories/GHSA-wfpw-4v5h-6h32,global GHSA,2026-09-04 global GHSA
+CVE-2026-85661,2026-09-04,https://github.com/advisories/GHSA-xv88-r947-5c3v,global GHSA,2026-09-04 global GHSA
+CVE-2026-85666,2026-09-04,https://github.com/advisories/GHSA-9mg6-c5wp-2g44,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-85787,2026-09-04,https://github.com/advisories/GHSA-f4f4-39r8-8gj4,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-85885,2026-09-17,https://nvd.nist.gov/vuln/detail/CVE-2026-85885,CVE record (NVD),2026-09-17 CVE record (NVD); 2026-09-18 global GHSA
+CVE-2026-85887,2026-09-18,https://github.com/advisories/GHSA-g3r4-5f4w-4vh4,global GHSA,2026-09-18 global GHSA; 2026-09-18 CVE record (NVD)
+CVE-2026-86073,2026-09-03,https://github.com/n8n-io/n8n/security/advisories/GHSA-cw9w-vv67-hf73,repository advisory,2026-09-03 repository advisory; 2026-09-10 global GHSA
+CVE-2026-86122,2026-09-05,https://github.com/advisories/GHSA-jmxm-qmrf-xrpp,global GHSA,2026-09-05 global GHSA; 2026-09-05 CVE record (NVD)
+CVE-2026-86439,2026-08-16,https://github.com/knowns-dev/knowns/security/advisories/GHSA-9gfj-28hw-jchp,repository advisory,2026-08-16 repository advisory; 2026-09-07 CVE record (NVD)
+CVE-2026-87911,2026-09-09,https://github.com/awslabs/mcp/security/advisories/GHSA-fph8-pg5w-78fv,repository advisory,2026-09-09 repository advisory; 2026-09-09 CVE record (NVD)
+CVE-2026-87913,2026-09-10,https://github.com/awslabs/mcp/security/advisories/GHSA-3jxw-vj8m-8x77,repository advisory,2026-09-10 repository advisory; 2026-09-10 CVE record (NVD)
+CVE-2026-88062,2026-09-03,https://github.com/cheaper-inference/OmniRoute/security/advisories/GHSA-hf57-cqmx-p4gr,repository advisory,2026-09-03 repository advisory; 2026-09-10 global GHSA; 2026-09-10 CVE record (NVD)
+CVE-2026-88938,2026-09-09,https://github.com/knowns-dev/knowns/security/advisories/GHSA-5cj9-fcqq-g2h7,repository advisory,2026-09-09 repository advisory; 2026-09-10 global GHSA; 2026-09-10 CVE record (NVD)
+CVE-2026-90474,2026-08-23,https://github.com/samanhappy/mcphub/security/advisories/GHSA-3m7m-37xf-xp9x,repository advisory,2026-08-23 repository advisory; 2026-09-12 CVE record (NVD)
+CVE-2026-90617,2026-09-14,https://github.com/advisories/GHSA-39h8-3q4c-rpwp,global GHSA,2026-09-14 global GHSA; 2026-09-14 CVE record (NVD)
+CVE-2026-9077,2026-08-05,https://github.com/advisories/GHSA-wq3q-gcx9-xvm2,global GHSA,2026-08-05 global GHSA; 2026-08-05 CVE record (NVD)
+CVE-2026-90898,2026-09-14,https://github.com/advisories/GHSA-gqjq-cgxr-8c7c,global GHSA,2026-09-14 global GHSA; 2026-09-14 CVE record (NVD)
+CVE-2026-91161,2026-09-15,https://github.com/rmyndharis/OpenWA/security/advisories/GHSA-45fh-xj7x-vj2x,repository advisory,2026-09-15 repository advisory; 2026-09-24 CVE record (NVD)
+CVE-2026-9135,2026-07-17,https://github.com/advisories/GHSA-mmph-9cw2-f8r6,global GHSA,2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+CVE-2026-9186,2026-09-04,https://github.com/advisories/GHSA-gqfh-c8pj-64mr,global GHSA,2026-09-04 global GHSA; 2026-09-04 CVE record (NVD)
+CVE-2026-91931,2026-08-31,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-vcwp-f9rq-3887,repository advisory,2026-08-31 repository advisory; 2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-91932,2026-08-31,https://github.com/FlowiseAI/Flowise/security/advisories/GHSA-x7x8-95gh-42xm,repository advisory,2026-08-31 repository advisory; 2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-91988,2026-06-10,https://github.com/dep0we/atomic-agents-stack/security/advisories/GHSA-xhcr-cqfr-m3hv,repository advisory,2026-06-10 repository advisory; 2026-09-15 global GHSA; 2026-09-15 CVE record (NVD)
+CVE-2026-91998,2026-09-15,https://github.com/advisories/GHSA-jvmw-g7rg-x26f,global GHSA,2026-09-15 global GHSA
+CVE-2026-92628,2026-09-24,https://github.com/advisories/GHSA-vp7f-562j-4qgr,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-92874,2026-09-24,https://github.com/advisories/GHSA-c3rm-3hqr-4qwm,global GHSA,2026-09-24 global GHSA; 2026-09-24 CVE record (NVD)
+CVE-2026-93529,2026-09-23,https://github.com/advisories/GHSA-95hq-cf2h-gc58,global GHSA,2026-09-23 global GHSA; 2026-09-23 CVE record (NVD)
+CVE-2026-93965,2026-09-20,https://github.com/advisories/GHSA-4jm5-5g2j-mj84,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-93982,2026-09-04,https://github.com/Openpanel-dev/openpanel/security/advisories/GHSA-8wx6-g25r-2943,repository advisory,2026-09-04 repository advisory; 2026-09-19 global GHSA; 2026-09-19 CVE record (NVD)
+CVE-2026-94031,2026-09-20,https://github.com/advisories/GHSA-c2f2-x95m-p9vw,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-94037,2026-09-20,https://github.com/advisories/GHSA-882h-38q7-cgpc,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-94044,2026-09-20,https://github.com/advisories/GHSA-wvg2-xpp5-j725,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-94046,2026-09-20,https://github.com/advisories/GHSA-8wj2-8g8v-vcxr,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-94047,2026-09-20,https://nvd.nist.gov/vuln/detail/CVE-2026-94047,CVE record (NVD),2026-09-20 CVE record (NVD)
+CVE-2026-94051,2026-09-20,https://github.com/advisories/GHSA-6j48-ggfg-8xw2,global GHSA,2026-09-20 global GHSA
+CVE-2026-94111,2026-09-20,https://github.com/advisories/GHSA-x6f2-qp26-2xrh,global GHSA,2026-09-20 global GHSA; 2026-09-20 CVE record (NVD)
+CVE-2026-95660,2026-09-22,https://github.com/advisories/GHSA-jp7p-97jq-v89h,global GHSA,2026-09-22 global GHSA; 2026-09-22 CVE record (NVD)
+CVE-2026-9680,2026-07-28,https://github.com/advisories/GHSA-fw7c-j2q8-f24m,global GHSA,2026-07-28 global GHSA; 2026-07-28 CVE record (NVD)
+CVE-2026-9810,2026-07-17,https://github.com/advisories/GHSA-74px-22jg-8gh2,global GHSA,2026-07-17 global GHSA; 2026-07-17 CVE record (NVD)
+GHSA-382c-vx95-w3p5,2026-06-02,https://github.com/JSONbored/loopover/security/advisories/GHSA-382c-vx95-w3p5,repository advisory,2026-06-02 repository advisory; 2026-07-09 global GHSA
+GHSA-489g-7rxv-6c8q,2026-07-10,https://github.com/advisories/GHSA-489g-7rxv-6c8q,global GHSA,2026-07-10 global GHSA; 2026-07-10 repository advisory
+GHSA-52vm-mxx8-f227,2026-06-01,https://github.com/fadelabs/phantom/security/advisories/GHSA-52vm-mxx8-f227,repository advisory,2026-06-01 repository advisory; 2026-07-09 global GHSA
+GHSA-5648-rgj9-v224,2026-07-05,https://github.com/zereight/gitlab-mcp/security/advisories/GHSA-5648-rgj9-v224,repository advisory,2026-07-05 repository advisory; 2026-09-15 global GHSA
+GHSA-86j7-9j95-vpqj,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-86j7-9j95-vpqj,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA
+GHSA-8q49-2h5h-434x,2026-07-23,https://github.com/agentfront/frontmcp/security/advisories/GHSA-8q49-2h5h-434x,repository advisory,2026-07-23 repository advisory; 2026-07-24 global GHSA
+GHSA-9c3v-684m-579c,2026-06-30,https://github.com/openclaw/openclaw/security/advisories/GHSA-9c3v-684m-579c,repository advisory,2026-06-30 repository advisory; 2026-07-01 global GHSA
+GHSA-9h47-pqcx-hjr4,2026-05-31,https://github.com/better-auth/better-auth/security/advisories/GHSA-9h47-pqcx-hjr4,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA
+GHSA-cc2g-gq8c-r332,2026-06-11,https://github.com/Wolfe-Jam/grok-faf-mcp/security/advisories/GHSA-cc2g-gq8c-r332,repository advisory,2026-06-11 repository advisory; 2026-08-19 global GHSA
+GHSA-f9ff-5x35-7gfw,2026-05-29,https://github.com/nick-pape/grackle/security/advisories/GHSA-f9ff-5x35-7gfw,repository advisory,2026-05-29 repository advisory; 2026-07-02 global GHSA
+GHSA-h4g2-xfmw-q2c9,2026-06-03,https://github.com/schubydoo/clauster/security/advisories/GHSA-h4g2-xfmw-q2c9,repository advisory,2026-06-03 repository advisory; 2026-07-10 global GHSA
+GHSA-hjwh-xvfw-qrwj,2026-07-26,https://github.com/ihor-sokoliuk/mcp-searxng/security/advisories/GHSA-hjwh-xvfw-qrwj,repository advisory,2026-07-26 repository advisory; 2026-08-19 global GHSA
+GHSA-hw9r-h9mr-4jff,2026-05-28,https://github.com/openclaw/openclaw/security/advisories/GHSA-hw9r-h9mr-4jff,repository advisory,2026-05-28 repository advisory; 2026-07-02 global GHSA
+GHSA-j4r7-8ph4-43g3,2026-06-11,https://github.com/Wolfe-Jam/faf-mcp/security/advisories/GHSA-j4r7-8ph4-43g3,repository advisory,2026-06-11 repository advisory; 2026-08-19 global GHSA
+GHSA-jgh3-fggc-mcpm,2026-06-22,https://github.com/obot-platform/obot/security/advisories/GHSA-jgh3-fggc-mcpm,repository advisory,2026-06-22 repository advisory; 2026-09-18 global GHSA
+GHSA-p7w7-4929-vpj5,2026-06-09,https://github.com/dynatrace-oss/dynatrace-mcp/security/advisories/GHSA-p7w7-4929-vpj5,repository advisory,2026-06-09 repository advisory; 2026-07-31 global GHSA
+GHSA-pc2w-4mq8-32qw,2026-06-08,https://github.com/dynatrace-oss/dynatrace-mcp/security/advisories/GHSA-pc2w-4mq8-32qw,repository advisory,2026-06-08 repository advisory; 2026-07-29 global GHSA
+GHSA-pf2q-pxhf-hgmw,2026-07-22,https://github.com/advisories/GHSA-pf2q-pxhf-hgmw,global GHSA,2026-07-22 global GHSA; 2026-07-22 repository advisory
+GHSA-pqh8-p93p-2rx7,2026-06-09,https://github.com/dynatrace-oss/dynatrace-mcp/security/advisories/GHSA-pqh8-p93p-2rx7,repository advisory,2026-06-09 repository advisory; 2026-07-31 global GHSA
+GHSA-pr6h-vr44-xq8j,2026-06-22,https://github.com/obot-platform/obot/security/advisories/GHSA-pr6h-vr44-xq8j,repository advisory,2026-06-22 repository advisory; 2026-09-18 global GHSA
+GHSA-pvcr-8mvp-w8qr,2026-07-22,https://github.com/Budibase/budibase/security/advisories/GHSA-pvcr-8mvp-w8qr,repository advisory,2026-07-22 repository advisory; 2026-07-24 global GHSA
+GHSA-q855-8rh5-jfgq,2026-05-31,https://github.com/homeassistant-ai/ha-mcp/security/advisories/GHSA-q855-8rh5-jfgq,repository advisory,2026-05-31 repository advisory; 2026-07-07 global GHSA
+GHSA-qh2f-99mv-mrcf,2026-05-28,https://github.com/openclaw/openclaw/security/advisories/GHSA-qh2f-99mv-mrcf,repository advisory,2026-05-28 repository advisory; 2026-07-02 global GHSA
+GHSA-rp72-5v5q-2446,2026-05-25,https://github.com/MorganOnCode/cardano402/security/advisories/GHSA-rp72-5v5q-2446,repository advisory,2026-05-25 repository advisory; 2026-06-26 global GHSA
+GHSA-rr55-jp92-8wp2,2026-06-11,https://github.com/Wolfe-Jam/claude-faf-mcp/security/advisories/GHSA-rr55-jp92-8wp2,repository advisory,2026-06-11 repository advisory; 2026-08-19 global GHSA
+GHSA-vhf8-cg2h-cg3p,2026-07-22,https://github.com/advisories/GHSA-vhf8-cg2h-cg3p,global GHSA,2026-07-22 global GHSA; 2026-07-22 repository advisory
+GHSA-vwf3-4xxj-qg6h,2026-06-15,https://github.com/IBM/mcp-context-forge/security/advisories/GHSA-vwf3-4xxj-qg6h,repository advisory,2026-06-15 repository advisory; 2026-08-25 global GHSA
+GHSA-wm45-qh3g-v83f,2026-07-10,https://github.com/advisories/GHSA-wm45-qh3g-v83f,global GHSA,2026-07-10 global GHSA; 2026-07-10 repository advisory
+GHSA-xhcr-cqfr-m3hv,2026-06-10,https://github.com/dep0we/atomic-agents-stack/security/advisories/GHSA-xhcr-cqfr-m3hv,repository advisory,2026-06-10 repository advisory; 2026-08-17 global GHSA
+GHSA-xrmc-c5cg-rv7x,2026-07-10,https://github.com/Mickdownunder/SafeInstall/security/advisories/GHSA-xrmc-c5cg-rv7x,repository advisory,2026-07-10 repository advisory; 2026-07-10 global GHSA
+GHSA-xrmj-5g4g-8987,2026-06-09,https://github.com/dynatrace-oss/dynatrace-mcp/security/advisories/GHSA-xrmj-5g4g-8987,repository advisory,2026-06-09 repository advisory; 2026-07-31 global GHSA
+GHSA-xwmw-prc4-v3cr,2026-06-22,https://github.com/obot-platform/obot/security/advisories/GHSA-xwmw-prc4-v3cr,repository advisory,2026-06-22 repository advisory; 2026-09-18 global GHSA

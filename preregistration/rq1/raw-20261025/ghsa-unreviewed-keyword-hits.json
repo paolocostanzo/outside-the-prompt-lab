@@ -1,0 +1,3176 @@
+[
+ {
+  "ghsa_id": "GHSA-mqq2-4r9w-4h99",
+  "cve_id": "CVE-2026-80347",
+  "published": "2026-09-24T21:31:42Z",
+  "summary": "mcp-fetch checks a fetch target against its SSRF guard without removing the brackets that...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mqq2-4r9w-4h99"
+ },
+ {
+  "ghsa_id": "GHSA-g29j-c673-5ccw",
+  "cve_id": "CVE-2026-93228",
+  "published": "2026-09-24T18:31:23Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nsvcrdma: Reject Write/Reply...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-g29j-c673-5ccw"
+ },
+ {
+  "ghsa_id": "GHSA-6xjp-r2qh-2fj7",
+  "cve_id": "CVE-2026-77825",
+  "published": "2026-09-24T15:31:35Z",
+  "summary": "IBM ContextForge MCP Gateway 1.0.0 through 1.0.8 was vulnerable to path traversal in its Admin...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6xjp-r2qh-2fj7"
+ },
+ {
+  "ghsa_id": "GHSA-5wmf-76f4-cg47",
+  "cve_id": "CVE-2026-51995",
+  "published": "2026-09-24T15:31:34Z",
+  "summary": "An issue in geelen mcp-remote 0.1.32 through 0.1.38 allows a remote attacker to obtain sensitive...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5wmf-76f4-cg47"
+ },
+ {
+  "ghsa_id": "GHSA-8rrr-xx35-4q6h",
+  "cve_id": "CVE-2026-51994",
+  "published": "2026-09-24T15:31:34Z",
+  "summary": "mcp-remote versions 0.1.32 through 0.1.38 are vulnerable to Server-Side Request Forgery (SSRF)...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8rrr-xx35-4q6h"
+ },
+ {
+  "ghsa_id": "GHSA-v65w-6crh-cp3h",
+  "cve_id": "CVE-2026-51997",
+  "published": "2026-09-24T15:31:34Z",
+  "summary": "An issue in geelen mcp-remote 0.1.16 through 0.1.38 allows a remote attacker to execute arbitrary...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-v65w-6crh-cp3h"
+ },
+ {
+  "ghsa_id": "GHSA-mvq8-g2rm-4rhm",
+  "cve_id": "CVE-2026-51996",
+  "published": "2026-09-24T15:31:34Z",
+  "summary": "An issue in geelen mcp-remote 0.1.16 through 0.1.38 allows a remote attacker to execute arbitrary...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mvq8-g2rm-4rhm"
+ },
+ {
+  "ghsa_id": "GHSA-4gh6-j99c-x6g2",
+  "cve_id": "CVE-2026-52001",
+  "published": "2026-09-24T15:31:34Z",
+  "summary": "An issue in geelen mcp-remote 0.1.18 through 0.1.38 allows a remote attacker to obtain sensitive...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4gh6-j99c-x6g2"
+ },
+ {
+  "ghsa_id": "GHSA-c3rm-3hqr-4qwm",
+  "cve_id": "CVE-2026-92874",
+  "published": "2026-09-24T00:30:26Z",
+  "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 18.3 before 19.2.7, 19...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c3rm-3hqr-4qwm"
+ },
+ {
+  "ghsa_id": "GHSA-vp7f-562j-4qgr",
+  "cve_id": "CVE-2026-92628",
+  "published": "2026-09-24T00:30:26Z",
+  "summary": "GitLab has remediated an issue in GitLab CE/EE affecting all versions from 18.6 before 19.2.7, 19...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vp7f-562j-4qgr"
+ },
+ {
+  "ghsa_id": "GHSA-95hq-cf2h-gc58",
+  "cve_id": "CVE-2026-93529",
+  "published": "2026-09-23T21:30:43Z",
+  "summary": "Contributor Broken Access Control in WSP MCP &#8211; AI Agents Connector <= 2.7.0 versions.",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-95hq-cf2h-gc58"
+ },
+ {
+  "ghsa_id": "GHSA-6r8h-q9qx-q8m5",
+  "cve_id": "CVE-2026-18875",
+  "published": "2026-09-23T18:31:55Z",
+  "summary": "IBM Financial Transaction Manager (FTM) for RedHat OpenShift is vulnerable to RAG poisoning via...",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-6r8h-q9qx-q8m5"
+ },
+ {
+  "ghsa_id": "GHSA-jcjp-gr26-563j",
+  "cve_id": "CVE-2026-19202",
+  "published": "2026-09-23T00:31:14Z",
+  "summary": "A caching flaw in the toolbox-core package of the mcp-toolbox-sdk-python SDK causes the same...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jcjp-gr26-563j"
+ },
+ {
+  "ghsa_id": "GHSA-jp7p-97jq-v89h",
+  "cve_id": "CVE-2026-95660",
+  "published": "2026-09-22T18:33:35Z",
+  "summary": "A security flaw has been discovered in Moonshot AI Kimi Code up to 0.31.0. The affected element...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jp7p-97jq-v89h"
+ },
+ {
+  "ghsa_id": "GHSA-96m7-5wfv-978m",
+  "cve_id": "CVE-2026-89420",
+  "published": "2026-09-22T12:30:26Z",
+  "summary": "Improper Validation of Specified Quantity in Input in ZenHive mpp allows a client holding an open...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-96m7-5wfv-978m"
+ },
+ {
+  "ghsa_id": "GHSA-6j48-ggfg-8xw2",
+  "cve_id": "CVE-2026-94051",
+  "published": "2026-09-20T21:31:34Z",
+  "summary": "A vulnerability was found in 0717376 cowork_bench up to d943e75bc0fc8e3b27141979300cd8cbcd1e890d....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6j48-ggfg-8xw2"
+ },
+ {
+  "ghsa_id": "GHSA-wvg2-xpp5-j725",
+  "cve_id": "CVE-2026-94044",
+  "published": "2026-09-20T21:31:33Z",
+  "summary": "A vulnerability was identified in 03-lovepreetSingh MCP up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wvg2-xpp5-j725"
+ },
+ {
+  "ghsa_id": "GHSA-8wj2-8g8v-vcxr",
+  "cve_id": "CVE-2026-94046",
+  "published": "2026-09-20T21:31:33Z",
+  "summary": "A weakness has been identified in 0215AndrewFeng ACE-MCP up to 4.10.8. The affected element is...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8wj2-8g8v-vcxr"
+ },
+ {
+  "ghsa_id": "GHSA-882h-38q7-cgpc",
+  "cve_id": "CVE-2026-94037",
+  "published": "2026-09-20T18:31:22Z",
+  "summary": "A weakness has been identified in 00Kisumi00 mcp-file-analyzer up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-882h-38q7-cgpc"
+ },
+ {
+  "ghsa_id": "GHSA-c2f2-x95m-p9vw",
+  "cve_id": "CVE-2026-94031",
+  "published": "2026-09-20T15:30:23Z",
+  "summary": "A vulnerability was detected in 0-Gaurav-0 nexus-mcp aed0026e7ac1f23dc940e46e9fd3a2da6904f914....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c2f2-x95m-p9vw"
+ },
+ {
+  "ghsa_id": "GHSA-x6f2-qp26-2xrh",
+  "cve_id": "CVE-2026-94111",
+  "published": "2026-09-20T12:30:28Z",
+  "summary": "Tencent BrowserSkill through 0.3.0 contains an authentication bypass vulnerability in the local...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-x6f2-qp26-2xrh"
+ },
+ {
+  "ghsa_id": "GHSA-4jm5-5g2j-mj84",
+  "cve_id": "CVE-2026-93965",
+  "published": "2026-09-20T06:30:20Z",
+  "summary": "A flaw has been found in aiyiyi121 SxDevOps 1.0/1.1. Affected is the function subprocess.Popen of...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4jm5-5g2j-mj84"
+ },
+ {
+  "ghsa_id": "GHSA-xvpp-2hfw-c93c",
+  "cve_id": "CVE-2026-93982",
+  "published": "2026-09-19T12:32:11Z",
+  "summary": "OpenPanel through commit bad75bdd writes Model Context Protocol authentication tokens from URL...",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-xvpp-2hfw-c93c"
+ },
+ {
+  "ghsa_id": "GHSA-g3r4-5f4w-4vh4",
+  "cve_id": "CVE-2026-85887",
+  "published": "2026-09-18T00:31:11Z",
+  "summary": "Incorrect permission assignment for critical resource in M365 Copilot allows an authorized...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-g3r4-5f4w-4vh4"
+ },
+ {
+  "ghsa_id": "GHSA-hjj2-64g6-jw5p",
+  "cve_id": "CVE-2026-78501",
+  "published": "2026-09-18T00:31:09Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in Microsoft...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-hjj2-64g6-jw5p"
+ },
+ {
+  "ghsa_id": "GHSA-rq75-5hf2-vppm",
+  "cve_id": "CVE-2026-55946",
+  "published": "2026-09-18T00:31:09Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in Microsoft...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-rq75-5hf2-vppm"
+ },
+ {
+  "ghsa_id": "GHSA-jjmx-rwxc-vwh4",
+  "cve_id": "CVE-2026-85885",
+  "published": "2026-09-18T00:31:09Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in M365...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-jjmx-rwxc-vwh4"
+ },
+ {
+  "ghsa_id": "GHSA-636p-hq8h-v2cp",
+  "cve_id": "CVE-2026-93179",
+  "published": "2026-09-17T18:32:13Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/amd/powerplay: fix...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-636p-hq8h-v2cp"
+ },
+ {
+  "ghsa_id": "GHSA-c7vq-j3hm-m6qq",
+  "cve_id": "CVE-2026-93189",
+  "published": "2026-09-17T18:32:13Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nHID: core: quiesce input in...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c7vq-j3hm-m6qq"
+ },
+ {
+  "ghsa_id": "GHSA-vcjh-87mp-cx8r",
+  "cve_id": "CVE-2026-93122",
+  "published": "2026-09-17T18:32:11Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: gadget: uac: validate...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-vcjh-87mp-cx8r"
+ },
+ {
+  "ghsa_id": "GHSA-jg3q-2vpp-2763",
+  "cve_id": "CVE-2026-92522",
+  "published": "2026-09-17T18:32:07Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nACPI: processor: validate...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-jg3q-2vpp-2763"
+ },
+ {
+  "ghsa_id": "GHSA-rmc3-723g-fx4m",
+  "cve_id": "CVE-2026-90048",
+  "published": "2026-09-16T12:30:46Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nfs/ntfs3: fix slab-out-of...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-rmc3-723g-fx4m"
+ },
+ {
+  "ghsa_id": "GHSA-597j-vww4-hxxr",
+  "cve_id": "CVE-2026-89852",
+  "published": "2026-09-16T12:30:39Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: qla2xxx: Zero mailbox...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-597j-vww4-hxxr"
+ },
+ {
+  "ghsa_id": "GHSA-5qvf-77w7-x85r",
+  "cve_id": "CVE-2026-14916",
+  "published": "2026-09-16T12:30:34Z",
+  "summary": "A JWT signature verification vulnerability affects Kong components that perform JWT validation...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5qvf-77w7-x85r"
+ },
+ {
+  "ghsa_id": "GHSA-vfmj-8pgc-h88m",
+  "cve_id": "CVE-2026-89778",
+  "published": "2026-09-16T09:30:29Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nisofs: fix out-of-bounds...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-vfmj-8pgc-h88m"
+ },
+ {
+  "ghsa_id": "GHSA-x4xw-xv9j-3c3q",
+  "cve_id": "CVE-2026-11918",
+  "published": "2026-09-15T18:32:34Z",
+  "summary": "IBM ContextForge MCP Gateway <= v1.0.4 IBM mcp-context-forge could allow an authenticated user to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x4xw-xv9j-3c3q"
+ },
+ {
+  "ghsa_id": "GHSA-wr36-693x-8mgc",
+  "cve_id": "CVE-2026-91988",
+  "published": "2026-09-15T18:32:31Z",
+  "summary": "atomic-agents-stack before 1.1.0 accepts cleartext HTTP schemes in the HTTP MCP server-registry...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wr36-693x-8mgc"
+ },
+ {
+  "ghsa_id": "GHSA-q5vh-j6x8-9f53",
+  "cve_id": "CVE-2026-91931",
+  "published": "2026-09-15T18:32:27Z",
+  "summary": "Flowise before 3.1.4 contains a remote code execution vulnerability in the Custom MCP node that...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q5vh-j6x8-9f53"
+ },
+ {
+  "ghsa_id": "GHSA-63x5-9mcr-7447",
+  "cve_id": "CVE-2026-91932",
+  "published": "2026-09-15T18:32:27Z",
+  "summary": "Flowise before 3.1.4 contains a validation bypass vulnerability in MCP server configuration...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-63x5-9mcr-7447"
+ },
+ {
+  "ghsa_id": "GHSA-jvmw-g7rg-x26f",
+  "cve_id": "CVE-2026-91998",
+  "published": "2026-09-15T12:31:47Z",
+  "summary": "Casdoor through 4.4.0 contains an authorization bypass vulnerability in the /api/mcp endpoint...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jvmw-g7rg-x26f"
+ },
+ {
+  "ghsa_id": "GHSA-pvv6-3x6h-w6v5",
+  "cve_id": "CVE-2026-89141",
+  "published": "2026-09-15T09:30:31Z",
+  "summary": "The AI Engine – The Chatbot, AI Framework & MCP for WordPress plugin for WordPress is vulnerable...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pvv6-3x6h-w6v5"
+ },
+ {
+  "ghsa_id": "GHSA-vhrg-69rg-gwv4",
+  "cve_id": "CVE-2026-12763",
+  "published": "2026-09-14T21:31:46Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.11.5 could allow an authenticated attacker to access another...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vhrg-69rg-gwv4"
+ },
+ {
+  "ghsa_id": "GHSA-gqjq-cgxr-8c7c",
+  "cve_id": "CVE-2026-90898",
+  "published": "2026-09-14T12:31:40Z",
+  "summary": "Bifrost registers MCP clients through its management API. A stdio client is a command plus args....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gqjq-cgxr-8c7c"
+ },
+ {
+  "ghsa_id": "GHSA-39h8-3q4c-rpwp",
+  "cve_id": "CVE-2026-90617",
+  "published": "2026-09-14T03:30:22Z",
+  "summary": "A vulnerability was detected in GH05TCREW PentestAgent up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-39h8-3q4c-rpwp"
+ },
+ {
+  "ghsa_id": "GHSA-gx4x-gc82-v87q",
+  "cve_id": "CVE-2026-38924",
+  "published": "2026-09-14T03:30:22Z",
+  "summary": "In Oraios AI Serena before 1.0.0, the listen address of the MCP server in HTTP mode is 0.0.0.0....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gx4x-gc82-v87q"
+ },
+ {
+  "ghsa_id": "GHSA-9vjp-f3jg-99pq",
+  "cve_id": "CVE-2026-90473",
+  "published": "2026-09-12T12:30:50Z",
+  "summary": "msgpack-java through 0.9.12 contains an integer overflow vulnerability in MessageUnpacker...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9vjp-f3jg-99pq"
+ },
+ {
+  "ghsa_id": "GHSA-f634-v549-95r8",
+  "cve_id": "CVE-2026-89704",
+  "published": "2026-09-11T21:31:37Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nnfsd: sample writeback error...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-f634-v549-95r8"
+ },
+ {
+  "ghsa_id": "GHSA-wxwr-f2wf-hx2x",
+  "cve_id": "CVE-2026-89650",
+  "published": "2026-09-11T21:31:35Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nceph: bound...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-wxwr-f2wf-hx2x"
+ },
+ {
+  "ghsa_id": "GHSA-9478-77xp-cr7g",
+  "cve_id": "CVE-2026-89657",
+  "published": "2026-09-11T21:31:35Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nlibceph: validate OSD extent...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9478-77xp-cr7g"
+ },
+ {
+  "ghsa_id": "GHSA-hmph-x79p-jwjq",
+  "cve_id": "CVE-2026-89622",
+  "published": "2026-09-11T21:31:34Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nHID: mcp2221: clear rxbuf...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hmph-x79p-jwjq"
+ },
+ {
+  "ghsa_id": "GHSA-55hm-qvfp-55mj",
+  "cve_id": "CVE-2026-89621",
+  "published": "2026-09-11T21:31:34Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nHID: mcp2221: validate...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-55hm-qvfp-55mj"
+ },
+ {
+  "ghsa_id": "GHSA-p59v-m859-4ppq",
+  "cve_id": "CVE-2026-89623",
+  "published": "2026-09-11T21:31:34Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nHID: mcp2221: stop device IO...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p59v-m859-4ppq"
+ },
+ {
+  "ghsa_id": "GHSA-2x8h-gf2x-f48m",
+  "cve_id": "CVE-2026-89596",
+  "published": "2026-09-11T21:31:33Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nforcedeth: fix off-by-one...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2x8h-gf2x-f48m"
+ },
+ {
+  "ghsa_id": "GHSA-ccr8-4v7h-gw2w",
+  "cve_id": "CVE-2026-89574",
+  "published": "2026-09-11T21:31:32Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndm array: validate array...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-ccr8-4v7h-gw2w"
+ },
+ {
+  "ghsa_id": "GHSA-m5q4-pf3r-r78g",
+  "cve_id": "CVE-2026-81941",
+  "published": "2026-09-11T00:31:15Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.11.5 allows an authenticated non-administrative user could...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m5q4-pf3r-r78g"
+ },
+ {
+  "ghsa_id": "GHSA-87q9-x2gp-qchr",
+  "cve_id": "CVE-2026-78573",
+  "published": "2026-09-11T00:31:14Z",
+  "summary": "IBM ContextForge MCP Gateway 1.0.0 through 1.0.7 could allow a remote attacker to gain...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-87q9-x2gp-qchr"
+ },
+ {
+  "ghsa_id": "GHSA-gcjr-xxm4-x2j5",
+  "cve_id": "CVE-2026-78575",
+  "published": "2026-09-11T00:31:14Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.11.5 could allow a remote authenticated attacker to execute...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gcjr-xxm4-x2j5"
+ },
+ {
+  "ghsa_id": "GHSA-j9vg-5378-pr5p",
+  "cve_id": "CVE-2026-85025",
+  "published": "2026-09-10T21:31:38Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.11.5 Langflow could allow an unauthenticated attacker to execute...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j9vg-5378-pr5p"
+ },
+ {
+  "ghsa_id": "GHSA-w44r-4p8w-x8cm",
+  "cve_id": "CVE-2026-19136",
+  "published": "2026-09-10T21:31:36Z",
+  "summary": "A potential command injection vulnerability was reported in the Tianxi AI Agent PC Application,...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-w44r-4p8w-x8cm"
+ },
+ {
+  "ghsa_id": "GHSA-629c-j52g-h978",
+  "cve_id": "CVE-2026-88938",
+  "published": "2026-09-10T18:31:46Z",
+  "summary": "knowns through 0.33.0 fails to confine the path argument of the code.find MCP tool to the project...",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-629c-j52g-h978"
+ },
+ {
+  "ghsa_id": "GHSA-72vv-3gwg-8289",
+  "cve_id": "CVE-2026-44950",
+  "published": "2026-09-10T09:31:34Z",
+  "summary": "fs_read_glyphs() in the libXfont2 font-server client (src/fc/fserve.c) copies each glyph's bitmap...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-72vv-3gwg-8289"
+ },
+ {
+  "ghsa_id": "GHSA-2255-3477-vp73",
+  "cve_id": "CVE-2026-13745",
+  "published": "2026-09-10T09:31:33Z",
+  "summary": "A vulnerability in the Gemini CLI and associated GitHub Action allowed an unprivileged attacker...",
+  "keywords": [
+   "Gemini CLI"
+  ],
+  "url": "https://github.com/advisories/GHSA-2255-3477-vp73"
+ },
+ {
+  "ghsa_id": "GHSA-8qwj-prhm-6mp3",
+  "cve_id": "CVE-2026-81381",
+  "published": "2026-09-08T18:33:30Z",
+  "summary": "Insufficiently protected credentials in GitHub Copilot and Visual Studio Code allows an...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-8qwj-prhm-6mp3"
+ },
+ {
+  "ghsa_id": "GHSA-r64m-65x5-h3wx",
+  "cve_id": "CVE-2026-81380",
+  "published": "2026-09-08T18:33:30Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in GitHub...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-r64m-65x5-h3wx"
+ },
+ {
+  "ghsa_id": "GHSA-6pwv-5gr2-9rh2",
+  "cve_id": "CVE-2026-82063",
+  "published": "2026-09-08T18:31:58Z",
+  "summary": "A use-after-free security issue in the cursor management component of MongoDB Server allows an...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-6pwv-5gr2-9rh2"
+ },
+ {
+  "ghsa_id": "GHSA-jmxm-qmrf-xrpp",
+  "cve_id": "CVE-2026-86122",
+  "published": "2026-09-05T12:31:26Z",
+  "summary": "Rowboat through 0.9.1 fails to validate custom MCP server and webhook URLs, allowing...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jmxm-qmrf-xrpp"
+ },
+ {
+  "ghsa_id": "GHSA-f4f4-39r8-8gj4",
+  "cve_id": "CVE-2026-85787",
+  "published": "2026-09-04T21:31:53Z",
+  "summary": "An incomplete list of disallowed inputs in the SQL validation component in Amazon awslabs...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f4f4-39r8-8gj4"
+ },
+ {
+  "ghsa_id": "GHSA-hh4r-pcm9-jh93",
+  "cve_id": "CVE-2026-85654",
+  "published": "2026-09-04T18:31:34Z",
+  "summary": "Improper neutralization of special elements used in a template engine in the CDK generator in...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hh4r-pcm9-jh93"
+ },
+ {
+  "ghsa_id": "GHSA-x9rc-p36x-296j",
+  "cve_id": "CVE-2026-18489",
+  "published": "2026-09-04T18:31:31Z",
+  "summary": "IBM ContextForge MCP Gateway - Translate utility <= 1.0.8 MCP Context Forge could allow a remote...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x9rc-p36x-296j"
+ },
+ {
+  "ghsa_id": "GHSA-2hj7-884r-x6jr",
+  "cve_id": "CVE-2026-18486",
+  "published": "2026-09-04T18:31:31Z",
+  "summary": "IBM ContextForge MCP Gateway <= v1.0.7 MCP Context Forge could allow a remote authenticated...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2hj7-884r-x6jr"
+ },
+ {
+  "ghsa_id": "GHSA-2pmv-2qcc-jcgq",
+  "cve_id": "CVE-2026-77822",
+  "published": "2026-09-04T18:31:24Z",
+  "summary": "IBM ContextForge MCP Gateway could allow a remote authenticated attacker to obtain sensitive...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2pmv-2qcc-jcgq"
+ },
+ {
+  "ghsa_id": "GHSA-x7m8-9qr5-36gh",
+  "cve_id": "CVE-2026-19645",
+  "published": "2026-09-04T18:31:21Z",
+  "summary": "IBM MQ Agent CD: v1.0.0, v1.0.1, v2.0.0, v2.0.1 An authenticated user with a valid session cookie...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-x7m8-9qr5-36gh"
+ },
+ {
+  "ghsa_id": "GHSA-p4cr-j9h3-9c8p",
+  "cve_id": "CVE-2026-18905",
+  "published": "2026-09-04T18:31:20Z",
+  "summary": "IBM ContextForge MCP Gateway (`mcp-contextforge-gateway`) <= v1.0.6 MCP Context Forge could allow...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p4cr-j9h3-9c8p"
+ },
+ {
+  "ghsa_id": "GHSA-gqfh-c8pj-64mr",
+  "cve_id": "CVE-2026-9186",
+  "published": "2026-09-04T15:36:17Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.11.2 allows remote authenticated attackers to bypass localhost...",
+  "keywords": [
+   "MCP",
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-gqfh-c8pj-64mr"
+ },
+ {
+  "ghsa_id": "GHSA-9mg6-c5wp-2g44",
+  "cve_id": "CVE-2026-85666",
+  "published": "2026-09-04T15:36:14Z",
+  "summary": "OGX (formerly Llama Stack, affected at commit fbe8e0f) contains an unauthenticated server-side...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9mg6-c5wp-2g44"
+ },
+ {
+  "ghsa_id": "GHSA-wfpw-4v5h-6h32",
+  "cve_id": "CVE-2026-85660",
+  "published": "2026-09-04T15:36:14Z",
+  "summary": "cli-mcp-server 0.2.5 contains a command allowlist bypass vulnerability in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wfpw-4v5h-6h32"
+ },
+ {
+  "ghsa_id": "GHSA-xv88-r947-5c3v",
+  "cve_id": "CVE-2026-85661",
+  "published": "2026-09-04T15:36:14Z",
+  "summary": "excel-mcp-server 0.1.8 fails to enforce path confinement in stdio mode when EXCEL_FILES_PATH is...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xv88-r947-5c3v"
+ },
+ {
+  "ghsa_id": "GHSA-p58h-f635-vjjm",
+  "cve_id": "CVE-2026-85626",
+  "published": "2026-09-04T15:36:14Z",
+  "summary": "git-mcp-server 2.15.1 contains an argument injection vulnerability in the ref and object...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p58h-f635-vjjm"
+ },
+ {
+  "ghsa_id": "GHSA-cm87-gp55-7cgj",
+  "cve_id": "CVE-2026-85620",
+  "published": "2026-09-04T15:36:13Z",
+  "summary": "Postgres MCP Pro 0.3.0 contains a restricted-mode bypass vulnerability where function-name...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cm87-gp55-7cgj"
+ },
+ {
+  "ghsa_id": "GHSA-q267-2jg6-m7vc",
+  "cve_id": "CVE-2026-85606",
+  "published": "2026-09-04T15:36:13Z",
+  "summary": "firecrawl-mcp-server 3.20.2 contains an arbitrary local file read vulnerability in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q267-2jg6-m7vc"
+ },
+ {
+  "ghsa_id": "GHSA-gwmf-gvp9-fcc2",
+  "cve_id": "CVE-2026-85580",
+  "published": "2026-09-04T12:30:57Z",
+  "summary": "SiYuan versions before v3.8.2 contain a path guard bypass vulnerability in the MCP file-access...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gwmf-gvp9-fcc2"
+ },
+ {
+  "ghsa_id": "GHSA-r9hf-26xj-x88v",
+  "cve_id": "CVE-2026-80098",
+  "published": "2026-09-04T00:31:07Z",
+  "summary": "Improper verification of cryptographic signature in Copilot Studio allows an unauthorized...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-r9hf-26xj-x88v"
+ },
+ {
+  "ghsa_id": "GHSA-vfr3-w6gw-h5gr",
+  "cve_id": "CVE-2026-85306",
+  "published": "2026-09-03T18:31:50Z",
+  "summary": "Missing Authorization vulnerability in Cascadia Web Services MountDev AI MCP Connector for...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vfr3-w6gw-h5gr"
+ },
+ {
+  "ghsa_id": "GHSA-m35q-543g-q7p4",
+  "cve_id": "CVE-2026-84779",
+  "published": "2026-09-03T18:31:50Z",
+  "summary": "Subscriber Broken Access Control in Agentimus – AI SEO, llms.txt &amp; MCP for AI Agents <= 1.51...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m35q-543g-q7p4"
+ },
+ {
+  "ghsa_id": "GHSA-4qfv-x7mh-xjhv",
+  "cve_id": "CVE-2026-85166",
+  "published": "2026-09-03T15:32:19Z",
+  "summary": "n8n before 2.35.4 and 2.36.x before 2.36.2 does not validate credential references in the inline...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4qfv-x7mh-xjhv"
+ },
+ {
+  "ghsa_id": "GHSA-cx5g-gfhq-8qmj",
+  "cve_id": "CVE-2026-85093",
+  "published": "2026-09-03T15:32:17Z",
+  "summary": "Cheshire Cat AI's GET /memory/collections/{collection_id}/points endpoint fails to apply per-user...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-cx5g-gfhq-8qmj"
+ },
+ {
+  "ghsa_id": "GHSA-3j2w-rmqf-7fcr",
+  "cve_id": "CVE-2026-84887",
+  "published": "2026-09-03T06:30:22Z",
+  "summary": "A vulnerability was identified in simular-ai Agent-S up to 0.3.2. Affected by this issue is some...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-3j2w-rmqf-7fcr"
+ },
+ {
+  "ghsa_id": "GHSA-wvcq-2rcq-fqc9",
+  "cve_id": "CVE-2026-84886",
+  "published": "2026-09-03T06:30:22Z",
+  "summary": "A vulnerability was determined in simular-ai Agent-S up to 0.3.2. Affected by this vulnerability...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-wvcq-2rcq-fqc9"
+ },
+ {
+  "ghsa_id": "GHSA-5wcc-3m77-2xf5",
+  "cve_id": "CVE-2026-84885",
+  "published": "2026-09-03T06:30:22Z",
+  "summary": "A vulnerability has been found in simular-ai Agent-S 0.3.1/0.3.2. This impacts an unknown...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-5wcc-3m77-2xf5"
+ },
+ {
+  "ghsa_id": "GHSA-mqg2-c725-2vx3",
+  "cve_id": "CVE-2026-84289",
+  "published": "2026-09-02T00:31:29Z",
+  "summary": "A vulnerability was found in NousResearch hermes-agent up to 0.18.2. This vulnerability affects...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mqg2-c725-2vx3"
+ },
+ {
+  "ghsa_id": "GHSA-29cr-9cjx-c8cg",
+  "cve_id": "CVE-2026-81846",
+  "published": "2026-09-01T21:31:45Z",
+  "summary": "An authorization bypass in the runZero Platform MCP service has been resolved in version 5.1...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-29cr-9cjx-c8cg"
+ },
+ {
+  "ghsa_id": "GHSA-hcf6-9q9g-xx3c",
+  "cve_id": "CVE-2026-19593",
+  "published": "2026-09-01T18:30:45Z",
+  "summary": "OpenAI Codex Desktop for Windows and macOS automatically inspected Git metadata and working-tree...",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-hcf6-9q9g-xx3c"
+ },
+ {
+  "ghsa_id": "GHSA-2frj-4qr5-m2rf",
+  "cve_id": "CVE-2026-19591",
+  "published": "2026-09-01T18:30:45Z",
+  "summary": "OpenAI Codex CLI for Windows, macOS, and Linux and Codex Desktop for Windows and macOS...",
+  "keywords": [
+   "MCP",
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-2frj-4qr5-m2rf"
+ },
+ {
+  "ghsa_id": "GHSA-26wp-42v3-96xp",
+  "cve_id": "CVE-2026-19592",
+  "published": "2026-09-01T18:30:45Z",
+  "summary": "OpenAI Codex CLI for Windows, macOS, and Linux and Codex Desktop for Windows and macOS...",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-26wp-42v3-96xp"
+ },
+ {
+  "ghsa_id": "GHSA-433v-pqvh-w4gj",
+  "cve_id": "CVE-2026-19590",
+  "published": "2026-09-01T18:30:45Z",
+  "summary": "OpenAI Codex Desktop for Windows and macOS could execute attacker-controlled Git hooks because...",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-433v-pqvh-w4gj"
+ },
+ {
+  "ghsa_id": "GHSA-j4m2-645j-49qh",
+  "cve_id": "CVE-2026-84201",
+  "published": "2026-09-01T18:30:43Z",
+  "summary": "appium-mcp-server through 0.1.61 fails to validate or normalize file paths in the write_file and...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j4m2-645j-49qh"
+ },
+ {
+  "ghsa_id": "GHSA-rj55-cp95-h7f6",
+  "cve_id": "CVE-2026-83497",
+  "published": "2026-08-31T21:32:10Z",
+  "summary": "Unrestricted deserialization of untrusted data in the cursor pagination component in the...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-rj55-cp95-h7f6"
+ },
+ {
+  "ghsa_id": "GHSA-p2x5-x87w-v2xj",
+  "cve_id": "CVE-2026-82456",
+  "published": "2026-08-29T15:30:21Z",
+  "summary": "argocd-mcp 0.8.0 binds its HTTP transport to every network interface and accepts MCP sessions...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p2x5-x87w-v2xj"
+ },
+ {
+  "ghsa_id": "GHSA-ggj7-6w53-qw2v",
+  "cve_id": "CVE-2026-81532",
+  "published": "2026-08-29T00:31:03Z",
+  "summary": "A user able to submit SQL through an application using the MongoDB Connector for BI ODBC driver...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-ggj7-6w53-qw2v"
+ },
+ {
+  "ghsa_id": "GHSA-w9gw-vgmg-q67h",
+  "cve_id": "CVE-2026-82021",
+  "published": "2026-08-28T21:31:18Z",
+  "summary": "Hermes Agent 0.18.2 prior to 0.19.0 contains a supply chain vulnerability in its bundled MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w9gw-vgmg-q67h"
+ },
+ {
+  "ghsa_id": "GHSA-c7hh-86mm-w7m5",
+  "cve_id": "CVE-2026-58616",
+  "published": "2026-08-28T21:31:16Z",
+  "summary": "Concurrent execution using shared resource with improper synchronization ('race condition') in...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-c7hh-86mm-w7m5"
+ },
+ {
+  "ghsa_id": "GHSA-m4pm-qxhv-84p5",
+  "cve_id": "CVE-2026-82233",
+  "published": "2026-08-28T12:30:26Z",
+  "summary": "SiYuan before v3.8.1 contains a path traversal vulnerability in the asset.upload MCP tool that...",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-m4pm-qxhv-84p5"
+ },
+ {
+  "ghsa_id": "GHSA-947f-v6gc-m8c7",
+  "cve_id": "CVE-2026-82111",
+  "published": "2026-08-28T12:30:26Z",
+  "summary": "A vulnerability was detected in iswalle getnote-mcp up to 1.5.0. The affected element is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-947f-v6gc-m8c7"
+ },
+ {
+  "ghsa_id": "GHSA-2g8r-jjgv-h39x",
+  "cve_id": "CVE-2026-18393",
+  "published": "2026-08-28T12:30:25Z",
+  "summary": "A flaw was found in FFmpeg. The tdsc_load_cursor() function writes beyond\nthe bounds of a heap...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-2g8r-jjgv-h39x"
+ },
+ {
+  "ghsa_id": "GHSA-xr66-5v48-7crq",
+  "cve_id": "CVE-2026-80701",
+  "published": "2026-08-28T09:31:50Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/vmwgfx: enforce cursor...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-xr66-5v48-7crq"
+ },
+ {
+  "ghsa_id": "GHSA-c36x-c574-mpfp",
+  "cve_id": "CVE-2026-81848",
+  "published": "2026-08-28T00:32:04Z",
+  "summary": "A vulnerability was determined in cyberchitta scrapling-fetch-mcp up to 0.2.2. The impacted...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c36x-c574-mpfp"
+ },
+ {
+  "ghsa_id": "GHSA-j8g6-hw52-mhg7",
+  "cve_id": "CVE-2026-81845",
+  "published": "2026-08-28T00:32:04Z",
+  "summary": "A vulnerability has been found in arben-adm mcp-sequential-thinking up to 0.5.0. Impacted is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j8g6-hw52-mhg7"
+ },
+ {
+  "ghsa_id": "GHSA-q2jq-8pm2-fj8h",
+  "cve_id": "CVE-2026-81835",
+  "published": "2026-08-28T00:32:04Z",
+  "summary": "A security vulnerability has been detected in RooCodeInc Roo-Code up to 3.51.1. This affects the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q2jq-8pm2-fj8h"
+ },
+ {
+  "ghsa_id": "GHSA-4pfw-7888-8q2g",
+  "cve_id": "CVE-2026-37006",
+  "published": "2026-08-27T21:31:31Z",
+  "summary": "A vulnerability in the WebSocket endpoint of gpt-researcher v0.14.7 and before allows an...",
+  "keywords": [
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-4pfw-7888-8q2g"
+ },
+ {
+  "ghsa_id": "GHSA-p68p-fq8j-3639",
+  "cve_id": "CVE-2026-81735",
+  "published": "2026-08-27T18:32:30Z",
+  "summary": "startServer.ts in the mcp-http-server package of UI-TARS-desktop defaulted its listen address to ...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p68p-fq8j-3639"
+ },
+ {
+  "ghsa_id": "GHSA-9grr-c5h5-3w4h",
+  "cve_id": "CVE-2026-81694",
+  "published": "2026-08-27T18:32:28Z",
+  "summary": "openssl-encrypt (pip package, versions <= 1.4.8) fails to sanitize filenames read from untrusted...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9grr-c5h5-3w4h"
+ },
+ {
+  "ghsa_id": "GHSA-37q3-f6jc-625w",
+  "cve_id": "CVE-2026-81102",
+  "published": "2026-08-27T18:32:26Z",
+  "summary": "The Dash MCP server bound its listener to the loopback address but never checked the host a...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-37q3-f6jc-625w"
+ },
+ {
+  "ghsa_id": "GHSA-p943-9hp2-h27q",
+  "cve_id": "CVE-2026-81099",
+  "published": "2026-08-27T18:32:26Z",
+  "summary": "tiger-slack started its MCP HTTP transport without enabling the host allow-list the underlying...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p943-9hp2-h27q"
+ },
+ {
+  "ghsa_id": "GHSA-qxwr-hgm6-9xxf",
+  "cve_id": "CVE-2026-81101",
+  "published": "2026-08-27T18:32:26Z",
+  "summary": "The configure command accepted any endpoint URL and stored it beside the user's access token....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qxwr-hgm6-9xxf"
+ },
+ {
+  "ghsa_id": "GHSA-wm9h-qwfm-wf3g",
+  "cve_id": "CVE-2026-81100",
+  "published": "2026-08-27T18:32:26Z",
+  "summary": "tiger-gh-mcp-server started its MCP HTTP transport without enabling the host allow-list the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wm9h-qwfm-wf3g"
+ },
+ {
+  "ghsa_id": "GHSA-j929-p4w2-gfw7",
+  "cve_id": "CVE-2026-81098",
+  "published": "2026-08-27T18:32:26Z",
+  "summary": "The Telnyx MCP server exposed its HTTP transport on every interface and did not require a caller...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j929-p4w2-gfw7"
+ },
+ {
+  "ghsa_id": "GHSA-8g5x-gj7x-mxgm",
+  "cve_id": "CVE-2026-81092",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "mcp-go accepted requests on its HTTP transports without checking the Host header....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8g5x-gj7x-mxgm"
+ },
+ {
+  "ghsa_id": "GHSA-rg68-wg77-c3wm",
+  "cve_id": "CVE-2026-81096",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "ToolUniverse ran caller-supplied Python inside a sandbox that could be escaped, on a server that...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rg68-wg77-c3wm"
+ },
+ {
+  "ghsa_id": "GHSA-23qx-5wch-w72w",
+  "cve_id": "CVE-2026-81091",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "The proxy middleware in mcp-use's inspector forwards requests to a destination the caller names....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-23qx-5wch-w72w"
+ },
+ {
+  "ghsa_id": "GHSA-x76c-qpjv-crcp",
+  "cve_id": "CVE-2026-81095",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "pg-aiguide started its MCP HTTP transport without enabling the host allow-list the underlying SDK...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x76c-qpjv-crcp"
+ },
+ {
+  "ghsa_id": "GHSA-g448-x63h-m2m3",
+  "cve_id": "CVE-2026-81094",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "The mcp-router CLI served its MCP aggregator on every interface and enforced authentication only...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g448-x63h-m2m3"
+ },
+ {
+  "ghsa_id": "GHSA-gghj-77w7-6r3h",
+  "cve_id": "CVE-2026-81093",
+  "published": "2026-08-27T18:32:25Z",
+  "summary": "The get-html-skeleton tool fetched a URL the caller supplied after checking only its syntax. The...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gghj-77w7-6r3h"
+ },
+ {
+  "ghsa_id": "GHSA-cfj4-56c7-w9x6",
+  "cve_id": "CVE-2026-81491",
+  "published": "2026-08-27T06:31:33Z",
+  "summary": "A flaw has been found in boxpositron with-context-mcp up to 3.0.7. This affects the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cfj4-56c7-w9x6"
+ },
+ {
+  "ghsa_id": "GHSA-7pr9-p5w4-7qf6",
+  "cve_id": "CVE-2026-80537",
+  "published": "2026-08-27T06:31:31Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nxfs: fix off-by-one in...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-7pr9-p5w4-7qf6"
+ },
+ {
+  "ghsa_id": "GHSA-r93x-r7qx-vp33",
+  "cve_id": "CVE-2026-81486",
+  "published": "2026-08-27T03:32:59Z",
+  "summary": "A vulnerability was detected in bsmi021 mcp-file-context-server 1.0.0. Affected by this issue is...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-r93x-r7qx-vp33"
+ },
+ {
+  "ghsa_id": "GHSA-77f3-qj56-x322",
+  "cve_id": "CVE-2026-81421",
+  "published": "2026-08-27T03:32:58Z",
+  "summary": "A security flaw has been discovered in ddfourtwo sentry-selfhosted-mcp 0.4.0. The affected...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-77f3-qj56-x322"
+ },
+ {
+  "ghsa_id": "GHSA-fm3p-f44p-hf47",
+  "cve_id": "CVE-2026-81485",
+  "published": "2026-08-27T03:32:58Z",
+  "summary": "A security vulnerability has been detected in danielpopamd linkedin-ads-mcp 1.0.0. Affected by...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fm3p-f44p-hf47"
+ },
+ {
+  "ghsa_id": "GHSA-g3gf-mwj7-2hc4",
+  "cve_id": "CVE-2026-79786",
+  "published": "2026-08-25T21:31:29Z",
+  "summary": "Coroot's unauthenticated MCP OAuth dynamic client registration endpoint accepts any syntactically...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g3gf-mwj7-2hc4"
+ },
+ {
+  "ghsa_id": "GHSA-x2cf-fchr-rw88",
+  "cve_id": "CVE-2026-79622",
+  "published": "2026-08-25T15:32:59Z",
+  "summary": "A weakness has been identified in dekdee adobe-xd-mcp 1.0.0. Impacted is an unknown function of...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x2cf-fchr-rw88"
+ },
+ {
+  "ghsa_id": "GHSA-64w4-qrww-rxhv",
+  "cve_id": "CVE-2026-19801",
+  "published": "2026-08-25T03:32:08Z",
+  "summary": "The BetterLinks – Link Shortener, Link Cloaking, Redirects, Affiliate Link Manager & MCP plugin...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-64w4-qrww-rxhv"
+ },
+ {
+  "ghsa_id": "GHSA-w4rf-x2r6-4q2w",
+  "cve_id": "CVE-2026-78430",
+  "published": "2026-08-24T21:33:45Z",
+  "summary": "A vulnerability was detected in sworddut mcp-ffmpeg-helper 0.1.0/0.1.1/0.2.1. This affects the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w4rf-x2r6-4q2w"
+ },
+ {
+  "ghsa_id": "GHSA-gcm2-cr9p-5jc7",
+  "cve_id": "CVE-2026-74635",
+  "published": "2026-08-22T18:30:27Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nfbdev: bitblit: bound-check...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-gcm2-cr9p-5jc7"
+ },
+ {
+  "ghsa_id": "GHSA-rp7c-4prv-9rrg",
+  "cve_id": "CVE-2026-60083",
+  "published": "2026-08-22T15:31:02Z",
+  "summary": "SiYuan versions before v3.8.0 contain an incomplete path blocklist in the MCP file tool that...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rp7c-4prv-9rrg"
+ },
+ {
+  "ghsa_id": "GHSA-27jw-6xjf-hgxj",
+  "cve_id": "CVE-2026-59809",
+  "published": "2026-08-22T15:31:02Z",
+  "summary": "SiYuan before v3.8.0 interpolates secret placeholders into the destination URL parameter of the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-27jw-6xjf-hgxj"
+ },
+ {
+  "ghsa_id": "GHSA-2g9x-r8w8-qjff",
+  "cve_id": "CVE-2026-59279",
+  "published": "2026-08-21T12:30:33Z",
+  "summary": "The MCP Streamable HTTP server transport (WebFlux and WebMvc variants) does not place any limit...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2g9x-r8w8-qjff"
+ },
+ {
+  "ghsa_id": "GHSA-6g7w-gggp-m44g",
+  "cve_id": "CVE-2026-69855",
+  "published": "2026-08-21T00:31:23Z",
+  "summary": "Server-side request forgery (ssrf) in Microsoft Copilot in Azure allows an authorized attacker to...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-6g7w-gggp-m44g"
+ },
+ {
+  "ghsa_id": "GHSA-hw2h-qf3m-2r8v",
+  "cve_id": "CVE-2026-72846",
+  "published": "2026-08-21T00:31:23Z",
+  "summary": "Lightdash stores the webhook URL supplied with a scheduled delivery and later posts to it from...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hw2h-qf3m-2r8v"
+ },
+ {
+  "ghsa_id": "GHSA-cmg9-62q9-xmww",
+  "cve_id": "CVE-2026-18482",
+  "published": "2026-08-20T15:34:16Z",
+  "summary": "Neo.mjs contains a command injection vulnerability within the FileSystemService.mjs component of...",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-cmg9-62q9-xmww"
+ },
+ {
+  "ghsa_id": "GHSA-h5rm-9fhh-5phj",
+  "cve_id": "CVE-2026-77068",
+  "published": "2026-08-20T12:31:25Z",
+  "summary": "n8n before 2.33.4 and 2.34.x before 2.34.1 contain a remote code execution vulnerability in the ...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h5rm-9fhh-5phj"
+ },
+ {
+  "ghsa_id": "GHSA-hf5p-745p-2j3h",
+  "cve_id": "CVE-2026-77073",
+  "published": "2026-08-20T12:31:25Z",
+  "summary": "n8n versions before 2.34.1 contain a credential validation bypass in the MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hf5p-745p-2j3h"
+ },
+ {
+  "ghsa_id": "GHSA-qg2p-54pj-chvp",
+  "cve_id": "CVE-2026-17153",
+  "published": "2026-08-20T06:32:27Z",
+  "summary": "The AI Agent by SiteGround plugin for WordPress is vulnerable to authorization bypass in all...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-qg2p-54pj-chvp"
+ },
+ {
+  "ghsa_id": "GHSA-3v49-2fcm-3rcj",
+  "cve_id": "CVE-2026-76404",
+  "published": "2026-08-20T00:35:07Z",
+  "summary": "In Splunk MCP Server app versions below 1.2.1, a user who holds the \"admin\" Splunk role could...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3v49-2fcm-3rcj"
+ },
+ {
+  "ghsa_id": "GHSA-gfgh-xp6v-q37q",
+  "cve_id": "CVE-2026-75149",
+  "published": "2026-08-19T18:32:54Z",
+  "summary": "marimo before 0.23.15 contains a code injection vulnerability in the notebook configuration...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gfgh-xp6v-q37q"
+ },
+ {
+  "ghsa_id": "GHSA-97r6-3rgm-v39r",
+  "cve_id": "CVE-2026-75130",
+  "published": "2026-08-18T18:32:03Z",
+  "summary": "Context7 through 2.1.2 contains a prompt injection vulnerability that allows attackers to execute...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-97r6-3rgm-v39r"
+ },
+ {
+  "ghsa_id": "GHSA-9q66-w589-xv8x",
+  "cve_id": "CVE-2026-24301",
+  "published": "2026-08-18T15:31:45Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in Microsoft...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-9q66-w589-xv8x"
+ },
+ {
+  "ghsa_id": "GHSA-2c26-2qqv-6r9c",
+  "cve_id": "CVE-2026-75845",
+  "published": "2026-08-18T12:31:23Z",
+  "summary": "ArcadeDB versions 26.4.2 through 26.7.3 contain an authorization bypass vulnerability in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2c26-2qqv-6r9c"
+ },
+ {
+  "ghsa_id": "GHSA-fvf9-f2mx-m7qp",
+  "cve_id": "CVE-2026-34884",
+  "published": "2026-08-18T09:30:26Z",
+  "summary": "SSRF via set_skywalking_url Tool and GraphQL expression injection vulnerability in Apache...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fvf9-f2mx-m7qp"
+ },
+ {
+  "ghsa_id": "GHSA-5686-8wvm-pm8w",
+  "cve_id": "CVE-2026-75060",
+  "published": "2026-08-17T18:31:20Z",
+  "summary": "In JetBrains PyCharm before 2026.2.1 code execution was possible via unauthenticated Jupyter MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5686-8wvm-pm8w"
+ },
+ {
+  "ghsa_id": "GHSA-c33j-cj33-6649",
+  "cve_id": "CVE-2026-74858",
+  "published": "2026-08-17T18:31:18Z",
+  "summary": "A vulnerability has been found in jae-jae fetcher-mcp up to 0.3.9. Impacted is the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c33j-cj33-6649"
+ },
+ {
+  "ghsa_id": "GHSA-644r-p44g-r6g9",
+  "cve_id": "CVE-2026-74842",
+  "published": "2026-08-17T12:32:22Z",
+  "summary": "A vulnerability was found in Kira-Pgr PromptShopMCP up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-644r-p44g-r6g9"
+ },
+ {
+  "ghsa_id": "GHSA-mwfp-66vr-j373",
+  "cve_id": "CVE-2026-74798",
+  "published": "2026-08-17T12:32:21Z",
+  "summary": "SiYuan kernel before v3.7.4 contains a path traversal vulnerability in the database_clean MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mwfp-66vr-j373"
+ },
+ {
+  "ghsa_id": "GHSA-xvcx-vvm4-3qwc",
+  "cve_id": "CVE-2026-19984",
+  "published": "2026-08-17T06:33:56Z",
+  "summary": "A flaw has been found in jkawamoto mcp-florence2 up to 0.3.13. Affected by this issue is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xvcx-vvm4-3qwc"
+ },
+ {
+  "ghsa_id": "GHSA-2wr2-48g3-wphx",
+  "cve_id": "CVE-2026-19978",
+  "published": "2026-08-17T06:33:55Z",
+  "summary": "A flaw has been found in jiantao88 android-mcp-server up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2wr2-48g3-wphx"
+ },
+ {
+  "ghsa_id": "GHSA-g33m-cxj9-5gvx",
+  "cve_id": "CVE-2026-19964",
+  "published": "2026-08-17T00:31:30Z",
+  "summary": "A vulnerability was found in Jij-Inc Jij-MCP-Server 0.1.0. This affects the function PythonREPL...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g33m-cxj9-5gvx"
+ },
+ {
+  "ghsa_id": "GHSA-28cc-rvx4-c58g",
+  "cve_id": "CVE-2026-19957",
+  "published": "2026-08-17T00:31:29Z",
+  "summary": "A vulnerability was identified in graphlit graphlit-mcp-server 1.0.1. This affects the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-28cc-rvx4-c58g"
+ },
+ {
+  "ghsa_id": "GHSA-hwgh-c22g-48rj",
+  "cve_id": "CVE-2026-19958",
+  "published": "2026-08-17T00:31:29Z",
+  "summary": "A security flaw has been discovered in iatsiuk pptr-mcp up to 0.2.7. The impacted element is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hwgh-c22g-48rj"
+ },
+ {
+  "ghsa_id": "GHSA-8xwh-hx55-jjpr",
+  "cve_id": "CVE-2026-19956",
+  "published": "2026-08-16T21:30:40Z",
+  "summary": "A vulnerability has been found in gomarble-ai facebook-ads-mcp-server 0.1.0. The impacted element...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8xwh-hx55-jjpr"
+ },
+ {
+  "ghsa_id": "GHSA-p58g-v37m-9wmc",
+  "cve_id": "CVE-2026-72358",
+  "published": "2026-08-15T06:32:21Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/xe/pt: prevent invalid...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-p58g-v37m-9wmc"
+ },
+ {
+  "ghsa_id": "GHSA-mgw8-pg67-5pw5",
+  "cve_id": "CVE-2026-72135",
+  "published": "2026-08-15T06:32:13Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ntpm: Make the TPM character...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-mgw8-pg67-5pw5"
+ },
+ {
+  "ghsa_id": "GHSA-fhw4-v2hr-j5m2",
+  "cve_id": "CVE-2026-19770",
+  "published": "2026-08-14T03:31:25Z",
+  "summary": "A vulnerability was identified in feedmob fm-mcp-servers 0.0.3. Affected by this vulnerability is...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fhw4-v2hr-j5m2"
+ },
+ {
+  "ghsa_id": "GHSA-4324-vhrx-x39p",
+  "cve_id": "CVE-2026-19765",
+  "published": "2026-08-14T03:31:24Z",
+  "summary": "A security flaw has been discovered in eyaushev swagger-testcase-mcp...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4324-vhrx-x39p"
+ },
+ {
+  "ghsa_id": "GHSA-274v-3mgv-hg6c",
+  "cve_id": "CVE-2026-19753",
+  "published": "2026-08-14T00:32:04Z",
+  "summary": "A vulnerability was detected in Model Context Protocol mcp-rdf-explorer 1.0.0. Affected is the...",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-274v-3mgv-hg6c"
+ },
+ {
+  "ghsa_id": "GHSA-w8xr-v3ff-6585",
+  "cve_id": "CVE-2026-19752",
+  "published": "2026-08-14T00:31:59Z",
+  "summary": "A vulnerability was found in EnzoVezzaro mcp-dominican-layer up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w8xr-v3ff-6585"
+ },
+ {
+  "ghsa_id": "GHSA-j229-cr78-6mf5",
+  "cve_id": "CVE-2026-19751",
+  "published": "2026-08-14T00:31:59Z",
+  "summary": "A flaw has been found in EnzoVezzaro mcp-dominican-layer up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j229-cr78-6mf5"
+ },
+ {
+  "ghsa_id": "GHSA-7wvw-5p69-5396",
+  "cve_id": "CVE-2026-73037",
+  "published": "2026-08-13T21:36:05Z",
+  "summary": "Next AI Draw.io 0.2.1 through 0.4.16 contains a reflected cross-site scripting vulnerability in...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7wvw-5p69-5396"
+ },
+ {
+  "ghsa_id": "GHSA-m6g7-vvh9-445r",
+  "cve_id": "CVE-2026-16239",
+  "published": "2026-08-13T15:34:36Z",
+  "summary": "Type confusion in PostgreSQL \"portal\"/cursor lifecycle allows a user to execute arbitrary code as...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-m6g7-vvh9-445r"
+ },
+ {
+  "ghsa_id": "GHSA-64vj-7c55-24w2",
+  "cve_id": "CVE-2026-73614",
+  "published": "2026-08-13T12:31:11Z",
+  "summary": "Network-AI ClaudeHookBridge before 5.15.1 truncates the target string to 500 characters before...",
+  "keywords": [
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-64vj-7c55-24w2"
+ },
+ {
+  "ghsa_id": "GHSA-m2vg-4724-xj8g",
+  "cve_id": "CVE-2026-73601",
+  "published": "2026-08-13T12:31:10Z",
+  "summary": "Flowise versions before 3.1.3 contain a remote code execution vulnerability in the Custom MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m2vg-4724-xj8g"
+ },
+ {
+  "ghsa_id": "GHSA-hj52-q5wj-vpwg",
+  "cve_id": "CVE-2026-70335",
+  "published": "2026-08-11T18:31:50Z",
+  "summary": "Improper neutralization of special elements used in an os command ('os command injection') in...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-hj52-q5wj-vpwg"
+ },
+ {
+  "ghsa_id": "GHSA-pgm3-v47m-2q8v",
+  "cve_id": "CVE-2026-65675",
+  "published": "2026-08-11T18:31:36Z",
+  "summary": "No cwe for this issue in Visual Studio Code CoPilot Chat Extension allows an unauthorized...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-pgm3-v47m-2q8v"
+ },
+ {
+  "ghsa_id": "GHSA-xv2r-whj9-7vqh",
+  "cve_id": "CVE-2026-72768",
+  "published": "2026-08-11T15:32:37Z",
+  "summary": "n8n versions before 2.32.1 contain a server-side request forgery protection bypass vulnerability...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xv2r-whj9-7vqh"
+ },
+ {
+  "ghsa_id": "GHSA-fr94-7cqc-vjrq",
+  "cve_id": "CVE-2026-19516",
+  "published": "2026-08-11T06:31:19Z",
+  "summary": "A caller-supplied X-Grafana-URL request header controls the destination of mcp-grafana's outbound...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fr94-7cqc-vjrq"
+ },
+ {
+  "ghsa_id": "GHSA-wmf6-8cmx-6fp6",
+  "cve_id": "CVE-2026-19375",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A vulnerability was detected in dmitriiweb article-scraper-mcp 1.0.0. This vulnerability affects...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wmf6-8cmx-6fp6"
+ },
+ {
+  "ghsa_id": "GHSA-m2hf-r4mh-rrq8",
+  "cve_id": "CVE-2026-19373",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A weakness has been identified in PhialsBasement KoboldCPP-MCP-Server 1.0.0. Affected by this...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m2hf-r4mh-rrq8"
+ },
+ {
+  "ghsa_id": "GHSA-g33v-9g6g-xm9p",
+  "cve_id": "CVE-2026-19374",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A security vulnerability has been detected in adafap api-mcp up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g33v-9g6g-xm9p"
+ },
+ {
+  "ghsa_id": "GHSA-pxv6-pv74-gcg3",
+  "cve_id": "CVE-2026-19372",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A security flaw has been discovered in Handwriting-OCR handwriting-ocr-mcp-server 0.1.0. Affected...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pxv6-pv74-gcg3"
+ },
+ {
+  "ghsa_id": "GHSA-g57q-682f-hr5f",
+  "cve_id": "CVE-2026-19371",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A vulnerability was identified in Nikolaibibo claude-comfyui-mcp 1.0.0. Affected is the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g57q-682f-hr5f"
+ },
+ {
+  "ghsa_id": "GHSA-w5g7-c885-pm69",
+  "cve_id": "CVE-2026-19370",
+  "published": "2026-08-10T00:31:42Z",
+  "summary": "A vulnerability was determined in bartekke8it56w2 new-mcp 0.1.0. This impacts the function fs...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w5g7-c885-pm69"
+ },
+ {
+  "ghsa_id": "GHSA-5r3x-hrv2-fg58",
+  "cve_id": "CVE-2026-19368",
+  "published": "2026-08-09T21:30:25Z",
+  "summary": "A vulnerability was found in PV-Bhat gemsuite-mcp 1.0.0. Affected by this issue is some unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5r3x-hrv2-fg58"
+ },
+ {
+  "ghsa_id": "GHSA-rmrp-j9qh-xwh9",
+  "cve_id": "CVE-2026-19369",
+  "published": "2026-08-09T21:30:25Z",
+  "summary": "A vulnerability was found in KS-GEN-AI jira-mcp-server 0.2.0. This affects the function axios.get...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rmrp-j9qh-xwh9"
+ },
+ {
+  "ghsa_id": "GHSA-xm38-q6p9-jrgg",
+  "cve_id": "CVE-2026-19365",
+  "published": "2026-08-09T21:30:25Z",
+  "summary": "A vulnerability was identified in Ichigo3766 image-gen-mcp 0.1.0. The impacted element is an...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xm38-q6p9-jrgg"
+ },
+ {
+  "ghsa_id": "GHSA-qp9j-gfjj-6h3v",
+  "cve_id": "CVE-2026-19340",
+  "published": "2026-08-09T09:30:24Z",
+  "summary": "A weakness has been identified in anubissbe ProjectHub-Mcp up to 5.0.0. This affects an unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qp9j-gfjj-6h3v"
+ },
+ {
+  "ghsa_id": "GHSA-q9qj-38cq-3792",
+  "cve_id": "CVE-2026-19338",
+  "published": "2026-08-09T09:30:23Z",
+  "summary": "A vulnerability was identified in automateyournetwork MCPyATS up to 0.1.4. The affected element...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q9qj-38cq-3792"
+ },
+ {
+  "ghsa_id": "GHSA-jgm8-jqmm-5rc5",
+  "cve_id": "CVE-2026-19339",
+  "published": "2026-08-09T09:30:23Z",
+  "summary": "A security flaw has been discovered in aliyun alibabacloud-dataworks-mcp-server up to 1.0.43. The...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jgm8-jqmm-5rc5"
+ },
+ {
+  "ghsa_id": "GHSA-xgwr-j735-3wg4",
+  "cve_id": "CVE-2026-19336",
+  "published": "2026-08-09T06:31:37Z",
+  "summary": "A vulnerability was found in Pimzino spec-workflow-mcp up to 2.2.6. This issue affects the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xgwr-j735-3wg4"
+ },
+ {
+  "ghsa_id": "GHSA-jg2j-2qmx-58vq",
+  "cve_id": "CVE-2026-19337",
+  "published": "2026-08-09T06:31:37Z",
+  "summary": "A vulnerability was determined in adenot mcp-google-search up to 0.3.1. Impacted is an unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jg2j-2qmx-58vq"
+ },
+ {
+  "ghsa_id": "GHSA-xw8f-8xpv-55vg",
+  "cve_id": "CVE-2026-19333",
+  "published": "2026-08-09T06:31:35Z",
+  "summary": "A vulnerability was detected in NightTrek Supabase-MCP cc994ab2d2a36b0af6ee7c7f3e6ce8e08cda2170...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xw8f-8xpv-55vg"
+ },
+ {
+  "ghsa_id": "GHSA-6p38-w68x-9w82",
+  "cve_id": "CVE-2026-19331",
+  "published": "2026-08-09T06:31:35Z",
+  "summary": "A vulnerability was identified in bazylhorsey obsidian-mcp-server 1.0.0. This affects the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6p38-w68x-9w82"
+ },
+ {
+  "ghsa_id": "GHSA-rgqf-fgw4-cmhv",
+  "cve_id": "CVE-2026-19330",
+  "published": "2026-08-09T06:31:35Z",
+  "summary": "A vulnerability was determined in angrysky56 advanced-reasoning-mcp 1.0.0. The impacted element...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rgqf-fgw4-cmhv"
+ },
+ {
+  "ghsa_id": "GHSA-92x2-9gq9-2w2v",
+  "cve_id": "CVE-2026-19332",
+  "published": "2026-08-09T06:31:35Z",
+  "summary": "A security vulnerability has been detected in NellyW8 MCP4EDA 1.0.0. Affected by this...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-92x2-9gq9-2w2v"
+ },
+ {
+  "ghsa_id": "GHSA-pq7w-6xmw-3jgj",
+  "cve_id": "CVE-2026-19334",
+  "published": "2026-08-09T06:31:35Z",
+  "summary": "A flaw has been found in NightTrek Ollama-mcp up to 80cf2e17cfc144963a475b619093a2d13c13dbc9....",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pq7w-6xmw-3jgj"
+ },
+ {
+  "ghsa_id": "GHSA-5pgh-4pr5-mhm8",
+  "cve_id": "CVE-2026-19329",
+  "published": "2026-08-09T06:31:34Z",
+  "summary": "A vulnerability was found in andreahaku codex_mcp up to 1ff521cc6cc57cfe56ddef946c644b8534771390....",
+  "keywords": [
+   "MCP",
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-5pgh-4pr5-mhm8"
+ },
+ {
+  "ghsa_id": "GHSA-866p-rrc7-6r5x",
+  "cve_id": "CVE-2026-19328",
+  "published": "2026-08-09T03:31:12Z",
+  "summary": "A vulnerability has been found in aktsmm skill-ninja-mcp-server 0.1.0. Impacted is the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-866p-rrc7-6r5x"
+ },
+ {
+  "ghsa_id": "GHSA-46jg-c454-8hm3",
+  "cve_id": "CVE-2026-19325",
+  "published": "2026-08-09T03:31:12Z",
+  "summary": "A security vulnerability has been detected in IncomeStreamSurfer roo-code-memory-bank-mcp-server...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-46jg-c454-8hm3"
+ },
+ {
+  "ghsa_id": "GHSA-3r2r-p86c-vj94",
+  "cve_id": "CVE-2026-19324",
+  "published": "2026-08-09T03:31:11Z",
+  "summary": "A weakness has been identified in HelloGGX shadcn-vue-mcp up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3r2r-p86c-vj94"
+ },
+ {
+  "ghsa_id": "GHSA-g23h-49jw-gw6q",
+  "cve_id": "CVE-2026-19323",
+  "published": "2026-08-09T00:31:06Z",
+  "summary": "A security flaw has been discovered in azer react-analyzer-mcp up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g23h-49jw-gw6q"
+ },
+ {
+  "ghsa_id": "GHSA-6cmv-x2ph-3gc2",
+  "cve_id": "CVE-2026-19287",
+  "published": "2026-08-08T15:30:25Z",
+  "summary": "A flaw has been found in abrinsmead mindpilot-mcp 0.5.0. Affected by this issue is some unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6cmv-x2ph-3gc2"
+ },
+ {
+  "ghsa_id": "GHSA-4p6x-rj5h-hg93",
+  "cve_id": "CVE-2026-19288",
+  "published": "2026-08-08T15:30:25Z",
+  "summary": "A vulnerability has been found in astralisone rive-mcp-server-core up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4p6x-rj5h-hg93"
+ },
+ {
+  "ghsa_id": "GHSA-rrf2-j3h9-99wg",
+  "cve_id": "CVE-2026-19282",
+  "published": "2026-08-08T15:30:25Z",
+  "summary": "A weakness has been identified in andreahaku llm_memory_mcp up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rrf2-j3h9-99wg"
+ },
+ {
+  "ghsa_id": "GHSA-jgc6-5vgc-hvqg",
+  "cve_id": "CVE-2026-19279",
+  "published": "2026-08-08T12:30:24Z",
+  "summary": "A vulnerability was identified in MIMICLab mcp-pdf-vision 1.1.0. The impacted element is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jgc6-5vgc-hvqg"
+ },
+ {
+  "ghsa_id": "GHSA-wgq9-x672-9734",
+  "cve_id": "CVE-2026-19281",
+  "published": "2026-08-08T12:30:24Z",
+  "summary": "A security flaw has been discovered in adolfosalasgomez3011 slidev-builder-mcp 2.1.0. This...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wgq9-x672-9734"
+ },
+ {
+  "ghsa_id": "GHSA-fjwc-rc47-268g",
+  "cve_id": "CVE-2026-19266",
+  "published": "2026-08-08T09:30:21Z",
+  "summary": "A vulnerability was determined in Kirachon context-engine up to 1.9.0. This affects the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fjwc-rc47-268g"
+ },
+ {
+  "ghsa_id": "GHSA-c8c4-xf97-vvc8",
+  "cve_id": "CVE-2026-19263",
+  "published": "2026-08-08T09:30:21Z",
+  "summary": "A vulnerability was found in INQUIRELAB mcp-bridge-api up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c8c4-xf97-vvc8"
+ },
+ {
+  "ghsa_id": "GHSA-h8jj-pqww-5m4w",
+  "cve_id": "CVE-2026-19270",
+  "published": "2026-08-08T09:30:21Z",
+  "summary": "A security flaw has been discovered in Hulupeep mcp-ui-probe up to 0.2.0. Affected is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h8jj-pqww-5m4w"
+ },
+ {
+  "ghsa_id": "GHSA-gjfv-xm8w-qq69",
+  "cve_id": "CVE-2026-14526",
+  "published": "2026-08-08T09:30:20Z",
+  "summary": "The AI Copilot – Content Generator plugin for WordPress is vulnerable to authorization bypass in...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-gjfv-xm8w-qq69"
+ },
+ {
+  "ghsa_id": "GHSA-qwp6-wxvx-2jc8",
+  "cve_id": "CVE-2026-19244",
+  "published": "2026-08-07T21:30:39Z",
+  "summary": "A vulnerability was detected in HKUDS nanobot up to 0.2.1. The affected element is the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qwp6-wxvx-2jc8"
+ },
+ {
+  "ghsa_id": "GHSA-rjcp-8q3w-gjhq",
+  "cve_id": "CVE-2026-19044",
+  "published": "2026-08-06T15:32:44Z",
+  "summary": "A flaw has been found in LeeSinLiang godot-mcp 0.1.0. Affected by this vulnerability is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rjcp-8q3w-gjhq"
+ },
+ {
+  "ghsa_id": "GHSA-pcgr-7p2p-x7w8",
+  "cve_id": "CVE-2026-19041",
+  "published": "2026-08-06T15:32:44Z",
+  "summary": "A vulnerability has been found in MissionSquad mcp-api up to 1.11.8. The impacted element is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pcgr-7p2p-x7w8"
+ },
+ {
+  "ghsa_id": "GHSA-p5w2-mr8m-c9xj",
+  "cve_id": "CVE-2026-19040",
+  "published": "2026-08-06T15:32:44Z",
+  "summary": "A flaw has been found in MissionSquad mcp-api up to 1.11.9. The affected element is an unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p5w2-mr8m-c9xj"
+ },
+ {
+  "ghsa_id": "GHSA-26qx-2c8w-xjfx",
+  "cve_id": "CVE-2026-19039",
+  "published": "2026-08-06T15:32:43Z",
+  "summary": "A vulnerability was detected in Kino-Kafkaesque ssh-mcp-server up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-26qx-2c8w-xjfx"
+ },
+ {
+  "ghsa_id": "GHSA-h7vv-3j7j-4c9x",
+  "cve_id": "CVE-2026-19038",
+  "published": "2026-08-06T15:32:43Z",
+  "summary": "A security vulnerability has been detected in MonomythDevelopment la-forge-mcp 1.0.0. This issue...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h7vv-3j7j-4c9x"
+ },
+ {
+  "ghsa_id": "GHSA-q94p-g4rh-r9rf",
+  "cve_id": "CVE-2026-18991",
+  "published": "2026-08-06T03:31:14Z",
+  "summary": "A security vulnerability has been detected in nanocoai NanoClaw up to 2.0.64. This affects an...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q94p-g4rh-r9rf"
+ },
+ {
+  "ghsa_id": "GHSA-w95p-h69m-853r",
+  "cve_id": "CVE-2026-18954",
+  "published": "2026-08-05T21:31:39Z",
+  "summary": "Incorrect authorization in the aggregation pipeline tool in Amazon AWS Labs DocumentDB MCP Server...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w95p-h69m-853r"
+ },
+ {
+  "ghsa_id": "GHSA-x37c-x545-wrmw",
+  "cve_id": "CVE-2026-7646",
+  "published": "2026-08-05T18:31:40Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.3 allows users to read arbitrary files from the server...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x37c-x545-wrmw"
+ },
+ {
+  "ghsa_id": "GHSA-wq3q-gcx9-xvm2",
+  "cve_id": "CVE-2026-9077",
+  "published": "2026-08-05T18:31:40Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.3 Langflow allows remote authenticated attackers to bypass...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wq3q-gcx9-xvm2"
+ },
+ {
+  "ghsa_id": "GHSA-f93f-mcp7-xm47",
+  "cve_id": "CVE-2026-17626",
+  "published": "2026-08-05T18:31:37Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.3 Langflow could allow an authenticated attacker to read,...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f93f-mcp7-xm47"
+ },
+ {
+  "ghsa_id": "GHSA-7rx7-4wfr-4qqv",
+  "cve_id": "CVE-2026-17623",
+  "published": "2026-08-05T18:31:37Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.3 could allow a remote authenticated attacker to execute...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7rx7-4wfr-4qqv"
+ },
+ {
+  "ghsa_id": "GHSA-hq22-48ph-vqch",
+  "cve_id": "CVE-2026-68578",
+  "published": "2026-08-02T15:30:21Z",
+  "summary": "ArcadeDB versions before 26.7.3 fail to bind the authenticated principal in the MCP HTTP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hq22-48ph-vqch"
+ },
+ {
+  "ghsa_id": "GHSA-7qj8-rw8h-hhxv",
+  "cve_id": "CVE-2026-67357",
+  "published": "2026-08-02T15:30:21Z",
+  "summary": "ArcadeDB versions before 26.7.3 contain an information disclosure vulnerability in the MCP...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7qj8-rw8h-hhxv"
+ },
+ {
+  "ghsa_id": "GHSA-w277-2xmj-j2rc",
+  "cve_id": "CVE-2026-67333",
+  "published": "2026-08-01T15:30:29Z",
+  "summary": "better-auth before 1.6.13 (and pre-release builds 1.7.0-beta.0 through 1.7.0-beta.3) fail to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w277-2xmj-j2rc"
+ },
+ {
+  "ghsa_id": "GHSA-mw34-3w2r-wp9p",
+  "cve_id": "CVE-2026-67336",
+  "published": "2026-08-01T15:30:29Z",
+  "summary": "better-auth versions before 1.6.11 contain insecure cryptographic defaults in the oidcProvider...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mw34-3w2r-wp9p"
+ },
+ {
+  "ghsa_id": "GHSA-rw28-999g-8cc4",
+  "cve_id": "CVE-2026-15988",
+  "published": "2026-08-01T09:30:24Z",
+  "summary": "The AI Engine – The Chatbot, AI Framework & MCP for WordPress plugin for WordPress is vulnerable...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rw28-999g-8cc4"
+ },
+ {
+  "ghsa_id": "GHSA-656w-qf75-c5gf",
+  "cve_id": "CVE-2026-14541",
+  "published": "2026-07-31T03:31:16Z",
+  "summary": "An authentication bypass and audience confusion vulnerability exists in the Google OAuth provider...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-656w-qf75-c5gf"
+ },
+ {
+  "ghsa_id": "GHSA-3x3x-8ffg-ghcv",
+  "cve_id": "CVE-2026-14540",
+  "published": "2026-07-31T03:31:16Z",
+  "summary": "A Server-Side Request Forgery (SSRF) vulnerability exists in the generic HTTP source and tool...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3x3x-8ffg-ghcv"
+ },
+ {
+  "ghsa_id": "GHSA-623p-8r6m-hwc6",
+  "cve_id": "CVE-2026-14539",
+  "published": "2026-07-31T03:31:16Z",
+  "summary": "An allocation of resources without limits vulnerability in the HTTP handler component of Google...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-623p-8r6m-hwc6"
+ },
+ {
+  "ghsa_id": "GHSA-f8h2-c55w-8m5p",
+  "cve_id": "CVE-2026-14537",
+  "published": "2026-07-31T03:31:15Z",
+  "summary": "Incorrect Authorization in the direct HTTP API tool invocation endpoint in Google mcp-toolbox...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f8h2-c55w-8m5p"
+ },
+ {
+  "ghsa_id": "GHSA-24pp-m59v-92j8",
+  "cve_id": "CVE-2026-14538",
+  "published": "2026-07-31T03:31:15Z",
+  "summary": "An improper authorization and security-boundary bypass vulnerability in the bigquery-execute-sql...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-24pp-m59v-92j8"
+ },
+ {
+  "ghsa_id": "GHSA-gx45-8jc3-gqqr",
+  "cve_id": "CVE-2026-12940",
+  "published": "2026-07-30T18:31:40Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.1  are vulnerable to unauthenticated remote code execution...",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-gx45-8jc3-gqqr"
+ },
+ {
+  "ghsa_id": "GHSA-9j65-vr9q-w452",
+  "cve_id": "CVE-2026-59326",
+  "published": "2026-07-30T06:32:37Z",
+  "summary": "The Spring Boot language server logs the raw value of the https_proxy/HTTPS_PROXY/http_proxy...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9j65-vr9q-w452"
+ },
+ {
+  "ghsa_id": "GHSA-qhpg-2hp9-2j5r",
+  "cve_id": "CVE-2026-47858",
+  "published": "2026-07-30T06:32:37Z",
+  "summary": "Starting Spring Boot applications in the Spring Tools with the live information mode enabled...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-qhpg-2hp9-2j5r"
+ },
+ {
+  "ghsa_id": "GHSA-5h6c-295f-7pp3",
+  "cve_id": "CVE-2026-16328",
+  "published": "2026-07-29T21:30:59Z",
+  "summary": "In consul-mcp-server, versions 0.1.0 up to 0.1.3 did not restrict how the Consul backend address...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5h6c-295f-7pp3"
+ },
+ {
+  "ghsa_id": "GHSA-6c5r-pj95-xvqv",
+  "cve_id": "CVE-2026-16326",
+  "published": "2026-07-29T21:30:59Z",
+  "summary": "In consul-mcp-server, versions 0.1.0 up to 0.1.3 did not properly isolate session state in...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6c5r-pj95-xvqv"
+ },
+ {
+  "ghsa_id": "GHSA-vq72-755f-9mrm",
+  "cve_id": "CVE-2026-16498",
+  "published": "2026-07-28T21:31:31Z",
+  "summary": "The terraform-mcp-server before version 1.1.0 is vulnerable to a cross-tenant credential reuse...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vq72-755f-9mrm"
+ },
+ {
+  "ghsa_id": "GHSA-4crw-p722-vr7h",
+  "cve_id": "CVE-2026-16496",
+  "published": "2026-07-28T21:31:31Z",
+  "summary": "The terraform-mcp-server before version 1.1.0 is vulnerable to an authorization bypass in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4crw-p722-vr7h"
+ },
+ {
+  "ghsa_id": "GHSA-rhh5-3xrh-6535",
+  "cve_id": "CVE-2026-14869",
+  "published": "2026-07-28T21:31:30Z",
+  "summary": "The terraform-mcp-server before version 1.1.0 is vulnerable to a server-side request forgery...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rhh5-3xrh-6535"
+ },
+ {
+  "ghsa_id": "GHSA-fw7c-j2q8-f24m",
+  "cve_id": "CVE-2026-9680",
+  "published": "2026-07-28T09:31:30Z",
+  "summary": "Improper exposure of the MCP server in alibabacloud-rds-openapi-mcp-server allows remote...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fw7c-j2q8-f24m"
+ },
+ {
+  "ghsa_id": "GHSA-2gmh-5658-rrq3",
+  "cve_id": "CVE-2026-66759",
+  "published": "2026-07-27T21:31:21Z",
+  "summary": "A flaw was found in the file-icns plugin in GIMP. When applying a decompressed mask during ICNS...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-2gmh-5658-rrq3"
+ },
+ {
+  "ghsa_id": "GHSA-qr8r-mqp7-36xx",
+  "cve_id": "CVE-2026-16481",
+  "published": "2026-07-27T21:31:21Z",
+  "summary": "A Server-Side Request Forgery (SSRF) and credential exfiltration vulnerability exists in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qr8r-mqp7-36xx"
+ },
+ {
+  "ghsa_id": "GHSA-m5r3-634q-m3rj",
+  "cve_id": "CVE-2026-17434",
+  "published": "2026-07-26T06:31:26Z",
+  "summary": "A flaw has been found in nanocoai NanoClaw up to 2.0.64. Affected is the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m5r3-634q-m3rj"
+ },
+ {
+  "ghsa_id": "GHSA-6frr-4xvp-cwch",
+  "cve_id": "CVE-2026-17433",
+  "published": "2026-07-26T03:30:25Z",
+  "summary": "A vulnerability was detected in nanocoai NanoClaw up to 2.0.64. This impacts the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6frr-4xvp-cwch"
+ },
+ {
+  "ghsa_id": "GHSA-hp8g-g2qj-wgpj",
+  "cve_id": "CVE-2026-66012",
+  "published": "2026-07-25T12:31:39Z",
+  "summary": "SiYuan before v3.7.2 contains a missing authorization vulnerability in the POST /mcp kernel...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hp8g-g2qj-wgpj"
+ },
+ {
+  "ghsa_id": "GHSA-5f44-jrgv-8f7h",
+  "cve_id": "CVE-2026-64453",
+  "published": "2026-07-25T12:31:36Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: misc: usbio: fix...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-5f44-jrgv-8f7h"
+ },
+ {
+  "ghsa_id": "GHSA-59cg-fj2q-33c4",
+  "cve_id": "CVE-2026-66027",
+  "published": "2026-07-24T18:31:29Z",
+  "summary": "Suna before 0.9.102 contains a broken access control vulnerability in the message queue API that...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-59cg-fj2q-33c4"
+ },
+ {
+  "ghsa_id": "GHSA-m9jr-3w64-2f4w",
+  "cve_id": "CVE-2026-64223",
+  "published": "2026-07-24T18:31:27Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nwifi: mac80211: consume only...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-m9jr-3w64-2f4w"
+ },
+ {
+  "ghsa_id": "GHSA-4r96-7xrx-4gcr",
+  "cve_id": "CVE-2026-66005",
+  "published": "2026-07-24T15:33:03Z",
+  "summary": "Jan through 0.8.4, fixed in commit 3e1c1e7, contains a CORS misconfiguration vulnerability in its...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4r96-7xrx-4gcr"
+ },
+ {
+  "ghsa_id": "GHSA-cfm3-7vpc-px47",
+  "cve_id": "CVE-2026-50517",
+  "published": "2026-07-24T03:31:55Z",
+  "summary": "Deserialization of untrusted data in M365 Copilot allows an authorized attacker to execute code...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-cfm3-7vpc-px47"
+ },
+ {
+  "ghsa_id": "GHSA-qvg7-rqwf-6wmh",
+  "cve_id": "CVE-2026-63732",
+  "published": "2026-07-24T00:32:33Z",
+  "summary": "9router 0.4.59 (fixed in 0.4.60) contains a chain of vulnerabilities: a hardcoded default...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qvg7-rqwf-6wmh"
+ },
+ {
+  "ghsa_id": "GHSA-jp99-gp4p-v5cc",
+  "cve_id": "CVE-2026-65695",
+  "published": "2026-07-23T18:31:45Z",
+  "summary": "Office-Word-MCP-Server through 1.1.11 contains a path traversal vulnerability in its document...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jp99-gp4p-v5cc"
+ },
+ {
+  "ghsa_id": "GHSA-739h-jx7m-fc7g",
+  "cve_id": "CVE-2026-65698",
+  "published": "2026-07-23T18:31:45Z",
+  "summary": "Void through 1.3.4 contains a path traversal vulnerability in the AI agent file-reading tools...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-739h-jx7m-fc7g"
+ },
+ {
+  "ghsa_id": "GHSA-8g44-6rrm-mf2w",
+  "cve_id": "CVE-2026-15015",
+  "published": "2026-07-23T12:32:21Z",
+  "summary": "The MountDev AI MCP Connector for WordPress plugin for WordPress is vulnerable to authorization...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8g44-6rrm-mf2w"
+ },
+ {
+  "ghsa_id": "GHSA-8vrq-qfj7-frhg",
+  "cve_id": "CVE-2026-13009",
+  "published": "2026-07-23T12:32:21Z",
+  "summary": "The AI Copilot – Content Generator plugin for WordPress is vulnerable to generic SQL Injection...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-8vrq-qfj7-frhg"
+ },
+ {
+  "ghsa_id": "GHSA-x6w8-xx66-6gpm",
+  "cve_id": "CVE-2026-13068",
+  "published": "2026-07-22T21:32:06Z",
+  "summary": "An authenticated user holding cursor termination privileges on one database may incorrectly be...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-x6w8-xx66-6gpm"
+ },
+ {
+  "ghsa_id": "GHSA-v5cc-389h-39x6",
+  "cve_id": "CVE-2026-44192",
+  "published": "2026-07-22T12:32:16Z",
+  "summary": "A flaw was found in the Ansible Lightspeed Model Context Protocol (MCP) server. This...",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-v5cc-389h-39x6"
+ },
+ {
+  "ghsa_id": "GHSA-r9hf-v7rm-5h4j",
+  "cve_id": "CVE-2026-65056",
+  "published": "2026-07-21T21:32:43Z",
+  "summary": "mcp-webresearch 0.1.7 contains a server-side request forgery vulnerability that allows attackers...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-r9hf-v7rm-5h4j"
+ },
+ {
+  "ghsa_id": "GHSA-vcgq-93c9-35cm",
+  "cve_id": "CVE-2026-50758",
+  "published": "2026-07-21T21:32:40Z",
+  "summary": "Cross Site Scripting vulnerability in DayuanJiang next-ai-draw-io 0.4.13 allows a remote attacker...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vcgq-93c9-35cm"
+ },
+ {
+  "ghsa_id": "GHSA-5rgr-3gcc-7fph",
+  "cve_id": "CVE-2026-50757",
+  "published": "2026-07-21T21:32:40Z",
+  "summary": "Directory Traversal vulnerability in DayuanJiang next-ai-draw-io 0.4.13 allowsa remote attacker...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5rgr-3gcc-7fph"
+ },
+ {
+  "ghsa_id": "GHSA-4m33-8fcc-g5rp",
+  "cve_id": "CVE-2026-59142",
+  "published": "2026-07-21T21:32:39Z",
+  "summary": "Data::HashMap::Shared versions before 0.14 for Perl allow an out-of-bounds read via an...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-4m33-8fcc-g5rp"
+ },
+ {
+  "ghsa_id": "GHSA-wvx3-gvxv-cmxc",
+  "cve_id": "CVE-2026-15829",
+  "published": "2026-07-21T18:31:02Z",
+  "summary": "A SQL injection (CWE-89) and security boundary bypass (CWE-863) vulnerability exists in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wvx3-gvxv-cmxc"
+ },
+ {
+  "ghsa_id": "GHSA-g36p-q7h2-h3pp",
+  "cve_id": "CVE-2026-63975",
+  "published": "2026-07-19T18:31:48Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nBluetooth: L2CAP: Fix...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-g36p-q7h2-h3pp"
+ },
+ {
+  "ghsa_id": "GHSA-9x5h-mxx6-q576",
+  "cve_id": "CVE-2026-63890",
+  "published": "2026-07-19T18:31:44Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\nscsi: fcoe: Reject FIP...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9x5h-mxx6-q576"
+ },
+ {
+  "ghsa_id": "GHSA-9gx9-7vc6-hh65",
+  "cve_id": "CVE-2026-16133",
+  "published": "2026-07-18T21:30:23Z",
+  "summary": "A flaw has been found in LiuMengxuan04 MiniCode 0.1.0. Affected by this vulnerability is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9gx9-7vc6-hh65"
+ },
+ {
+  "ghsa_id": "GHSA-m94m-8f9x-f6r4",
+  "cve_id": "CVE-2026-7755",
+  "published": "2026-07-17T21:31:45Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.0 Langflow could allow remote code execution due to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m94m-8f9x-f6r4"
+ },
+ {
+  "ghsa_id": "GHSA-mmph-9cw2-f8r6",
+  "cve_id": "CVE-2026-9135",
+  "published": "2026-07-17T21:31:43Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.10.0 Langflow versions up to 1.9.2 (commit...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mmph-9cw2-f8r6"
+ },
+ {
+  "ghsa_id": "GHSA-6p2j-g97c-79wf",
+  "cve_id": "CVE-2026-57860",
+  "published": "2026-07-17T18:31:26Z",
+  "summary": "ForgeCode (tailcallhq/forgecode), an AI pair-programming CLI, automatically loads and executes...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6p2j-g97c-79wf"
+ },
+ {
+  "ghsa_id": "GHSA-prfr-jc65-hr23",
+  "cve_id": "CVE-2026-63093",
+  "published": "2026-07-17T15:32:31Z",
+  "summary": "Cursor for Windows version 3.2.16 contains a binary planting vulnerability that allows remote...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-prfr-jc65-hr23"
+ },
+ {
+  "ghsa_id": "GHSA-74px-22jg-8gh2",
+  "cve_id": "CVE-2026-9810",
+  "published": "2026-07-17T09:31:21Z",
+  "summary": "The AI Copilot  WordPress plugin before 1.5.4 does not bind OAuth access tokens to a WordPress...",
+  "keywords": [
+   "MCP",
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-74px-22jg-8gh2"
+ },
+ {
+  "ghsa_id": "GHSA-pwc7-4jwg-rqg5",
+  "cve_id": "CVE-2026-62208",
+  "published": "2026-07-17T03:31:21Z",
+  "summary": "OpenClaw before 2026.6.5 could forward Authorization headers during MCP SSE redirects. When the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pwc7-4jwg-rqg5"
+ },
+ {
+  "ghsa_id": "GHSA-xfxg-9rjg-hqrw",
+  "cve_id": "CVE-2026-13397",
+  "published": "2026-07-16T18:31:32Z",
+  "summary": "HTML::Bare versions through 0.04 for Perl will hang in an infinite loop when parsing malformed...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-xfxg-9rjg-hqrw"
+ },
+ {
+  "ghsa_id": "GHSA-8299-xh3w-xhx5",
+  "cve_id": "CVE-2026-13401",
+  "published": "2026-07-16T18:31:32Z",
+  "summary": "XML::Bare versions through 0.53 for Perl will hang in an infinite loop when parsing malformed...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-8299-xh3w-xhx5"
+ },
+ {
+  "ghsa_id": "GHSA-gw7c-8jfv-4mj2",
+  "cve_id": "CVE-2026-30623",
+  "published": "2026-07-16T00:31:33Z",
+  "summary": "LiteLLM 1.18.10 contains a remote code execution vulnerability in its MCP server creation...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gw7c-8jfv-4mj2"
+ },
+ {
+  "ghsa_id": "GHSA-84x8-v67g-jc27",
+  "cve_id": "CVE-2026-30618",
+  "published": "2026-07-16T00:31:33Z",
+  "summary": "xszyou Fay 4.3.1 contains a remote code execution vulnerability in its MCP STDIO server...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-84x8-v67g-jc27"
+ },
+ {
+  "ghsa_id": "GHSA-7cfp-pmw3-4j7r",
+  "cve_id": "CVE-2026-15583",
+  "published": "2026-07-15T09:30:23Z",
+  "summary": "A confused-deputy flaw in Grafana MCP Server allows an unauthenticated remote attacker to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7cfp-pmw3-4j7r"
+ },
+ {
+  "ghsa_id": "GHSA-2957-9wvx-x9f4",
+  "cve_id": "CVE-2026-15751",
+  "published": "2026-07-15T00:31:43Z",
+  "summary": "A security vulnerability has been detected in mastergo-design mastergo-magic-mcp up to 0.2.0. The...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2957-9wvx-x9f4"
+ },
+ {
+  "ghsa_id": "GHSA-rp4h-q5qj-wrcr",
+  "cve_id": "CVE-2026-5270",
+  "published": "2026-07-15T00:31:43Z",
+  "summary": "An authentication bypass vulnerability exists in certain releases of Ciena Navigator Network...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rp4h-q5qj-wrcr"
+ },
+ {
+  "ghsa_id": "GHSA-6jrj-gphg-p8mj",
+  "cve_id": "CVE-2026-5269",
+  "published": "2026-07-15T00:31:43Z",
+  "summary": "In Ciena's Navigator Network Control Suite (NCS) and Manage Control Plan (MCP), there are hidden...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6jrj-gphg-p8mj"
+ },
+ {
+  "ghsa_id": "GHSA-5vh4-8356-p89c",
+  "cve_id": "CVE-2026-15750",
+  "published": "2026-07-15T00:31:40Z",
+  "summary": "A weakness has been identified in mastergo-design mastergo-magic-mcp up to 0.2.0. Impacted is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5vh4-8356-p89c"
+ },
+ {
+  "ghsa_id": "GHSA-r83c-hc4j-pvc5",
+  "cve_id": "CVE-2026-15749",
+  "published": "2026-07-14T21:32:20Z",
+  "summary": "A security flaw has been discovered in mastergo-design mastergo-magic-mcp up to 0.2.0. This issue...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-r83c-hc4j-pvc5"
+ },
+ {
+  "ghsa_id": "GHSA-fw44-xwgm-pf69",
+  "cve_id": "CVE-2026-58617",
+  "published": "2026-07-14T18:32:41Z",
+  "summary": "Improper access control in Microsoft 365 Copilot for iOS allows an unauthorized attacker to...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-fw44-xwgm-pf69"
+ },
+ {
+  "ghsa_id": "GHSA-534g-wpcr-fm9q",
+  "cve_id": "CVE-2026-55145",
+  "published": "2026-07-14T18:32:36Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in Outlook...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-534g-wpcr-fm9q"
+ },
+ {
+  "ghsa_id": "GHSA-hjgg-v5cf-x59v",
+  "cve_id": "CVE-2026-50510",
+  "published": "2026-07-14T18:32:28Z",
+  "summary": "Improper restriction of names for files and other resources in Github Copilot allows an...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-hjgg-v5cf-x59v"
+ },
+ {
+  "ghsa_id": "GHSA-3v99-gw88-f2cw",
+  "cve_id": "CVE-2026-47282",
+  "published": "2026-07-14T18:31:59Z",
+  "summary": "Insufficiently protected credentials in GitHub Copilot and Visual Studio Code allows an...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-3v99-gw88-f2cw"
+ },
+ {
+  "ghsa_id": "GHSA-m97f-w34x-vq3w",
+  "cve_id": "CVE-2026-48561",
+  "published": "2026-07-14T18:31:59Z",
+  "summary": "Improper neutralization of special elements used in a command ('command injection') in Microsoft...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-m97f-w34x-vq3w"
+ },
+ {
+  "ghsa_id": "GHSA-5pr8-xjq5-2wrc",
+  "cve_id": "CVE-2026-62195",
+  "published": "2026-07-14T00:31:04Z",
+  "summary": "OpenClaw versions 2026.5.20 before 2026.6.6 contain an authorization bypass vulnerability in the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5pr8-xjq5-2wrc"
+ },
+ {
+  "ghsa_id": "GHSA-5383-j2p9-qfg3",
+  "cve_id": "CVE-2026-61462",
+  "published": "2026-07-13T18:30:53Z",
+  "summary": "mcp-gitlab contains a path traversal vulnerability in the job_id parameter of build/index.js that...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5383-j2p9-qfg3"
+ },
+ {
+  "ghsa_id": "GHSA-59wc-27pm-mx9p",
+  "cve_id": "CVE-2026-59515",
+  "published": "2026-07-13T12:35:05Z",
+  "summary": "Improper Neutralization of Special Elements used in an SQL Command ('SQL Injection')...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-59wc-27pm-mx9p"
+ },
+ {
+  "ghsa_id": "GHSA-v62x-f943-965f",
+  "cve_id": "CVE-2026-15526",
+  "published": "2026-07-13T06:31:30Z",
+  "summary": "A flaw has been found in augmnt augments-mcp-server 7.1.0. This issue affects the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-v62x-f943-965f"
+ },
+ {
+  "ghsa_id": "GHSA-c7fc-wmwf-cvvh",
+  "cve_id": "CVE-2026-15528",
+  "published": "2026-07-13T06:31:30Z",
+  "summary": "A vulnerability was found in lamaalrajih kicad-mcp up to 3.3.1. This issue affects some unknown...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c7fc-wmwf-cvvh"
+ },
+ {
+  "ghsa_id": "GHSA-9cqv-qvmj-xrc4",
+  "cve_id": "CVE-2026-15522",
+  "published": "2026-07-13T03:31:48Z",
+  "summary": "A security flaw has been discovered in tugcantopaloglu godot-mcp 2.0.0. Affected by this...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9cqv-qvmj-xrc4"
+ },
+ {
+  "ghsa_id": "GHSA-xj39-q498-f3c8",
+  "cve_id": "CVE-2026-15524",
+  "published": "2026-07-13T03:31:48Z",
+  "summary": "A security vulnerability has been detected in alioshr memory-bank-mcp up to 0.2.1/3.1. This...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xj39-q498-f3c8"
+ },
+ {
+  "ghsa_id": "GHSA-hhgm-hv3h-m233",
+  "cve_id": "CVE-2026-15501",
+  "published": "2026-07-12T15:32:13Z",
+  "summary": "A security vulnerability has been detected in AstrBotDevs AstrBot up to 4.25.2. Affected by this...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hhgm-hv3h-m233"
+ },
+ {
+  "ghsa_id": "GHSA-rx6v-r244-h59w",
+  "cve_id": "CVE-2026-15189",
+  "published": "2026-07-09T18:31:50Z",
+  "summary": "A security vulnerability has been detected in aerostackdev aerostack-mcp up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rx6v-r244-h59w"
+ },
+ {
+  "ghsa_id": "GHSA-mh32-g5q6-4x93",
+  "cve_id": "CVE-2026-15138",
+  "published": "2026-07-09T03:32:45Z",
+  "summary": "A security vulnerability has been detected in tumf mcp-text-editor up to 1.0.2. This issue...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mh32-g5q6-4x93"
+ },
+ {
+  "ghsa_id": "GHSA-p4vj-7pqg-xhr6",
+  "cve_id": "CVE-2026-49147",
+  "published": "2026-07-08T15:32:03Z",
+  "summary": "App::Ack versions through 3.10.0 for Perl print unsanitised terminal escape sequences from...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-p4vj-7pqg-xhr6"
+ },
+ {
+  "ghsa_id": "GHSA-gj6m-4qqg-3cw8",
+  "cve_id": "CVE-2026-14898",
+  "published": "2026-07-06T21:30:40Z",
+  "summary": "The OpenAI Codex desktop app for macOS rendered remote images from Markdown in model responses....",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-gj6m-4qqg-3cw8"
+ },
+ {
+  "ghsa_id": "GHSA-qq5h-499r-fxfj",
+  "cve_id": "CVE-2026-14748",
+  "published": "2026-07-05T15:30:27Z",
+  "summary": "A flaw has been found in AIAnytime Awesome-MCP-Server up to...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qq5h-499r-fxfj"
+ },
+ {
+  "ghsa_id": "GHSA-cf27-pvxx-xmcj",
+  "cve_id": "CVE-2026-14702",
+  "published": "2026-07-05T06:30:27Z",
+  "summary": "A flaw has been found in zcaceres markdownify-mcp up to 1.1.0. This impacts the function...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cf27-pvxx-xmcj"
+ },
+ {
+  "ghsa_id": "GHSA-mf9r-r6pc-8fc6",
+  "cve_id": "CVE-2026-14699",
+  "published": "2026-07-05T06:30:26Z",
+  "summary": "A weakness has been identified in zcaceres markdownify-mcp up to 1.1.0. The affected element is...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mf9r-r6pc-8fc6"
+ },
+ {
+  "ghsa_id": "GHSA-6pr5-9p6v-xxrq",
+  "cve_id": "CVE-2026-13341",
+  "published": "2026-07-03T12:31:45Z",
+  "summary": "A vulnerability exists in the Kong Konnect Model Context Protocol (MCP) server prior to version 1...",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-6pr5-9p6v-xxrq"
+ },
+ {
+  "ghsa_id": "GHSA-6xf4-794h-3f7w",
+  "cve_id": "CVE-2026-41106",
+  "published": "2026-07-03T00:31:53Z",
+  "summary": "Url redirection to untrusted site ('open redirect') in M365 Copilot allows an unauthorized...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-6xf4-794h-3f7w"
+ },
+ {
+  "ghsa_id": "GHSA-v877-m38r-6c5w",
+  "cve_id": "CVE-2026-53356",
+  "published": "2026-07-01T15:35:20Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/i915/gem: Fix phys BO...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-v877-m38r-6c5w"
+ },
+ {
+  "ghsa_id": "GHSA-7638-fmxx-mr26",
+  "cve_id": "CVE-2026-53344",
+  "published": "2026-07-01T15:35:19Z",
+  "summary": "In the Linux kernel, the following vulnerability has been resolved:\n\npinctrl: mcp23s08:...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7638-fmxx-mr26"
+ },
+ {
+  "ghsa_id": "GHSA-f3mc-x4vf-jrw2",
+  "cve_id": "CVE-2026-13323",
+  "published": "2026-07-01T12:31:35Z",
+  "summary": "In Open VSX Registry before 1.0.2, the /vscode/unpkg/ endpoint serves user-supplied HTML files...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-f3mc-x4vf-jrw2"
+ },
+ {
+  "ghsa_id": "GHSA-mggr-4wrj-4f4g",
+  "cve_id": "CVE-2026-10750",
+  "published": "2026-07-01T09:30:24Z",
+  "summary": "The Royal MCP  WordPress plugin before 1.4.26 does not perform capability checks on the majority...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mggr-4wrj-4f4g"
+ },
+ {
+  "ghsa_id": "GHSA-j446-h28c-8p3v",
+  "cve_id": "CVE-2026-58446",
+  "published": "2026-07-01T00:34:01Z",
+  "summary": "Presenton before 0.8.8-beta bundles an MCP server that, on server/Docker deployments configured...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j446-h28c-8p3v"
+ },
+ {
+  "ghsa_id": "GHSA-42pg-j2h8-h5fw",
+  "cve_id": "CVE-2026-9132",
+  "published": "2026-06-30T21:31:45Z",
+  "summary": "A missing authorization vulnerability was identified in GitHub Enterprise Server that allowed an...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-42pg-j2h8-h5fw"
+ },
+ {
+  "ghsa_id": "GHSA-5wjx-cxqm-p8r4",
+  "cve_id": "CVE-2026-7663",
+  "published": "2026-06-30T21:31:44Z",
+  "summary": "IBM Langflow OSS 1.0.0 through 1.9.6 could allow unauthenticated attackers to access protected...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5wjx-cxqm-p8r4"
+ },
+ {
+  "ghsa_id": "GHSA-mjrq-xg2m-qg94",
+  "cve_id": "CVE-2026-58171",
+  "published": "2026-06-30T18:31:38Z",
+  "summary": "Vibe-Trading before 0.1.10 constructs the swarm run directory by joining a caller-supplied run...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mjrq-xg2m-qg94"
+ },
+ {
+  "ghsa_id": "GHSA-fw4j-fj8v-q67w",
+  "cve_id": "CVE-2026-13437",
+  "published": "2026-06-29T18:31:53Z",
+  "summary": "Insertion of sensitive information into sent data in the AI Agent job API in Devolutions...",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-fw4j-fj8v-q67w"
+ },
+ {
+  "ghsa_id": "GHSA-9c5h-h4mj-p5ch",
+  "cve_id": "CVE-2026-13524",
+  "published": "2026-06-29T03:30:52Z",
+  "summary": "A security vulnerability has been detected in CherryHQ cherry-studio up to 1.9.6. This...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9c5h-h4mj-p5ch"
+ },
+ {
+  "ghsa_id": "GHSA-cjxx-6mf8-hqmw",
+  "cve_id": "CVE-2026-13493",
+  "published": "2026-06-28T15:31:19Z",
+  "summary": "A flaw has been found in AIDC-AI ComfyUI-Copilot up to 2.0.28. This issue affects some unknown...",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-cjxx-6mf8-hqmw"
+ },
+ {
+  "ghsa_id": "GHSA-2vm4-w283-mr2p",
+  "cve_id": "CVE-2026-13489",
+  "published": "2026-06-28T12:30:28Z",
+  "summary": "A weakness has been identified in 78 xiaozhi-esp32 up to 2.2.6. Affected by this issue is the...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2vm4-w283-mr2p"
+ },
+ {
+  "ghsa_id": "GHSA-mjxr-6gqf-w78h",
+  "cve_id": "CVE-2026-58049",
+  "published": "2026-06-28T03:33:40Z",
+  "summary": "FFmpeg's RASC video decoder (decode_dlta in libavcodec/rasc.c) performs 32-bit reads and writes...",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-mjxr-6gqf-w78h"
+ },
+ {
+  "ghsa_id": "GHSA-rqqr-m697-6jq3",
+  "cve_id": "CVE-2026-58057",
+  "published": "2026-06-28T03:33:40Z",
+  "summary": "Flowise before 3.1.3 validates Custom MCP stdio environment variables against a denylist using a...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rqqr-m697-6jq3"
+ },
+ {
+  "ghsa_id": "GHSA-p3qg-h7r3-79xr",
+  "cve_id": "CVE-2026-4339",
+  "published": "2026-06-26T15:32:15Z",
+  "summary": "Mattermost versions 10.11.x <= 10.11.18, 11.6.x <= 11.6.3, 11.5.x <= 11.5.6 fail to validate...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p3qg-h7r3-79xr"
+ },
+ {
+  "ghsa_id": "GHSA-r8gf-2mrm-r9vw",
+  "cve_id": "CVE-2026-57922",
+  "published": "2026-06-26T15:32:13Z",
+  "summary": "In JetBrains YouTrack before 2026.2.16593 project settings disclosure via the MCP was possible",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-r8gf-2mrm-r9vw"
+ },
+ {
+  "ghsa_id": "GHSA-q2xp-j85q-883h",
+  "cve_id": "CVE-2025-71336",
+  "published": "2026-06-26T00:32:05Z",
+  "summary": "Flowise before 3.0.6 (affected versions 2.2.7-patch.1 and earlier) contains an unsandboxed remote...",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q2xp-j85q-883h"
+ }
+]

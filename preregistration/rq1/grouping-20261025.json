@@ -1,0 +1,3362 @@
+[
+ {
+  "records": [
+   "CVE-2026-58057",
+   "CVE-2026-69263"
+  ],
+  "rule": "follow-up",
+  "note": "Both bypass the Custom MCP env-var denylist from the CVE-2025-8943 patch; same fix PR #6471. 69263 states it is a patch bypass."
+ },
+ {
+  "records": [
+   "CVE-2026-73485",
+   "CVE-2026-73487"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both bypass the regex pythonCodeValidator in Airtable/CSV Agent nodes, fixed in 3.1.3."
+ },
+ {
+  "records": [
+   "CVE-2026-7646",
+   "CVE-2026-8446",
+   "CVE-2026-9077",
+   "CVE-2026-17623",
+   "CVE-2026-17626"
+  ],
+  "rule": "vendor bulletin",
+  "note": "Five Langflow CVEs published 2026-08-05 under one IBM security bulletin (node 7282147)."
+ },
+ {
+  "records": [
+   "CVE-2026-78575",
+   "CVE-2026-81941",
+   "CVE-2026-85025"
+  ],
+  "rule": "vendor bulletin",
+  "note": "Three Langflow CVEs published 2026-09-10 under one IBM security bulletin (node 7286666)."
+ },
+ {
+  "records": [
+   "GHSA-9c3v-684m-579c",
+   "CVE-2026-62208"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "CVE-2026-62208 is the CVE record of GHSA-9c3v (MCP SSE redirect forwards Authorization headers)."
+ },
+ {
+  "records": [
+   "CVE-2026-46339",
+   "CVE-2026-49353"
+  ],
+  "rule": "follow-up",
+  "note": "CVE-2026-49353 is an incomplete fix of CVE-2026-46339 (local-only gate bypass via Host header)."
+ },
+ {
+  "records": [
+   "CVE-2026-53509",
+   "CVE-2026-61612"
+  ],
+  "rule": "follow-up",
+  "note": "CVE-2026-61612 is an incomplete fix of CVE-2026-53509 (SSRF via base_url), itself a bypass of CVE-2026-33060."
+ },
+ {
+  "records": [
+   "GHSA-86j7-9j95-vpqj",
+   "CVE-2026-67333"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "CVE-2026-67333 is the CVE record of GHSA-86j7 (javascript: redirect_uri stored XSS)."
+ },
+ {
+  "records": [
+   "GHSA-9h47-pqcx-hjr4",
+   "CVE-2026-67336"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "CVE-2026-67336 is the CVE record of GHSA-9h47 (alg=none and plain PKCE defaults)."
+ },
+ {
+  "records": [
+   "CVE-2026-30623",
+   "CVE-2025-65720",
+   "CVE-2026-30618",
+   "CVE-2026-54449"
+  ],
+  "rule": "aggregated write-up",
+  "note": "LiteLLM, GPT Researcher, Fay and LangBot MCP STDIO RCEs all cite one OX Security MCP supply-chain write-up."
+ },
+ {
+  "records": [
+   "GHSA-vhf8-cg2h-cg3p",
+   "CVE-2026-72768"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "CVE-2026-72768 is the CVE record of GHSA-vhf8 (MCP Client node SSRF protection bypass)."
+ },
+ {
+  "records": [
+   "CVE-2026-73498",
+   "GHSA-wm45-qh3g-v83f",
+   "CVE-2026-73496",
+   "CVE-2026-77246",
+   "CVE-2026-77247",
+   "CVE-2026-77248",
+   "CVE-2026-77253",
+   "CVE-2026-77255",
+   "CVE-2026-77257",
+   "CVE-2026-77258",
+   "CVE-2026-77259",
+   "CVE-2026-77260",
+   "CVE-2026-77262",
+   "CVE-2026-77266",
+   "CVE-2026-77269",
+   "CVE-2026-77270",
+   "CVE-2026-77271"
+  ],
+  "rule": "follow-up",
+  "note": "Duplicate reports of upload_attachment arbitrary file read/path traversal; several state incomplete fix of CVE-2026-27825/GHSA-xjgw; one fix commit."
+ },
+ {
+  "records": [
+   "GHSA-489g-7rxv-6c8q",
+   "CVE-2026-73497",
+   "CVE-2026-77242",
+   "CVE-2026-77249",
+   "CVE-2026-77261",
+   "CVE-2026-77265",
+   "CVE-2026-77267",
+   "CVE-2026-77274"
+  ],
+  "rule": "follow-up",
+  "note": "Bypasses/incomplete fixes of the CVE-2026-27826 header-URL SSRF fix (DNS rebinding, redirects, parser); 73497 is CVE of GHSA-489g."
+ },
+ {
+  "records": [
+   "CVE-2026-77251",
+   "CVE-2026-77252"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: project/space filter allowlist can be bypassed by caller-supplied filters."
+ },
+ {
+  "records": [
+   "CVE-2026-77244",
+   "CVE-2026-77254"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: HTTP transport lets requests without real user identity run tools with global operator credentials."
+ },
+ {
+  "records": [
+   "CVE-2026-77250",
+   "CVE-2026-77256",
+   "CVE-2026-77268"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; all: plaintext OAuth fallback token file written with insecure permissions."
+ },
+ {
+  "records": [
+   "CVE-2026-54052",
+   "CVE-2026-55608"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: workflow_versions backups not isolated per tenant in multi-tenant HTTP mode."
+ },
+ {
+  "records": [
+   "CVE-2026-15583",
+   "CVE-2026-19516"
+  ],
+  "rule": "follow-up",
+  "note": "CVE-2026-19516 states the CVE-2026-15583 fix did not restrict X-Grafana-URL destinations (SSRF)."
+ },
+ {
+  "records": [
+   "CVE-2026-55529",
+   "CVE-2026-55532"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: startswith prefix match in MCP HTTP-stream Origin validation."
+ },
+ {
+  "records": [
+   "CVE-2026-55534",
+   "CVE-2026-55538"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: serve agents --api-key ignored on agent invocation routes."
+ },
+ {
+  "records": [
+   "CVE-2026-14869",
+   "CVE-2026-16496",
+   "CVE-2026-16498"
+  ],
+  "rule": "vendor bulletin",
+  "note": "Three terraform-mcp-server CVEs in one HashiCorp bulletin HCSEC-2026-23."
+ },
+ {
+  "records": [
+   "CVE-2026-16326",
+   "CVE-2026-16328"
+  ],
+  "rule": "vendor bulletin",
+  "note": "Two consul-mcp-server CVEs in one HashiCorp bulletin HCSEC-2026-24."
+ },
+ {
+  "records": [
+   "CVE-2026-47211",
+   "CVE-2026-66065"
+  ],
+  "rule": "follow-up",
+  "note": "CVE-2026-66065 states the CVE-2026-47211 .env denylist fix was incomplete."
+ },
+ {
+  "records": [
+   "GHSA-xhcr-cqfr-m3hv",
+   "CVE-2026-91988"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "CVE-2026-91988 is the CVE record of GHSA-xhcr (cleartext HTTP MCP registry to RCE)."
+ },
+ {
+  "records": [
+   "CVE-2026-75859",
+   "CVE-2026-75911"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date and fix commit; both: untrusted repo project config overrides security settings (instructions, allow_shell)."
+ },
+ {
+  "records": [
+   "CVE-2026-54688",
+   "CVE-2026-54689"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date and fix commit; both: web_url_read SSRF guard ineffective (off by default, further hardened-mode bypasses)."
+ },
+ {
+  "records": [
+   "CVE-2026-55580",
+   "CVE-2026-55581"
+  ],
+  "rule": "same product, date and cause",
+  "note": "Same date; both: shell interpreter /bin/bash in secure-mode allowlist bypasses command restriction."
+ },
+ {
+  "records": [
+   "CVE-2026-51994",
+   "CVE-2026-51995",
+   "CVE-2026-51996",
+   "CVE-2026-51997",
+   "CVE-2026-52001"
+  ],
+  "rule": "aggregated write-up",
+  "note": "Five mcp-remote findings from one playb0t mcp-remote-oauth-security write-up, same date."
+ },
+ {
+  "records": [
+   "CVE-2026-76391",
+   "CVE-2026-76404"
+  ],
+  "rule": "vendor bulletin",
+  "note": "Splunk AI Toolkit and Splunk MCP Server app both cite Splunk advisory SVD-2026-0808."
+ },
+ {
+  "records": [
+   "CVE-2026-50758",
+   "CVE-2026-73037"
+  ],
+  "rule": "same flaw, two ids",
+  "note": "Both: XSS via unescaped mcp query parameter in next-ai-draw-io (0.4.13 within 0.2.1-0.4.16)."
+ },
+ {
+  "records": [
+   "CVE-2026-60083",
+   "CVE-2026-85580"
+  ],
+  "rule": "follow-up",
+  "note": "CVE-2026-85580 bypasses the MCP file path guard protecting publishAccess.json (case variant), the CVE-2026-60083 blocklist."
+ },
+ {
+  "records": [
+   "CVE-2025-71336"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-69253"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-69255"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-69257"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73601"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-91931"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-91932"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-48529"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-47427"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-49291"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-50027"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-11720"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-15829"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-16481"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14537"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14538"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14539"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14540"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14541"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-7663"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-7755"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-9135"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-9186"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-12763"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-50143"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46341"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-81093"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53814"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53818"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-hw9r-h9mr-4jff"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-qh2f-99mv-mrcf"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62195"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-41106"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-50517"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-85885"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-85887"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62312"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63732"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14699"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-14702"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55786"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67428"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67425"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67427"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67429"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-49471"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-38924"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73844"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73845"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73846"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53512"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53518"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-59822"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55604"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55605"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-59207"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-65015"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-65594"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77068"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77073"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-85166"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-13236"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-13237"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54149"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77516"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77518"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77519"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77521"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77243"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77272"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-15522"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19044"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61462"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61559"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61560"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61568"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-5648-rgj9-v224"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-15749"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-15750"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-15751"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-47282"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-81380"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-81381"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-48561"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-24301"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55946"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-52869"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-52870"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-58196"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54450"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-58197"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61427"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-47394"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55531"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57124"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57134"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57139"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61613"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63093"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73217"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73218"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-37006"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-44968"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-44969"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-44970"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55837"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46512"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46513"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46514"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46515"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54547"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54549"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-48039"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46701"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-73614"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-47255"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57494"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57495"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55544"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55550"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-47708"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55071"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-50757"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-8q49-2h5h-434x"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67531"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-66012"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-74798"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-59809"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-82233"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-17433"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-17434"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-18991"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-46678"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54249"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-65975"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63118"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63119"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67430"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67431"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67432"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-pc2w-4mq8-32qw"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-p7w7-4929-vpj5"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-pqh8-p93p-2rx7"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-xrmj-5g4g-8987"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-12940"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-67357"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-68578"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75845"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19040"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19041"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19268"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55887"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19751"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19752"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53708"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-53710"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-vwf3-4xxj-qg6h"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-18905"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77822"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55156"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55157"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75857"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75858"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75914"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75915"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-hjwh-xvfw-qrwj"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-58483"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-58485"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62674"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62675"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62676"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-62677"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-45018"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-45019"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-55582"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-19889"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-75871"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-82021"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-84289"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79743"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79744"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79745"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79746"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79747"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79748"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79749"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-79750"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-90474"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-94047"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-84885"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-84886"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-84887"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-18486"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-18489"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-78573"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-11918"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-77825"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-85787"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-87911"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-86439"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-88938"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57441"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-57442"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63127"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-63128"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-64684"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54519"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-54520"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-jgh3-fggc-mcpm"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-pr6h-vr44-xq8j"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "GHSA-xwmw-prc4-v3cr"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61742"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-61788"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-92628"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2026-92874"
+  ],
+  "rule": "single",
+  "note": "Distinct defect from other records of this product; no shared cause or follow-up link."
+ },
+ {
+  "records": [
+   "CVE-2025-32394"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-4339"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49257"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49357"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-57922"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-rp72-5v5q-2446"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13489"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13493"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13437"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13524"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-46406"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58168"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58171"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58446"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-10750"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49856"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49857"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49986"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-49988"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-52830"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-f9ff-5x35-7gfw"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13341"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-14748"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-14471"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-14898"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-44934"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55435"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-q855-8rh5-jfgq"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59723"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15138"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15189"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-382c-vx95-w3p5"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-52vm-mxx8-f227"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-50181"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-61459"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-h4g2-xfmw-q2c9"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-xrmc-c5cg-rv7x"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15501"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15524"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15526"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15528"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58500"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15643"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-50125"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-50158"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-50510"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-54446"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55145"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58617"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15746"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-45805"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-54504"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15737"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-47751"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59864"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15415"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15995"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-54561"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-57860"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58195"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-9810"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-16133"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-46555"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-47128"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-64650"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-65056"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-44192"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-pf2q-pxhf-hgmw"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-16584"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-47769"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-65695"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-65698"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-66004"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-66027"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-pvcr-8mvp-w8qr"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-9680"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-54785"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-15988"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-18655"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-18954"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19038"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19039"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19244"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59118"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19263"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19266"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19270"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19279"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19281"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19282"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19287"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19288"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19323"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19324"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19325"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19328"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19329"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19330"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19331"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19332"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19333"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19334"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19336"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19337"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19338"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19339"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19365"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19368"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19369"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19370"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19371"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19372"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19373"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19374"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19375"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-65675"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-70335"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-73222"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-73296"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19753"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19765"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19770"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19956"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19957"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19958"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19964"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19978"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19984"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-53766"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-71424"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-74842"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-74858"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-75060"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-34884"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-75130"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-53957"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-53965"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-75149"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-cc2g-gq8c-r332"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-j4r7-8ph4-43g3"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "GHSA-rr55-jp92-8wp2"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-18482"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-69855"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59279"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-78430"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55546"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55557"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55609"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55637"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-55640"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-79622"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-79786"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-80347"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81091"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81092"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81094"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81095"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81096"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81098"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81099"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81100"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81101"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81102"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81421"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81485"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81486"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81491"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81735"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58616"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81835"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81845"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81848"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-82111"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-82456"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81315"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-82217"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-82905"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19591"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-81846"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-84201"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-80098"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-84779"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85306"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19645"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85606"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85620"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85626"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85654"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85660"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85661"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-85666"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-86122"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-53937"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59176"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-13745"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19136"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-87913"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-88062"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59971"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-59973"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-90617"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-90898"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-57586"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-58201"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-91998"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-14916"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-54618"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-78501"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-63646"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-77339"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-93982"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-93965"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94031"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94037"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94044"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94046"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94051"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-94111"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-61647"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-19202"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-95660"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-18875"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-93529"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-77321"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ },
+ {
+  "records": [
+   "CVE-2026-91161"
+  ],
+  "rule": "single",
+  "note": "Only record for this product; no shared write-up or bulletin."
+ }
+]

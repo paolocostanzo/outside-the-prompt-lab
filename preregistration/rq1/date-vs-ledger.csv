@@ -1,0 +1,41 @@
+first_record,first_disclosure,ledger_eligible,ledger_note
+GHSA-86j7-9j95-vpqj,2026-05-31,yes,mcp plugin listed as affected. Published 2026-07-07.
+GHSA-9h47-pqcx-hjr4,2026-05-31,yes,mcp plugin listed as affected. Published 2026-07-07.
+CVE-2026-54052,2026-06-03,yes,First publication 2026-07-14.
+GHSA-xhcr-cqfr-m3hv,2026-06-10,yes,published 2026-08-17; component and date in scope
+CVE-2026-54688,2026-06-11,yes,published 2026-08-19; component and date in scope
+CVE-2026-55580,2026-06-14,yes,published 2026-08-25; component and date in scope
+CVE-2026-50027,2026-05-28,yes,First publication 2026-07-02.
+CVE-2026-50143,2026-05-28,yes,First publication 2026-07-01.
+GHSA-hw9r-h9mr-4jff,2026-05-28,yes,First publication 2026-07-02.
+GHSA-qh2f-99mv-mrcf,2026-05-28,yes,First publication 2026-07-02.
+CVE-2026-55786,2026-05-30,yes,First publication 2026-07-06.
+CVE-2026-53512,2026-05-31,yes,mcp plugin listed as affected. Published 2026-07-07.
+CVE-2026-53518,2026-05-31,yes,mcp plugin token endpoint listed as affected. Published 2026-07-07.
+CVE-2026-55604,2026-06-14,yes,First publication 2026-07-09.
+CVE-2026-55605,2026-06-14,yes,First publication 2026-07-09.
+CVE-2026-59207,2026-06-24,yes,First publication 2026-07-09.
+CVE-2026-52869,2026-06-05,yes,First publication 2026-07-15.
+CVE-2026-52870,2026-06-05,yes,First publication 2026-07-15.
+CVE-2026-54547,2026-06-05,yes,First publication 2026-07-17.
+CVE-2026-54549,2026-06-05,yes,First publication 2026-07-17.
+CVE-2026-55156,2026-06-10,yes,published 2026-08-14; component and date in scope
+CVE-2026-55157,2026-06-10,yes,published 2026-08-14; component and date in scope
+CVE-2026-55582,2026-06-14,yes,published 2026-08-25; component and date in scope
+CVE-2026-49856,2026-05-27,yes,First publication 2026-07-01.
+CVE-2026-49857,2026-05-27,yes,First publication 2026-07-01.
+CVE-2026-49986,2026-05-27,yes,First publication 2026-07-01.
+CVE-2026-49988,2026-05-27,yes,First publication 2026-07-01.
+CVE-2026-52830,2026-05-29,yes,First publication 2026-07-02.
+GHSA-f9ff-5x35-7gfw,2026-05-29,yes,First publication 2026-07-02.
+CVE-2026-55435,2026-06-12,yes,Coder AI Bridge; text says MCP tools enabled there are callable. Published 2026-
+GHSA-q855-8rh5-jfgq,2026-05-31,yes,First publication 2026-07-07.
+CVE-2026-59723,2026-06-23,yes,NVD 2026-07-08; GHSA reviewed 2026-09-24.
+GHSA-52vm-mxx8-f227,2026-06-01,yes,First publication 2026-07-09.
+GHSA-h4g2-xfmw-q2c9,2026-06-03,yes,First publication 2026-07-10.
+CVE-2026-50158,2026-06-06,yes,First publication 2026-07-14.
+CVE-2026-54504,2026-06-04,yes,First publication 2026-07-15.
+CVE-2026-54561,2026-06-06,yes,First publication 2026-07-17.
+CVE-2026-53957,2026-06-12,yes,published 2026-08-19; component and date in scope
+CVE-2026-55609,2026-06-14,yes,published 2026-08-25; component and date in scope
+CVE-2026-55640,2026-06-14,yes,published 2026-08-25; component and date in scope

@@ -1,0 +1,2265 @@
+[
+ {
+  "ghsa_id": "GHSA-3cj3-hqcr-g934",
+  "cve_id": "CVE-2026-59723",
+  "published": "2026-09-24T19:48:34Z",
+  "summary": "Cline: Cross-Origin WebSocket Hijacking in Cline Hub Dashboard (`/browser` endpoint)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3cj3-hqcr-g934"
+ },
+ {
+  "ghsa_id": "GHSA-mwwr-p57h-56pf",
+  "cve_id": "CVE-2026-61788",
+  "published": "2026-09-24T19:37:59Z",
+  "summary": "@bytebase/dbhub's read-only mode does not prevent database writes",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mwwr-p57h-56pf"
+ },
+ {
+  "ghsa_id": "GHSA-fm8p-53ww-hf6w",
+  "cve_id": "CVE-2026-61742",
+  "published": "2026-09-24T19:36:57Z",
+  "summary": "DBHub HTTP transport DNS rebinding allows unauthenticated browser-origin SQL execution",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fm8p-53ww-hf6w"
+ },
+ {
+  "ghsa_id": "GHSA-g7f6-rxc4-qhph",
+  "cve_id": "CVE-2026-93421",
+  "published": "2026-09-23T19:01:05Z",
+  "summary": "Mesop: Unauthenticated ANSI Escape Sequence Injection in CSP Reporting Endpoint",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-g7f6-rxc4-qhph"
+ },
+ {
+  "ghsa_id": "GHSA-93xw-j965-9mx3",
+  "cve_id": "CVE-2026-77258",
+  "published": "2026-09-22T20:36:37Z",
+  "summary": "MCP Atlassian: Arbitrary file read/exfiltration via upload_attachment missing validate_safe_path()",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-93xw-j965-9mx3"
+ },
+ {
+  "ghsa_id": "GHSA-g5xv-mhgm-v5f6",
+  "cve_id": "CVE-2026-77250",
+  "published": "2026-09-22T20:36:34Z",
+  "summary": "MCP Atlassian: OAuth fallback token storage writes plaintext access and refresh tokens with group-readable permissions",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g5xv-mhgm-v5f6"
+ },
+ {
+  "ghsa_id": "GHSA-v9m3-wfh8-5646",
+  "cve_id": "CVE-2026-77249",
+  "published": "2026-09-22T20:36:31Z",
+  "summary": "MCP Atlassian:  Incomplete fix for GHSA-7r34-79r5-rcc9: redirect-based SSRF via unhooked requests session in Jira user-permission lookup",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-v9m3-wfh8-5646"
+ },
+ {
+  "ghsa_id": "GHSA-f6pj-qv47-g96w",
+  "cve_id": "CVE-2026-77247",
+  "published": "2026-09-22T20:36:29Z",
+  "summary": "MCP Atlassian: Arbitrary server-local file upload to Jira/Confluence attachments via unrestricted file_path parameters",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f6pj-qv47-g96w"
+ },
+ {
+  "ghsa_id": "GHSA-wrhw-j3f9-8vc6",
+  "cve_id": "CVE-2026-77244",
+  "published": "2026-09-22T20:36:26Z",
+  "summary": "[mcp-atlassian] Authentication bypass in HTTP transport: AtlassianOpaqueTokenVerifier accepts any non-empty token",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wrhw-j3f9-8vc6"
+ },
+ {
+  "ghsa_id": "GHSA-hgcf-4mq8-5266",
+  "cve_id": "CVE-2026-77274",
+  "published": "2026-09-22T20:36:22Z",
+  "summary": "MCP Atlassian: SSRF Protection Bypass",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hgcf-4mq8-5266"
+ },
+ {
+  "ghsa_id": "GHSA-6vmq-24h2-pj7j",
+  "cve_id": "CVE-2026-77271",
+  "published": "2026-09-22T20:36:20Z",
+  "summary": "MCP Atlassian: Incomplete path traversal fix allows intra-CWD module overwrite and RCE (bypass of GHSA-xjgw-4wvw-rgm4)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6vmq-24h2-pj7j"
+ },
+ {
+  "ghsa_id": "GHSA-5wf4-jqxh-8gm3",
+  "cve_id": "CVE-2026-77267",
+  "published": "2026-09-22T20:36:17Z",
+  "summary": "mcp-atlassian has an incomplete SSRF remediation",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5wf4-jqxh-8gm3"
+ },
+ {
+  "ghsa_id": "GHSA-g2r2-3j32-j27x",
+  "cve_id": "CVE-2026-77272",
+  "published": "2026-09-22T20:35:25Z",
+  "summary": "MCP Atlassian: Reflected XSS in OAuth Setup Callback Handler",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g2r2-3j32-j27x"
+ },
+ {
+  "ghsa_id": "GHSA-p6hp-93wp-fh6p",
+  "cve_id": "CVE-2026-77262",
+  "published": "2026-09-22T20:35:21Z",
+  "summary": "MCP Atlassian: Path Traversal / Arbitrary File Read in confluence_upload_attachment MCP tool (incomplete fix of GHSA-xjgw-4wvw-rgm4)",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-p6hp-93wp-fh6p"
+ },
+ {
+  "ghsa_id": "GHSA-4596-2p6p-28cv",
+  "cve_id": "CVE-2026-77268",
+  "published": "2026-09-22T20:35:19Z",
+  "summary": "MCP Atlassian: Insecure File Permissions on OAuth Token Storage",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4596-2p6p-28cv"
+ },
+ {
+  "ghsa_id": "GHSA-6cr4-ccf3-x7h4",
+  "cve_id": "CVE-2026-77259",
+  "published": "2026-09-22T20:35:16Z",
+  "summary": "MCP Atlassian: Arbitrary file read via confluence_upload_attachment allows exfiltration of server credentials",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6cr4-ccf3-x7h4"
+ },
+ {
+  "ghsa_id": "GHSA-6529-c226-h328",
+  "cve_id": "CVE-2026-77261",
+  "published": "2026-09-22T20:35:13Z",
+  "summary": "MCP Atlassian: SSRF redirect protection missing for basic-auth and OAuth authentication branches",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6529-c226-h328"
+ },
+ {
+  "ghsa_id": "GHSA-f26r-j276-ggg4",
+  "cve_id": "CVE-2026-77270",
+  "published": "2026-09-22T20:35:11Z",
+  "summary": "MCP Atlassian: Arbitrary File Read via Upload Attachment Tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f26r-j276-ggg4"
+ },
+ {
+  "ghsa_id": "GHSA-49xv-9743-pw8w",
+  "cve_id": "CVE-2026-77265",
+  "published": "2026-09-22T20:35:08Z",
+  "summary": "MCP Atlassian: SSRF via DNS Rebinding in Header-Based Authentication Flow",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-49xv-9743-pw8w"
+ },
+ {
+  "ghsa_id": "GHSA-mfv2-4wvm-9pgp",
+  "cve_id": "CVE-2026-77266",
+  "published": "2026-09-22T20:35:06Z",
+  "summary": "MCP Atlassian: Path traversal in upload_attachment allows arbitrary file read and exfiltration via MCP tool call",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-mfv2-4wvm-9pgp"
+ },
+ {
+  "ghsa_id": "GHSA-h7wj-5v37-59r2",
+  "cve_id": "CVE-2026-77269",
+  "published": "2026-09-22T20:35:03Z",
+  "summary": "MCP Atlassian: Path traversal in upload_attachment allows arbitrary file read (incomplete fix for CVE-2026-27825)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h7wj-5v37-59r2"
+ },
+ {
+  "ghsa_id": "GHSA-f4p7-qx46-wc5j",
+  "cve_id": "CVE-2026-77260",
+  "published": "2026-09-22T20:35:00Z",
+  "summary": "MCP Atlassian: Arbitrary local file READ via unconstrained file_path in upload_attachment (Confluence + Jira)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f4p7-qx46-wc5j"
+ },
+ {
+  "ghsa_id": "GHSA-mrq8-fv7v-hhjg",
+  "cve_id": "CVE-2026-77257",
+  "published": "2026-09-22T20:34:58Z",
+  "summary": "MCP Atlassian: HTTP upload tools accept arbitrary server-local file paths",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mrq8-fv7v-hhjg"
+ },
+ {
+  "ghsa_id": "GHSA-3r68-hf9h-887v",
+  "cve_id": "CVE-2026-77243",
+  "published": "2026-09-22T20:34:55Z",
+  "summary": "MCP Atlassian: ENABLED_TOOLS / Toolset authorization bypass",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3r68-hf9h-887v"
+ },
+ {
+  "ghsa_id": "GHSA-2xj6-xx86-cwwc",
+  "cve_id": "CVE-2026-77255",
+  "published": "2026-09-22T20:34:52Z",
+  "summary": "MCP Atlassian: Arbitrary File Read & Exfiltration (Confused Deputy) in JIRA update_issue",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-2xj6-xx86-cwwc"
+ },
+ {
+  "ghsa_id": "GHSA-vc25-24vv-fxxm",
+  "cve_id": "CVE-2026-77253",
+  "published": "2026-09-22T20:34:50Z",
+  "summary": "MCP Atlassian: Jira and Confluence attachment upload tools can read arbitrary server-local files",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vc25-24vv-fxxm"
+ },
+ {
+  "ghsa_id": "GHSA-w66g-j6c4-hcfc",
+  "cve_id": "CVE-2026-77251",
+  "published": "2026-09-22T20:34:47Z",
+  "summary": "MCP Atlassian: JIRA_PROJECTS_FILTER / CONFLUENCE_SPACES_FILTER allow forbidden-project content exfiltration (one LIVE-proven on Atlassian Cloud)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w66g-j6c4-hcfc"
+ },
+ {
+  "ghsa_id": "GHSA-wv8v-v4c5-v75j",
+  "cve_id": "CVE-2026-77246",
+  "published": "2026-09-22T20:34:45Z",
+  "summary": "MCP Atlassian: MCP HTTP Client Server-Local File Exfiltration via Unvalidated Attachment Upload Path",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wv8v-v4c5-v75j"
+ },
+ {
+  "ghsa_id": "GHSA-cc5h-2pwp-pvcc",
+  "cve_id": "CVE-2026-77248",
+  "published": "2026-09-22T20:34:43Z",
+  "summary": "MCP Atlassian: Unauthenticated arbitrary local file read via upload_attachment file_path, chained with missing auth on streamable-http transport",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cc5h-2pwp-pvcc"
+ },
+ {
+  "ghsa_id": "GHSA-798p-78g2-v556",
+  "cve_id": "CVE-2026-61612",
+  "published": "2026-09-22T14:51:20Z",
+  "summary": "@aborruso/ckan-mcp-server has SSRF via DNS-name → internal IP — incomplete fix of CVE-2026-53509",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-798p-78g2-v556"
+ },
+ {
+  "ghsa_id": "GHSA-jjhp-8crj-mppq",
+  "cve_id": "CVE-2026-61647",
+  "published": "2026-09-22T14:43:26Z",
+  "summary": "@roomi-fields/notebooklm-mcp has a path traversal in vault.batch tool that allows arbitrary file write outside intended vault directory",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jjhp-8crj-mppq"
+ },
+ {
+  "ghsa_id": "GHSA-jgh3-fggc-mcpm",
+  "cve_id": null,
+  "published": "2026-09-18T17:59:46Z",
+  "summary": "Obot: Server-Side Request Forgery via remote MCP server URL",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jgh3-fggc-mcpm"
+ },
+ {
+  "ghsa_id": "GHSA-pr6h-vr44-xq8j",
+  "cve_id": null,
+  "published": "2026-09-18T17:59:40Z",
+  "summary": "Obot: MCP Registry API readable without authentication",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pr6h-vr44-xq8j"
+ },
+ {
+  "ghsa_id": "GHSA-xwmw-prc4-v3cr",
+  "cve_id": null,
+  "published": "2026-09-18T17:59:35Z",
+  "summary": "Obot: OAuth Dynamic Client Registration Enables API Token Theft via Audience Confusion",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xwmw-prc4-v3cr"
+ },
+ {
+  "ghsa_id": "GHSA-5gm3-9crp-6g3v",
+  "cve_id": "CVE-2026-77339",
+  "published": "2026-09-18T17:17:51Z",
+  "summary": "Process Compose: Browser DNS rebinding lets websites control local process-compose MCP tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5gm3-9crp-6g3v"
+ },
+ {
+  "ghsa_id": "GHSA-qg2g-g9w3-m5h8",
+  "cve_id": "CVE-2026-58197",
+  "published": "2026-09-18T17:16:02Z",
+  "summary": "ToolHive: containerized MCP servers can reach host services via host.docker.internal, enabling lateral movement",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qg2g-g9w3-m5h8"
+ },
+ {
+  "ghsa_id": "GHSA-cx86-7xwp-w9wf",
+  "cve_id": "CVE-2026-77616",
+  "published": "2026-09-18T16:58:50Z",
+  "summary": "Semantic MediaWiki affected by reflected XSS in `Special:Ask` via a forged cursor pagination token",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-cx86-7xwp-w9wf"
+ },
+ {
+  "ghsa_id": "GHSA-c5pq-fr2g-9jpf",
+  "cve_id": "CVE-2026-77411",
+  "published": "2026-09-17T17:04:25Z",
+  "summary": "RabbitMQ amqp091-go: Protocol Desynchronization and Frame Injection via Integer Overflow in readLongstr",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-c5pq-fr2g-9jpf"
+ },
+ {
+  "ghsa_id": "GHSA-9rm7-3qhh-h2mc",
+  "cve_id": "CVE-2026-63126",
+  "published": "2026-09-17T14:52:52Z",
+  "summary": "Wire: Unauthenticated decoder crash via 32-bit length integer overflow in ByteArrayProtoReader32 (incomplete fix of CVE-2026-45799)",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9rm7-3qhh-h2mc"
+ },
+ {
+  "ghsa_id": "GHSA-9g45-5xwm-f3wc",
+  "cve_id": "CVE-2026-64684",
+  "published": "2026-09-17T14:48:12Z",
+  "summary": "RMCP: Custom HTTP headers leak to cross-origin redirect targets",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9g45-5xwm-f3wc"
+ },
+ {
+  "ghsa_id": "GHSA-9pj6-vhgr-3mwh",
+  "cve_id": "CVE-2026-63128",
+  "published": "2026-09-16T22:13:34Z",
+  "summary": "RMCP: Unauthenticated permanent session-table leak in rmcp Streamable HTTP server transport leads to remote denial-of-service",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9pj6-vhgr-3mwh"
+ },
+ {
+  "ghsa_id": "GHSA-33f5-2c5q-wgwj",
+  "cve_id": "CVE-2026-63127",
+  "published": "2026-09-16T22:13:26Z",
+  "summary": "RMCP: Missing Resource Field Validation in OAuth Protected Resource Metadata Discovery",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-33f5-2c5q-wgwj"
+ },
+ {
+  "ghsa_id": "GHSA-cv3r-c5h8-f4g5",
+  "cve_id": "CVE-2026-61560",
+  "published": "2026-09-16T13:48:28Z",
+  "summary": "@zereight/mcp-gitlab: Unauthenticated arbitrary file read via `upload_markdown` enables PAT exfiltration and full account takeover",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cv3r-c5h8-f4g5"
+ },
+ {
+  "ghsa_id": "GHSA-2h44-8472-frjj",
+  "cve_id": "CVE-2026-61559",
+  "published": "2026-09-15T20:57:28Z",
+  "summary": "@zereight/mcp-gitlab Vulnerable to Server-Side Request Forgery",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2h44-8472-frjj"
+ },
+ {
+  "ghsa_id": "GHSA-vmp7-252j-cwp7",
+  "cve_id": "CVE-2026-61568",
+  "published": "2026-09-15T20:54:55Z",
+  "summary": "@zereight/mcp-gitlab: DNS rebinding reaches local Streamable HTTP MCP transport",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vmp7-252j-cwp7"
+ },
+ {
+  "ghsa_id": "GHSA-5648-rgj9-v224",
+  "cve_id": null,
+  "published": "2026-09-15T20:48:22Z",
+  "summary": "@zereight/mcp-gitlab has multiple safety-control bypasses: execute_graphql read-only + allow-list bypass, unauthenticated transports, session-exhaustion DoS",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5648-rgj9-v224"
+ },
+ {
+  "ghsa_id": "GHSA-65h7-9wrw-629c",
+  "cve_id": "CVE-2026-59973",
+  "published": "2026-09-11T22:02:04Z",
+  "summary": "FrontMCP and mcp-from-openapi have bypass of OpenAPI external $ref SSRF fix",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-65h7-9wrw-629c"
+ },
+ {
+  "ghsa_id": "GHSA-j328-xmgp-j4q3",
+  "cve_id": "CVE-2026-56828",
+  "published": "2026-09-11T21:28:54Z",
+  "summary": "Shopper: privilege escalation via improper Livewire admin component authorization",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-j328-xmgp-j4q3"
+ },
+ {
+  "ghsa_id": "GHSA-243p-f3cv-c5wh",
+  "cve_id": "CVE-2026-56827",
+  "published": "2026-09-11T20:47:17Z",
+  "summary": "Shopper: Authorization bypass in Filament bulk actions allows browse-only staff to mass-delete attributes/tags and mass-toggle visibility of brands/categories/suppliers",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-243p-f3cv-c5wh"
+ },
+ {
+  "ghsa_id": "GHSA-rqfv-2mw9-78g2",
+  "cve_id": "CVE-2026-59971",
+  "published": "2026-09-11T20:35:42Z",
+  "summary": "MySQL MCP Server: Missing Origin/Host Validation in SSE Transport Enables Unauthenticated SQL Execution (DNS Rebinding / Direct Exposure)",
+  "keywords": [
+   "MCP",
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-rqfv-2mw9-78g2"
+ },
+ {
+  "ghsa_id": "GHSA-hf57-cqmx-p4gr",
+  "cve_id": "CVE-2026-88062",
+  "published": "2026-09-10T21:22:12Z",
+  "summary": " OmniRoute ACP Custom-Agent Remote Code Execution (RCE)",
+  "keywords": [
+   "MCP",
+   "Copilot",
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-hf57-cqmx-p4gr"
+ },
+ {
+  "ghsa_id": "GHSA-cw9w-vv67-hf73",
+  "cve_id": "CVE-2026-86073",
+  "published": "2026-09-10T21:21:49Z",
+  "summary": "n8n: Per-Resource OAuth Consent Bypass via Unbound Refresh Token Resource Substitution",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cw9w-vv67-hf73"
+ },
+ {
+  "ghsa_id": "GHSA-w47m-jpv2-qfw5",
+  "cve_id": null,
+  "published": "2026-09-10T18:31:45Z",
+  "summary": "Duplicate Advisory: Knowns Sandbox Escape: Unauthenticated Header Injection Grants AI Agent Unrestricted Access to Host Filesystem",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-w47m-jpv2-qfw5"
+ },
+ {
+  "ghsa_id": "GHSA-wcjj-9m6g-2fr2",
+  "cve_id": "CVE-2026-59176",
+  "published": "2026-09-09T23:49:20Z",
+  "summary": "functype-mcp-server: MCP `set_functype_version` Package Alias RCE via Unsanitized pnpm install + Dynamic Import",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wcjj-9m6g-2fr2"
+ },
+ {
+  "ghsa_id": "GHSA-7w5x-hrqm-74c2",
+  "cve_id": "CVE-2026-85730",
+  "published": "2026-09-09T18:07:11Z",
+  "summary": "smol-toml: Denial of Service via malformed TOML documents",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-7w5x-hrqm-74c2"
+ },
+ {
+  "ghsa_id": "GHSA-3gq4-3j92-5w49",
+  "cve_id": "CVE-2026-79674",
+  "published": "2026-09-08T16:57:08Z",
+  "summary": "NLTK: Corpus Reader Sandbox Bypass",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-3gq4-3j92-5w49"
+ },
+ {
+  "ghsa_id": "GHSA-qjrq-cvv4-3g9w",
+  "cve_id": null,
+  "published": "2026-09-08T00:30:22Z",
+  "summary": "Duplicate Advisory: Knowns Unrestricted Path Traversal leading to out-of-bounds arbitrary .md file read, write, and deletion in MCP Docs + Memory Tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qjrq-cvv4-3g9w"
+ },
+ {
+  "ghsa_id": "GHSA-gx45-xrj5-g6c4",
+  "cve_id": "CVE-2026-75911",
+  "published": "2026-09-04T18:14:09Z",
+  "summary": "CodeWhale: Project config `allow_shell` override enables arbitrary shell command execution via cloned repository",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-gx45-xrj5-g6c4"
+ },
+ {
+  "ghsa_id": "GHSA-wrj3-vj8c-784f",
+  "cve_id": "CVE-2026-75858",
+  "published": "2026-09-04T18:12:15Z",
+  "summary": "CodeWhale: rlm_eval auto-approves arbitrary Python execution, bypassing the user's approval policy (RCE)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wrj3-vj8c-784f"
+ },
+ {
+  "ghsa_id": "GHSA-h539-c7r8-3xq4",
+  "cve_id": "CVE-2026-75915",
+  "published": "2026-09-04T18:03:08Z",
+  "summary": "CodeWhale: js_execution leaks parent environment to model context via missing env scrub",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h539-c7r8-3xq4"
+ },
+ {
+  "ghsa_id": "GHSA-g29h-pfmp-qp9r",
+  "cve_id": "CVE-2026-75857",
+  "published": "2026-09-04T18:02:10Z",
+  "summary": "CodeWhale: exec_shell_interact sends LLM-controlled input to a running shell without an approval prompt (privilege escalation)",
+  "keywords": [
+   "MCP",
+   "coding agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-g29h-pfmp-qp9r"
+ },
+ {
+  "ghsa_id": "GHSA-62f5-cp2p-vq95",
+  "cve_id": "CVE-2026-75859",
+  "published": "2026-09-04T18:00:37Z",
+  "summary": "CodeWhale: Project config `instructions` override enables arbitrary file read into AI system prompt via cloned repository",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-62f5-cp2p-vq95"
+ },
+ {
+  "ghsa_id": "GHSA-w7wx-5q49-r59w",
+  "cve_id": "CVE-2026-75914",
+  "published": "2026-09-04T17:34:55Z",
+  "summary": "CodeWhale: image_analyze follows workspace symlinks, leaking external file bytes",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w7wx-5q49-r59w"
+ },
+ {
+  "ghsa_id": "GHSA-79wm-x847-7cvg",
+  "cve_id": "CVE-2026-73222",
+  "published": "2026-09-03T19:50:47Z",
+  "summary": "Claude Code Templates: Unauthenticated OS command injection (RCE) in Claude Code Studio server (--studio)",
+  "keywords": [
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-79wm-x847-7cvg"
+ },
+ {
+  "ghsa_id": "GHSA-fg9p-mrxr-hvq7",
+  "cve_id": "CVE-2026-62681",
+  "published": "2026-09-03T19:17:32Z",
+  "summary": "Orval: RCE via OpenAPI path -> unescaped request-URL template literal (backtick breakout)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fg9p-mrxr-hvq7"
+ },
+ {
+  "ghsa_id": "GHSA-88f2-fpv8-89q2",
+  "cve_id": "CVE-2026-62682",
+  "published": "2026-09-03T19:06:52Z",
+  "summary": "Orval: RCE via servers[].url -> unescaped request-URL template literal (with getBaseUrlFromSpecification)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-88f2-fpv8-89q2"
+ },
+ {
+  "ghsa_id": "GHSA-w727-8j6c-2rj4",
+  "cve_id": "CVE-2026-72717",
+  "published": "2026-09-03T19:03:03Z",
+  "summary": "Orval: Import-time RCE via schema default -> zod module-level template literal",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w727-8j6c-2rj4"
+ },
+ {
+  "ghsa_id": "GHSA-78x9-fhhx-v2g6",
+  "cve_id": "CVE-2026-73846",
+  "published": "2026-09-03T14:49:22Z",
+  "summary": "CKAN MCP Server: Cache-key canonicalization collision enables cache confusion / poisoning",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-78x9-fhhx-v2g6"
+ },
+ {
+  "ghsa_id": "GHSA-6f9w-9hf2-5rg3",
+  "cve_id": "CVE-2026-73844",
+  "published": "2026-09-03T14:49:10Z",
+  "summary": "CKAN MCP Server: Information disclosure via verbose error reflection",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6f9w-9hf2-5rg3"
+ },
+ {
+  "ghsa_id": "GHSA-7mqg-cx4g-x2rf",
+  "cve_id": "CVE-2026-62676",
+  "published": "2026-09-02T22:40:07Z",
+  "summary": "Omnigent Guardrail policy bypass: shell-command parser fails open in policies/builtins/_shell.py",
+  "keywords": [
+   "Claude Code",
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-7mqg-cx4g-x2rf"
+ },
+ {
+  "ghsa_id": "GHSA-p8rw-8qj3-hf33",
+  "cve_id": "CVE-2026-62677",
+  "published": "2026-09-02T22:00:54Z",
+  "summary": "Omnigent: Unvalidated os_env.cwd in agent bundle yields arbitrary host filesystem access on runners without OMNIGENT_RUNNER_WORKSPACE",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p8rw-8qj3-hf33"
+ },
+ {
+  "ghsa_id": "GHSA-jrrm-9hc7-2v3h",
+  "cve_id": "CVE-2026-62674",
+  "published": "2026-09-02T21:55:11Z",
+  "summary": "Omnigent: Shared Agent Bundle Overwrite Leads to Authenticated Runner RCE",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jrrm-9hc7-2v3h"
+ },
+ {
+  "ghsa_id": "GHSA-83x6-42hr-jc76",
+  "cve_id": "CVE-2026-73845",
+  "published": "2026-09-02T14:52:21Z",
+  "summary": "CKAN MCP Server: MQA server allowlist bypass via unanchored regex (`isValidMqaServer`)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-83x6-42hr-jc76"
+ },
+ {
+  "ghsa_id": "GHSA-f8fg-pg57-v4j8",
+  "cve_id": null,
+  "published": "2026-09-01T20:18:29Z",
+  "summary": "league/commonmark XSS: `on*` event-handler filter in `AttributesExtension` bypassed with a U+000C form feed",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-f8fg-pg57-v4j8"
+ },
+ {
+  "ghsa_id": "GHSA-2rx9-3g3h-c2jv",
+  "cve_id": null,
+  "published": "2026-09-01T18:59:22Z",
+  "summary": "pnpm: pacquet trust-lockfile install can create dependency symlinks outside the project",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-2rx9-3g3h-c2jv"
+ },
+ {
+  "ghsa_id": "GHSA-86m2-fcxq-5q7c",
+  "cve_id": "CVE-2026-55641",
+  "published": "2026-08-28T18:33:20Z",
+  "summary": "9router: Unauthenticated `/v1` proxy access via `Host`-header spoofing → open AI relay + SSRF",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-86m2-fcxq-5q7c"
+ },
+ {
+  "ghsa_id": "GHSA-8gmq-j984-vp4r",
+  "cve_id": "CVE-2026-55638",
+  "published": "2026-08-28T18:32:01Z",
+  "summary": "9router: Unauthenticated LLM proxy access via /codex rewrite authorization bypass",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-8gmq-j984-vp4r"
+ },
+ {
+  "ghsa_id": "GHSA-hvfh-5mj3-5f3j",
+  "cve_id": "CVE-2026-45019",
+  "published": "2026-08-25T19:21:40Z",
+  "summary": "Chainlist has SSRF via MCP SSE and streamable-http transports that allows unauthenticated internal network access",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hvfh-5mj3-5f3j"
+ },
+ {
+  "ghsa_id": "GHSA-w3fx-mc44-mf6j",
+  "cve_id": "CVE-2026-45018",
+  "published": "2026-08-25T19:19:28Z",
+  "summary": "Chainlit has command injection via MCP stdio transport that allows unauthenticated remote code execution",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w3fx-mc44-mf6j"
+ },
+ {
+  "ghsa_id": "GHSA-72f3-6w86-7rv3",
+  "cve_id": "CVE-2026-55605",
+  "published": "2026-08-25T18:38:30Z",
+  "summary": "@arikusi/deepseek-mcp-server: Missing Authentication on Self-Hosted HTTP MCP Endpoint",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-72f3-6w86-7rv3"
+ },
+ {
+  "ghsa_id": "GHSA-fh3r-g96v-f578",
+  "cve_id": "CVE-2026-55604",
+  "published": "2026-08-25T18:37:27Z",
+  "summary": "@arikusi/deepseek-mcp-server has an Authorization Bypass Through User-Controlled Key",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-fh3r-g96v-f578"
+ },
+ {
+  "ghsa_id": "GHSA-xc9g-j69q-37xw",
+  "cve_id": "CVE-2026-55609",
+  "published": "2026-08-25T18:35:32Z",
+  "summary": "consciousness-explorer / sublinear-time-solver MCP export_state has an arbitrary file write",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xc9g-j69q-37xw"
+ },
+ {
+  "ghsa_id": "GHSA-cmwv-wf9p-p8wx",
+  "cve_id": "CVE-2026-55637",
+  "published": "2026-08-25T18:05:28Z",
+  "summary": "genieacs-mcp: DNS rebinding reaches local GenieACS MCP Streamable HTTP transport",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cmwv-wf9p-p8wx"
+ },
+ {
+  "ghsa_id": "GHSA-vwf3-4xxj-qg6h",
+  "cve_id": null,
+  "published": "2026-08-25T17:42:11Z",
+  "summary": "mcp-contextforge-gateway has Server-Side Template Injection (SSTI) leading to Remote Code Execution in `PromptService._render_template` via unsandboxed Jinja2 Environment",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vwf3-4xxj-qg6h"
+ },
+ {
+  "ghsa_id": "GHSA-m9mq-7m7q-xc6p",
+  "cve_id": "CVE-2026-55557",
+  "published": "2026-08-25T16:28:32Z",
+  "summary": "browse-mcp has an arbitrary file write via unconfined download and state paths",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-m9mq-7m7q-xc6p"
+ },
+ {
+  "ghsa_id": "GHSA-8vh3-g2qg-2h2c",
+  "cve_id": "CVE-2026-55640",
+  "published": "2026-08-25T16:04:15Z",
+  "summary": "nextcloud-mcp-server: Unauthenticated `POST /webhooks/nextcloud` allows arbitrary vector data deletion when `WEBHOOK_SECRET` is unset ( default )",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8vh3-g2qg-2h2c"
+ },
+ {
+  "ghsa_id": "GHSA-8qx3-8gm5-9cj2",
+  "cve_id": null,
+  "published": "2026-08-25T15:59:11Z",
+  "summary": "pickem vulnerable to terminal escape-sequence injection via unsanitized item text",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-8qx3-8gm5-9cj2"
+ },
+ {
+  "ghsa_id": "GHSA-f5pj-2738-996m",
+  "cve_id": "CVE-2026-55580",
+  "published": "2026-08-25T15:46:50Z",
+  "summary": "mcp-shell — Security Disabled by Default in Bare-Binary Deploy Path + Shell Interpreter in Secure-Mode Allowlist",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f5pj-2738-996m"
+ },
+ {
+  "ghsa_id": "GHSA-3x77-wg38-92r3",
+  "cve_id": "CVE-2026-55581",
+  "published": "2026-08-25T15:41:30Z",
+  "summary": "mcp-shell has a Secure Mode Allowlist Bypass via Default `/bin/bash` Executable",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3x77-wg38-92r3"
+ },
+ {
+  "ghsa_id": "GHSA-74hp-mggr-hv58",
+  "cve_id": "CVE-2026-55582",
+  "published": "2026-08-25T15:39:05Z",
+  "summary": "mcp-shell has a Secure Mode Allowlist Bypass via Git Shell Alias",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-74hp-mggr-hv58"
+ },
+ {
+  "ghsa_id": "GHSA-mw6r-2hvm-4rp2",
+  "cve_id": "CVE-2026-55546",
+  "published": "2026-08-25T15:26:43Z",
+  "summary": "qwed-mcp has Unsafe SymPy `parse_expr()` Remote Code Execution via Unsanitized Math Expression Input",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-mw6r-2hvm-4rp2"
+ },
+ {
+  "ghsa_id": "GHSA-pvph-5j39-v8qc",
+  "cve_id": "CVE-2026-55532",
+  "published": "2026-08-25T15:18:20Z",
+  "summary": "PraisonAI: Origin-validation bypass (startswith prefix match) enables unauthenticated cross-site request forgery against the PraisonAI MCP HTTP server",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pvph-5j39-v8qc"
+ },
+ {
+  "ghsa_id": "GHSA-r7v3-x45f-g7hp",
+  "cve_id": "CVE-2026-55538",
+  "published": "2026-08-25T14:56:59Z",
+  "summary": "PraisonAI: [Auth Bypass] `praisonai serve agents --api-key` is silently ignored — agent-invocation routes (`POST /agents`, `POST /agents/{agent_name}`) run unauthenticated",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-r7v3-x45f-g7hp"
+ },
+ {
+  "ghsa_id": "GHSA-7ww9-85pg-cv4x",
+  "cve_id": "CVE-2026-55534",
+  "published": "2026-08-25T14:42:25Z",
+  "summary": "PraisonAI serve agents --api-key is ignored, allowing unauthenticated remote agent execution",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7ww9-85pg-cv4x"
+ },
+ {
+  "ghsa_id": "GHSA-wv94-5qcp-6m36",
+  "cve_id": "CVE-2026-55531",
+  "published": "2026-08-25T14:34:28Z",
+  "summary": "PraisonAI MCP HTTP server has unauthenticated unbounded session accumulation (memory exhaustion; session TTL never enforced)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wv94-5qcp-6m36"
+ },
+ {
+  "ghsa_id": "GHSA-wj6g-v78p-6fx3",
+  "cve_id": "CVE-2026-55529",
+  "published": "2026-08-25T14:26:26Z",
+  "summary": "PraisonAI has an origin validation bypass in MCP HTTP Stream transport that allows browser-mediated unauthenticated tool execution on local MCP server",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wj6g-v78p-6fx3"
+ },
+ {
+  "ghsa_id": "GHSA-xm98-3vcf-fph7",
+  "cve_id": "CVE-2026-53710",
+  "published": "2026-08-24T19:20:58Z",
+  "summary": "mcp-contextforge-gateway has RestrictedPython sandbox bypass via getattr builtin in python_sandbox_server",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xm98-3vcf-fph7"
+ },
+ {
+  "ghsa_id": "GHSA-rxhg-vcww-2mpw",
+  "cve_id": null,
+  "published": "2026-08-20T18:44:36Z",
+  "summary": "Fleet: ORDER BY column injection on activity list endpoints",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-rxhg-vcww-2mpw"
+ },
+ {
+  "ghsa_id": "GHSA-mrc5-3mm3-45c5",
+  "cve_id": "CVE-2026-54182",
+  "published": "2026-08-20T18:38:55Z",
+  "summary": "Laravel Backpack CRUD: OS command injection in Stats::makeCurlRequest via attacker-controlled Host header (pre-auth)",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-mrc5-3mm3-45c5"
+ },
+ {
+  "ghsa_id": "GHSA-xpv2-hrfc-hw62",
+  "cve_id": "CVE-2026-54175",
+  "published": "2026-08-20T18:38:26Z",
+  "summary": "Laravel Backpack CRUD: Unverified password change in MyAccountController via mass assignment",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-xpv2-hrfc-hw62"
+ },
+ {
+  "ghsa_id": "GHSA-x3g7-qrwc-f6c5",
+  "cve_id": "CVE-2026-54162",
+  "published": "2026-08-20T18:36:01Z",
+  "summary": "Ember has unneutralized terminal escape/control sequences from Caddy logs injected into the operator's TUI",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-x3g7-qrwc-f6c5"
+ },
+ {
+  "ghsa_id": "GHSA-hjwh-xvfw-qrwj",
+  "cve_id": null,
+  "published": "2026-08-19T19:32:46Z",
+  "summary": "SearXNG Basic Authentication Credentials Exposed Through MCP Logs and JSON-RPC Error Responses",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hjwh-xvfw-qrwj"
+ },
+ {
+  "ghsa_id": "GHSA-wppf-h75h-6pm6",
+  "cve_id": "CVE-2026-54689",
+  "published": "2026-08-19T19:23:16Z",
+  "summary": "SearXNG MCP Server: Additional hardened-mode SSRF bypasses",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wppf-h75h-6pm6"
+ },
+ {
+  "ghsa_id": "GHSA-q87f-qc2r-2gw4",
+  "cve_id": "CVE-2026-54688",
+  "published": "2026-08-19T19:23:08Z",
+  "summary": "SearXNG MCP Server is Vulnerable to SSRF in web_url_read: the internal-address guard is disabled by default (MCP_HTTP_HARDEN off)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q87f-qc2r-2gw4"
+ },
+ {
+  "ghsa_id": "GHSA-7m52-jw36-44r3",
+  "cve_id": "CVE-2026-53965",
+  "published": "2026-08-19T19:17:49Z",
+  "summary": "MCP PHP SDK: client HttpTransport SSE buffer (sseBuffer .= chunk) grows unbounded when server withholds the event delimiter",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7m52-jw36-44r3"
+ },
+ {
+  "ghsa_id": "GHSA-2xhg-73j7-rrgx",
+  "cve_id": "CVE-2026-53957",
+  "published": "2026-08-19T19:17:00Z",
+  "summary": "Contentful MCP Server: export_space/import_space tools pass LLM-controlled `host`/`proxy` args to CMA client, redirecting server PAT to attacker-controlled endpoint",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2xhg-73j7-rrgx"
+ },
+ {
+  "ghsa_id": "GHSA-qwgh-2vcv-g2f7",
+  "cve_id": null,
+  "published": "2026-08-19T19:15:34Z",
+  "summary": "block_buffer: panic corrupts inline buffer position",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-qwgh-2vcv-g2f7"
+ },
+ {
+  "ghsa_id": "GHSA-rr55-jp92-8wp2",
+  "cve_id": null,
+  "published": "2026-08-19T19:15:25Z",
+  "summary": "claude-faf-mcp has an arbitrary local file read/write via unconfined `path` argument in FAF tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rr55-jp92-8wp2"
+ },
+ {
+  "ghsa_id": "GHSA-j4r7-8ph4-43g3",
+  "cve_id": null,
+  "published": "2026-08-19T19:15:13Z",
+  "summary": "faf-mcp has an arbitrary local file read/write via unconfined `path` argument in FAF tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j4r7-8ph4-43g3"
+ },
+ {
+  "ghsa_id": "GHSA-cc2g-gq8c-r332",
+  "cve_id": null,
+  "published": "2026-08-19T19:15:01Z",
+  "summary": "grok-faf-mcp has an arbitrary local file read via unconfined `path` argument in FAF tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-cc2g-gq8c-r332"
+ },
+ {
+  "ghsa_id": "GHSA-8qf9-62x2-82pp",
+  "cve_id": "CVE-2026-53766",
+  "published": "2026-08-17T21:56:12Z",
+  "summary": "chrome-devtools-mcp: validatePath() does not canonicalize symlinks before enforcing roots",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8qf9-62x2-82pp"
+ },
+ {
+  "ghsa_id": "GHSA-xhcr-cqfr-m3hv",
+  "cve_id": null,
+  "published": "2026-08-17T21:49:55Z",
+  "summary": "atomic-agents-stack: HTTP MCP catalog accepts cleartext http and spawns catalog-supplied commands (MITM to RCE)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xhcr-cqfr-m3hv"
+ },
+ {
+  "ghsa_id": "GHSA-76pc-mqxp-3rq5",
+  "cve_id": "CVE-2026-55156",
+  "published": "2026-08-14T21:43:54Z",
+  "summary": "Token Optimizer MCP: Unauthenticated Path Traversal in Dashboard Session Log API Endpoints",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-76pc-mqxp-3rq5"
+ },
+ {
+  "ghsa_id": "GHSA-49mq-fc6q-3h46",
+  "cve_id": "CVE-2026-55157",
+  "published": "2026-08-14T21:42:06Z",
+  "summary": "Token Optimizer MCP: OS command injection in smart_user via username in get-user-info",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-49mq-fc6q-3h46"
+ },
+ {
+  "ghsa_id": "GHSA-9hgc-g3w5-67cm",
+  "cve_id": "CVE-2026-53708",
+  "published": "2026-08-14T19:49:14Z",
+  "summary": "ContextForge: DNS TOCTOU race condition causes SSRF protection bypass (`/admin/gateways/test`)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9hgc-g3w5-67cm"
+ },
+ {
+  "ghsa_id": "GHSA-jwjp-4649-v8jp",
+  "cve_id": null,
+  "published": "2026-08-12T19:30:43Z",
+  "summary": "SIPSorcery vulnerable to Denial of Service via out-of-bounds read in SCTP SACK chunk parsing",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-jwjp-4649-v8jp"
+ },
+ {
+  "ghsa_id": "GHSA-49m4-vp58-wgc9",
+  "cve_id": "CVE-2026-55071",
+  "published": "2026-08-12T19:23:38Z",
+  "summary": "MCP-for-Stata: Stata Command Injection via Unsanitized `package` in `ado_package_install`",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-49m4-vp58-wgc9"
+ },
+ {
+  "ghsa_id": "GHSA-9hj4-r449-hfvc",
+  "cve_id": "CVE-2026-71847",
+  "published": "2026-08-07T18:33:12Z",
+  "summary": "Ruby JSON: JSON::ResumableParser#partial_value dereferences a freed input buffer and crashes on truncated duplicate-key streams",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-9hj4-r449-hfvc"
+ },
+ {
+  "ghsa_id": "GHSA-xc48-889x-5qmw",
+  "cve_id": "CVE-2026-69263",
+  "published": "2026-08-04T17:09:48Z",
+  "summary": "Flowise: CVE-2025-8943 Patch Bypass: npm_config_yes bypasses MCP environment variable blocklist (Unauthenticated RCE)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xc48-889x-5qmw"
+ },
+ {
+  "ghsa_id": "GHSA-c6xh-wv4j-ppv5",
+  "cve_id": "CVE-2026-69257",
+  "published": "2026-08-04T15:51:58Z",
+  "summary": "Flowise: SSRF Protection Bypass via IPv4-Mapped IPv6 Addresses",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c6xh-wv4j-ppv5"
+ },
+ {
+  "ghsa_id": "GHSA-vmv7-4m6c-3cg5",
+  "cve_id": "CVE-2026-69255",
+  "published": "2026-08-04T15:40:28Z",
+  "summary": "Flowise: CSV Agent Remote Code Execution via Pyodide Code Injection — Root Shell Verified",
+  "keywords": [
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-vmv7-4m6c-3cg5"
+ },
+ {
+  "ghsa_id": "GHSA-wg86-r78f-74mp",
+  "cve_id": "CVE-2026-69253",
+  "published": "2026-08-04T15:13:33Z",
+  "summary": "Flowise Sandbox Escape to RCE",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-wg86-r78f-74mp"
+ },
+ {
+  "ghsa_id": "GHSA-jwv3-5hgf-82ww",
+  "cve_id": "CVE-2026-69249",
+  "published": "2026-08-03T21:26:50Z",
+  "summary": "python-cryptography: Duplicate self-signed intermediates can cause exponential path-building",
+  "keywords": [
+   "coding agent",
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-jwv3-5hgf-82ww"
+ },
+ {
+  "ghsa_id": "GHSA-c5px-58j2-7fqp",
+  "cve_id": "CVE-2026-54785",
+  "published": "2026-07-31T22:31:20Z",
+  "summary": "gemini-bridge vulnerable to arbitrary local file read via consult_gemini_with_files inline mode",
+  "keywords": [
+   "MCP",
+   "Gemini CLI"
+  ],
+  "url": "https://github.com/advisories/GHSA-c5px-58j2-7fqp"
+ },
+ {
+  "ghsa_id": "GHSA-6hxr-mr5r-9836",
+  "cve_id": "CVE-2026-68499",
+  "published": "2026-07-31T16:53:08Z",
+  "summary": "re2: Global `String.prototype.match` with an empty-matchable pattern never advances → infinite loop with unbounded native memory growth (DoS)",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-6hxr-mr5r-9836"
+ },
+ {
+  "ghsa_id": "GHSA-p7w7-4929-vpj5",
+  "cve_id": null,
+  "published": "2026-07-31T16:05:57Z",
+  "summary": "`@dynatrace-oss/dynatrace-mcp-server` has Unauthenticated HTTP MCP Tool Invocation",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-p7w7-4929-vpj5"
+ },
+ {
+  "ghsa_id": "GHSA-xrmj-5g4g-8987",
+  "cve_id": null,
+  "published": "2026-07-31T16:01:07Z",
+  "summary": "@dynatrace-oss/dynatrace-mcp-server has a workflow template injection via create_workflow_for_notification",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-xrmj-5g4g-8987"
+ },
+ {
+  "ghsa_id": "GHSA-pqh8-p93p-2rx7",
+  "cve_id": null,
+  "published": "2026-07-31T15:56:12Z",
+  "summary": "@dynatrace-oss/dynatrace-mcp-server has a DQL injection via parameters not documented as DQL",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pqh8-p93p-2rx7"
+ },
+ {
+  "ghsa_id": "GHSA-4mrv-5p47-p938",
+  "cve_id": "CVE-2026-54522",
+  "published": "2026-07-30T16:33:12Z",
+  "summary": "MessagePack::Buffer#clear Use-After-Free that Enables Cross-Buffer Disclosure",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-4mrv-5p47-p938"
+ },
+ {
+  "ghsa_id": "GHSA-pgwh-4jj4-qm8v",
+  "cve_id": "CVE-2026-67428",
+  "published": "2026-07-30T14:48:05Z",
+  "summary": "Flyto2 Core: Multiple HTTP-family modules fetch client-controlled URLs without the SSRF guard their siblings apply (SSRF to internal/metadata)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pgwh-4jj4-qm8v"
+ },
+ {
+  "ghsa_id": "GHSA-qq9q-xgm3-xv9g",
+  "cve_id": "CVE-2026-67425",
+  "published": "2026-07-30T14:47:16Z",
+  "summary": "Flyto2 Core: LLM/API keys leak to an attacker-controlled base_url",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qq9q-xgm3-xv9g"
+ },
+ {
+  "ghsa_id": "GHSA-hr7p-wg7r-hg9m",
+  "cve_id": "CVE-2026-67427",
+  "published": "2026-07-30T14:47:01Z",
+  "summary": "Flyto2 Core: ${env.VAR} interpolation reads any env secret despite env.get being denylisted",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hr7p-wg7r-hg9m"
+ },
+ {
+  "ghsa_id": "GHSA-2956-977x-2w3r",
+  "cve_id": "CVE-2026-67429",
+  "published": "2026-07-30T14:46:43Z",
+  "summary": "Flyto2 Core: Arbitrary file write via image.download (and other file-writing modules)",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-2956-977x-2w3r"
+ },
+ {
+  "ghsa_id": "GHSA-5p9g-j988-pcwv",
+  "cve_id": "CVE-2026-67431",
+  "published": "2026-07-30T14:44:28Z",
+  "summary": "MCP Ruby SDK: Ruby SSE Session Poisoning",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5p9g-j988-pcwv"
+ },
+ {
+  "ghsa_id": "GHSA-h669-8m4g-r2hc",
+  "cve_id": "CVE-2026-67432",
+  "published": "2026-07-30T14:44:06Z",
+  "summary": "MCP Ruby SDK: Unbounded JSON-RPC request body causes uncontrolled memory allocation in StreamableHTTPTransport",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h669-8m4g-r2hc"
+ },
+ {
+  "ghsa_id": "GHSA-52jp-gj8w-j6xh",
+  "cve_id": "CVE-2026-67430",
+  "published": "2026-07-30T14:43:29Z",
+  "summary": "MCP Ruby SDK: Unbounded session retention in StreamableHTTPTransport allows memory exhaustion via initialize flood",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-52jp-gj8w-j6xh"
+ },
+ {
+  "ghsa_id": "GHSA-7683-3w9x-ch42",
+  "cve_id": "CVE-2026-63119",
+  "published": "2026-07-30T14:41:58Z",
+  "summary": "MCP Ruby SDK: Unbounded line buffer in stdio transports leads to memory exhaustion (DoS)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7683-3w9x-ch42"
+ },
+ {
+  "ghsa_id": "GHSA-rjr6-rcgv-9m7m",
+  "cve_id": "CVE-2026-63118",
+  "published": "2026-07-30T14:41:39Z",
+  "summary": "MCP Ruby SDK: Streamable HTTP transport lacks DNS-rebinding (Host/Origin) protection",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rjr6-rcgv-9m7m"
+ },
+ {
+  "ghsa_id": "GHSA-pc2w-4mq8-32qw",
+  "cve_id": null,
+  "published": "2026-07-29T15:36:19Z",
+  "summary": "@dynatrace-oss/dynatrace-mcp-server's create_dynatrace_notebook missing the human-approval gate",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pc2w-4mq8-32qw"
+ },
+ {
+  "ghsa_id": "GHSA-w4q6-qw23-4rg7",
+  "cve_id": "CVE-2026-47427",
+  "published": "2026-07-28T14:35:10Z",
+  "summary": "GitHub MCP Server has Nil Pointer Dereference DoS in completion/complete Handler",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-w4q6-qw23-4rg7"
+ },
+ {
+  "ghsa_id": "GHSA-8q49-2h5h-434x",
+  "cve_id": null,
+  "published": "2026-07-24T22:40:00Z",
+  "summary": "FrontMCP: Server-Side Request Forgery (SSRF) in the OpenAPI adapter spec-change poller",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8q49-2h5h-434x"
+ },
+ {
+  "ghsa_id": "GHSA-29w2-fq35-v728",
+  "cve_id": "CVE-2026-16584",
+  "published": "2026-07-24T22:33:19Z",
+  "summary": "AWS API MCP Server Security Policy Bypass via Startup Initialization Failure",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-29w2-fq35-v728"
+ },
+ {
+  "ghsa_id": "GHSA-pvcr-8mvp-w8qr",
+  "cve_id": null,
+  "published": "2026-07-24T21:42:51Z",
+  "summary": " Budibase: Chat-Link Handoff Identity Confusion (Same-Tenant Account-Link CSRF)",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-pvcr-8mvp-w8qr"
+ },
+ {
+  "ghsa_id": "GHSA-gmfw-g93r-vg53",
+  "cve_id": "CVE-2026-59715",
+  "published": "2026-07-24T16:59:44Z",
+  "summary": "Open WebUI: Unauthenticated WebSocket Access to Collaborative Document Handlers (ydoc:awareness:update, ydoc:document:leave)",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-gmfw-g93r-vg53"
+ },
+ {
+  "ghsa_id": "GHSA-7835-87q9-rgvv",
+  "cve_id": "CVE-2026-55607",
+  "published": "2026-07-24T16:54:09Z",
+  "summary": "Claude Code: Sandbox Escape via Git Worktree Path Confusion Allows Unsandboxed Code Execution",
+  "keywords": [
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-7835-87q9-rgvv"
+ },
+ {
+  "ghsa_id": "GHSA-4jwf-m4wg-8p66",
+  "cve_id": "CVE-2026-59864",
+  "published": "2026-07-24T15:58:31Z",
+  "summary": "Microsoft Kiota: Path/URL injection into generated Copilot plugin manifest via x-ai-* extensions",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-4jwf-m4wg-8p66"
+ },
+ {
+  "ghsa_id": "GHSA-4h8q-hh2j-755w",
+  "cve_id": "CVE-2026-66004",
+  "published": "2026-07-24T15:33:04Z",
+  "summary": "BlenderMCP path traversal in download_polyhaven_asset allows arbitrary file writes",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4h8q-hh2j-755w"
+ },
+ {
+  "ghsa_id": "GHSA-7488-6r32-c95q",
+  "cve_id": "CVE-2026-59822",
+  "published": "2026-07-22T22:38:33Z",
+  "summary": "LiteLLM: MCP Authentication Bypass via OAuth2 Passthrough Fallback",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7488-6r32-c95q"
+ },
+ {
+  "ghsa_id": "GHSA-q5xf-xhwf-cwqf",
+  "cve_id": "CVE-2026-65594",
+  "published": "2026-07-22T22:31:01Z",
+  "summary": "n8n: Member-Level Users Can Execute Other Users' MCP Server Trigger Workflows via Missing OAuth Authorization Check",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q5xf-xhwf-cwqf"
+ },
+ {
+  "ghsa_id": "GHSA-pf2q-pxhf-hgmw",
+  "cve_id": null,
+  "published": "2026-07-22T22:13:36Z",
+  "summary": "n8n: Path-Confinement Bypass in computer-use search_files Allows Reading Files Outside the Base Directory",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-pf2q-pxhf-hgmw"
+ },
+ {
+  "ghsa_id": "GHSA-vhf8-cg2h-cg3p",
+  "cve_id": null,
+  "published": "2026-07-22T22:07:04Z",
+  "summary": "n8n: SSRF Protection Bypass via MCP Client Node",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vhf8-cg2h-cg3p"
+ },
+ {
+  "ghsa_id": "GHSA-h44j-f5r5-ph73",
+  "cve_id": "CVE-2026-59207",
+  "published": "2026-07-22T21:58:31Z",
+  "summary": "n8n: \"Allowed HTTP Request Domains\" Restriction Bypass via AI Agents MCP Connector",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h44j-f5r5-ph73"
+ },
+ {
+  "ghsa_id": "GHSA-5vfw-jc4p-fj39",
+  "cve_id": null,
+  "published": "2026-07-22T12:32:17Z",
+  "summary": "Duplicate Advisory: Member-Level Users Can Execute Other Users' MCP Server Trigger Workflows via Missing OAuth Authorization Check",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5vfw-jc4p-fj39"
+ },
+ {
+  "ghsa_id": "GHSA-v245-v573-v5vm",
+  "cve_id": "CVE-2026-59887",
+  "published": "2026-07-21T19:06:09Z",
+  "summary": "linkify-it: Quadratic-complexity DoS via the `mailto:` validator scan-loop on attacker text",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-v245-v573-v5vm"
+ },
+ {
+  "ghsa_id": "GHSA-f7wf-v2vw-mpcx",
+  "cve_id": "CVE-2026-54561",
+  "published": "2026-07-17T19:23:07Z",
+  "summary": "mcp-memory-keeper: Arbitrary local file read in context_import via unvalidated filePath",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f7wf-v2vw-mpcx"
+ },
+ {
+  "ghsa_id": "GHSA-rjwr-m7qx-3fjr",
+  "cve_id": null,
+  "published": "2026-07-17T18:50:17Z",
+  "summary": "oapi-codegen: OpenAPI Server Description Escapes Generated Go Comment and Injects Executable Code",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rjwr-m7qx-3fjr"
+ },
+ {
+  "ghsa_id": "GHSA-2v2f-mvfg-ph56",
+  "cve_id": "CVE-2026-54547",
+  "published": "2026-07-17T18:48:54Z",
+  "summary": "meta-ads-mcp: X-Pipeboard-Token Header Auth Bypass Reuses Operator Meta Token",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2v2f-mvfg-ph56"
+ },
+ {
+  "ghsa_id": "GHSA-45gf-fjxp-cjpq",
+  "cve_id": "CVE-2026-54549",
+  "published": "2026-07-17T18:47:31Z",
+  "summary": "meta-ads-mcp: Server-Side Request Forgery (SSRF) in `upload_ad_image` via Unrestricted `image_url` Fetch",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-45gf-fjxp-cjpq"
+ },
+ {
+  "ghsa_id": "GHSA-vj7q-gjh5-988w",
+  "cve_id": "CVE-2026-59950",
+  "published": "2026-07-16T20:14:34Z",
+  "summary": "MCP Python SDK: WebSocket server transport does not support Host/Origin validation",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vj7q-gjh5-988w"
+ },
+ {
+  "ghsa_id": "GHSA-48qw-824m-86pr",
+  "cve_id": null,
+  "published": "2026-07-16T20:13:20Z",
+  "summary": "ArcadeDB: Privilege escalation via reader role in /api/v1/command JS scripting language — arbitrary host file read",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-48qw-824m-86pr"
+ },
+ {
+  "ghsa_id": "GHSA-jpw9-pfvf-9f58",
+  "cve_id": "CVE-2026-52869",
+  "published": "2026-07-16T19:58:53Z",
+  "summary": "MCP Python SDK: HTTP transports serve session requests without verifying the authenticated principal",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jpw9-pfvf-9f58"
+ },
+ {
+  "ghsa_id": "GHSA-hvrp-rf83-w775",
+  "cve_id": "CVE-2026-52870",
+  "published": "2026-07-16T19:56:12Z",
+  "summary": "MCP Python SDK: Experimental task handlers allow any client to access and cancel other clients' tasks",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hvrp-rf83-w775"
+ },
+ {
+  "ghsa_id": "GHSA-8j86-h8gg-797p",
+  "cve_id": "CVE-2025-65720",
+  "published": "2026-07-16T00:31:33Z",
+  "summary": "GPT Researcher MCP STDIO configuration allows remote command execution",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-8j86-h8gg-797p"
+ },
+ {
+  "ghsa_id": "GHSA-pr64-jmmf-jp54",
+  "cve_id": "CVE-2026-58196",
+  "published": "2026-07-15T23:41:21Z",
+  "summary": "ToolHive: SSRF in remote MCP server authentication discovery (host-side, bypasses container isolation)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pr64-jmmf-jp54"
+ },
+ {
+  "ghsa_id": "GHSA-6f5r-5672-72j7",
+  "cve_id": "CVE-2026-54504",
+  "published": "2026-07-15T23:26:57Z",
+  "summary": "@andrea9293/mcp-documentation-server: Web UI API binds to all interfaces without authentication by default",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6f5r-5672-72j7"
+ },
+ {
+  "ghsa_id": "GHSA-62gx-5q78-wrvx",
+  "cve_id": null,
+  "published": "2026-07-15T21:56:45Z",
+  "summary": "obsidian-local-rest-api: Authenticated path traversal via URL-encoded %2F in /vault/{path} — arbitrary host file read/write/delete",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-62gx-5q78-wrvx"
+ },
+ {
+  "ghsa_id": "GHSA-3pvh-63gf-j9mw",
+  "cve_id": "CVE-2026-54449",
+  "published": "2026-07-15T17:39:34Z",
+  "summary": "LangBot: Authenticated RCE Via MCP Configuration",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-3pvh-63gf-j9mw"
+ },
+ {
+  "ghsa_id": "GHSA-5866-9272-qcfv",
+  "cve_id": null,
+  "published": "2026-07-15T12:32:03Z",
+  "summary": "Duplicate Advisory: PraisonAI: MCP HTTP-stream transport is unauthenticated by default, exposing tool enumeration and an unvalidated tool-call surface",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5866-9272-qcfv"
+ },
+ {
+  "ghsa_id": "GHSA-x9vc-9ffq-p3gj",
+  "cve_id": "CVE-2026-54446",
+  "published": "2026-07-14T20:47:19Z",
+  "summary": "NetLicensing-MCP: Unauthenticated Use of Server-Side NetLicensing API Key in HTTP Mode",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-x9vc-9ffq-p3gj"
+ },
+ {
+  "ghsa_id": "GHSA-2cf7-hpwf-47h9",
+  "cve_id": "CVE-2026-55608",
+  "published": "2026-07-14T20:26:39Z",
+  "summary": "n8n-MCP: Incorrect authorization can expose default-scope workflow version backups in multi-tenant HTTP mode",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2cf7-hpwf-47h9"
+ },
+ {
+  "ghsa_id": "GHSA-pqg7-v6wh-3pfp",
+  "cve_id": null,
+  "published": "2026-07-14T19:46:15Z",
+  "summary": "TsDProxy: X-Forwarded-For header injection allows IP spoofing in proxied requests to backend services",
+  "keywords": [
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-pqg7-v6wh-3pfp"
+ },
+ {
+  "ghsa_id": "GHSA-2c7f-fxww-6w6c",
+  "cve_id": "CVE-2026-50158",
+  "published": "2026-07-14T19:34:47Z",
+  "summary": "yutu: Arbitrary File Write via MCP `caption-download` Tool",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-2c7f-fxww-6w6c"
+ },
+ {
+  "ghsa_id": "GHSA-j6r7-6fhx-77wx",
+  "cve_id": "CVE-2026-54052",
+  "published": "2026-07-14T19:07:14Z",
+  "summary": "n8n-MCP: Cross-tenant access to workflow version backups in multi-tenant HTTP deployments",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-j6r7-6fhx-77wx"
+ },
+ {
+  "ghsa_id": "GHSA-qw5r-ppcg-f8rj",
+  "cve_id": "CVE-2026-50125",
+  "published": "2026-07-14T18:09:48Z",
+  "summary": "MKP: Unbounded Pod Log Read via Attacker-Controlled `limitBytes`/`tailLines` Causes Memory Exhaustion",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-qw5r-ppcg-f8rj"
+ },
+ {
+  "ghsa_id": "GHSA-wmg3-h8mf-wgvr",
+  "cve_id": "CVE-2026-61459",
+  "published": "2026-07-10T21:32:32Z",
+  "summary": "mcp-server-kubernetes argument injection can expose Kubernetes cluster credentials",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wmg3-h8mf-wgvr"
+ },
+ {
+  "ghsa_id": "GHSA-h4g2-xfmw-q2c9",
+  "cve_id": null,
+  "published": "2026-07-10T20:37:23Z",
+  "summary": "Clauster: Non-loopback deployments can serve the dashboard unauthenticated when auth.enabled is unset",
+  "keywords": [
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-h4g2-xfmw-q2c9"
+ },
+ {
+  "ghsa_id": "GHSA-g5r6-gv6m-f5jv",
+  "cve_id": "CVE-2026-73498",
+  "published": "2026-07-10T19:34:37Z",
+  "summary": "mcp-atlassian: Arbitrary file read via missing path validation in confluence_upload_attachment",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-g5r6-gv6m-f5jv"
+ },
+ {
+  "ghsa_id": "GHSA-wm45-qh3g-v83f",
+  "cve_id": null,
+  "published": "2026-07-10T19:34:30Z",
+  "summary": "mcp-atlassian: Arbitrary server-side file read via attachment upload",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wm45-qh3g-v83f"
+ },
+ {
+  "ghsa_id": "GHSA-xrmc-c5cg-rv7x",
+  "cve_id": null,
+  "published": "2026-07-10T19:34:14Z",
+  "summary": "SafeInstall agent guard shell parsing can miss raw package execution",
+  "keywords": [
+   "coding agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-xrmc-c5cg-rv7x"
+ },
+ {
+  "ghsa_id": "GHSA-489g-7rxv-6c8q",
+  "cve_id": null,
+  "published": "2026-07-10T18:01:22Z",
+  "summary": "MCP Atlassian: DNS-rebinding TOCTOU bypass of the SSRF fix (CVE-2026-27826)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-489g-7rxv-6c8q"
+ },
+ {
+  "ghsa_id": "GHSA-65p8-9433-jpcp",
+  "cve_id": "CVE-2026-52762",
+  "published": "2026-07-09T20:54:23Z",
+  "summary": "YesWiki: Authenticated (Admin) Server-Side Template Injection to Remote Code Execution via Bazar Semantic Templates",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-65p8-9433-jpcp"
+ },
+ {
+  "ghsa_id": "GHSA-382c-vx95-w3p5",
+  "cve_id": null,
+  "published": "2026-07-09T13:44:51Z",
+  "summary": "Gittensory: Missing contributor-scoped access control on profile endpoint and MCP tool leaks miner financial data",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-382c-vx95-w3p5"
+ },
+ {
+  "ghsa_id": "GHSA-52vm-mxx8-f227",
+  "cve_id": null,
+  "published": "2026-07-09T13:37:34Z",
+  "summary": "Phantom: Arbitrary file write and decode-bomb DoS via unconfined MCP tool paths",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-52vm-mxx8-f227"
+ },
+ {
+  "ghsa_id": "GHSA-37h2-6p4f-mp3q",
+  "cve_id": "CVE-2026-49471",
+  "published": "2026-07-08T21:12:08Z",
+  "summary": "Serena: Unauthenticated Flask dashboard on fixed port enables DNS rebinding → memory poisoning → RCE",
+  "keywords": [
+   "Copilot",
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-37h2-6p4f-mp3q"
+ },
+ {
+  "ghsa_id": "GHSA-35rm-7j9c-2f7m",
+  "cve_id": "CVE-2026-53600",
+  "published": "2026-07-08T20:24:12Z",
+  "summary": "async-tar PAX extension-header desync enables tar entry/content smuggling",
+  "keywords": [
+   "Cursor"
+  ],
+  "url": "https://github.com/advisories/GHSA-35rm-7j9c-2f7m"
+ },
+ {
+  "ghsa_id": "GHSA-q855-8rh5-jfgq",
+  "cve_id": null,
+  "published": "2026-07-07T23:41:21Z",
+  "summary": "ha-mcp: Add-on settings and policy routes are reachable without authentication at the bare root path",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-q855-8rh5-jfgq"
+ },
+ {
+  "ghsa_id": "GHSA-7w99-5wm4-3g79",
+  "cve_id": "CVE-2026-53518",
+  "published": "2026-07-07T20:56:35Z",
+  "summary": "@better-auth/oauth-provider's OAuth authorization-code grant allows concurrent redemption when two token requests race the find-then-delete primitive",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-7w99-5wm4-3g79"
+ },
+ {
+  "ghsa_id": "GHSA-9h47-pqcx-hjr4",
+  "cve_id": null,
+  "published": "2026-07-07T20:55:41Z",
+  "summary": "Better Auth has insecure cryptographic defaults in oidcProvider: alg=none advertised and plain PKCE accepted by default",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9h47-pqcx-hjr4"
+ },
+ {
+  "ghsa_id": "GHSA-86j7-9j95-vpqj",
+  "cve_id": null,
+  "published": "2026-07-07T20:55:28Z",
+  "summary": "Better Auth has stored XSS in the auth-server origin via javascript: redirect_uri in oidc-provider and mcp",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-86j7-9j95-vpqj"
+ },
+ {
+  "ghsa_id": "GHSA-g38m-r43w-p2q7",
+  "cve_id": "CVE-2026-53516",
+  "published": "2026-07-07T20:55:13Z",
+  "summary": "Better Auth has an account takeover issue via OAuth auto-link to unverified pre-registered email",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g38m-r43w-p2q7"
+ },
+ {
+  "ghsa_id": "GHSA-pw9m-5jxm-xr6h",
+  "cve_id": "CVE-2026-53512",
+  "published": "2026-07-07T20:11:50Z",
+  "summary": "Better Auth: OAuth refresh-token replay via missing client authentication on oidc-provider and mcp plugins",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-pw9m-5jxm-xr6h"
+ },
+ {
+  "ghsa_id": "GHSA-g84h-j7jj-x32p",
+  "cve_id": "CVE-2026-53509",
+  "published": "2026-07-07T19:35:57Z",
+  "summary": "@aborruso/ckan-mcp-server: SSRF via base_url allows access to internal networks (Potential fix bypass of CVE-2026-33060)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g84h-j7jj-x32p"
+ },
+ {
+  "ghsa_id": "GHSA-vjc7-jrh9-9j86",
+  "cve_id": null,
+  "published": "2026-07-06T21:22:10Z",
+  "summary": "9router has unauthenticated CRUD on /api/providers and Full API Key Leak via /api/usage/stats",
+  "keywords": [
+   "Copilot"
+  ],
+  "url": "https://github.com/advisories/GHSA-vjc7-jrh9-9j86"
+ },
+ {
+  "ghsa_id": "GHSA-wqxv-w64v-5wh6",
+  "cve_id": "CVE-2026-55435",
+  "published": "2026-07-06T21:11:20Z",
+  "summary": "Suspended Coder users retain access to AI Bridge LLM proxy endpoints",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-wqxv-w64v-5wh6"
+ },
+ {
+  "ghsa_id": "GHSA-h9f9-h6gm-wc85",
+  "cve_id": "CVE-2026-55786",
+  "published": "2026-07-06T17:41:03Z",
+  "summary": "flyto-core has Unauthenticated Command Execution via HTTP MCP `execute_module`",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-h9f9-h6gm-wc85"
+ },
+ {
+  "ghsa_id": "GHSA-6g2f-w7g3-77vf",
+  "cve_id": "CVE-2026-49353",
+  "published": "2026-07-02T21:13:19Z",
+  "summary": "9router has an Incomplete Fix: Local-Only Access Gate Bypass in 9router via Host Header SpoofING",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6g2f-w7g3-77vf"
+ },
+ {
+  "ghsa_id": "GHSA-jphh-m39h-6gwx",
+  "cve_id": "CVE-2026-49352",
+  "published": "2026-07-02T20:56:55Z",
+  "summary": "9router's Hardcoded Default fallback JWT Secret  Allows Authentication Bypass",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jphh-m39h-6gwx"
+ },
+ {
+  "ghsa_id": "GHSA-rxw2-pc8j-vxwm",
+  "cve_id": "CVE-2026-52830",
+  "published": "2026-07-02T20:38:50Z",
+  "summary": "fast-mcp-telegram: Bearer token path traversal bypasses reserved Telegram session protection",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rxw2-pc8j-vxwm"
+ },
+ {
+  "ghsa_id": "GHSA-g6g7-pvmx-m74p",
+  "cve_id": "CVE-2026-59800",
+  "published": "2026-07-02T20:17:56Z",
+  "summary": "9router: Missing Authorization and OS Command Injection",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-g6g7-pvmx-m74p"
+ },
+ {
+  "ghsa_id": "GHSA-f9ff-5x35-7gfw",
+  "cve_id": null,
+  "published": "2026-07-02T19:35:03Z",
+  "summary": "Grackle: Fail-open authorization in the MCP tool layer lets scoped agents perform cross-task and cross-session mutations (IDOR)",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f9ff-5x35-7gfw"
+ },
+ {
+  "ghsa_id": "GHSA-rj6p-xmxr-qj4h",
+  "cve_id": "CVE-2026-53818",
+  "published": "2026-07-02T17:11:35Z",
+  "summary": "OpenClaw: MCP loopback could skip owner-only tool policy for non-owner callers",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rj6p-xmxr-qj4h"
+ },
+ {
+  "ghsa_id": "GHSA-hw9r-h9mr-4jff",
+  "cve_id": null,
+  "published": "2026-07-02T16:06:00Z",
+  "summary": "OpenClaw: Scoped chat.send route inheritance could bypass admin command scope gates",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hw9r-h9mr-4jff"
+ },
+ {
+  "ghsa_id": "GHSA-6fvr-66p3-3qj4",
+  "cve_id": "CVE-2026-53814",
+  "published": "2026-07-02T16:05:03Z",
+  "summary": "OpenClaw: Hook-triggered CLI runs could receive owner MCP tool authority",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-6fvr-66p3-3qj4"
+ },
+ {
+  "ghsa_id": "GHSA-qh2f-99mv-mrcf",
+  "cve_id": null,
+  "published": "2026-07-02T15:42:42Z",
+  "summary": "OpenClaw: Bundle MCP loopback could miss its exec denylist on session spawn",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-qh2f-99mv-mrcf"
+ },
+ {
+  "ghsa_id": "GHSA-84hp-mqvj-3p8h",
+  "cve_id": "CVE-2026-50027",
+  "published": "2026-07-02T15:26:23Z",
+  "summary": "mcp-memory-service: Missing Authentication on Document API Endpoints Allows Unauthenticated Memory Read/Write/Delete",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-84hp-mqvj-3p8h"
+ },
+ {
+  "ghsa_id": "GHSA-9c3v-684m-579c",
+  "cve_id": null,
+  "published": "2026-07-01T22:09:28Z",
+  "summary": "OpenClaw MCP SSE redirects could forward Authorization headers",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-9c3v-684m-579c"
+ },
+ {
+  "ghsa_id": "GHSA-6gr2-qh89-hxwm",
+  "cve_id": "CVE-2026-50143",
+  "published": "2026-07-01T22:02:15Z",
+  "summary": "Apify Model Context Protocol (MCP) server: Actor MCP path authority injection leaks Apify token",
+  "keywords": [
+   "MCP",
+   "Model Context Protocol"
+  ],
+  "url": "https://github.com/advisories/GHSA-6gr2-qh89-hxwm"
+ },
+ {
+  "ghsa_id": "GHSA-5qfp-32cf-69jh",
+  "cve_id": null,
+  "published": "2026-07-01T20:00:17Z",
+  "summary": "SurrealDB: HTTP /rpc `sessions` method leaks attached session UUIDs, enabling full session hijack by anonymous callers",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-5qfp-32cf-69jh"
+ },
+ {
+  "ghsa_id": "GHSA-hwpp-h97w-2h3j",
+  "cve_id": "CVE-2026-49988",
+  "published": "2026-07-01T19:01:41Z",
+  "summary": "repomix: attach_packed_output can bypass file-read secret scanning for supported local files",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-hwpp-h97w-2h3j"
+ },
+ {
+  "ghsa_id": "GHSA-gvpp-v77h-5w8g",
+  "cve_id": "CVE-2026-49986",
+  "published": "2026-07-01T18:41:35Z",
+  "summary": "Cortex has Untrusted Project Bootstrap Code Execution via `CLAUDE_PROJECT_DIR`",
+  "keywords": [
+   "MCP",
+   "Claude Code"
+  ],
+  "url": "https://github.com/advisories/GHSA-gvpp-v77h-5w8g"
+ },
+ {
+  "ghsa_id": "GHSA-pvrj-8cg3-j5f8",
+  "cve_id": "CVE-2026-49857",
+  "published": "2026-07-01T18:16:22Z",
+  "summary": "auth-fetch-mcp has SSRF Protection Bypass via IPv4-mapped IPv6 Loopback",
+  "keywords": [
+   "MCP",
+   "AI agent"
+  ],
+  "url": "https://github.com/advisories/GHSA-pvrj-8cg3-j5f8"
+ },
+ {
+  "ghsa_id": "GHSA-c5r6-m4mr-8q5j",
+  "cve_id": "CVE-2026-49856",
+  "published": "2026-07-01T18:14:57Z",
+  "summary": "@jshookmcp/jshook: ICMP probe and traceroute skip local-network SSRF authorization",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-c5r6-m4mr-8q5j"
+ },
+ {
+  "ghsa_id": "GHSA-jg88-rvpc-qvxj",
+  "cve_id": "CVE-2026-58168",
+  "published": "2026-06-30T18:31:38Z",
+  "summary": "DeepTutor missing MCP tool authorization allows non-admin users to invoke unrestricted tools",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jg88-rvpc-qvxj"
+ },
+ {
+  "ghsa_id": "GHSA-vwxw-jrg6-9jxv",
+  "cve_id": "CVE-2026-11720",
+  "published": "2026-06-29T18:31:55Z",
+  "summary": "MCP Toolbox HTTP tool path parameters allow traversal to unintended endpoints",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-vwxw-jrg6-9jxv"
+ },
+ {
+  "ghsa_id": "GHSA-72r4-9c5j-mj57",
+  "cve_id": null,
+  "published": "2026-06-27T00:12:39Z",
+  "summary": "pnpm: `patch-remove` could delete project-selected files outside the patches directory",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-72r4-9c5j-mj57"
+ },
+ {
+  "ghsa_id": "GHSA-fr4h-3cph-29xv",
+  "cve_id": null,
+  "published": "2026-06-27T00:02:51Z",
+  "summary": "pnpm: Hoisted install imports lockfile alias outside node_modules",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-fr4h-3cph-29xv"
+ },
+ {
+  "ghsa_id": "GHSA-v23m-ccfg-pq9h",
+  "cve_id": "CVE-2026-55700",
+  "published": "2026-06-26T23:54:52Z",
+  "summary": "pnpm: `stage download` writes outside its destination directory via manifest name/version traversal",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-v23m-ccfg-pq9h"
+ },
+ {
+  "ghsa_id": "GHSA-5wx6-mg75-v57r",
+  "cve_id": "CVE-2026-55487",
+  "published": "2026-06-26T23:18:13Z",
+  "summary": "pnpm: Manifest identity spoof satisfies allowBuilds and runs attacker lifecycle",
+  "keywords": [
+   "Codex"
+  ],
+  "url": "https://github.com/advisories/GHSA-5wx6-mg75-v57r"
+ },
+ {
+  "ghsa_id": "GHSA-jg62-j5h6-8mpq",
+  "cve_id": "CVE-2026-53522",
+  "published": "2026-06-26T23:04:18Z",
+  "summary": "Nezha Monitoring: Unbounded WebSocket Streams — Resource Exhaustion DoS",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-jg62-j5h6-8mpq"
+ },
+ {
+  "ghsa_id": "GHSA-4hf8-5mjm-rfgq",
+  "cve_id": "CVE-2026-49357",
+  "published": "2026-06-26T21:50:49Z",
+  "summary": "Streamable HTTP mode exposes LINE Desktop read/send tools without MCP authentication",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-4hf8-5mjm-rfgq"
+ },
+ {
+  "ghsa_id": "GHSA-rp72-5v5q-2446",
+  "cve_id": null,
+  "published": "2026-06-26T21:08:06Z",
+  "summary": "@cardano402/mcp-server missing spending limits, LAN-exposed HTTP transport, and SSRF via catalog.server.url",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-rp72-5v5q-2446"
+ },
+ {
+  "ghsa_id": "GHSA-73cv-556c-w3g6",
+  "cve_id": "CVE-2026-49257",
+  "published": "2026-06-26T21:05:43Z",
+  "summary": "mcp-pinot: Unauthenticated tool invocation via default oauth_enabled=False + host 0.0.0.0 bind",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-73cv-556c-w3g6"
+ },
+ {
+  "ghsa_id": "GHSA-2r68-g678-7qr3",
+  "cve_id": "CVE-2026-49291",
+  "published": "2026-06-26T21:04:38Z",
+  "summary": "mcp-memory-service: OAuth read-only clients can write and delete memories through MCP tools/call",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-2r68-g678-7qr3"
+ },
+ {
+  "ghsa_id": "GHSA-f65r-h4g3-3h9h",
+  "cve_id": "CVE-2026-48797",
+  "published": "2026-06-26T20:34:29Z",
+  "summary": "Backpropagate: backprop ui --auth and backprop ui --share do not enforce authentication",
+  "keywords": [
+   "MCP"
+  ],
+  "url": "https://github.com/advisories/GHSA-f65r-h4g3-3h9h"
+ }
+]

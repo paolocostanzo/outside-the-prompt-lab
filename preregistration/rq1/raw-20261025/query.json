@@ -1,0 +1,66 @@
+{
+ "started": "2026-10-25T15:57:41+00:00",
+ "window": [
+  "2026-06-26",
+  "2026-09-24"
+ ],
+ "keywords": [
+  "MCP",
+  "Model Context Protocol",
+  "AI agent",
+  "coding agent",
+  "Copilot",
+  "Claude Code",
+  "Cursor",
+  "Gemini CLI",
+  "Codex"
+ ],
+ "sources": {
+  "ghsa-reviewed": {
+   "fetched": 3237,
+   "keyword_hits": 224
+  },
+  "ghsa-unreviewed": {
+   "fetched": 30917,
+   "keyword_hits": 316
+  },
+  "nvd:MCP": {
+   "total": 341,
+   "fetched": 341
+  },
+  "nvd:Model Context Protocol": {
+   "total": 80,
+   "fetched": 80
+  },
+  "nvd:AI agent": {
+   "total": 87,
+   "fetched": 87
+  },
+  "nvd:coding agent": {
+   "total": 18,
+   "fetched": 18
+  },
+  "nvd:Copilot": {
+   "total": 25,
+   "fetched": 25
+  },
+  "nvd:Claude Code": {
+   "total": 17,
+   "fetched": 17
+  },
+  "nvd:Cursor": {
+   "total": 59,
+   "fetched": 59
+  },
+  "nvd:Gemini CLI": {
+   "total": 3,
+   "fetched": 3
+  },
+  "nvd:Codex": {
+   "total": 11,
+   "fetched": 11
+  }
+ },
+ "nvd_unique_cves": 516,
+ "finished": "2026-10-25T16:05:53+00:00"
+}

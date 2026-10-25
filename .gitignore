@@ -1,1 +1,4 @@
 __pycache__/
+preregistration/rq1/raw-20261025/ghsa-*.json.gz
+preregistration/rq1/raw-20261025/ghsa-reviewed.json
+preregistration/rq1/raw-20261025/ghsa-unreviewed.json

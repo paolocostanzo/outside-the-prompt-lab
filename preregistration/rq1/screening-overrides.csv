@@ -1,0 +1,2 @@
+id,decision,reason,product_type,note,source
+CVE-2026-86073,include,I,MCP server or connector,"Refresh token resource binding in n8n's OAuth server; the vendor lists MCP Trigger workflows among the affected resources",Codex frame review round 1 (RQ1-001); vendor advisory GHSA-cw9w-vv67-hf73
