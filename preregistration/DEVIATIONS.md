@@ -5,6 +5,10 @@ date and reason). This file is that log, made public so that the date of each en
 Every entry below was written **before any confirmatory data** for RQ1, RQ3 or RQ5 was collected. Each one is listed again
 in the paper's threats to validity.
 
+*Note added on 25 Oct 2026 (D40).* The sentence above holds for D1–D18. D19–D39 were written while the RQ3 and RQ5 campaigns were
+running or after them; each of those entries states its date and which data existed when it was written, and the paper lists, for
+every deviation, whether it was written before or after which data. No RQ1 confirmatory data existed when D40–D43 were written.
+
 Format: ID · date · section of the preregistration · what changes · why · effect on confirmatory claims.
 
 ---
@@ -1331,3 +1335,86 @@ part 3 or part 4.
 it keeps the promise made in part 2.
 
 **Effect.** Exploratory. It cannot change H3, H5 or any confirmatory result, and it is reported as an addendum to part 3 and part 4.
+
+### D40 · 25 Oct 2026 · §1 RQ5, D13, D5, Q4 protocol, LAB-PIANO time points, D29 — what was not done, and why
+**Problem.** Several measurements announced in the protocols or in public posts were not run, and no deviation said so.
+**Change.** They are reported as not done, with the reason:
+1. *Client logs at maximum verbosity* (Q4 protocol): not collected; only default logs were, which are what H5 is about. Whether
+   verbose logs record the events missed by default logging was not tested.
+2. *Normal use repeated with a local model* (D13 point 1): not run, so traffic to the model and traffic to the vendor are not
+   separated in the RQ5 baseline.
+3. *Secondary cells of D5* (schema change, name change, Streamable HTTP): not run. The local-engine cells were run (D39).
+4. *Further time points*: a third RQ2 measurement (after September and 9 October), a second RQ3 measurement (after 15 October) and
+   the Claude Code check with a clean account promised in part 2 are not done for this release. Any later measurement of these is
+   a separately dated exploratory addendum.
+5. *Cursor CLI* (D29): its RQ5 runs follow in a later version of the preprint.
+**Why.** Time, and each item is exploratory or outside the confirmatory hypotheses.
+**Effect.** None on H3 or H5 (H5 concerns default client logging); each item is listed in the paper's threats to validity.
+
+### D41 · 25 Oct 2026 · §2 counting rule, §3 dataset, §5 RQ1 analysis, D1, D2, D7, D14 — the RQ1 frame and its analysis, fixed before the frame is built
+**Problem.** The frame of D1 is dominated by the database query: the two timelines add only a few cases beyond the ten of the pilot,
+and a count made today (not saved, not read case by case) suggests 100–200 advisories mentioning MCP or the D1 keywords in the
+window. A frame dominated by flaws in MCP servers could make H1 hold by construction. Several rules needed to build and analyse
+such a frame were not written down.
+**Change.** Written and published before the query is run and before any summary or label:
+1. *Counting unit.* One disclosure = one case (§2), also across products: an aggregated disclosure (e.g. one research write-up with
+   findings in several agents) is one case. Several advisories for the same product with the same date and the same cause, and
+   follow-ups such as "incomplete fix for …", join the disclosure they continue. A frozen `rq1-disclosure-map.csv` links each case
+   to all its advisories, CVEs, aliases and products. Pilot exclusion (D3) applies to every mapped component, aliases and
+   follow-ups included, before N is fixed.
+   *Bundles of different findings.* The summary lists every finding of the disclosure with its own preconditions. The case is
+   classified with the decision rule applied across its findings: if at least one finding works without the model following
+   instructions it should not have trusted, the case goes to the earliest step that fails without any model decision among those
+   findings (lowest of classes 1–3); it is class 4 only if every finding needs the model to follow such instructions. This sentence
+   is added to the criteria given to R0 and to the model raters (the criteria text and its hash change before any confirmatory run,
+   and the change is reported). As a conservative secondary analysis, every case whose findings mix class 4 with classes 1–3 is
+   also counted as class 4; if H1 changes, it is reported as depending on mixed bundles.
+2. *Required precondition in every summary*: who supplies the input that triggers the flaw — an attacker who reaches the tool or
+   endpoint directly, or the model, led to call it by content it reads. This separates classes 3 and 4.
+3. *Stratified secondary analysis.* H1 is evaluated on the whole frame as preregistered and, as a secondary analysis, by stratum,
+   with exclusive assignment recorded in the frozen frame: *source* = "timeline" if the case appears in either timeline (whether or
+   not the query also finds it), otherwise "query only"; *product type* = assigned in the frame, before any summary or label and
+   independently of any classification: across all products the case affects, the first type present in the order agent client /
+   MCP server or connector / SDK (a case touching any agent client is "agent client"). For each stratum: share in classes 1–3 by R0 and by the model majority, with Wilson
+   intervals, and the same for the frame without that stratum. The paper says that H1 depends on a stratum when H1 holds on the whole
+   frame but the share in the frame without that stratum is below 60% for R0 or for the model majority.
+4. *Contested cases* are: R0 differs from the majority of the model raters; no majority; a rater's modal class is tied or rests on
+   invalid answers; a summary flagged by the pre-label check.
+5. *Agreement with missing ratings.* Fleiss' and Cohen's κ are computed on the cases with complete ratings, and the number of
+   cases left out is reported; for H1, D7 applies (a case without a majority counts against H1). H1a: Fleiss' κ ≥ 0.6.
+6. *Robustness.* H1 is computed twice, with contested cases counted against and in favour of it; if the verdict changes, it is
+   reported as not robust.
+7. *Summaries found faulty after the runs*: the primary analysis stays on the original summaries; corrected summaries and new model
+   runs are a secondary analysis only; R0 is not relabelled (§5).
+8. *Second human reader* (D14 point 3, "where available"): not available. The check of all summaries by AI assistants (D42 point 2)
+   is a weaker addition, not an equivalent replacement, and is reported as such.
+9. *Invalid answers.* A rater with more than 10% invalid answers after the rules of D14 point 4 is reported as it ran; prompts are
+   not changed after seeing outputs.
+**Why.** To keep the analysis fixed before any RQ1 confirmatory data exists, and to show whether H1 depends on the frame's makeup.
+**Effect.** H1 and H1a are evaluated as preregistered; the added analyses are secondary and reported in full.
+
+### D42 · 25 Oct 2026 · §3 summaries, §4 R0 input, D3, D4(a), D14 point 3 — who writes the summaries and what R0 reads
+**Problem.** §3 says the author writes the summaries and §4 and D3 give R0 the primary sources as input. With a frame of this size,
+reading every primary source for R0 and writing every summary by hand does not fit the time available.
+**Change.**
+1. The case summaries are written by an AI assistant (Claude, Anthropic) from the primary sources, with every precondition of
+   exploitation (D14 point 3, D41 point 2) and without class words (§3; checked by script). Some cases concern Claude Code, a
+   product of the same vendor: this is declared.
+2. Every summary is checked against its primary source by a second assistant of another family (Codex, OpenAI) for completeness of
+   preconditions and neutrality, before R0; every correction is recorded.
+3. R0 (the author) labels each case from its summary, with the link to the primary source always available; for each case the
+   sheet records whether the source was opened.
+4. The R0 sheet shows no proposed class, no model output and no suggestion; cases are in random order with a stated seed; the
+   author declares that the labels were given without AI assistance; `rq1-r0.json` is committed with its hash before any model run.
+**Why.** Time; the checks in points 2–4 keep R0 independent of the model raters and make the input inspectable.
+**Effect.** R0's input differs from §4 (summary with source available instead of source only); reported in threats to validity.
+
+### D43 · 25 Oct 2026 · §4 raters — the digest of R2 (Gemma 4)
+**Problem.** §4 lists R2 as Ollama `gemma4:26b-a4b-it-q8_0`, digest `6bfaf9a8cb37`. On 24 October the model with that tag on the
+lab's GPU instance has digest `7473a33e49f186a27812ba7cb434b2b2b26e377714ad49f9abe9cdd7089ac4f7`: the tag was pulled again after
+the preregistration. R1 (`8f5fb6b71ea0`) and R3 (`e7a64ff15fb1`) are unchanged. Ollama cannot pull an earlier digest of a tag.
+**Change.** R2 is the model currently under the same tag, digest `7473a33e49f1…`, recorded in every run's manifest. Agreement
+statistics and the model-majority used for H1 are reported with all three model raters (primary) and without R2 (secondary).
+**Why.** Decided by the author before any RQ1 confirmatory run; the alternative (dropping R2) would lose one model vendor.
+**Effect.** R2 is not the preregistered build; H1 and H1a are reported with and without it.
+
