@@ -1,0 +1,2 @@
+case_id,kind,found_by,found_on,evidence,effect
+RQ1-0022,late ineligible (iii),Codex summary check batch 2,2026-10-25,"the CNA advisory (WPScan, https://wpscan.com/vulnerability/8678ef91-ff05-43a1-a8e3-6d35da548826/) dates public disclosure to 2026-06-10, before the window; the frame used 2026-07-01 (the CNA page was not among the date sources of disclosure_dates.py)","stays in the primary analysis, flagged; dropped in the late-ineligible sensitivity analysis (D44 point 5); sample and frame unchanged"

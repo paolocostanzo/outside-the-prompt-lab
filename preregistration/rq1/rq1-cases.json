@@ -1,0 +1,482 @@
+[
+ {
+  "id": "RQ1-0008",
+  "summary": "A desktop chat client connects to remote MCP servers and opens a temporary loopback listener during OAuth sign-in. The listener accepts the first callback carrying an authorization code without binding it to the pending sign-in, and checks the callback path loosely. An attacker who reaches this endpoint before the genuine redirect can cause the client to pass the attacker's code to the sign-in completion routine. Broader account binding and later data exposure depend on the provider's handling of authorization codes and the connected service's capabilities. Preconditions are a pending sign-in and a forged callback that wins the race, potentially sent through the user's browser. The record lists high attack complexity and no privileges. The attacker supplies the callback directly."
+ },
+ {
+  "id": "RQ1-0096",
+  "summary": "A visual platform for building language-model agents accepts MCP server configuration files through a file-management interface. Unlike the structured configuration interface, the upload path does not invoke the server-configuration validator. An authenticated attacker can therefore upload configuration containing environment variables or command arguments that the normal validator rejects. When the platform enumerates MCP servers, it parses the saved configuration without revalidating it and can start processes with the attacker-controlled settings, potentially executing arbitrary code on the server. Preconditions are authenticated access to the upload interface and subsequent enumeration of the configured servers. The record lists network access, low privileges and no user interaction. The attacker supplies the configuration directly; the described path does not require a model-generated request."
+ },
+ {
+  "id": "RQ1-0260",
+  "summary": "A development environment has AI file-editing tools that resolve model-supplied paths without checking workspace containment. They can write or delete files elsewhere with the backend user's privileges. Changing a file that the host later executes can lead to code execution. Preconditions are available AI features, an enabled agent mode, a workspace already marked trusted, and attacker-influenced content that causes the model to emit an outside-workspace file operation. AI is unavailable in the restricted workspace mode. Changes normally apply immediately, although the report describes a confirmation exception when the target file is stale. The record lists no attacker privileges and required user interaction. The triggering instructions are planted in content the model reads."
+ },
+ {
+  "id": "RQ1-0296",
+  "summary": "An AI coding assistant built into a code editor has a command-handling flaw that can disclose information over a network. An attacker without privileges can cause its agent mode to send workspace data or environment variables to an attacker-controlled service. The inspected records list high attack complexity and required user interaction. The vendor explains that success is not guaranteed and can depend on the environment, configuration and additional security measures, without identifying the necessary combination. The sources do not describe the required user action, the detailed mechanism or who supplies the triggering input. The archived official CVE record and vendor and code-hosting advisories all list interaction as required."
+ },
+ {
+  "id": "RQ1-0119",
+  "summary": "A self-hosted assistant runs agents in containers and lets them request additional MCP servers. An administrator confirms each request using a card that shows the server name and command but hides command-line arguments and environment variables. Those hidden fields are nevertheless saved and copied into the agent's runtime configuration, potentially changing later execution. Preconditions are an agent request containing such fields and administrator confirmation on a deployment relying on that card. A linked report describes a compromised agent or one steered by instructions planted in content it reads. That report lists user interaction as required, while the records list none; both list low privileges. The demonstrated result is persistence and configuration materialization, rather than a completed subsequent runtime restart."
+ },
+ {
+  "id": "RQ1-0313",
+  "summary": "A cloud-hosted AI assistant for office productivity software does not neutralize special elements used in a command. An attacker who already holds an authorized account can use this over a network to gain higher privileges. The provider states that the service-side flaw is fully fixed and needs no customer action. The records list network access, low privileges and no user interaction as the conditions of the attack. The advisories give no further detail about the mechanism, the configuration involved, or what the model must do. The source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0300",
+  "summary": "A desktop AI agent application handles specially crafted links that can cause arbitrary code to run on the computer. The vendor requires a locally authenticated user to open an attacker-crafted link handled by the affected desktop client. The record lists local access, no attacker privileges and user interaction as required; the authenticated user opening the link is distinct from the attacker. The advisories give no further detail about the mechanism, configuration or any role for the model. The attacker supplies the crafted link directly to the application's link-handling path, with the local user's opening action required."
+ },
+ {
+  "id": "RQ1-0215",
+  "summary": "Two add-ons for a log search and analytics platform are affected. (1) A machine-learning add-on with an agent launch feature keeps a history of agent runs; its handler swaps the calling user's session key for a system token before running searches. A user without the administrator or power roles can therefore run searches with system privileges, reach all relevant data, affect system integrity, and read or delete other users' search jobs through the run history. Precondition: an ordinary logged-in user on an affected version. (2) An MCP server add-on for the same platform deserializes stored data in its credential management component without checking its type, letting a user who holds the administrator role run operating-system commands. Precondition: the administrator role. In both, the input comes from an attacker who uses the platform directly."
+ },
+ {
+  "id": "RQ1-0152",
+  "summary": "A personal agent framework lets operators restrict the capabilities exposed by each MCP server. The restriction filters ordinary tools but leaves resources and prompt templates registered and executable. Sensitive resource data or privileged prompt workflows can therefore remain reachable despite an empty or restricted capability list. Preconditions are such a configuration, a server exposing resources or prompts, and invocation of a remaining wrapper. A linked issue demonstrates provider-returned calls during API traffic, while a separate report demonstrates registry execution and explicitly limits its end-to-end claims. The issue lists low privileges; the record and separate report list high privileges. The sources do not establish whether an attacker must steer a real model through planted content or can independently supply the triggering call."
+ },
+ {
+  "id": "RQ1-0005",
+  "summary": "An AI assistant plugin for a node-based image generation tool saves workflow checkpoints and lets the interface restore them by a numeric identifier. The restore endpoint returns the saved workflow data for any identifier it is given, without checking that the checkpoint belongs to the caller's session or user. Someone who can reach the endpoint can read other users' saved workflows, and because identifiers are sequential they can be enumerated. Preconditions: access to the restore endpoint on a deployment holding other users' checkpoints, and knowledge or guessing of their identifiers; the record lists network access, low privileges and high attack complexity. The input comes from an attacker who reaches the endpoint directly."
+ },
+ {
+  "id": "RQ1-0103",
+  "summary": "A self-hosted enterprise search and chat assistant lets users connect MCP servers where each user signs in with OAuth. After a user signs in, their live access token is also written into a shared template record for that server, and two server-listing endpoints return that record's headers unmasked. Any other logged-in user can read the most recent user's token and use it to act as that user at the upstream service. Preconditions: an MCP server configured for per-user OAuth; a victim has completed the sign-in; the attacker has only a basic account, with no administrator role and no permission on the server. The input comes from an attacker who calls the endpoints directly."
+ },
+ {
+  "id": "RQ1-0131",
+  "summary": "A low-code platform for building language-model applications and agents has a node for connecting custom MCP servers, which can start a local process talking over standard input and output. The node checks the command against a short allowed list and blocks only a few environment variables, so a configuration that uses an allowed interpreter can set other environment variables, or exploit the process's root working directory, to make the interpreter run arbitrary system commands when the node refreshes its available actions. Preconditions: the local-process transport is enabled, which is the default; the attacker is an authenticated user able to edit a custom MCP node's configuration. The input comes from an attacker who reaches the configuration directly."
+ },
+ {
+  "id": "RQ1-0276",
+  "summary": "A framework for agents that operate a computer's graphical interface asks a model for the next action and converts its response into executable code. It checks action syntax but does not bound parameters such as waiting time, scroll count or typed-text length. An attacker-supplied task prompt can cause the model to return an oversized action, tying up an execution worker and leaving subsequent tasks pending or timed out. Preconditions are access to a service accepting such task prompts, the low privileges listed by the record, and execution of the model-generated action in a worker serving other tasks. The attacker supplies the task text to the model; the model must generate the oversized action before execution produces the availability impact."
+ },
+ {
+  "id": "RQ1-0036",
+  "summary": "A hosted coding agent runs in a cloud container with browser capability. Attacker-controlled web content loaded during an agent or browser flow can connect from inside that container to a local agent endpoint that requires no authentication. This permits code execution within the affected session and access to its files, repository contents, environment variables and credentials. Repository tokens provide access subject to their granted permissions; additional customer-configured secrets may extend the impact. Preconditions are a browser-capable configuration and a flow that loads attacker-controlled content. The record lists no privileges, passive user interaction and additional attack prerequisites. The triggering connection comes from the loaded web content; the advisory does not describe the model interpreting instructions to generate that connection."
+ },
+ {
+  "id": "RQ1-0302",
+  "summary": "A visual platform for language-model agents has three MCP flaws. (1) On servers using the affected desktop operating system's command processor, an authenticated remote user supplies local-process server arguments using an alternate execution switch that the validator fails to recognize, allowing arbitrary commands. (2) An authenticated non-administrative user constructs a flow with an MCP tools component using a local subprocess transport. Execution bypasses two server restrictions and runs commands with the application's privileges, potentially exposing credentials and nearby services. (3) An unauthenticated attacker reaches publicly shared MCP project endpoints, where missing public-flow restrictions and session separation permit code execution and access to or modification of chat sessions. Each finding is triggered by attacker-supplied configuration or requests reaching the corresponding feature directly."
+ },
+ {
+  "id": "RQ1-0143",
+  "summary": "A visual platform for language-model agents has five MCP flaws. (1) A network caller with low privileges can read server files through crafted resource-read requests, including uploaded documents, signing secrets, the database and environment variables. (2) The composer endpoint lacks valid sign-in checks when the composer is enabled, the default, and projects use OAuth; the source does not specify who supplies the triggering input. (3) Authenticated remote users can bypass localhost-only restrictions and write MCP entries into host code-editor configuration files. (4) Authenticated remote users can run commands through an insufficiently validated server-configuration command field. (5) Authenticated users can read, change or expose host files through container-based MCP servers whose volume and device arguments are insufficiently filtered. For findings one, three, four and five, attackers directly supply the requests or configuration."
+ },
+ {
+  "id": "RQ1-0118",
+  "summary": "A self-hosted assistant that runs agents in containers can bridge to chat platforms; for some adapters it starts a temporary webhook on the loopback interface to receive forwarded button clicks. The webhook does not authenticate the sender and trusts the user identity written in the request body. A local process can therefore pose as the designated person and confirm a pending channel registration, wiring a channel to an agent group and adding the original sender to that group. Preconditions: a gateway-capable adapter that starts the webhook, a pending channel registration request, and the ability to run code on the same host and connect to the loopback address. The input comes from an attacker who reaches the webhook directly."
+ },
+ {
+  "id": "RQ1-0145",
+  "summary": "A workflow automation platform exposes an MCP server with a tool that creates workflows from code. When a node's authentication type is written as an expression rather than a fixed value, the tool's credential check skips the test of which project owns a referenced credential. A credential from another project can then be saved as a reference on a workflow elsewhere; the execution path still blocks its use, so no secret is exposed. Preconditions: MCP enabled on the instance, a valid MCP bearer key, and knowledge of the target credential's identifier. The input comes from an attacker who calls the MCP tool directly."
+ },
+ {
+  "id": "RQ1-0270",
+  "summary": "A knowledge-base question-answering platform built on language models can publish applications that are also reachable as MCP servers. Application API keys set to expire are refused by the regular chat interface after expiry, but the MCP endpoint still accepts them. A holder of an expired key can keep listing the application's tool metadata and calling its tools, creating stored chat records. Preconditions: the attacker holds an application key that was once valid, the key is still marked active, it is non-permanent with an expiry in the past, and the target application is published; no administrator privilege is needed. The input comes from the key holder calling the endpoint directly."
+ },
+ {
+  "id": "RQ1-0324",
+  "summary": "A command-line coding agent has two execution paths affected by repository content. (1) At session creation, it loads project-scoped MCP configuration and starts configured local server commands without first asking whether the workspace is trusted. An attacker-supplied repository configuration can therefore run commands with the developer's privileges when a session opens in the repository or a subdirectory, without a model call. The effect recurs on subsequent sessions. (2) The records also describe local utility lookup allowing an untrusted workspace to supply executables under common names before user confirmation. The executable must be selected during that lookup, but the sources do not specify the necessary search-path circumstances. The attacker supplies configuration for the first path and workspace executables for the second."
+ },
+ {
+  "id": "RQ1-0312",
+  "summary": "A cloud AI chat assistant for business productivity has a command-handling flaw that lets an attacker without privileges disclose information over a network. The provider states that the flaw is fully fixed on the service side and needs no customer action. The inspected records disagree on user interaction: the vendor and official vulnerability record list none, while the code-hosting advisory lists it as required. The sources do not explain this difference or identify any required user action. They give no further detail about configuration, the mechanism or what the model must do. The source does not say who supplies the triggering input."
+ },
+ {
+  "id": "RQ1-0025",
+  "summary": "A cloud-hosted AI assistant for office productivity software contains an open redirect that sends users to untrusted sites, which lets an attacker without privileges elevate privileges over a network. The provider states that the flaw is fully fixed on the service side and needs no customer action. The records list network access, no privileges and user interaction as required, without saying what interaction. The advisories give no further detail on the mechanism, the configuration involved, or whether the model must take any action. The source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0144",
+  "summary": "A workflow automation platform loads node schemas for its MCP feature from a module path derived from a user-supplied node type. The loader does not reject directory-climbing sequences, allowing an authenticated user with ordinary member privileges to reference malicious files and execute code in the main platform process. The attacker supplies the node type directly. The sources require malicious files to be reachable through that path but do not explain how they become available. The advisory recommends disabling instance-level MCP as a workaround; it does not explicitly state whether that setting is a necessary condition for every affected path."
+ },
+ {
+  "id": "RQ1-0117",
+  "summary": "An open platform for building and running general-purpose AI agents has a message queue interface that holds prompts waiting to be delivered to agent sessions. The interface checks sign-in but not ownership or account separation, so a logged-in user can list every user's pending prompts in one request, read or delete another session's queue, and add prompts to it. A background process then forwards added messages to the victim's running agent, which acts with the victim's credentials and permissions. Preconditions: an authenticated account on a shared multi-user deployment; for per-session reading, deleting or adding, the victim session's identifier; for the prompt-adding effect, a victim with a running agent. The input comes from an attacker who calls the interface directly."
+ },
+ {
+  "id": "RQ1-0283",
+  "summary": "A web console for a messaging middleware product includes an AI agent feature backed by a pool of language-model workers. A logged-in user can send very large or computationally expensive requests that hold a worker from tens of seconds to over ten minutes each. Several such requests sent at once exhaust the pool, so other console users get degraded performance or lose the AI agent feature entirely. Preconditions: an authenticated user with a valid session cookie and the ability to send concurrent requests. The input comes from an attacker who sends the requests directly."
+ },
+ {
+  "id": "RQ1-0080",
+  "summary": "An AI code editor for one desktop operating system can let its agent run commands automatically inside a sandbox. An agent in that mode can replace the Python interpreter of a project virtual environment with a wrapper. When a separately installed Python language extension later starts that interpreter outside the sandbox, the wrapper runs arbitrary commands with the user's privileges, including changing files outside the workspace and launching applications. Preconditions: the automatic sandboxed run mode, a virtual environment in the workspace, the Python extension invoking that interpreter, and the agent writing the wrapper; the record lists no privileges, passive user interaction and attack prerequisites. The source does not say who supplies the input that leads the agent to do this."
+ },
+ {
+  "id": "RQ1-0297",
+  "summary": "An AI coding assistant built into a code editor protects credentials insufficiently, allowing an attacker without privileges to disclose information over a network. The exposed information can be a sign-in access token for the user's work account, potentially giving access to data and services the user is allowed to use, including sensitive organizational information. The vendor, official vulnerability record and code-hosting advisory all list user interaction as required without describing the action. The sources give no further detail about the mechanism, configuration or what the model must do. The source does not say who supplies the triggering input."
+ },
+ {
+  "id": "RQ1-0311",
+  "summary": "A general-purpose AI assistant has a flaw that the vendor describes only as a problem involving commands in its AI features. It lets an attacker without privileges disclose information over a network. The provider states that the service-side flaw is fully fixed and needs no customer action. The inspected records list high attack complexity and required user interaction, without explaining the necessary action. The code-hosting advisory uses a generic command-handling description. The sources give no further detail about configuration, the mechanism or what the model must do. The source does not say who supplies the triggering input."
+ },
+ {
+  "id": "RQ1-0279",
+  "summary": "A gateway that routes requests to many AI model providers can register custom coding agents that speak an agent client protocol. The registration endpoint takes the agent's binary and version-check command from the request and runs that command at once to detect the version, checking only that its first word matches the supplied binary, so arbitrary code runs inside the server container. Preconditions: login is switched off on the instance, or a fresh instance has no management password yet so an outsider can first switch login off; otherwise a management session or management-scoped key is needed. The input comes from an attacker who sends a request to the endpoint directly."
+ },
+ {
+  "id": "RQ1-0088",
+  "summary": "A terminal coding agent has an image analysis tool that reads an image from the workspace and sends it to a vision model endpoint. The tool rejects absolute and directory-climbing paths but does not resolve symbolic links, so a workspace link with an image extension that points outside the workspace is read and its bytes are sent to the provider. The tool runs without asking the user. Preconditions: such a link exists in the workspace, which the record says attackers can create and the advisory says can come from a cloned repository or the developer; the model must call the tool on it. The advisory says the call can be prompted by instructions planted in content the model reads, such as a README, a fetched web page or MCP server output."
+ },
+ {
+  "id": "RQ1-0325",
+  "summary": "An agent server inside a payments platform keeps operational runbooks in a vector database that the agent searches to decide which tools to call. The endpoint that adds or updates runbooks requires no authentication, so anyone who can reach it over the network can store arbitrary runbook text. When the agent later retrieves that text, it can be steered into tool calls that start unauthorised payment actions or send payment data out. The attacker writes to the endpoint directly; the harmful action follows from the agent acting on the planted text it reads back. The record lists network access, no privileges and no user interaction."
+ },
+ {
+  "id": "RQ1-0089",
+  "summary": "A terminal coding agent offers a tool that runs model-written JavaScript in a local runtime. Unlike other runners, it inherits the full parent environment without filtering and has no confinement beyond a timeout. Generated code can read exported secrets and return them as tool output, which reaches the model provider. Exploitation requires secret-bearing environment variables, the runtime installed, and the model calling the tool. The advisory describes one user permission step, or automatic mode without a prompt, whereas the record lists no user interaction. Instructions planted in a project readme, fetched page or another tool's output can lead the model to make the call."
+ },
+ {
+  "id": "RQ1-0218",
+  "summary": "A cloud-hosted assistant that acts on a customer's cloud resources can be made to send requests from the service side to destinations of the caller's choosing. The flaw lets an authorised attacker disclose information over the network. The record lists network access and low privileges as required and no user interaction; it gives no configuration or version range, and the provider has fixed the service itself, so no customer step is involved. The source does not say who supplies the input, nor whether the requests are produced by the assistant's model or by another part of the service."
+ },
+ {
+  "id": "RQ1-0314",
+  "summary": "An assistant built into an office productivity suite assigns incorrect permissions to a sensitive resource. The flaw lets an authorised attacker read information they should not see, over the network. The record lists network access and low privileges as required and no user interaction; it names no configuration or version range, and the provider has fixed the hosted service, so no customer step is needed. The source does not say which resource is affected, or whether the model takes part. The source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0130",
+  "summary": "A workflow platform runs model-generated Python for tabular-data questions after screening it with a pattern-based filter. Two findings:\n- For an online-table workflow, obfuscated code evades the filter and runs with host access. An unauthenticated attacker can steer the model through questions. An authenticated attacker can instead configure a malicious model server whose response bypasses the model entirely, or supply table-column names containing instructions the model reads. The record lists low privileges, conflicting with the unauthenticated route described in the advisory.\n- For spreadsheet-file or online-table workflows containing loaded data, permitted library functions can send data out and request internal addresses, with further code execution described as possible. The attacker supplies a steering question to the reachable prediction endpoint, which requires no key by default; the model must generate and execute the resulting code."
+ },
+ {
+  "id": "RQ1-0015",
+  "summary": "A multi-user tutoring agent platform lets administrators grant each user a list of permitted external tools. When an administrator omits the tool list from a user's grant, the permission check returns an empty value that is treated as unrestricted rather than as denied. A low-privilege user can then list and invoke every configured tool server, including filesystem, shell and browser tools, and reach sensitive deployment resources. Preconditions: multi-user mode, a low-privilege account, a grant that omits the tool list, and powerful tool servers configured. The source says the misuse can come either from the user directly or from planted instructions in content the agent processes within that user's session."
+ },
+ {
+  "id": "RQ1-0077",
+  "summary": "An AI coding assistant does not properly restrict the names of files or other resources it handles. The flaw lets an attacker who holds no credentials run code locally on the user's machine. The vendor's record lists local access and user interaction as required and no privileges, while the national database's own assessment lists low privileges and no user interaction; neither gives a configuration, version range, mechanism or description of which names are involved. The source does not say who supplies the input, nor whether the assistant's model is involved in reaching the vulnerable code."
+ },
+ {
+  "id": "RQ1-0328",
+  "summary": "A gateway that federates tool servers for agents has an administrative interface with an endpoint for downloading log files. The check that keeps requested files inside the log folder compares path strings by prefix instead of by directory boundary. An authenticated administrator can therefore read files with log, line-delimited data or data-file extensions from a neighbouring directory whose path starts with the same characters as the log folder, possibly exposing configuration, credentials and logs. Preconditions: the administrative interface is enabled, the attacker holds administrator credentials (the record lists high privileges), and such a neighbouring directory holds files of those types. The administrator reaches the endpoint directly."
+ },
+ {
+  "id": "RQ1-0180",
+  "summary": "A tool server that gives an agent search, reasoning, processing and analysis tools backed by a hosted language model accepts one or more file paths as tool arguments. The paths are not confined to a workspace, so a caller of the tools can make the server read any local file the process can read, including secrets, and place its contents in the request sent to the external model service. The advisory says the attack must start from a local position, and the record lists local access and low privileges as required. The source does not say who supplies the input; the reporter refers only to whoever calls the tools."
+ },
+ {
+  "id": "RQ1-0225",
+  "summary": "A hub that hosts tool servers for several users restricts what each non-administrator can see and configure to the servers they own, but its tool-execution interface looks servers up globally without checking ownership. Any authenticated non-administrator can therefore call tools on servers owned by other users, even ones hidden from them, and use whatever those servers can do, such as reading arbitrary files on the host or making requests to internal network services. Preconditions: a non-administrator account, which only an administrator can create, authentication left enabled as by default, and other users having connected servers with useful capabilities. The attacker calls the interface directly."
+ },
+ {
+  "id": "RQ1-0168",
+  "summary": "A tool server that installs and manages reusable agent skills takes a workspace path argument in its tools for listing, recommending, installing and removing skills and for editing the agent instructions file. The path is treated as a trusted root without checks, so a connected client can make the server list and read directories, write skill and instruction files, and recursively delete skill directories under any location it chooses. The advisory says the attack must be performed locally, and the record lists local access and low privileges as required. The source does not say who supplies the input; the reporter refers only to a connected client."
+ },
+ {
+  "id": "RQ1-0127",
+  "summary": "A tool server that gives agents access to a service-discovery cluster connects to the cluster with an address and token from its own configuration. Two findings:\n- Clients may override the backend address through a request header, and the destination is not restricted. A connected client can redirect the server's cluster traffic to its own endpoint, capturing the configured token, or make the server send requests to other reachable targets. This requires the server to be reachable by clients that are not fully trusted; token capture also requires a token configured in the server's environment.\n- In stateless transport mode, per-client sessions are not isolated, so one client's authenticated cluster connection can be reused for another client's requests, and tool calls run with someone else's token. This requires stateless mode and more than one connecting client. The source does not say who supplies the input for this finding."
+ },
+ {
+  "id": "RQ1-0039",
+  "summary": "A workflow automation library exposes its modules to agents through a generic tool that runs any module with model-chosen parameters, and also to clients of a hosted interface. Its image-download module fetches a URL and writes the response to disk, checking the target only against a base directory that is itself a caller parameter, so the check never blocks anything. Many other file-writing modules have no path check at all. A caller can therefore write arbitrary bytes from a server they host to any path the process can write, outside the operator's confined directory, for example replacing configuration or startup files and gaining code execution. The URL itself must pass an address check, so the content comes from a public server. The source says the parameters are chosen either by the model, which processes untrusted content, or by a remote client of the hosted interface."
+ },
+ {
+  "id": "RQ1-0178",
+  "summary": "A tool server that gives agents access to a cloud data-development platform has a resource-read operation that, when the requested address is a web URL, fetches it directly and returns the response. Nothing restricts the destination, so a client that can request resources can make the server send requests from its own network position to loopback, private or metadata addresses and read the replies. The advisory says the attack can be launched remotely, and the record lists low privileges as required. The source does not say who supplies the input, nor whether a model choosing the resource address is part of the path."
+ },
+ {
+  "id": "RQ1-0251",
+  "summary": "A tool server that stores and syncs project notes exposes ingestion, movement and synchronisation tools driven by caller-influenced project and vault paths. Resolved paths lack a final containment check, allowing files outside those locations to be read, overwritten or created, and deleted when deletion options are enabled. Exploitation requires access to the relevant endpoint or tool handler, filesystem permissions for the targeted operations, and no effective runtime policy that strips or constrains the supplied values before use. The reporter describes direct handler invocation. The record lists remote access with no privileges or user interaction. The source does not establish whether a model choosing arguments is another route."
+ },
+ {
+  "id": "RQ1-0124",
+  "summary": "A tool that runs agent tool servers in containers gives them, under its default network profile, unrestricted outbound access, including the special hostname that resolves to the host machine. A malicious or compromised containerised server can therefore reach services listening on the host: the tool's own control interface and the proxies of other managed servers, neither of which requires authentication, plus native tool servers with shell or file access and self-hosted model services. This allows calling other servers' tools, reading files it was never given, stopping or starting servers, and potentially taking over the host without escaping the container. Preconditions: the default allow-all network profile, a container runtime that provides the host hostname, and a containerised server under attacker control; the record also lists adjacent-network access and user interaction. The attacker acts through that server's own code."
+ },
+ {
+  "id": "RQ1-0001",
+  "summary": "A chat platform's agent plugin includes a tool server that can create posts with file attachments given as URLs. It does not check those URLs against internal or private address ranges. Someone with access to the tool server in its local standard-input mode can supply internal addresses as attachments when creating a post, making the platform fetch internal network services and expose their data in the post. Preconditions: the tool server running in standard-input mode and the attacker having access to it; the record lists local access and low privileges. The attacker supplies the attachment URLs directly to the post-creation request."
+ },
+ {
+  "id": "RQ1-0255",
+  "summary": "A tool server that helps agents structure step-by-step thinking has tools to export and import thinking sessions using a file path argument that is not confined. Export writes a file of largely attacker-shaped structured data anywhere the server can write, creating missing directories; import reveals whether files exist and loads matching data files; both leave lock files at the chosen location. The record lists network access and low privileges as required. The reporter says a client can call the tools directly, or a model can be led to call them by instructions planted in content it processes, such as a web page, document, readme, ticket or email, when the operator runs an agent with this server enabled."
+ },
+ {
+  "id": "RQ1-0182",
+  "summary": "A tool server that lets an agent run structured reasoning sessions with a hosted model has a session option that saves or loads session files at a path the caller supplies. The path is not confined to a session directory, so a caller can create or overwrite structured data files anywhere the server can write and read matching session-shaped files it can read, exposing or modifying local data. The advisory says the attack requires local access, and the record lists low privileges as required. The source does not say who supplies the input, nor whether a model choosing the tool's arguments is part of the path."
+ },
+ {
+  "id": "RQ1-0177",
+  "summary": "A collection of tool servers for network automation includes one that turns diagram descriptions into image files. Its folder and name arguments decide where the image is written, and nothing confines them to an output directory, so a caller can create directories and write generated image files anywhere the server user can write, possibly overwriting files with predictable names. The file extension is fixed to an image type. The advisory says the attack must be carried out locally, and the record lists low privileges as required. The source does not say who supplies the input, nor whether a model choosing the tool's arguments is part of the path."
+ },
+ {
+  "id": "RQ1-0288",
+  "summary": "A tool server for database design generates infrastructure projects from a data model file. Table, index and attribute names are inserted into generated code without sufficient neutralisation, allowing crafted names to introduce executable code. A developer triggers execution by evaluating the generated project to synthesise infrastructure or deploy it; actual deployment is not required. The code runs on the developer's host with that user's permissions and can access credentials present there. Preconditions include processing the crafted data model and subsequently evaluating the generated project. The record lists local access, no privileges and user interaction. The vendor warns against untrusted data models, but the source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0186",
+  "summary": "A web application in a tool-server project includes a proxy endpoint that forwards a request to a URL given in the request body. Absolute web URLs are accepted without any check, so a caller can make the server send requests from its network position to loopback, private-network, metadata or attacker-chosen addresses. The advisory says the attack can be carried out remotely, and the record lists no privileges or user interaction. The source does not say who supplies the input, nor whether any agent or model uses this endpoint."
+ },
+ {
+  "id": "RQ1-0317",
+  "summary": "A tool server for data-file analysis accepts a spreadsheet filename and combines it with a data directory without checking containment. An attacker with access to the tool interface can supply an external path and read local text files accessible to the server process, potentially exposing sensitive information. The reporter demonstrates the attacker calling the tool directly. The record describes remote exploitation and lists low privileges as required, whereas the reporter's suggested metric lists no privileges. The sources do not resolve this difference or establish whether a model choosing the tool's arguments provides another route."
+ },
+ {
+  "id": "RQ1-0327",
+  "summary": "A bridge connects local agent clients to remote tool servers and performs sign-in discovery. Five findings:\n- After a user connects to a malicious server, its authentication challenge selects an unchecked discovery address. Reachable internal destinations receive requests; response disclosure is not demonstrated.\n- Server-controlled discovery metadata selects another unchecked destination, permitting blind probing when the client follows it and can reach the target.\n- Weak hashes separate stored tokens. Records claim code execution, but the corrected report demonstrates no takeover; the source does not say who supplies the input.\n- A malicious server selects a sign-in address opened in the user's browser. The record requires user interaction; practical harm depends on browser and destination protections, despite its code-execution claim.\n- A streaming wrapper adds tokens without checking origin. Reviewed dependencies block the demonstrated forwarding routes; theft is unproven. The source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0321",
+  "summary": "A document-processing tool server accepts a document path that may be a web address. It downloads that address and follows redirects without restricting the destination, allowing an attacker with tool-interface access to cause requests to loopback, internal or cloud-metadata services. The reporter demonstrates direct tool calls and requests occurring before document-format checks; the destination need not return a valid document. The record lists remote access and low privileges, while the reporter's suggested metric lists no privileges. The sources do not resolve this difference or establish whether a model choosing the document address provides another route."
+ },
+ {
+  "id": "RQ1-0060",
+  "summary": "A safety tool installs a guard that coding agents run on shell commands to deny or question package installation and registry-provided code execution. Its parser misses certain command forms, and project-scaffolding commands can avoid the expected permission step. A coding agent can consequently install packages or run registry code without the guard's policy checks or its restriction on installation scripts. Exploitation requires the guard to be installed and the agent to act on attacker-influenced instructions by issuing a crafted command. The record lists user interaction. The source does not say who supplies the input or identify its delivery channel. Commands already routed through the safety tool retain normal policy checks."
+ },
+ {
+  "id": "RQ1-0016",
+  "summary": "A multi-agent trading research application exposes tools for running agent teams. It builds each run's directory by joining a caller-supplied run identifier onto the base runs directory without validation. A crafted identifier given through these tools makes the application read run record files outside the runs directory and overwrite existing run record files at the traversed locations. The record lists network access and low privileges as required and no user interaction; no configuration is named. The source does not say who supplies the input, nor whether a model choosing the tool's arguments is part of the path."
+ },
+ {
+  "id": "RQ1-0156",
+  "summary": "A gateway that aggregates tool servers for agents has a dashboard endpoint that reports model usage over a date range. Its start and end date parameters are placed into a shell command string without validation, so a caller can make the gateway run commands of their choosing on its host. The endpoint is reachable only when the usage-reporting dashboard feature is enabled. The advisory says the attack can be initiated remotely, and the record lists low privileges as required. The reporter shows the input sent directly to the dashboard endpoint; the source does not say whether a model is ever involved."
+ },
+ {
+  "id": "RQ1-0176",
+  "summary": "A tool server that gives agents web search and a tool to read web pages accepts a URL argument for the page-reading tool, checking only that it is text. A caller can make the server request loopback, private-network or other internal addresses from its network position and receive the responses in the tool output. The advisory says the attack is restricted to local execution, and the record lists low privileges as required. The source does not say who supplies the input, nor whether a model choosing the URL, for example from content it has read, is part of the path."
+ },
+ {
+  "id": "RQ1-0247",
+  "summary": "A local tool server that gives agents search over a company file-storage service, using a credential it holds, listens on the loopback interface in its network mode but never checks the host name a request carries. A web page in the user's browser can use a domain name pointed at the loopback address to reach the server and call its company-search and file-detail tools with the stored credential. Preconditions: the server runs in network mode, not the standard-input mode, and the user visits the attacker's page while it is running. The input comes from the attacker's page reaching the endpoint directly through the browser, not through content the model reads."
+ },
+ {
+  "id": "RQ1-0306",
+  "summary": "The component is a gateway that connects language-model applications to tool servers and lets operators register tool-server clients through a management interface. A locally launched client is defined as a program plus arguments, and the gateway starts that program as soon as the client is registered, without any protocol handshake. Authentication on the management interface is off by default, so every caller is treated as a local administrator. A single unauthenticated registration request therefore runs an arbitrary program as the gateway's process user. Preconditions: management authentication left disabled (the default) and network reach to the management interface. The record lists a network attack vector, no privileges required and no user interaction. The input comes from an attacker who calls the management interface directly."
+ },
+ {
+  "id": "RQ1-0022",
+  "summary": "A content-management-system plugin exposes site functions as MCP tools protected by a token. The plugin must be installed and activated, and an administrator must enable its MCP integration, which is off by default. After token authentication, most tools do not check the calling account's permissions. A user with a low-privileged site account and a valid interface token can therefore read private content, enumerate users and roles, and create, modify or delete other users' content. The record lists network access, low privileges and no user interaction. The attacker supplies the input by calling the tools directly as that low-privileged user."
+ },
+ {
+  "id": "RQ1-0241",
+  "summary": "The component is a tool server providing database documentation and guidance to coding agents over HTTP. Its transport accepts requests naming any host because an available host-name restriction is not enabled. An attacker-controlled web page can redirect a domain it controls to the server's listening address and send requests through the visitor's browser. Preconditions are an active HTTP transport, browser reachability to its listening address and a user visiting the attacker's page. The source does not require the browser and server to share a machine. The record lists network access and no privileges; its metric versions describe user interaction as required or passive. The triggering input comes from the web page through the browser."
+ },
+ {
+  "id": "RQ1-0101",
+  "summary": "The component is a customer-relationship-management application that offers an endpoint for tool clients of language models. The endpoint that returns the form configuration of each business module is open to anonymous users and has no permission check. Anyone who can reach the application can retrieve every field name, type, default value, option list and validation rule of the data model, which the reporter says helps craft targeted attacks against other endpoints. Preconditions: network reach to the application; no account is needed. The record lists a network attack vector, no privileges required and no user interaction. The input comes from an attacker who calls the endpoint directly."
+ },
+ {
+  "id": "RQ1-0157",
+  "summary": "The component is a tool server that helps agents probe and test user interfaces and stores recorded user journeys and usage exports as files. Its tools that get, delete and analyse journeys build file paths from the journey identifier without checking that they stay inside the storage folder, so crafted values read or delete files elsewhere; the usage-statistics tool, when export is enabled, likewise writes its export file wherever the file-name argument points. Preconditions: the ability to call these tools; export enabled for the write case. The advisory says the attack requires local access, and the record lists a local attack vector, low privileges required and no user interaction. The reporter describes an attacker who can call the tools directly."
+ },
+ {
+  "id": "RQ1-0201",
+  "summary": "The component is a project-knowledge tool server for coding agents. Two findings affect its document and memory tools. First, caller-supplied paths and identifiers are combined with storage directories without containment checks, allowing reads, writes and deletion of Markdown files outside the project that the server process can access. Preconditions are access to the affected tools and the permissions needed for the operation. The advisory says no credentials are needed when the server starts without a password. Second, renaming a document removes its original file but requires write permission rather than delete permission. A caller with a read-and-write, no-delete preset can therefore remove Markdown files. The record lists network access, low privileges and no user interaction. Both findings use attacker-chosen tool arguments; the source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0133",
+  "summary": "The component is an open-source tool server that connects agents to databases and other data backends and can mark tools as requiring specific authorization scopes. When its optional legacy HTTP interface for direct tool calls is switched on, tool calls sent through that interface do not enforce the required scopes. An unauthenticated caller can therefore run tools that are supposed to be restricted. Preconditions: the optional direct HTTP interface enabled by its startup flag, tools protected by required scopes, and network reach to the server. The record lists a network attack vector, no privileges required and no user interaction. The input comes from an unauthenticated attacker calling the legacy endpoints directly."
+ },
+ {
+  "id": "RQ1-0243",
+  "summary": "The component is a tool server that lets agents use a telephony and messaging provider's interface. Its HTTP transport listens on every network interface and parses caller credentials in a mode that does not fail when they are missing, so a request with no credential completes setup and runs tools. When tools run, the server forwards its own stored provider key, client secret and code-execution key upstream, so the unauthenticated caller acts with the operator's credentials. Preconditions: the server running with its HTTP transport (bound to all interfaces in affected versions) and network reach to its port. The record lists a network attack vector, no privileges required and no user interaction. The input comes from an attacker who calls the server directly."
+ },
+ {
+  "id": "RQ1-0299",
+  "summary": "The component is a project-knowledge tool server for coding agents with a code-search tool. The tool accepts paths outside the project root and reads matching source-code files elsewhere on the host, returning source text to the agent. Recognised source-code extensions limit which files it reads. The tool is available under every standard permission preset, including read-only. A direct caller needs a tool-server session. Alternatively, an attacker can plant instructions in a stored task or document that the agent reads, causing it to make the call without the attacker authenticating. The record lists network access, low privileges and no user interaction; the reporter distinguishes the credential-free content route. The reporter and CVE record disagree on whether confidentiality effects extend to subsequent systems."
+ },
+ {
+  "id": "RQ1-0006",
+  "summary": "The component is an open-source tool server that connects agents to databases and HTTP services. For operator-configured HTTP tools, it inserts caller-supplied path parameters into the configured path and then resolves the result as a relative address. It checks that scheme, host and user information are unchanged but not dot segments, so parameters that step upward escape the configured path. The server then calls other endpoints on the same target host while sending its configured credentials. Preconditions: an HTTP tool configured with path parameters, and a target host with sensitive endpoints outside the configured path. The record lists a network attack vector, no privileges required and no user interaction. The source says an attacker or the client supplies the parameters but not whether directly or through content the model reads."
+ },
+ {
+  "id": "RQ1-0034",
+  "summary": "The component is a gateway and registry for tool servers that provides discovery, login, access control and proxying of tools for agents. Its metrics service, in the part that manages data-retention policies, inserts a caller-supplied table name directly into database statements as an identifier. An authenticated remote user can thus run arbitrary queries on the metrics database, reading stored data including key material and deleting or altering data. Preconditions: an authenticated account and network reach to the metrics service; the affected code path is enabled by default. The record lists a network attack vector, low privileges required and no user interaction. The input comes from an authenticated user who calls the service directly."
+ },
+ {
+  "id": "RQ1-0159",
+  "summary": "The component is a tool server that builds slide presentations for agents and can generate chart assets. In its asset tool's chart-generation path, the output-directory argument is placed inside a shell command line without neutralisation, so a crafted directory name makes the server run commands of the caller's choosing on its host. Preconditions: the ability to call the asset tool with the chart asset type. The advisory says the attack is only possible with local access, and the record lists a local attack vector, low privileges required and no user interaction. The reporter describes a caller able to invoke the tool directly."
+ },
+ {
+  "id": "RQ1-0303",
+  "summary": "The component is a tool server that lets agents run managed code scans and penetration tests on a cloud provider. Before a scan, it uploads an archive of the workspace source to a storage bucket whose name it derives from the user's cloud account number and region, checking only that the bucket exists, not who owns it. Because bucket names are global and account numbers public, a third party can create that name in their own account first, and the server then uploads the archive, which may include credentials and infrastructure state, to them. Preconditions: the third party knows the account number and registers the name before the user's bucket exists. The record lists a network attack vector, no privileges required and user interaction as required. The input is the third party's own bucket registration, not content the model reads."
+ },
+ {
+  "id": "RQ1-0023",
+  "summary": "The component is a coding-agent toolkit server with a built-in web dashboard and a shell-command tool. Two findings. First, the dashboard listens on a fixed port with no login, no cross-site protection and no host-name check; a web page the user visits can rebind its domain to the local address and then read agent logs, write the agent's persistent memory, overwrite configuration or stop the agent. Preconditions: dashboard on (default) and the user visiting the page; the input comes from that page reaching the dashboard directly. Second, the agent later reads the planted memory and calls its shell tool, enabled by default, which runs the text through a shell. Preconditions: planted memory and a new agent session; the input is content the model reads. The record lists a network attack vector, no privileges required and user interaction as required."
+ },
+ {
+  "id": "RQ1-0184",
+  "summary": "The component is a tool server that sends documents to an external handwriting-recognition service for agents. Its document-upload tool treats a text file argument as a local path and reads it with no allowed folder or path check, then sends the bytes to the external service, exposing secrets, configuration or user documents readable by the server. Preconditions: the ability to call the upload tool. The advisory says attacking locally is a requirement, and the record lists a local attack vector, low privileges required and no user interaction. The reporter describes a tool caller supplying the path directly."
+ },
+ {
+  "id": "RQ1-0066",
+  "summary": "The component is a tool server supplying documentation and dependency information to coding agents. Its dependency-scanning tool reads a caller-selected path without confinement. For readable JSON files, dependency entries are returned and their names are queried against a public package registry; for other files, parsing errors can reveal content fragments. Preconditions are access to the tool and a target file readable by the server process. The reporter demonstrates calls without tool-interface credentials and describes both direct clients and instructions that steer a model into making the call. The record describes local access, low privileges and no user interaction. The reporter's submitted assessment instead lists no prior privileges and required user interaction; the sources do not reconcile those requirements."
+ },
+ {
+  "id": "RQ1-0098",
+  "summary": "The component is a content-management-system plugin exposing administration functions as tools to language-model clients. An administrator enables the tool interface, configures a non-empty access-token setting and enables its public authorization flow. Tokens issued through that flow are not tied to a site user, and the interface treats any valid token as an administrator session. An attacker without a site account can obtain a token through the public flow and call privileged tools, including creating users and increasing their roles. Preconditions are that administrator configuration and network reach to the interface. The record lists network access, no privileges and no user interaction. The attacker supplies the requests directly."
+ },
+ {
+  "id": "RQ1-0004",
+  "summary": "The component is firmware for a voice-assistant robot device that includes a tool server for language-model clients and a local network control socket accepting several clients. The message parser keeps only the request number and drops which connection sent the request, and replies are broadcast to every connected client. A second client on the same socket therefore receives tool results produced for another client, such as device state, camera or sensor data, and clients reusing request numbers can confuse results. Preconditions: the robot board build with its control socket listening, and the attacker able to connect to it on the local network. The record lists a network attack vector, low privileges required and no user interaction. The input comes from an attacker who connects to the socket directly."
+ },
+ {
+  "id": "RQ1-0043",
+  "summary": "The component is a workflow-automation platform whose workflows can be exposed as tool servers to language-model clients, protected by the platform's own authorization flow. That flow does not check that the logged-in user has access to the workflow named as the protected resource. A member-level user can register a client, consent for another user's workflow and get a valid token. The workflow then runs with the owner's stored credentials; the attacker chooses tool inputs and reads outputs, which may include data from the owner's connected services. Preconditions: a member-level account, a version including this flow, and an active workflow whose tool-server trigger uses the built-in authorization. The record lists a network attack vector, low privileges required and no user interaction. The input comes from that member directly."
+ },
+ {
+  "id": "RQ1-0155",
+  "summary": "The component is a code-context engine that offers tools to coding agents, including an HTTP route that reviews version-control differences. The target, base and pattern values sent to that route reach a helper that runs the version-control program through a shell, so shell metacharacters in them run arbitrary commands with the server's privileges. Preconditions: the ability to reach the difference-review route. The record lists an adjacent-network attack vector, low privileges required and no user interaction. The reporter describes a caller who reaches the route directly."
+ },
+ {
+  "id": "RQ1-0307",
+  "summary": "The component is a proxy that federates tool servers for language-model clients and offers optional filter plugins that operators set up to redact personal data, scrub secrets, screen for planted instructions and block forbidden content. These filters scan only the top-level keys of a tool call's arguments, so an authenticated client that nests the content one level deeper, in the standard tool-call shape, passes every configured rule. Preconditions: an authenticated client account and the operator relying on those filter plugins. The record lists a network attack vector, low privileges required and no user interaction. The input comes from that authenticated client, as stated by the source."
+ },
+ {
+  "id": "RQ1-0196",
+  "summary": "The component is a tool server loading API descriptions and generating test cases for agents. Several tools pass a caller-selected source address to a shared loader without destination restrictions. The loader forwards optional caller-supplied headers, allowing requests to internal or attacker-chosen addresses and disclosure of supplied credentials. Responses containing valid API descriptions are returned to the caller; parsing failures can still reveal request information. Preconditions include the ability to invoke an affected tool. The record lists network access, low privileges and no user interaction, while the issuing organization's narrative describes unauthenticated remote use without privileged access. The sources do not reconcile this difference. Input can come from instructions that steer a model or from an attacker controlling the client."
+ },
+ {
+  "id": "RQ1-0137",
+  "summary": "The component is a tool server connecting agents to databases and data backends. Its identity-provider token validation can skip the audience check when authentication for the tool interface is enabled and configuration lacks an explicit audience or client identifier. The source does not clarify whether one missing setting is sufficient or both must be absent. In the affected configuration, the server accepts valid opaque access tokens issued by that provider to unrelated applications, giving their holders access to protected tools and backends. Preconditions include that configuration and possession of a valid provider token. The record lists network access, no privileges and no user interaction. Source assessments differ on integrity impact. The triggering input comes from an unauthorized client presenting a token directly."
+ },
+ {
+  "id": "RQ1-0062",
+  "summary": "The component is a trip-planning application that offers a tool interface to language-model clients, with access tokens limited to scopes the user chooses. The trip-summary tool is available to every token and returns trip details, day-by-day plans with notes, lodging and the email addresses of the owner and all collaborators, whatever scopes were granted. A client the user authorised for a narrow scope can therefore read this data for every trip the user can access. Preconditions: the user has authorised a client with a scoped token; access is limited to that user's trips. The record lists a network attack vector, low privileges required and no user interaction. The input comes from the token-holding client calling the tool directly."
+ },
+ {
+  "id": "RQ1-0244",
+  "summary": "The component is a tool server providing access to a team-chat workspace over HTTP. Its transport accepts requests naming any host because an available host-name restriction is not enabled. An attacker-controlled web page can redirect a domain it controls to the server's listening address and send requests through the visitor's browser. Preconditions are an active HTTP transport, browser reachability to its listening address and a user visiting the attacker's page. The source does not require the browser and server to share a machine. The record lists network access and no privileges; its metric versions describe user interaction as required or passive. The triggering input comes from the web page through the browser."
+ },
+ {
+  "id": "RQ1-0222",
+  "summary": "The component is a hub that aggregates and manages tool servers for language-model clients. Any logged-in user, not only administrators, may register a server defined by a web address or an API description, and the hub contacts that address with no filtering of loopback, private or link-local ranges. Through the API-description route, calling the generated tool returns the response body to the caller; through the network transport route, requests are sent without a visible response. Preconditions: an authenticated non-administrator account and internal services reachable from the hub. The record lists a network attack vector, low privileges required and no user interaction. The input comes from that user registering the server and calling the tool directly."
+ },
+ {
+  "id": "RQ1-0175",
+  "summary": "The component is a tool server that guides agents through a specification-driven development workflow and stores review requests as files. Its review-request tool checks the document path argument but joins the category-name argument to its storage folder without validation, so a crafted category name makes the server create a folder and write a record file outside the storage folder. Preconditions: the ability to call the review-request tool. The advisory says the attack is only possible with local access, and the record lists a local attack vector, low privileges required and no user interaction. The source does not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0285",
+  "summary": "The component is a tool server that lets agents scrape web pages and parse documents through an external service. Its document-parsing tool is registered in self-hosted configuration when cloud-service mode is disabled and a parsing-service address is configured. The tool accepts a local file path without checking containment, so it can read files outside the working directory that the server process can access. It uploads their bytes to the parsing service and returns parsed content to the caller. Preconditions are that configuration and the ability to invoke the tool. The reporter demonstrates a direct call and also describes instructions that steer a model into supplying the path. The record lists network access, no privileges and no user interaction."
+ },
+ {
+  "id": "RQ1-0187",
+  "summary": "The component is a tool server that fetches and extracts news articles for agents. Its article-fetching tool checks only that the address argument is well formed, not where it points, so the server can be made to send requests to internal, loopback or attacker-chosen addresses from its own network position. Preconditions: the ability to have the tool called with a chosen address. The record lists a network attack vector, low privileges required and no user interaction. The reporter says the address may come from instructions planted in messages the model reads or from a hijacked client."
+ },
+ {
+  "id": "RQ1-0122",
+  "summary": "The component is a tool server connecting agents to databases and cloud services. A healthcare-records pagination tool requests a supplied address using an authenticated client that attaches its token regardless of destination. An attacker-selected external destination can receive an end-user or service-account token, potentially exposing records and other services. Preconditions are an enabled tool, an available token and attacker influence over the address. The source describes direct tool-call input and indirect data-driven pagination, but does not establish whether the latter involves a model reading attacker-controlled content. Records disagree on attack complexity, prior privileges and effects on subsequent systems. They consistently list network access and no user interaction."
+ },
+ {
+  "id": "RQ1-0277",
+  "summary": "A plugin for a website content-management system connects the site to AI agents through an MCP server. A missing permission check allows actions beyond the requesting account's permitted access. The issuing organization's advisory specifies a contributor-level account as required. The sources do not identify the affected function or explain the resulting actions in detail. The record lists a network attack vector, low privileges required and no user interaction. The sources do not say whether the attacker supplies the triggering input directly or through content a model reads."
+ },
+ {
+  "id": "RQ1-0309",
+  "summary": "An identity and access management server exposes an MCP endpoint for agents. A request carrying any registered application's client identifier and secret is treated as globally allowed, and the endpoint's user tools apply no organization scoping. With credentials from a single application, an attacker can list user records including password salts and email addresses, create administrator accounts, and modify or delete users in every organization, not just their own. The precondition is possession of one valid application's client identifier and secret, which that application's owner legitimately knows. The record lists a network attack vector, low privileges required and no user interaction. The attacker sends requests to the endpoint directly."
+ },
+ {
+  "id": "RQ1-0217",
+  "summary": "An application framework includes a local MCP server with file tools. Two tools, for syntax checking and browser testing, insert a caller-supplied path into shell commands after checking project containment, allowing commands to run with the developer's privileges. Exploitation requires working argument dispatch: the reporter says the tested releases otherwise fail before reaching these functions because their tool descriptions omit an argument-passing setting. The browser-test tool also requires a path within its designated test-folder pattern. The reporter describes an attacker planting text in content the agent reads so it passes the path to a tool; direct attacker access is unavailable over the local standard-input transport. The record lists network access and no user interaction, whereas the reporter lists local access and user interaction."
+ },
+ {
+  "id": "RQ1-0163",
+  "summary": "A note-taking application includes an MCP server with an outbound web request tool that can fill in stored secrets through placeholders. The tool substitutes plaintext secret values into the destination address itself, not only into headers and body, so a request can carry stored secrets to any public host the caller names. Read-only requests skip the confirmation screen that other request methods show, and the existing internal-network guard does not block public destinations. Preconditions: secrets are stored in the application's vault and the tool is reachable by an MCP client. The record lists a network attack vector, high privileges required and no user interaction. According to the sources, the request can come from an MCP client directly or from an agent steered by untrusted content it processes."
+ },
+ {
+  "id": "RQ1-0067",
+  "summary": "An MCP server for inspecting circuit-design projects includes a path-validation helper that its path-taking tools do not use. Callers can probe accessible paths, enumerate matching files in readable directories and cause file-opening attempts outside a project. Full file bodies are not returned, although the reporter says short content prefixes can appear in parsing errors. The reporter describes both direct MCP clients and agents steered by planted instructions, and tests the standard-input transport, with network bridging also discussed. Preconditions include the ability to supply tool paths and the server process's filesystem permissions. The record lists local access, low privileges and no user interaction; the reporter's suggested metrics instead list no privileges and required user interaction."
+ },
+ {
+  "id": "RQ1-0139",
+  "summary": "An MCP server lets AI assistants manage hosted message brokers. Two connection tools, enabled by default, accept a hostname and send the caller's broker credentials or access token there without checking that it identifies a genuine broker endpoint. An attacker who influences the model's input, including through instructions planted in content the agent processes, can steer a connection call toward a host they control. Exploitation requires the tool to send the caller's credentials or token to that destination. Valid transport certificates do not prevent disclosure when the attacker controls the hostname. Automatic execution skips an opportunity for hostname review. The record lists a network attack vector, no privileges and required user interaction."
+ },
+ {
+  "id": "RQ1-0017",
+  "summary": "A presentation-generation application bundles an MCP server. In server or container deployments configured with username and password session login, the front-end web server does not apply the login check to the MCP path, the MCP server accepts connections without verification, and it attaches a valid internal session for the configured user to every call it forwards. A remote attacker without credentials can therefore call MCP tools, such as presentation generation, acting as that user, spending the operator's configured model provider keys and creating content. The desktop build is not affected because MCP is disabled there. The record lists a network attack vector, no privileges and no user interaction. The attacker reaches the endpoint directly."
+ },
+ {
+  "id": "RQ1-0074",
+  "summary": "An MCP server that converts design resources into generated files accepts a caller-supplied root directory without enforcing project containment. It creates missing directories and writes generated files beneath that location, subject to the server process's write permissions. Directory creation occurs before the external service request; completing the file-writing path requires configured service credentials and successful retrieval of a design resource. Written content consists of a fixed workflow template and resource-derived data and images, rather than unrestricted caller-chosen bytes. The reporter describes direct MCP clients and agents steered by planted instructions, using standard-input transport. The record lists local access, low privileges and no user interaction; the reporter's suggested metrics list no privileges and required user interaction."
+ },
+ {
+  "id": "RQ1-0210",
+  "summary": "A hub that aggregates and routes MCP servers has a web dashboard. The endpoint that updates the global system configuration checks only that the requester is logged in, not that they are an administrator. Any authenticated non-administrator can therefore rewrite security-relevant settings, for example switching on a mode that treats all unauthenticated dashboard requests as an administrator, or repointing package registry and model provider addresses. Preconditions: an existing non-administrator account, since self-registration is not open to anonymous users, and network access to the dashboard. The record lists a network attack vector, low privileges required and no user interaction. The attacker sends the request directly."
+ },
+ {
+  "id": "RQ1-0193",
+  "summary": "An MCP server providing public-data tools downloads and parses documents from a caller-supplied address. It validates the address format but does not restrict destinations, allowing requests to unintended hosts, including internal services. The reporter's submission describes MCP client calls, manipulated prompts or messages, and control of client behavior as ways to supply the address. It demonstrates the standard-input transport; the record lists a network attack vector, low privileges and no user interaction. The sources do not establish whether the manipulated messages are content a model reads or explain how remote access reaches the demonstrated local transport."
+ },
+ {
+  "id": "RQ1-0208",
+  "summary": "An MCP server fetches pages for an agent through single-page and multiple-page tools. The reporter's submission says validation checks the address scheme but does not exclude private, loopback or cloud metadata destinations. A caller can therefore make the server retrieve content from services reachable from its network position, and retrieved content can be returned to the caller. The record lists a network attack vector, low privileges required and no user interaction, whereas the issuing organization's analysis describes an unauthenticated remote attacker. The sources do not establish whether attacker-controlled arguments reach the tools directly or through content a model reads."
+ },
+ {
+  "id": "RQ1-0109",
+  "summary": "A workflow automation platform includes tools that let AI agents operate a local machine, including file search within a configured base directory. A crafted search pattern bypasses the confinement check and expands outside that directory, returning names and contents of files readable by the daemon's operating-system user. Affected deployments allow an actor to influence the search input. The advisory recommends restricting instance access to trusted users or disabling workflows that use these tools. Its metrics list a network attack vector, additional attack requirements, low privileges and no user interaction. The sources do not explain those additional requirements or say whether the attacker supplies the input directly or through content a model reads."
+ },
+ {
+  "id": "RQ1-0174",
+  "summary": "An MCP server that lets an agent manage models in a local model runner builds shell commands from tool arguments such as model name, model definition file, source and destination, without escaping. Characters in those arguments are interpreted by the shell, so a caller can run arbitrary commands on the host with the server's privileges. The reporter's issue describes the attacker as a malicious MCP client able to invoke the affected tools. The advisories say the attack can only be executed locally. The record lists a local attack vector, low privileges required and no user interaction."
+ },
+ {
+  "id": "RQ1-0148",
+  "summary": "An MCP server that lets an agent run commands on remote machines over SSH builds a local shell command from the stored host and username values, and its copy tools do the same with other values. Shell characters in those values run as commands on the machine hosting the server, separate from the intended remote execution. The reporter's issue says a caller able to influence the tool or the stored credential fields can do this. The advisories say the attack requires local access and that the flaw's existence is questioned: the maintainer states the server is a local trusted tool whose callers can already run commands. The record lists a local attack vector, low privileges required and no user interaction."
+ },
+ {
+  "id": "RQ1-0068",
+  "summary": "A coding-agent toolkit exposes system tools through network transports.\n1. In a non-default HTTP-based mode, its MCP server listens on all interfaces by default without authentication. If the port is reachable and shell execution remains available, an attacker connects directly and runs commands as the server user.\n2. A separate project-query HTTP endpoint invokes tools without the read-only check used by the corresponding MCP tool. An attacker who reaches that endpoint can invoke shell execution even when it is removed from the default MCP tool set.\nThe reporter describes network access and low attack complexity; the record lists local access and high complexity. Both list no privileges and no user interaction. The source does not fully specify the separate endpoint's deployment requirements."
+ },
+ {
+  "id": "RQ1-0292",
+  "summary": "An MCP server lets an agent submit queries to a relational database and offers a read-only mode enforced by a list of disallowed statements. The list is incomplete, allowing crafted queries to pass the application's restrictions. Modifying data also requires the server's database role to permit the corresponding changes; database-enforced restrictions continue to apply. The sources describe an unauthenticated attacker placing crafted queries in content submitted when an authenticated user interacts with the server. They do not say whether that content passes through a model. Preconditions include reliance on the application's read-only filter and sufficient database permissions. The record lists network access, no attacker privileges and required user interaction."
+ },
+ {
+  "id": "RQ1-0258",
+  "summary": "An MCP server for a note-taking service offers an image upload tool that reads a file from a caller-supplied path, uploads it to the service's public storage and returns a link to it. The path is not validated or confined, so any file the server process can read can be read and retrieved through that link, without the attacker needing their own infrastructure. The reporter's issue says the caller can be an MCP client or an agent steered by content an attacker delivers; the server runs as the desktop user with the operator's service credentials. The record lists a network attack vector, low privileges required and no user interaction."
+ },
+ {
+  "id": "RQ1-0316",
+  "summary": "An MCP server offers a re-authentication tool that opens a caller-supplied address in a browser by building a platform-specific shell command. The address is placed into that command without escaping, so text in it runs as operating-system commands with the server's privileges. The reporter's write-up says an attacker with access to the MCP interface can do this. The advisories say the attack may be performed remotely; the record lists a network attack vector, low privileges required and no user interaction, while the reporter suggested a local vector. The attacker calls the tool directly."
+ },
+ {
+  "id": "RQ1-0108",
+  "summary": "An MCP server for an automation platform's AI assistant, distributed as a code-editor extension, has a path handling flaw that lets files be written outside intended locations on the user's system. According to the sources, an attacker achieves this by steering the AI agent through instructions planted in content it processes. This can expose sensitive host files and can stage command execution that runs when the user later starts a build of an execution environment. Preconditions: the extension is installed and the agent processes attacker-influenced content. The record lists a local attack vector, no privileges and user interaction required."
+ },
+ {
+  "id": "RQ1-0250",
+  "summary": "An MCP server that supplies local files to an agent offers a read tool taking a caller-supplied path. The path is resolved against the working directory and checked for accessibility without enforcing project containment. An attacker who can invoke the endpoint or tool can therefore read files outside the intended project wherever the server process has filesystem permission. Exploitation also requires that no effective runtime policy strip or constrain the supplied values before they reach the file operation. The record lists a network attack vector, no privileges and no user interaction. The reporter describes a caller invoking the tool directly."
+ },
+ {
+  "id": "RQ1-0227",
+  "summary": "A gateway project includes a separate sandbox server that executes caller-supplied code in a restricted environment. Its exposed attribute-access capabilities and incomplete validation let submitted code escape those restrictions and run operating-system commands with the server process's privileges. An attacker must be able to submit code to this sandbox server. Its HTTP-based transports can expose the execution tool without authentication; standard-input deployments retain the vulnerable execution path but reduce network exposure. Container host mounts and internal-network access can increase the resulting impact. The core gateway and proxy are not directly affected. The record lists network access, no privileges and no user interaction. The attacker submits code directly."
+ },
+ {
+  "id": "RQ1-0185",
+  "summary": "An MCP server that forwards an agent's requests to a local text-generation backend accepts an API base address as an argument of many tools. The address is not restricted to the intended backend, so the server can be made to send requests to loopback, private-network, cloud metadata or attacker-controlled hosts from its own network position. The reporter's issue describes the attacker as an MCP caller. The advisories say the attack can be launched on the local host. The record lists a local attack vector, low privileges required and no user interaction. The caller supplies the address directly."
+ },
+ {
+  "id": "RQ1-0326",
+  "summary": "A plugin for a website content-management system connects the site to AI agents through an MCP server. It has an access control flaw that lets a user with a contributor-level account do more than that role allows. The advisories do not name the affected function or describe the impact further, and state no other precondition. The record lists a network attack vector, low privileges required and no user interaction. The sources do not say who supplies the input."
+ },
+ {
+  "id": "RQ1-0027",
+  "summary": "A code generator for API clients and AI assistant plugins copies template file references from extension fields in an API description into a generated plugin manifest without validating their location. One extension path propagates the supplied reference only when a title is present; another copies the template reference directly. An attacker-controlled description can therefore make the deployed assistant host resolve files outside the plugin package. The flaw does not execute code on the build machine. Preconditions include generating the relevant plugin type from a malicious or compromised description and deploying the result; the demonstrated setup enables preview features. The record lists network access, no privileges and no user interaction. The attacker supplies the description document directly."
+ },
+ {
+  "id": "RQ1-0026",
+  "summary": "A client library for MCP supports credentials in custom HTTP headers. Its default HTTP client follows cross-origin redirects and removes standard credential headers while forwarding custom ones, potentially sending API keys or tokens to an attacker-controlled destination. Preconditions include using the streamable HTTP transport with the default redirect behavior and putting secrets in custom headers. The attacker must control the endpoint's redirect response, through a malicious or compromised server or a network position capable of altering that response. The separate standard authentication-header mechanism is unaffected. The record lists network access, high attack complexity, no privileges and no user interaction. The attacker supplies the redirect directly."
+ },
+ {
+  "id": "RQ1-0198",
+  "summary": "A client library for MCP reads server-sent event streams over HTTP and appends incoming data to a memory buffer that is cleared only when an event separator arrives. There is no size limit, so a server that keeps streaming without ever sending the separator makes the client's memory grow until the process crashes. Preconditions: the client uses the HTTP transport, and the server it connects to is malicious or compromised, or someone on the network path can alter a plaintext response. The CVE record lists a network attack vector, no privileges and active user interaction; the global advisory lists no user interaction. The input comes directly from that server or network party."
+ },
+ {
+  "id": "RQ1-0046",
+  "summary": "A server library for MCP manages sessions over HTTP streaming transports but does not check that requests using a session identifier come from the client that owns the session. Anyone holding another user's session identifier can call tools within that session, and the results are delivered to the victim's stream, so the victim may take them as genuine. The precondition is that the attacker has obtained a valid session identifier; the source treats how as out of scope. The record lists a network attack vector, attack requirements present, no privileges and no user interaction. The attacker sends requests directly."
+ },
+ {
+  "id": "RQ1-0014",
+  "summary": "A server library for MCP allocates an in-memory session before completing initialization checks and fails to remove the allocation when those checks reject the request. An attacker directly supplies otherwise well-formed protocol requests that reach session creation but fail initialization validation. Repetition permanently grows the session table for the process's lifetime, exhausting memory and delaying legitimate operations. Preconditions are the stateful streamable HTTP transport, the in-memory session manager and access to the listener. The advisory describes local processes as attackers under the default allowed-host configuration, and network attackers when the deployment permits their access. The record lists a network attack vector, no privileges and no user interaction."
+ },
+ {
+  "id": "RQ1-0323",
+  "summary": "A client library for connecting agents to tool services caches identity tokens without separating them by intended audience. When an application authenticates to multiple audiences in one process, a valid, unexpired token issued for one service can be reused in a request to another. An attacker who operates, compromises or monitors traffic to the receiving service can capture the token and replay it against its intended service to impersonate the application. Preconditions include multiple audiences sharing the process and a reusable token remaining valid. The application's requests trigger the cache mistake; the source describes attacker receipt and replay, without identifying attacker-supplied input that triggers the initial reuse. The record lists network access, additional attack requirements, no privileges and no user interaction."
+ },
+ {
+  "id": "RQ1-0102",
+  "summary": "An agent development toolkit runs a coding agent in a sandbox and relays tool calls to tools exposed by the host. The relay accepts requests from any process whose command line contains an allowed helper script path, so code running in the sandbox can call host tools, such as secret lookups, deployments and cloud operations, without a matching tool call from the model. Preconditions: hosts whose per-process information is read from the process filesystem (the vulnerable fallback runs only there), an active session with host-provided tools, and untrusted code running in the sandbox, such as a malicious dependency, build script or lifecycle hook. The record lists a local attack vector, no privileges and no user interaction. That code sends the relay requests directly."
+ }
+]

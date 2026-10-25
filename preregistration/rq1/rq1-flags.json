@@ -1,0 +1,306 @@
+{
+ "flagged": [
+  "RQ1-0005",
+  "RQ1-0006",
+  "RQ1-0008",
+  "RQ1-0014",
+  "RQ1-0016",
+  "RQ1-0022",
+  "RQ1-0025",
+  "RQ1-0026",
+  "RQ1-0027",
+  "RQ1-0036",
+  "RQ1-0060",
+  "RQ1-0066",
+  "RQ1-0067",
+  "RQ1-0068",
+  "RQ1-0074",
+  "RQ1-0077",
+  "RQ1-0080",
+  "RQ1-0089",
+  "RQ1-0096",
+  "RQ1-0098",
+  "RQ1-0109",
+  "RQ1-0118",
+  "RQ1-0119",
+  "RQ1-0122",
+  "RQ1-0127",
+  "RQ1-0130",
+  "RQ1-0131",
+  "RQ1-0137",
+  "RQ1-0139",
+  "RQ1-0143",
+  "RQ1-0144",
+  "RQ1-0148",
+  "RQ1-0152",
+  "RQ1-0168",
+  "RQ1-0175",
+  "RQ1-0176",
+  "RQ1-0177",
+  "RQ1-0178",
+  "RQ1-0180",
+  "RQ1-0182",
+  "RQ1-0186",
+  "RQ1-0193",
+  "RQ1-0196",
+  "RQ1-0198",
+  "RQ1-0201",
+  "RQ1-0208",
+  "RQ1-0218",
+  "RQ1-0227",
+  "RQ1-0241",
+  "RQ1-0244",
+  "RQ1-0250",
+  "RQ1-0251",
+  "RQ1-0260",
+  "RQ1-0276",
+  "RQ1-0277",
+  "RQ1-0285",
+  "RQ1-0288",
+  "RQ1-0292",
+  "RQ1-0296",
+  "RQ1-0297",
+  "RQ1-0299",
+  "RQ1-0300",
+  "RQ1-0302",
+  "RQ1-0311",
+  "RQ1-0312",
+  "RQ1-0313",
+  "RQ1-0314",
+  "RQ1-0316",
+  "RQ1-0317",
+  "RQ1-0321",
+  "RQ1-0323",
+  "RQ1-0324",
+  "RQ1-0326",
+  "RQ1-0327"
+ ],
+ "reasons": {
+  "RQ1-0008": [
+   "FLAG: yes — provider-dependent prerequisites and reporter identity remain uncertain."
+  ],
+  "RQ1-0096": [
+   "FLAG: yes — the triggering input and execution prerequisites require correction."
+  ],
+  "RQ1-0260": [
+   "FLAG: yes — required workspace state and confirmation conditions are corrected."
+  ],
+  "RQ1-0296": [
+   "FLAG: yes — the metrics comparison lacks preserved evidence and the triggering input remains unknown."
+  ],
+  "RQ1-0119": [
+   "FLAG: yes — interaction requirements conflict and the issue's reporter identity is unresolved."
+  ],
+  "RQ1-0313": [
+   "FLAG: yes — triggering input remains unspecified."
+  ],
+  "RQ1-0300": [
+   "FLAG: yes — the required user authentication and source of the link are corrected; this supersedes round 1's FLAG:no."
+  ],
+  "RQ1-0152": [
+   "FLAG: yes — privilege requirements, triggering route and reporter identity remain unresolved."
+  ],
+  "RQ1-0005": [
+   "FLAG: yes — retain the late-eligibility flag and resolve reporter identity before treating the issue as an admitted source."
+  ],
+  "RQ1-0131": [
+   "FLAG: yes — the first-public-disclosure date needs resolution; the summary itself can remain unchanged."
+  ],
+  "RQ1-0276": [
+   "FLAG: yes — the triggering-input description is corrected."
+  ],
+  "RQ1-0036": [
+   "FLAG: yes — correct the triggering-input description and associated metadata."
+  ],
+  "RQ1-0302": [
+   "FLAG: yes — finding 1's execution prerequisites are corrected; this supersedes round 1's FLAG:no."
+  ],
+  "RQ1-0143": [
+   "FLAG: yes — finding-specific privileges and triggering input require correction."
+  ],
+  "RQ1-0118": [
+   "FLAG: yes — retain the late-eligibility flag and resolve the identity of the source supporting the detailed prerequisites."
+  ],
+  "RQ1-0324": [
+   "FLAG: yes — the secondary finding's prerequisites remain uncertain and the bundle needs separate treatment."
+  ],
+  "RQ1-0312": [
+   "FLAG: yes — preserve the genuine interaction conflict and unknown triggering input, with accurate source attribution."
+  ],
+  "RQ1-0025": [
+   "FLAG: yes — triggering input and required user action remain unspecified."
+  ],
+  "RQ1-0144": [
+   "FLAG: yes — feature-enable and file-placement prerequisites remain uncertain."
+  ],
+  "RQ1-0080": [
+   "FLAG: yes — triggering input remains unknown."
+  ],
+  "RQ1-0297": [
+   "FLAG: yes — the unsupported metrics comparison requires correction and triggering input remains unknown."
+  ],
+  "RQ1-0311": [
+   "FLAG: yes — remove the unsupported metrics comparison while retaining uncertainty about the triggering input and required interaction."
+  ],
+  "RQ1-0089": [
+   "FLAG: yes — conflicting statements about the user action required."
+  ],
+  "RQ1-0218": [
+   "FLAG: yes — triggering input and model participation remain unspecified."
+  ],
+  "RQ1-0314": [
+   "FLAG: yes — the triggering input remains unspecified."
+  ],
+  "RQ1-0130": [
+   "FLAG: yes — correction of triggering-input paths and privilege preconditions."
+  ],
+  "RQ1-0077": [
+   "FLAG: yes — triggering input is unknown and the additional metric assessment remains unverified."
+  ],
+  "RQ1-0180": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0168": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0127": [
+   "FLAG: yes — the second finding's triggering input remains unspecified."
+  ],
+  "RQ1-0178": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0251": [
+   "FLAG: yes — a stated runtime-policy precondition must be restored."
+  ],
+  "RQ1-0182": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0177": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0288": [
+   "FLAG: yes — deployment precondition is overstated, and who supplies the data model remains unspecified."
+  ],
+  "RQ1-0186": [
+   "FLAG: yes — triggering input and agent involvement remain uncertain."
+  ],
+  "RQ1-0317": [
+   "FLAG: yes — conflicting privilege requirements must be preserved."
+  ],
+  "RQ1-0327": [
+   "FLAG: yes — omitted preconditions and unresolved triggering inputs for the hardening findings."
+  ],
+  "RQ1-0321": [
+   "FLAG: yes — conflicting privilege requirements are omitted."
+  ],
+  "RQ1-0060": [
+   "FLAG: yes — triggering-input category is inferred rather than established."
+  ],
+  "RQ1-0016": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0176": [
+   "FLAG: yes — the triggering-input route remains unspecified."
+  ],
+  "RQ1-0022": [
+   "FLAG: yes — correcting a configuration precondition.",
+   "FLAG: yes — missing configuration prerequisite corrected; retain the ineligibility flag."
+  ],
+  "RQ1-0241": [
+   "FLAG: yes — removing an unsupported deployment precondition."
+  ],
+  "RQ1-0201": [
+   "FLAG: yes — correcting the file restriction and retaining triggering-input uncertainty."
+  ],
+  "RQ1-0299": [
+   "FLAG: yes — correcting credential preconditions and preserving conflicting impact assessments."
+  ],
+  "RQ1-0006": [
+   "FLAG: yes — triggering-input delivery remains unspecified."
+  ],
+  "RQ1-0066": [
+   "FLAG: yes — correcting credential preconditions and exposing conflicting interaction requirements."
+  ],
+  "RQ1-0098": [
+   "FLAG: yes — correcting configuration preconditions."
+  ],
+  "RQ1-0196": [
+   "FLAG: yes — credential requirements remain inconsistent across sources."
+  ],
+  "RQ1-0137": [
+   "FLAG: yes — the exact missing-configuration condition remains ambiguous."
+  ],
+  "RQ1-0244": [
+   "FLAG: yes — removing an unsupported deployment precondition."
+  ],
+  "RQ1-0175": [
+   "FLAG: yes — triggering-input delivery remains unstated."
+  ],
+  "RQ1-0285": [
+   "FLAG: yes — correcting configuration preconditions and triggering-input coverage."
+  ],
+  "RQ1-0122": [
+   "FLAG: yes — correcting unsupported model involvement and preserving unresolved metric differences."
+  ],
+  "RQ1-0277": [
+   "FLAG: yes — missing account-role prerequisite corrected; triggering input remains uncertain."
+  ],
+  "RQ1-0067": [
+   "FLAG: yes — unresolved privilege and interaction conflict."
+  ],
+  "RQ1-0139": [
+   "FLAG: yes — an unsupported necessary prerequisite is removed."
+  ],
+  "RQ1-0074": [
+   "FLAG: yes — missing write prerequisites corrected; metric conflict remains."
+  ],
+  "RQ1-0193": [
+   "FLAG: yes — triggering-input account corrected; whether the messages are model-read content remains unspecified."
+  ],
+  "RQ1-0208": [
+   "FLAG: yes — privilege requirements conflict and the direct-versus-model-mediated route remains uncertain."
+  ],
+  "RQ1-0109": [
+   "FLAG: yes — omitted privilege and attack requirements corrected; triggering route remains uncertain."
+  ],
+  "RQ1-0148": [
+   "FLAG: yes — caller-trust and existing-capability assumptions remain disputed."
+  ],
+  "RQ1-0068": [
+   "FLAG: yes — separate-route prerequisites are incomplete and source metrics conflict."
+  ],
+  "RQ1-0292": [
+   "FLAG: yes — database-permission prerequisite corrected; model involvement remains uncertain."
+  ],
+  "RQ1-0316": [
+   "FLAG: yes — local versus remote reachability remains inconsistent across sources."
+  ],
+  "RQ1-0250": [
+   "FLAG: yes — an explicit runtime-policy prerequisite is added."
+  ],
+  "RQ1-0227": [
+   "FLAG: yes — an incorrectly mandatory transport prerequisite is corrected."
+  ],
+  "RQ1-0326": [
+   "FLAG: yes — triggering-input route remains unspecified."
+  ],
+  "RQ1-0027": [
+   "FLAG: yes — an omitted branch-specific prerequisite is corrected."
+  ],
+  "RQ1-0026": [
+   "FLAG: yes — an alternative attacker-access condition is restored."
+  ],
+  "RQ1-0198": [
+   "FLAG: yes — user-interaction requirements remain inconsistent across records."
+  ],
+  "RQ1-0014": [
+   "FLAG: yes — triggering-request prerequisite is made explicit."
+  ],
+  "RQ1-0323": [
+   "FLAG: yes — triggering input was inferred by approximation and token-validity prerequisites were incomplete."
+  ]
+ },
+ "late_ineligible": [
+  "RQ1-0022"
+ ]
+}
