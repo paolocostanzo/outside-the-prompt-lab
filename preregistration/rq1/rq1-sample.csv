@@ -1,0 +1,331 @@
+case_id,product_type,source,rank,sampled
+RQ1-0008,agent client,query only,1,yes
+RQ1-0096,agent client,query only,2,yes
+RQ1-0260,agent client,query only,3,yes
+RQ1-0296,agent client,query only,4,yes
+RQ1-0119,agent client,query only,5,yes
+RQ1-0313,agent client,query only,6,yes
+RQ1-0300,agent client,query only,7,yes
+RQ1-0215,agent client,timeline,8,yes
+RQ1-0152,agent client,query only,9,yes
+RQ1-0005,agent client,query only,10,yes
+RQ1-0103,agent client,query only,11,yes
+RQ1-0131,agent client,query only,12,yes
+RQ1-0276,agent client,query only,13,yes
+RQ1-0036,agent client,query only,14,yes
+RQ1-0302,agent client,query only,15,yes
+RQ1-0143,agent client,query only,16,yes
+RQ1-0118,agent client,query only,17,yes
+RQ1-0145,agent client,query only,18,yes
+RQ1-0270,agent client,query only,19,yes
+RQ1-0324,agent client,query only,20,yes
+RQ1-0312,agent client,query only,21,yes
+RQ1-0025,agent client,query only,22,yes
+RQ1-0144,agent client,query only,23,yes
+RQ1-0117,agent client,query only,24,yes
+RQ1-0283,agent client,query only,25,yes
+RQ1-0080,agent client,query only,26,yes
+RQ1-0297,agent client,query only,27,yes
+RQ1-0311,agent client,query only,28,yes
+RQ1-0279,agent client,query only,29,yes
+RQ1-0088,agent client,query only,30,yes
+RQ1-0325,agent client,query only,31,yes
+RQ1-0089,agent client,query only,32,yes
+RQ1-0218,agent client,query only,33,yes
+RQ1-0314,agent client,query only,34,yes
+RQ1-0130,agent client,query only,35,yes
+RQ1-0015,agent client,query only,36,yes
+RQ1-0077,agent client,query only,37,yes
+RQ1-0216,agent client,query only,38,no
+RQ1-0012,agent client,query only,39,no
+RQ1-0063,agent client,query only,40,no
+RQ1-0230,agent client,query only,41,no
+RQ1-0315,agent client,query only,42,no
+RQ1-0263,agent client,query only,43,no
+RQ1-0099,agent client,query only,44,no
+RQ1-0035,agent client,query only,45,no
+RQ1-0128,agent client,query only,46,no
+RQ1-0093,agent client,query only,47,no
+RQ1-0087,agent client,query only,48,no
+RQ1-0075,agent client,query only,49,no
+RQ1-0264,agent client,query only,50,no
+RQ1-0234,agent client,query only,51,no
+RQ1-0271,agent client,query only,52,no
+RQ1-0010,agent client,query only,53,no
+RQ1-0019,agent client,query only,54,no
+RQ1-0086,agent client,query only,55,no
+RQ1-0236,agent client,query only,56,no
+RQ1-0190,agent client,query only,57,no
+RQ1-0274,agent client,query only,58,no
+RQ1-0114,agent client,query only,59,no
+RQ1-0269,agent client,query only,60,no
+RQ1-0129,agent client,query only,61,no
+RQ1-0291,agent client,query only,62,no
+RQ1-0082,agent client,query only,63,no
+RQ1-0020,agent client,query only,64,no
+RQ1-0081,agent client,query only,65,no
+RQ1-0091,agent client,query only,66,no
+RQ1-0293,agent client,query only,67,no
+RQ1-0076,agent client,query only,68,no
+RQ1-0261,agent client,query only,69,no
+RQ1-0295,agent client,query only,70,no
+RQ1-0267,agent client,query only,71,no
+RQ1-0009,agent client,query only,72,no
+RQ1-0111,agent client,query only,73,no
+RQ1-0115,agent client,query only,74,no
+RQ1-0257,agent client,query only,75,no
+RQ1-0189,agent client,query only,76,no
+RQ1-0078,agent client,query only,77,no
+RQ1-0262,agent client,query only,78,no
+RQ1-0214,agent client,query only,79,no
+RQ1-0021,agent client,query only,80,no
+RQ1-0235,agent client,query only,81,no
+RQ1-0079,agent client,query only,82,no
+RQ1-0268,agent client,query only,83,no
+RQ1-0275,agent client,query only,84,no
+RQ1-0211,agent client,query only,85,no
+RQ1-0097,agent client,query only,86,no
+RQ1-0304,agent client,query only,87,no
+RQ1-0153,agent client,query only,88,no
+RQ1-0305,agent client,query only,89,no
+RQ1-0272,agent client,query only,90,no
+RQ1-0011,agent client,query only,91,no
+RQ1-0146,agent client,query only,92,no
+RQ1-0254,agent client,query only,93,no
+RQ1-0110,agent client,query only,94,no
+RQ1-0042,agent client,query only,95,no
+RQ1-0092,agent client,query only,96,no
+RQ1-0132,agent client,query only,97,no
+RQ1-0229,agent client,query only,98,no
+RQ1-0007,agent client,query only,99,no
+RQ1-0253,agent client,query only,100,no
+RQ1-0328,MCP server or connector,query only,1,yes
+RQ1-0180,MCP server or connector,query only,2,yes
+RQ1-0225,MCP server or connector,query only,3,yes
+RQ1-0168,MCP server or connector,query only,4,yes
+RQ1-0127,MCP server or connector,query only,5,yes
+RQ1-0039,MCP server or connector,query only,6,yes
+RQ1-0178,MCP server or connector,query only,7,yes
+RQ1-0251,MCP server or connector,query only,8,yes
+RQ1-0124,MCP server or connector,query only,9,yes
+RQ1-0001,MCP server or connector,query only,10,yes
+RQ1-0255,MCP server or connector,query only,11,yes
+RQ1-0182,MCP server or connector,query only,12,yes
+RQ1-0177,MCP server or connector,query only,13,yes
+RQ1-0288,MCP server or connector,query only,14,yes
+RQ1-0186,MCP server or connector,query only,15,yes
+RQ1-0317,MCP server or connector,query only,16,yes
+RQ1-0327,MCP server or connector,query only,17,yes
+RQ1-0321,MCP server or connector,query only,18,yes
+RQ1-0060,MCP server or connector,query only,19,yes
+RQ1-0016,MCP server or connector,query only,20,yes
+RQ1-0156,MCP server or connector,query only,21,yes
+RQ1-0176,MCP server or connector,query only,22,yes
+RQ1-0247,MCP server or connector,query only,23,yes
+RQ1-0306,MCP server or connector,query only,24,yes
+RQ1-0022,MCP server or connector,query only,25,yes
+RQ1-0241,MCP server or connector,query only,26,yes
+RQ1-0101,MCP server or connector,query only,27,yes
+RQ1-0157,MCP server or connector,query only,28,yes
+RQ1-0201,MCP server or connector,query only,29,yes
+RQ1-0133,MCP server or connector,query only,30,yes
+RQ1-0243,MCP server or connector,query only,31,yes
+RQ1-0299,MCP server or connector,query only,32,yes
+RQ1-0006,MCP server or connector,query only,33,yes
+RQ1-0034,MCP server or connector,query only,34,yes
+RQ1-0159,MCP server or connector,query only,35,yes
+RQ1-0303,MCP server or connector,query only,36,yes
+RQ1-0023,MCP server or connector,query only,37,yes
+RQ1-0184,MCP server or connector,query only,38,yes
+RQ1-0066,MCP server or connector,query only,39,yes
+RQ1-0098,MCP server or connector,query only,40,yes
+RQ1-0004,MCP server or connector,query only,41,yes
+RQ1-0043,MCP server or connector,query only,42,yes
+RQ1-0155,MCP server or connector,query only,43,yes
+RQ1-0307,MCP server or connector,query only,44,yes
+RQ1-0196,MCP server or connector,query only,45,yes
+RQ1-0137,MCP server or connector,query only,46,yes
+RQ1-0062,MCP server or connector,query only,47,yes
+RQ1-0244,MCP server or connector,query only,48,yes
+RQ1-0222,MCP server or connector,query only,49,yes
+RQ1-0175,MCP server or connector,query only,50,yes
+RQ1-0285,MCP server or connector,query only,51,yes
+RQ1-0187,MCP server or connector,query only,52,yes
+RQ1-0122,MCP server or connector,query only,53,yes
+RQ1-0277,MCP server or connector,query only,54,yes
+RQ1-0309,MCP server or connector,query only,55,yes
+RQ1-0217,MCP server or connector,query only,56,yes
+RQ1-0163,MCP server or connector,query only,57,yes
+RQ1-0067,MCP server or connector,query only,58,yes
+RQ1-0139,MCP server or connector,query only,59,yes
+RQ1-0017,MCP server or connector,query only,60,yes
+RQ1-0074,MCP server or connector,query only,61,yes
+RQ1-0210,MCP server or connector,query only,62,yes
+RQ1-0193,MCP server or connector,query only,63,yes
+RQ1-0208,MCP server or connector,query only,64,yes
+RQ1-0109,MCP server or connector,query only,65,yes
+RQ1-0174,MCP server or connector,query only,66,yes
+RQ1-0148,MCP server or connector,query only,67,yes
+RQ1-0068,MCP server or connector,query only,68,yes
+RQ1-0292,MCP server or connector,query only,69,yes
+RQ1-0258,MCP server or connector,query only,70,yes
+RQ1-0316,MCP server or connector,query only,71,yes
+RQ1-0108,MCP server or connector,query only,72,yes
+RQ1-0250,MCP server or connector,query only,73,yes
+RQ1-0227,MCP server or connector,query only,74,yes
+RQ1-0185,MCP server or connector,query only,75,yes
+RQ1-0326,MCP server or connector,query only,76,yes
+RQ1-0213,MCP server or connector,query only,77,no
+RQ1-0154,MCP server or connector,query only,78,no
+RQ1-0100,MCP server or connector,query only,79,no
+RQ1-0116,MCP server or connector,query only,80,no
+RQ1-0202,MCP server or connector,query only,81,no
+RQ1-0188,MCP server or connector,query only,82,no
+RQ1-0240,MCP server or connector,query only,83,no
+RQ1-0158,MCP server or connector,query only,84,no
+RQ1-0266,MCP server or connector,query only,85,no
+RQ1-0220,MCP server or connector,query only,86,no
+RQ1-0161,MCP server or connector,query only,87,no
+RQ1-0134,MCP server or connector,query only,88,no
+RQ1-0301,MCP server or connector,query only,89,no
+RQ1-0249,MCP server or connector,query only,90,no
+RQ1-0051,MCP server or connector,query only,91,no
+RQ1-0280,MCP server or connector,query only,92,no
+RQ1-0106,MCP server or connector,query only,93,no
+RQ1-0172,MCP server or connector,query only,94,no
+RQ1-0165,MCP server or connector,query only,95,no
+RQ1-0141,MCP server or connector,query only,96,no
+RQ1-0136,MCP server or connector,query only,97,no
+RQ1-0056,MCP server or connector,query only,98,no
+RQ1-0053,MCP server or connector,query only,99,no
+RQ1-0195,MCP server or connector,query only,100,no
+RQ1-0069,MCP server or connector,query only,101,no
+RQ1-0149,MCP server or connector,query only,102,no
+RQ1-0024,MCP server or connector,query only,103,no
+RQ1-0002,MCP server or connector,query only,104,no
+RQ1-0162,MCP server or connector,query only,105,no
+RQ1-0290,MCP server or connector,query only,106,no
+RQ1-0164,MCP server or connector,query only,107,no
+RQ1-0233,MCP server or connector,query only,108,no
+RQ1-0252,MCP server or connector,query only,109,no
+RQ1-0048,MCP server or connector,query only,110,no
+RQ1-0248,MCP server or connector,query only,111,no
+RQ1-0329,MCP server or connector,query only,112,no
+RQ1-0125,MCP server or connector,query only,113,no
+RQ1-0058,MCP server or connector,query only,114,no
+RQ1-0052,MCP server or connector,query only,115,no
+RQ1-0123,MCP server or connector,query only,116,no
+RQ1-0018,MCP server or connector,query only,117,no
+RQ1-0231,MCP server or connector,query only,118,no
+RQ1-0095,MCP server or connector,query only,119,no
+RQ1-0181,MCP server or connector,query only,120,no
+RQ1-0221,MCP server or connector,query only,121,no
+RQ1-0330,MCP server or connector,query only,122,no
+RQ1-0104,MCP server or connector,query only,123,no
+RQ1-0094,MCP server or connector,query only,124,no
+RQ1-0226,MCP server or connector,query only,125,no
+RQ1-0242,MCP server or connector,query only,126,no
+RQ1-0281,MCP server or connector,query only,127,no
+RQ1-0298,MCP server or connector,query only,128,no
+RQ1-0199,MCP server or connector,query only,129,no
+RQ1-0049,MCP server or connector,query only,130,no
+RQ1-0151,MCP server or connector,query only,131,no
+RQ1-0142,MCP server or connector,query only,132,no
+RQ1-0197,MCP server or connector,query only,133,no
+RQ1-0126,MCP server or connector,query only,134,no
+RQ1-0318,MCP server or connector,query only,135,no
+RQ1-0246,MCP server or connector,query only,136,no
+RQ1-0038,MCP server or connector,query only,137,no
+RQ1-0065,MCP server or connector,query only,138,no
+RQ1-0273,MCP server or connector,query only,139,no
+RQ1-0319,MCP server or connector,query only,140,no
+RQ1-0207,MCP server or connector,query only,141,no
+RQ1-0160,MCP server or connector,query only,142,no
+RQ1-0112,MCP server or connector,query only,143,no
+RQ1-0223,MCP server or connector,query only,144,no
+RQ1-0232,MCP server or connector,query only,145,no
+RQ1-0209,MCP server or connector,query only,146,no
+RQ1-0173,MCP server or connector,query only,147,no
+RQ1-0033,MCP server or connector,query only,148,no
+RQ1-0044,MCP server or connector,query only,149,no
+RQ1-0322,MCP server or connector,query only,150,no
+RQ1-0070,MCP server or connector,query only,151,no
+RQ1-0192,MCP server or connector,query only,152,no
+RQ1-0320,MCP server or connector,query only,153,no
+RQ1-0064,MCP server or connector,query only,154,no
+RQ1-0239,MCP server or connector,query only,155,no
+RQ1-0135,MCP server or connector,query only,156,no
+RQ1-0073,MCP server or connector,query only,157,no
+RQ1-0224,MCP server or connector,query only,158,no
+RQ1-0072,MCP server or connector,query only,159,no
+RQ1-0286,MCP server or connector,query only,160,no
+RQ1-0167,MCP server or connector,query only,161,no
+RQ1-0090,MCP server or connector,query only,162,no
+RQ1-0228,MCP server or connector,query only,163,no
+RQ1-0138,MCP server or connector,query only,164,no
+RQ1-0205,MCP server or connector,query only,165,no
+RQ1-0030,MCP server or connector,query only,166,no
+RQ1-0107,MCP server or connector,query only,167,no
+RQ1-0169,MCP server or connector,query only,168,no
+RQ1-0170,MCP server or connector,query only,169,no
+RQ1-0289,MCP server or connector,query only,170,no
+RQ1-0003,MCP server or connector,query only,171,no
+RQ1-0310,MCP server or connector,query only,172,no
+RQ1-0191,MCP server or connector,query only,173,no
+RQ1-0287,MCP server or connector,query only,174,no
+RQ1-0200,MCP server or connector,query only,175,no
+RQ1-0194,MCP server or connector,query only,176,no
+RQ1-0147,MCP server or connector,query only,177,no
+RQ1-0029,MCP server or connector,query only,178,no
+RQ1-0113,MCP server or connector,query only,179,no
+RQ1-0121,MCP server or connector,query only,180,no
+RQ1-0256,MCP server or connector,query only,181,no
+RQ1-0028,MCP server or connector,query only,182,no
+RQ1-0055,MCP server or connector,query only,183,no
+RQ1-0265,MCP server or connector,query only,184,no
+RQ1-0183,MCP server or connector,query only,185,no
+RQ1-0212,MCP server or connector,query only,186,no
+RQ1-0071,MCP server or connector,query only,187,no
+RQ1-0278,MCP server or connector,query only,188,no
+RQ1-0150,MCP server or connector,query only,189,no
+RQ1-0203,MCP server or connector,query only,190,no
+RQ1-0032,MCP server or connector,query only,191,no
+RQ1-0054,MCP server or connector,query only,192,no
+RQ1-0140,MCP server or connector,query only,193,no
+RQ1-0057,MCP server or connector,query only,194,no
+RQ1-0206,MCP server or connector,query only,195,no
+RQ1-0050,MCP server or connector,query only,196,no
+RQ1-0179,MCP server or connector,query only,197,no
+RQ1-0294,MCP server or connector,query only,198,no
+RQ1-0171,MCP server or connector,query only,199,no
+RQ1-0166,MCP server or connector,query only,200,no
+RQ1-0059,MCP server or connector,query only,201,no
+RQ1-0105,MCP server or connector,query only,202,no
+RQ1-0204,MCP server or connector,query only,203,no
+RQ1-0282,MCP server or connector,query only,204,no
+RQ1-0284,MCP server or connector,query only,205,no
+RQ1-0245,MCP server or connector,query only,206,no
+RQ1-0037,MCP server or connector,query only,207,no
+RQ1-0308,MCP server or connector,query only,208,no
+RQ1-0083,MCP server or connector,query only,209,no
+RQ1-0031,MCP server or connector,query only,210,no
+RQ1-0027,SDK,query only,1,yes
+RQ1-0026,SDK,query only,2,yes
+RQ1-0198,SDK,query only,3,yes
+RQ1-0046,SDK,query only,4,yes
+RQ1-0014,SDK,query only,5,yes
+RQ1-0323,SDK,query only,6,yes
+RQ1-0102,SDK,query only,7,yes
+RQ1-0237,SDK,query only,8,no
+RQ1-0259,SDK,query only,9,no
+RQ1-0045,SDK,query only,10,no
+RQ1-0120,SDK,query only,11,no
+RQ1-0041,SDK,query only,12,no
+RQ1-0013,SDK,query only,13,no
+RQ1-0084,SDK,query only,14,no
+RQ1-0238,SDK,query only,15,no
+RQ1-0085,SDK,query only,16,no
+RQ1-0219,SDK,query only,17,no
+RQ1-0061,SDK,query only,18,no
+RQ1-0040,SDK,query only,19,no
+RQ1-0047,SDK,query only,20,no

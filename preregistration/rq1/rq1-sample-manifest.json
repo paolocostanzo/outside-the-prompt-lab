@@ -1,0 +1,54 @@
+{
+  "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
+  "frame_sha256": "5fe33295abf0a529dd202a4357ec60c40fff9b0f8480015f20199471b81b5887",
+  "push_event": {
+    "actor": {
+      "avatar_url": "https://avatars.githubusercontent.com/u/225715812?",
+      "display_login": "paolocostanzo",
+      "gravatar_id": "",
+      "id": 225715812,
+      "login": "paolocostanzo",
+      "url": "https://api.github.com/users/paolocostanzo"
+    },
+    "created_at": "2026-10-25T17:41:00Z",
+    "id": "25148712528",
+    "payload": {
+      "before": "a9e28c933d668637d9663a28e3f438d4960e8f28",
+      "head": "e62676b31d12690365d67033aeed2fb09df9c78e",
+      "push_id": 47736768030,
+      "ref": "refs/heads/master",
+      "repository_id": 1414384829
+    },
+    "public": true,
+    "repo": {
+      "id": 1414384829,
+      "name": "paolocostanzo/outside-the-prompt-lab",
+      "url": "https://api.github.com/repos/paolocostanzo/outside-the-prompt-lab"
+    },
+    "type": "PushEvent"
+  },
+  "capture": {
+    "utc": "2026-10-25T17:41:05+00:00",
+    "within_30_min_after_push": true,
+    "events_page_utc": "2026-10-25T17:41:26+00:00"
+  },
+  "script_sha256": "893522be992e6fb965bcb4dca72ebe5b73d0a22d272b0a5e638df41ac42e41d0",
+  "drand_chain": "8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce",
+  "drand_round": 6584246,
+  "mainnet_round": 6584246,
+  "drand_round_time": "2026-10-25T20:00:00+00:00",
+  "drand_randomness": "b711cedaff12d88373be0040eabe574120fe0dfc4c8989cc5b36b60e66ce36f0",
+  "seed": "e572771aa03040ce6118ff83f60dc7ee056397918bbe533c3a6b97cf3593aae8",
+  "n": 120,
+  "stratum_sizes": {
+    "agent client": 100,
+    "MCP server or connector": 210,
+    "SDK": 20
+  },
+  "allocation": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+  },
+  "sampled": 120
+}
