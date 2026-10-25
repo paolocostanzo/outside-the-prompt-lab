@@ -45,3 +45,7 @@ The first drafts showed two readings of rule 1. To make every summary use the sa
 - **Record metrics** (e.g. CVSS "privileges required", "user interaction", "attack vector") are part of the advisory and may be
   stated as preconditions, phrased as such ("the record lists user interaction as required"); severity scores stay out.
 - All 120 drafts are revised under this clarification before the Codex check; the record of each case lists every source opened.
+- (added before the check) An issue counts as the reporter's write-up when its author is the reporter credited in the advisory or
+  CVE record; when no reporter is credited, when the advisory or CVE record links it as the report. The CNA's own advisory page
+  for the CVE (e.g. VulnCheck, VulDB, Patchstack, Wordfence) is an advisory of the record and belongs to the source set.
+  Conflicting record metrics are stated as a conflict, not resolved.
