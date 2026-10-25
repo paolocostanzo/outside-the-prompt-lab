@@ -3,7 +3,9 @@
 - Frozen preregistration (v2, 11 October 2026): https://doi.org/10.5281/zenodo.23300369
 - `DEVIATIONS.md` — dated deviations from that document, written before any confirmatory data.
 - `classify.py` — model-rater script for RQ1 (standard library only; needs a local Ollama endpoint). Changes since the pilot are
-  described in deviation D4.
+  described in deviations D4, D14 point 4, D41 and D42: strict answers, ties unresolved, undefined κ reported, a run manifest
+  (models and digests, hashes of cases, criteria and R0), R0 required before a confirmatory run, a complete rater set required for
+  agreement, an explicit context window with a truncation guard. Tests: `python3 -m unittest discover -s preregistration/test`.
 - `pilot/` — the ten-case pilot of 10 October 2026, run before freezing: the v1 criteria text as used (`criteria-v1.txt`), the
   case summaries (`cases.json`), the author's labels written on 29 September 2026 (`human.json`), the raw answers of the three
   local models (three runs each) and the agreement table. Pilot inputs included date, product and title (see D4).
