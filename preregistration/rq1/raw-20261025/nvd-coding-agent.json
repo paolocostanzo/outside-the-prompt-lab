@@ -2,170 +2,12 @@
  {
   "cve": {
    "id": "CVE-2026-46406",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-06-29T15:16:41.033",
    "lastModified": "2026-06-30T17:30:26.610",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code is an agentic coding tool.  From 2.1.59 until 2.1.128, the Claude Code /copy command wrote responses to a hardcoded, predictable path (/tmp/claude/response.md) without UID isolation, randomness, or symlink protection. The file was created world-readable (0644) in a world-traversable directory (0755), allowing any local user to read a privileged user's Claude response, which could contain secrets or credentials. Additionally, because the path was static and predictable, a local attacker could pre-create the directory and plant a symlink at the expected file path, causing the privileged process to follow the symlink and overwrite an attacker-chosen file with the response text. Exploiting this required a local unprivileged user on the same system and a privileged user to run the /copy command. This vulnerability is fixed in 2.1.128."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "anthropics",
-       "product": "claude-code",
-       "versions": [
-        {
-         "version": ">= 2.1.59, < 2.1.128",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:A/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 4.4,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "LOW",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "LOW",
-       "vulnIntegrityImpact": "LOW",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:H",
-       "baseScore": 6.1,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "LOW",
-       "integrityImpact": "LOW",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.3,
-      "impactScore": 4.7
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-06-29T15:25:46.123210Z",
-       "id": "CVE-2026-46406",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-59"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-200"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-377"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:anthropic:claude_code:*:*:*:*:*:node.js:*:*",
-         "versionStartIncluding": "2.1.58",
-         "versionEndExcluding": "2.1.128",
-         "matchCriteriaId": "386328D3-C55B-441F-A29C-12D2CA96CDD0"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-4vp2-6q8c-pvq2",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-4vp2-6q8c-pvq2"
     }
    ]
   }
@@ -173,170 +15,12 @@
  {
   "cve": {
    "id": "CVE-2026-55607",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-06-29T15:16:41.597",
    "lastModified": "2026-06-30T16:17:39.403",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code is an agentic coding tool.  From 2.1.38 until 2.1.163, Claude Code's worktree handling allowed creation of worktrees named \".git\" and navigation to worktrees outside the sandbox context, enabling git directory confusion attacks. By exploiting symlink manipulation and git fsmonitor execution during worktree operations, an attacker could overwrite files in the user's home directory (such as .zshenv), leading to code execution outside of seatbelt sandbox restrictions. Reliably exploiting this required the user to clone a malicious repository containing prompt injection content and run Claude Code against it. This vulnerability is fixed in 2.1.163."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "anthropics",
-       "product": "claude-code",
-       "versions": [
-        {
-         "version": ">= 2.1.38, < 2.1.163",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 7.7,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "NONE",
-       "userInteraction": "PASSIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-06-29T15:51:20.888452Z",
-       "id": "CVE-2026-55607",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-59"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:anthropic:claude_code:*:*:*:*:*:node.js:*:*",
-         "versionStartIncluding": "2.1.38",
-         "versionEndExcluding": "2.1.163",
-         "matchCriteriaId": "52A3407D-AEAF-40D4-8C07-9FE2B90E51FA"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-7835-87q9-rgvv",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-7835-87q9-rgvv"
     }
    ]
   }
@@ -344,136 +28,18 @@
  {
   "cve": {
    "id": "CVE-2026-49471",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-07T21:17:25.833",
    "lastModified": "2026-07-20T14:54:40.713",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Serena is a powerful MCP toolkit for coding that provides semantic retrieval and editing capabilities. Prior to v1.5.2, Serena's built-in web dashboard exposes an unauthenticated Flask API on a fixed, predictable port, with no authentication, no CSRF protection, and no Host header validation. A DNS rebinding attack allows a malicious webpage to reach this API from any browser and write arbitrary content to the agent's persistent memory store, which the agent reads and acts on autonomously. Combined with execute_shell_command using shell=True, this creates a remote code execution chain requiring only that the victim visit a malicious webpage while Serena is running. This issue is fixed in version v1.5.2."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "oraios",
-       "product": "serena",
-       "versions": [
-        {
-         "version": "< 1.5.2",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:R/S:C/C:H/I:H/A:H",
-       "baseScore": 8.3,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "HIGH",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.6,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-09T03:55:45.625085Z",
-       "id": "CVE-2026-49471",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-352"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:oraios-ai:serena:*:*:*:*:*:*:*:*",
-         "versionEndExcluding": "1.5.2",
-         "matchCriteriaId": "AF130475-F83E-48A2-A7D9-CBC5D574933F"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/oraios/serena/commit/016ccbe1c095a3eed7967737ac1d4df2754f5d96",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Patch"
-     ]
+     "url": "https://github.com/oraios/serena/commit/016ccbe1c095a3eed7967737ac1d4df2754f5d96"
     },
     {
-     "url": "https://github.com/oraios/serena/releases/tag/v1.5.2",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Release Notes"
-     ]
+     "url": "https://github.com/oraios/serena/releases/tag/v1.5.2"
     },
     {
-     "url": "https://github.com/oraios/serena/security/advisories/GHSA-37h2-6p4f-mp3q",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Exploit",
-      "Third Party Advisory"
-     ]
+     "url": "https://github.com/oraios/serena/security/advisories/GHSA-37h2-6p4f-mp3q"
     }
    ]
   }
@@ -481,148 +47,24 @@
  {
   "cve": {
    "id": "CVE-2026-59723",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-08T23:16:56.440",
    "lastModified": "2026-08-26T16:26:56.703",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Cline is an autonomous coding agent as an SDK, IDE extension, or CLI assistant. Prior to 3.0.30, the Cline Hub dashboard server launched by the cline dashboard command accepts WebSocket connections on the /browser endpoint without validating the Origin header, and when ROOM_SECRET is unset for local 127.0.0.1 binds, isAuthorizedBrowserRequest() allows attacker-controlled websites to send desktopCommand frames that read workspace state, mutate MCP and provider settings, and trigger command execution when a provider or model is configured. This issue is fixed in version 3.0.30."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "cline",
-       "product": "cline",
-       "versions": [
-        {
-         "version": "< 3.0.30",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:A/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "ADJACENT_NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.1,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-09T00:00:00+00:00",
-       "id": "CVE-2026-59723",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-346"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:cline:cline:*:*:*:*:*:*:*:*",
-         "versionEndExcluding": "3.0.30",
-         "matchCriteriaId": "E43D48D9-2B80-46F2-9D52-A5EE042F9AE8"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/cline/cline/commit/d09270940f5746f288cfc4a5039b46a2f4d5d01e",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Patch"
-     ]
+     "url": "https://github.com/cline/cline/commit/d09270940f5746f288cfc4a5039b46a2f4d5d01e"
     },
     {
-     "url": "https://github.com/cline/cline/pull/11724",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Issue Tracking",
-      "Patch"
-     ]
+     "url": "https://github.com/cline/cline/pull/11724"
     },
     {
-     "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.30",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Release Notes"
-     ]
+     "url": "https://github.com/cline/cline/releases/tag/cli-v3.0.30"
     },
     {
-     "url": "https://github.com/cline/cline/security/advisories/GHSA-3cj3-hqcr-g934",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Exploit",
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/cline/cline/security/advisories/GHSA-3cj3-hqcr-g934"
     },
     {
-     "url": "https://github.com/cline/cline/security/advisories/GHSA-3cj3-hqcr-g934",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-     "tags": [
-      "Exploit",
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/cline/cline/security/advisories/GHSA-3cj3-hqcr-g934"
     }
    ]
   }
@@ -630,108 +72,18 @@
  {
   "cve": {
    "id": "CVE-2026-50181",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-10T00:16:33.340",
    "lastModified": "2026-07-14T02:16:55.357",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Langroid is a framework for building large-language-model-powered applications. Prior to version 0.64.0, Langroid's `ReadFileTool` and `WriteFileTool` appear to treat `curr_dir` as the intended working-directory boundary for file operations. However, the tools only change the process working directory to `curr_dir` and then operate on the user-supplied `file_path` without resolving and enforcing that the final path remains inside `curr_dir`. As a result, a tool caller can supply path traversal sequences such as `../secret.txt` to read files outside the configured current directory, or `../written_by_tool.txt` to write files outside that directory. This can impact applications that expose Langroid file tools to an LLM agent, user-controlled tool call, or delegated coding/documentation agent while relying on `curr_dir` to restrict file access to a project/workspace directory. Version 0.64.0 patches the issue."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "langroid",
-       "product": "langroid",
-       "versions": [
-        {
-         "version": "< 0.64.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
-       "baseScore": 7.1,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 5.2
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-14T01:24:55.646460Z",
-       "id": "CVE-2026-50181",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-23"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/langroid/langroid/commit/56e2756ecab70a70a7e6edbee2f2187b8484683e",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/langroid/langroid/commit/56e2756ecab70a70a7e6edbee2f2187b8484683e"
     },
     {
-     "url": "https://github.com/langroid/langroid/security/advisories/GHSA-fg23-3346-88f5",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/langroid/langroid/security/advisories/GHSA-fg23-3346-88f5"
     },
     {
-     "url": "https://github.com/langroid/langroid/security/advisories/GHSA-fg23-3346-88f5",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/langroid/langroid/security/advisories/GHSA-fg23-3346-88f5"
     }
    ]
   }
@@ -739,130 +91,18 @@
  {
   "cve": {
    "id": "CVE-2026-47211",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-03T20:17:24.030",
    "lastModified": "2026-10-23T21:10:00.157",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Ouroboros is a local-first runtime for AI coding agents that records their actions and applies user-defined policies to constrain behavior. In versions prior to 0.39.0, if a user clones a malicious repository and runs Ouroboros commands within that directory, it can lead to arbitrary code execution and potential system takeover. The vulnerability stems from Ouroboros loading the .env file from the current working directory. Execution-affecting environment variables such as OUROBOROS_CLI_PATH, OPENCODE_CLI_PATH, and other backend selectors are accepted directly from this local .env. An attacker can include a malicious script in the repository and point the CLI path variable to it (e.g., OUROBOROS_CLI_PATH=./malicious_script.sh). When the user executes a command like ouroboros init or any command that instantiates the adapter, the malicious script is executed instead of the intended CLI. This issue has been fixed in version 0.39.0."
-    },
-    {
-     "lang": "es",
-     "value": "Ouroboros es un entorno de ejecución (runtime) local-first para agentes de codificación de IA que registra sus acciones y aplica políticas definidas por el usuario para restringir el comportamiento. En versiones anteriores a la 0.39.0, si un usuario clona un repositorio malicioso y ejecuta comandos de Ouroboros dentro de ese directorio, puede llevar a la ejecución de código arbitrario y a una posible toma de control del sistema. La vulnerabilidad se origina en que Ouroboros carga el archivo .env desde el directorio de trabajo actual. Las variables de entorno que afectan la ejecución, como OUROBOROS_CLI_PATH, OPENCODE_CLI_PATH y otros selectores de backend, se aceptan directamente de este .env local. Un atacante puede incluir un script malicioso en el repositorio y apuntar la variable de ruta de la CLI hacia él (por ejemplo, OUROBOROS_CLI_PATH=./malicious_script.sh). Cuando el usuario ejecuta un comando como ouroboros init o cualquier comando que instancie el adaptador, el script malicioso se ejecuta en lugar de la CLI prevista. Este problema ha sido solucionado en la versión 0.39.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "Q00",
-       "product": "ouroboros",
-       "versions": [
-        {
-         "version": "< 0.39.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 8.4,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "NONE",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-03T21:06:50.835317Z",
-       "id": "CVE-2026-47211",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-426"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/Q00/ouroboros/commit/4e70b760b4eb157469b58645339ba831f6513d37",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/Q00/ouroboros/commit/4e70b760b4eb157469b58645339ba831f6513d37"
     },
     {
-     "url": "https://github.com/Q00/ouroboros/pull/1078",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/Q00/ouroboros/pull/1078"
     },
     {
-     "url": "https://github.com/Q00/ouroboros/security/advisories/GHSA-c4m7-2gwp-vw76",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/Q00/ouroboros/security/advisories/GHSA-c4m7-2gwp-vw76"
     }
    ]
   }
@@ -870,130 +110,15 @@
  {
   "cve": {
    "id": "CVE-2026-66065",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-03T21:16:41.193",
    "lastModified": "2026-10-23T21:10:00.157",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Ouroboros is a local-first runtime for AI coding agents that records their actions and applies user-defined policies to constrain behavior. Versions prior to 0.42.1 have an incomplete denylist. Several execution-routing keys of the same RCE class were omitted, so a malicious cloned repo can still reach arbitrary command execution by shipping a .env (auto-loaded at import, with no review step). The CVE-2026-47211 fix added _UNTRUSTED_ENV_DENYLIST to stop an untrusted project-directory .env from redirecting execution, but it did not account for all keys. The backend config-home and MCP/plugin roots bypass the approval gate by pointing the nested agent, MCP servers, and plugin roster at attacker config. Other variables re-enable blocked local transports, replace sub-agent prompts, switch backends, and lower tool approval classes, further weakening the approval gate. This issue has been fixed in version 0.42.1."
-    },
-    {
-     "lang": "es",
-     "value": "Ouroboros es un entorno de ejecución local-first para agentes de codificación de IA que registra sus acciones y aplica políticas definidas por el usuario para restringir el comportamiento. Las versiones anteriores a la 0.42.1 tienen una denylist incompleta. Varias claves de enrutamiento de ejecución de la misma clase RCE fueron omitidas, por lo que un repositorio clonado malicioso aún puede lograr la ejecución arbitraria de comandos al enviar un .env (cargado automáticamente al importar, sin paso de revisión). La corrección de CVE-2026-47211 añadió _UNTRUSTED_ENV_DENYLIST para evitar que un .env de directorio de proyecto no confiable redirigiera la ejecución, pero no tuvo en cuenta todas las claves. El config-home del backend y las raíces de MCP/plugin eluden la puerta de aprobación al apuntar el agente anidado, los servidores MCP y la lista de plugins a la configuración del atacante. Otras variables reactivan transportes locales bloqueados, reemplazan las indicaciones de subagentes, cambian de backends y reducen las clases de aprobación de herramientas, debilitando aún más la puerta de aprobación. Este problema ha sido solucionado en la versión 0.42.1."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "Q00",
-       "product": "ouroboros",
-       "versions": [
-        {
-         "version": "< 0.42.1",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:A/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 8.4,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "NONE",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-05T14:20:43.116568Z",
-       "id": "CVE-2026-66065",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-15"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-94"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/Q00/ouroboros/releases/tag/v0.42.1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/Q00/ouroboros/releases/tag/v0.42.1"
     },
     {
-     "url": "https://github.com/Q00/ouroboros/security/advisories/GHSA-jv2h-4p9v-wf5w",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/Q00/ouroboros/security/advisories/GHSA-jv2h-4p9v-wf5w"
     }
    ]
   }
@@ -1001,143 +126,18 @@
  {
   "cve": {
    "id": "CVE-2026-75130",
-   "sourceIdentifier": "disclosure@vulncheck.com",
    "published": "2026-08-18T18:19:34.197",
    "lastModified": "2026-10-22T22:10:00.250",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Context7 through 2.1.2 contains a prompt injection vulnerability that allows attackers to execute malicious instructions in connected AI coding agents by injecting unsanitized content through the Custom AI Instructions feature served via the MCP server. Attackers can poison the custom instructions to exfiltrate credentials from environment files to an attacker-controlled service and perform destructive file deletion on the victim's machine when the agent makes a routine library documentation request."
-    },
-    {
-     "lang": "es",
-     "value": "Context7 hasta 2.1.2 contiene una vulnerabilidad de inyección de prompt que permite a los atacantes ejecutar instrucciones maliciosas en agentes de codificación de IA conectados inyectando contenido no sanitizado a través de la función de Instrucciones de IA Personalizadas servida a través del servidor MCP. Los atacantes pueden envenenar las instrucciones personalizadas para exfiltrar credenciales de archivos de entorno a un servicio controlado por el atacante y realizar la eliminación destructiva de archivos en la máquina de la víctima cuando el agente realiza una solicitud rutinaria de documentación de la biblioteca."
-    }
-   ],
-   "affected": [
-    {
-     "source": "disclosure@vulncheck.com",
-     "affectedData": [
-      {
-       "vendor": "Uptash",
-       "product": "Context7",
-       "defaultStatus": "affected",
-       "versions": [
-        {
-         "version": "0",
-         "lessThanOrEqual": "2.1.2",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:P/VC:N/VI:N/VA:N/SC:H/SI:H/SA:H/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 6.4,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "LOW",
-       "userInteraction": "PASSIVE",
-       "vulnConfidentialityImpact": "NONE",
-       "vulnIntegrityImpact": "NONE",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "HIGH",
-       "subIntegrityImpact": "HIGH",
-       "subAvailabilityImpact": "HIGH",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H",
-       "baseScore": 9.0,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.3,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-19T15:14:18.244695Z",
-       "id": "CVE-2026-75130",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
    "references": [
     {
-     "url": "https://noma.security/blog/contextcrush-context7-the-mcp-server-vulnerability/",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://noma.security/blog/contextcrush-context7-the-mcp-server-vulnerability/"
     },
     {
-     "url": "https://www.linkedin.com/posts/upstash_mcp-server-vulnerability-in-context-7-activity-7435686676049387520-PBVo/",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://www.linkedin.com/posts/upstash_mcp-server-vulnerability-in-context-7-activity-7435686676049387520-PBVo/"
     },
     {
-     "url": "https://www.vulncheck.com/advisories/context7-prompt-injection-via-custom-ai-instructions",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://www.vulncheck.com/advisories/context7-prompt-injection-via-custom-ai-instructions"
     }
    ]
   }
@@ -1145,112 +145,21 @@
  {
   "cve": {
    "id": "CVE-2026-62674",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:49.460",
    "lastModified": "2026-10-14T21:10:00.183",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Omnigent is an open-source AI agent framework and meta-harness for orchestrating coding agents. Prior to 0.3.0, PUT /sessions/{session_id}/agent checks LEVEL_EDIT permission for a session but does not reject a bound shared or template agent whose agent.session_id is None. An authenticated user with edit access to a session can replace that shared agent bundle through omnigent/server/routes/sessions.py, add a stdio MCP server, and cause later sessions that use the shared agent to launch an attacker-controlled command through omnigent/tools/mcp.py. The command executes with the Omnigent runner process permissions and can expose files, credentials, workspace data, internal services, and runner availability. This issue is fixed in version 0.3.0."
-    },
-    {
-     "lang": "es",
-     "value": "Omnigent es un framework de agente de IA de código abierto y un meta-arnés para orquestar agentes de codificación. Antes de la 0.3.0, PUT /sessions/{session_id}/agent verifica el permiso LEVEL_EDIT para una sesión pero no rechaza un agente compartido o de plantilla vinculado cuyo agent.session_id es None. Un usuario autenticado con acceso de edición a una sesión puede reemplazar ese paquete de agente compartido a través de omnigent/server/routes/sessions.py, añadir un servidor MCP stdio, y hacer que sesiones posteriores que utilicen el agente compartido lancen un comando controlado por el atacante a través de omnigent/tools/mcp.py. El comando se ejecuta con los permisos del proceso del ejecutor de Omnigent y puede exponer archivos, credenciales, datos del espacio de trabajo, servicios internos y la disponibilidad del ejecutor. Este problema está solucionado en la versión 0.3.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "omnigent-ai",
-       "product": "omnigent",
-       "versions": [
-        {
-         "version": "< 0.3.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:H/I:H/A:H",
-       "baseScore": 9.0,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.3,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-25T17:38:24.682130Z",
-       "id": "CVE-2026-62674",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-94"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/omnigent-ai/omnigent/commit/25a22dc9e6da4648d23749f0a589e47e6aed991b",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/commit/25a22dc9e6da4648d23749f0a589e47e6aed991b"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/pull/1418",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/pull/1418"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-jrrm-9hc7-2v3h",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-jrrm-9hc7-2v3h"
     }
    ]
   }
@@ -1258,116 +167,24 @@
  {
   "cve": {
    "id": "CVE-2026-62675",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:49.603",
    "lastModified": "2026-10-14T21:10:00.183",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Omnigent is an open-source AI agent framework and meta-harness for orchestrating coding agents. Prior to 0.3.0, multipart POST /v1/sessions accepts an authenticated user's agent bundle and omnigent/server/bundles.py validate_agent_bundle does not reject a tools..callable dotted Python path. omnigent/runner/tool_dispatch.py _resolve_spec_callable imports the specified module and _execute_spec_callable_tool invokes the resolved function, allowing a bundle to select subprocess.check_output and execute a local command with the runner process permissions. This can expose runner files, environment variables, credentials, workspace data, internal services, and availability without administrator access. This issue is fixed in version 0.3.0."
-    },
-    {
-     "lang": "es",
-     "value": "Omnigent es un framework de agente de IA de código abierto y un meta-arnés para orquestar agentes de codificación. Antes de la versión 0.3.0, POST multipart /v1/sessions acepta un paquete de agente de un usuario autenticado y omnigent/servidor/bundles.py validate_agent_bundle no rechaza una ruta Python punteada tools..callable. omnigent/runner/tool_dispatch.py _resolve_spec_callable importa el módulo especificado y _execute_spec_callable_tool invoca la función resuelta, permitiendo que un paquete seleccione subprocess.check_output y ejecute un comando local con los permisos del proceso del ejecutor. Esto puede exponer archivos del ejecutor, variables de entorno, credenciales, datos del espacio de trabajo, servicios internos y disponibilidad sin acceso de administrador. Este problema está solucionado en la versión 0.3.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "omnigent-ai",
-       "product": "omnigent",
-       "versions": [
-        {
-         "version": "< 0.3.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-21T18:11:11.340625Z",
-       "id": "CVE-2026-62675",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-94"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/omnigent-ai/omnigent/commit/1f3f398f41cbf97b905133c21e848621c21da6e0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/commit/1f3f398f41cbf97b905133c21e848621c21da6e0"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/pull/1430",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/pull/1430"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-756x-9hf6-q4h4",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-756x-9hf6-q4h4"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-756x-9hf6-q4h4",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-756x-9hf6-q4h4"
     }
    ]
   }
@@ -1375,112 +192,21 @@
  {
   "cve": {
    "id": "CVE-2026-62676",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:49.743",
    "lastModified": "2026-10-14T21:10:00.183",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Omnigent is an open-source AI agent framework and meta-harness for orchestrating coding agents. Prior to 0.3.0, the shared shell-command parser in omnigent/policies/builtins/_shell.py fails to recognize combined interpreter flags, the timeout, nice, setsid, and stdbuf wrappers, command substitutions, and a single background control operator. A gated git push or gh write hidden with these forms produces no parsed operation, causing the github.py write_repos and write_branches allowlist and the working_dir.py workspace confinement policies to abstain and allow the command. An authenticated or prompt-injected agent can therefore push to an unauthorized repository or branch or escape the intended workspace. This issue is fixed in version 0.3.0."
-    },
-    {
-     "lang": "es",
-     "value": "Omnigent es un framework de agente de IA de código abierto y meta-arnés para orquestar agentes de codificación. Antes de la versión 0.3.0, el analizador de comandos de shell compartido en omnigent/policies/builtins/_shell.py falla al reconocer indicadores de intérprete combinados, los envoltorios timeout, nice, setsid y stdbuf, sustituciones de comandos y un único operador de control en segundo plano. Un git push o gh write restringido oculto con estas formas no produce ninguna operación analizada, lo que hace que la lista de permitidos write_repos y write_branches de github.py y las políticas de confinamiento del espacio de trabajo de working_dir.py se abstengan y permitan el comando. Un agente autenticado o inyectado por prompt puede, por lo tanto, hacer push a un repositorio o rama no autorizados o escapar del espacio de trabajo previsto. Este problema se ha corregido en la versión 0.3.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "omnigent-ai",
-       "product": "omnigent",
-       "versions": [
-        {
-         "version": "< 0.3.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:L/A:N",
-       "baseScore": 7.1,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "LOW",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 4.2
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-26T17:31:50.102854Z",
-       "id": "CVE-2026-62676",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-184"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/omnigent-ai/omnigent/commit/1a05b7b139ef504bf2be89bf37918abe104fb95c",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/commit/1a05b7b139ef504bf2be89bf37918abe104fb95c"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/pull/389",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/pull/389"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-7mqg-cx4g-x2rf",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-7mqg-cx4g-x2rf"
     }
    ]
   }
@@ -1488,112 +214,21 @@
  {
   "cve": {
    "id": "CVE-2026-62677",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:49.887",
    "lastModified": "2026-10-14T19:10:00.297",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Omnigent is an open-source AI agent framework and meta-harness for orchestrating coding agents. Prior to 0.3.0, an authenticated user can upload a session-scoped agent bundle with an absolute or traversal-containing os_env.cwd value because omnigent/spec/parser.py stores the value verbatim and omnigent/spec/validator.py does not constrain it. On a runner where OMNIGENT_RUNNER_WORKSPACE is unset, omnigent/runner/resource_registry.py preserves the attacker-controlled path and omnigent/inner/os_env.py uses the resolved path as the environment root and copytree source. The _assert_within_cwd check then treats that attacker-selected root as trusted, allowing sys_os_read, write, edit, and shell tools to access runner files and environment secrets outside the intended workspace. This issue is fixed in version 0.3.0."
-    },
-    {
-     "lang": "es",
-     "value": "Omnigent es un framework de agente de IA de código abierto y un meta-arnés para orquestar agentes de codificación. Antes de la versión 0.3.0, un usuario autenticado puede cargar un paquete de agente con ámbito de sesión con un valor os_env.cwd absoluto o que contiene una ruta de acceso transversal porque omnigent/spec/parser.py almacena el valor textualmente y omnigent/spec/validator.py no lo restringe. En un ejecutor donde OMNIGENT_RUNNER_WORKSPACE no está configurado, omnigent/runner/resource_registry.py preserva la ruta controlada por el atacante y omnigent/inner/os_env.py utiliza la ruta resuelta como la raíz del entorno y la fuente de copytree. La verificación _assert_within_cwd luego trata esa raíz seleccionada por el atacante como confiable, permitiendo que las herramientas sys_os_read, write, edit y shell accedan a los archivos del ejecutor y a los secretos del entorno fuera del espacio de trabajo previsto. Este problema se corrige en la versión 0.3.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "omnigent-ai",
-       "product": "omnigent",
-       "versions": [
-        {
-         "version": "< 0.3.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-21T21:00:11.438418Z",
-       "id": "CVE-2026-62677",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/omnigent-ai/omnigent/commit/7ca0cca3c9a65c04c489edf68f0e080424a26868",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/commit/7ca0cca3c9a65c04c489edf68f0e080424a26868"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/pull/1417",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/pull/1417"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/releases/tag/v0.3.0"
     },
     {
-     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-p8rw-8qj3-hf33",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/omnigent-ai/omnigent/security/advisories/GHSA-p8rw-8qj3-hf33"
     }
    ]
   }
@@ -1601,138 +236,21 @@
  {
   "cve": {
    "id": "CVE-2026-71493",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:50.440",
    "lastModified": "2026-10-14T19:10:00.297",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Infracost provides cloud cost intelligence for engineers, AI coding agents, and CI/CD. Prior to 0.10.45, the readFile, pathExists, isDir, and matchPaths template functions in internal/config/template/parser.go use a lexical filepath.Rel check and a leaf-only os.Lstat check that do not resolve an intermediate directory symlink. A repository can contain a path such as evil/file where evil points outside the checkout, causing os.ReadFile and related operations to follow the symlink and read runner-accessible files. The resulting content is rendered into generated configuration and can be surfaced through the Infracost dashboard or pull request comment, with greater impact in workflows that provide repository secrets. This issue is fixed in version 0.10.45."
-    },
-    {
-     "lang": "es",
-     "value": "Infracost proporciona inteligencia de costos en la nube para ingenieros, agentes de codificación de IA y CI/CD. Antes de la versión 0.10.45, las funciones de plantilla readFile, pathExists, isDir y matchPaths en internal/config/template/parser.go utilizan una verificación léxica filepath.Rel y una verificación os.Lstat solo de hoja que no resuelven un enlace simbólico de directorio intermedio. Un repositorio puede contener una ruta como evil/file donde evil apunta fuera del checkout, haciendo que os.ReadFile y operaciones relacionadas sigan el enlace simbólico y lean archivos accesibles para el ejecutor. El contenido resultante se renderiza en la configuración generada y puede mostrarse a través del panel de Infracost o un comentario de solicitud de extracción, con mayor impacto en flujos de trabajo que proporcionan secretos de repositorio. Este problema se corrige en la versión 0.10.45."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "infracost",
-       "product": "infracost",
-       "versions": [
-        {
-         "version": "< 0.10.45",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 5.9,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "NONE",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "NONE",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-26T17:33:05.338155Z",
-       "id": "CVE-2026-71493",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-59"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/infracost/infracost/commit/4d39331afc0e27752d16d9d91c34583e5e8487fb",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/commit/4d39331afc0e27752d16d9d91c34583e5e8487fb"
     },
     {
-     "url": "https://github.com/infracost/infracost/pull/3586",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/pull/3586"
     },
     {
-     "url": "https://github.com/infracost/infracost/releases/tag/v0.10.45",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/releases/tag/v0.10.45"
     },
     {
-     "url": "https://github.com/infracost/infracost/security/advisories/GHSA-mmg6-4qmv-6pc8",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/security/advisories/GHSA-mmg6-4qmv-6pc8"
     }
    ]
   }
@@ -1740,134 +258,21 @@
  {
   "cve": {
    "id": "CVE-2026-71494",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-21T18:16:50.590",
    "lastModified": "2026-10-14T19:10:00.297",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Infracost provides cloud cost intelligence for engineers, AI coding agents, and CI/CD. Prior to 0.10.45, internal/hcl/remote_variables_loader.go and related Terraform Cloud, remote-plan, and Terragrunt registry request paths can attach a configured Terraform Cloud or registry token to a destination hostname derived from untrusted Terraform input without confirming that it is the configured trusted host. When a CI run provides a token while scanning attacker-controlled Terraform, including pull_request_target or a same-repository pull request, an attacker can direct the request to an attacker-controlled host and disclose the token. Standard fork pull_request workflows without secrets are not exposed. This issue is fixed in version 0.10.45."
-    },
-    {
-     "lang": "es",
-     "value": "Infracost proporciona inteligencia de costos en la nube para ingenieros, agentes de codificación de IA y CI/CD. Antes de la versión 0.10.45, internal/hcl/remote_variables_loader.go y las rutas de solicitud relacionadas de Terraform Cloud, remote-plan y el registro de Terragrunt pueden adjuntar un token configurado de Terraform Cloud o de registro a un nombre de host de destino derivado de una entrada de Terraform no confiable sin confirmar que sea el host confiable configurado. Cuando una ejecución de CI proporciona un token mientras escanea Terraform controlado por el atacante, incluyendo pull_request_target o una solicitud de extracción del mismo repositorio, un atacante puede dirigir la solicitud a un host controlado por el atacante y divulgar el token. Los flujos de trabajo estándar de solicitud de extracción de bifurcación sin secretos no están expuestos. Este problema está solucionado en la versión 0.10.45."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "infracost",
-       "product": "infracost",
-       "versions": [
-        {
-         "version": "< 0.10.45",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:A/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 5.9,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "NONE",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "NONE",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-21T19:23:15.884212Z",
-       "id": "CVE-2026-71494",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-522"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/infracost/infracost/commit/3d24c757f5e4e60c7259f1b89ad7ceaabcfca86f",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/commit/3d24c757f5e4e60c7259f1b89ad7ceaabcfca86f"
     },
     {
-     "url": "https://github.com/infracost/infracost/pull/3590",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/pull/3590"
     },
     {
-     "url": "https://github.com/infracost/infracost/releases/tag/v0.10.45",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/releases/tag/v0.10.45"
     },
     {
-     "url": "https://github.com/infracost/infracost/security/advisories/GHSA-6x6c-w9w9-hv4h",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/infracost/infracost/security/advisories/GHSA-6x6c-w9w9-hv4h"
     }
    ]
   }
@@ -1875,137 +280,24 @@
  {
   "cve": {
    "id": "CVE-2026-80623",
-   "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
    "published": "2026-08-28T08:16:46.447",
    "lastModified": "2026-10-21T13:19:55.760",
    "vulnStatus": "Received",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "In the Linux kernel, the following vulnerability has been resolved:\n\ncoresight: ete: Always save state on power down\n\nSystem register ETMs and ETE are unlikely to be preserved on CPU power\ndown. The ETE DT binding also never documented\n\"arm,coresight-loses-context-with-cpu\" so nobody would have legitimately\nbeen able to use that binding to fix it and ACPI has no such binding at\nall.\n\nFix it by hard coding the setting for sysreg ETMs (ETE is always sysreg)\nor ACPI boots. Use a local variable when setting up save_state so that\nit's immune to concurrent probing when devices have different\nconfigurations which is an issue with modifying the global.\n\nThis fixes the following error when using Coresight with ACPI on the FVP\nwhich supports CPU PM:\n\n  coresight ete0: External agent took claim tag\n  WARNING: drivers/hwtracing/coresight/coresight-core.c:248 at coresight_disclaim_device_unlocked+0xe0/0xe8, CPU#0: perf/117"
-    }
-   ],
-   "affected": [
-    {
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
-     "affectedData": [
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "unaffected",
-       "programFiles": [
-        "drivers/hwtracing/coresight/coresight-etm4x-core.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "35e1c9163e025855f23a68f2470c471509e5d779",
-         "lessThan": "31633ba13cc49017015f606d5c66eaf5052e99a8",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "35e1c9163e025855f23a68f2470c471509e5d779",
-         "lessThan": "f58d17798882a3aa3323f9d80fe85e25a38f4b93",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "35e1c9163e025855f23a68f2470c471509e5d779",
-         "lessThan": "65d87f28daec31903fc39fee0744f7a0059c19f2",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "35e1c9163e025855f23a68f2470c471509e5d779",
-         "lessThan": "293dacd5b6a9f1275d92ca6c4fd874e54b2c8319",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "35e1c9163e025855f23a68f2470c471509e5d779",
-         "lessThan": "2ab4645fe4206c142a5f1491e191c906279686cf",
-         "versionType": "git",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "affected",
-       "programFiles": [
-        "drivers/hwtracing/coresight/coresight-etm4x-core.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "5.13",
-         "status": "affected"
-        },
-        {
-         "version": "0",
-         "lessThan": "5.13",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.6.160",
-         "lessThanOrEqual": "6.6.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.12.114",
-         "lessThanOrEqual": "6.12.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.18.40",
-         "lessThanOrEqual": "6.18.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.1.5",
-         "lessThanOrEqual": "7.1.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.2",
-         "lessThanOrEqual": "*",
-         "versionType": "original_commit_for_fix",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {},
    "references": [
     {
-     "url": "https://git.kernel.org/stable/c/293dacd5b6a9f1275d92ca6c4fd874e54b2c8319",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/293dacd5b6a9f1275d92ca6c4fd874e54b2c8319"
     },
     {
-     "url": "https://git.kernel.org/stable/c/2ab4645fe4206c142a5f1491e191c906279686cf",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/2ab4645fe4206c142a5f1491e191c906279686cf"
     },
     {
-     "url": "https://git.kernel.org/stable/c/31633ba13cc49017015f606d5c66eaf5052e99a8",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/31633ba13cc49017015f606d5c66eaf5052e99a8"
     },
     {
-     "url": "https://git.kernel.org/stable/c/65d87f28daec31903fc39fee0744f7a0059c19f2",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/65d87f28daec31903fc39fee0744f7a0059c19f2"
     },
     {
-     "url": "https://git.kernel.org/stable/c/f58d17798882a3aa3323f9d80fe85e25a38f4b93",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/f58d17798882a3aa3323f9d80fe85e25a38f4b93"
     }
    ]
   }
@@ -2013,104 +305,18 @@
  {
   "cve": {
    "id": "CVE-2026-57586",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-09-15T15:17:19.270",
    "lastModified": "2026-09-30T17:51:56.193",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "CodeRAG is a lightweight semantic code search and distillation utility for AI coding agents. Prior to 1.3.1, the default agent-coderag sync flow in code_rag/entry/cli.py calls sync_dependencies for an indexed path, and code_rag/core/manager.py treats build.gradle or build.gradle.kts as sufficient to invoke _sync_gradle. _sync_gradle prefers a repository-controlled gradlew or gradlew.bat file and passes it directly to asyncio.create_subprocess_exec with the repository root as the working directory; validate_path in code_rag/core/utils.py constrains the directory location but does not validate the executable's content or integrity. A victim who indexes an attacker-controlled Gradle repository therefore executes attacker-supplied code with the victim's operating-system privileges, allowing disclosure, modification, persistence, or denial of service in the user environment. This issue is fixed in 1.3.1."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "naranor",
-       "product": "agent-coderag",
-       "versions": [
-        {
-         "version": "< 1.3.1",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:R/S:C/C:H/I:H/A:H",
-       "baseScore": 8.6,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-15T17:45:45.617300Z",
-       "id": "CVE-2026-57586",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/naranor/agent-coderag/commit/1d917513cd95209bab9cbb5fe00df84989805e7d",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/naranor/agent-coderag/commit/1d917513cd95209bab9cbb5fe00df84989805e7d"
     },
     {
-     "url": "https://github.com/naranor/agent-coderag/releases/tag/v1.3.1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/naranor/agent-coderag/releases/tag/v1.3.1"
     },
     {
-     "url": "https://github.com/naranor/agent-coderag/security/advisories/GHSA-wg5p-8h9p-3mr7",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/naranor/agent-coderag/security/advisories/GHSA-wg5p-8h9p-3mr7"
     }
    ]
   }
@@ -2118,128 +324,33 @@
  {
   "cve": {
    "id": "CVE-2026-54561",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-09-15T17:17:21.220",
    "lastModified": "2026-09-30T17:51:56.193",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "MCP Memory Keeper is an MCP server for persistent context management in AI coding assistants. Prior to 0.13.0, context_import in src/index.ts passes the caller-controlled filePath directly to fs.readFileSync without restricting the path to an export directory. An MCP client, including an LLM agent induced to call the tool, can use ../ traversal or an absolute path to target any file readable by the server process. A valid JSON file is parsed and imported into the caller's session, allowing its full contents to be retrieved through context_get or context_export, while JSON.parse errors for non-JSON files can return leading file bytes in a SyntaxError message. The two disclosure modes can expose other exported sessions, JSON credentials or service-account files, environment files, and portions of SSH keys or other local files. This issue is fixed in version 0.13.0."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "mkreyman",
-       "product": "mcp-memory-keeper",
-       "versions": [
-        {
-         "version": "< 0.13.0",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
-       "baseScore": 6.2,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "NONE",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 2.5,
-      "impactScore": 3.6
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-15T17:28:40.655510Z",
-       "id": "CVE-2026-54561",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-209"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/58640c22e037572e0b03bc0aa25d015ea98dcc6d",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/58640c22e037572e0b03bc0aa25d015ea98dcc6d"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/b9369568468007c85f8aec3ae09ca6f611285bc5",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/b9369568468007c85f8aec3ae09ca6f611285bc5"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/e0ab521a9e8343bcab1ca60ccc3601e4d86eaa97",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/commit/e0ab521a9e8343bcab1ca60ccc3601e4d86eaa97"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/issues/35",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/issues/35"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/pull/36",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/pull/36"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/releases/tag/v0.13.0",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/releases/tag/v0.13.0"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/security/advisories/GHSA-f7wf-v2vw-mpcx",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/security/advisories/GHSA-f7wf-v2vw-mpcx"
     },
     {
-     "url": "https://github.com/mkreyman/mcp-memory-keeper/issues/35",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/mkreyman/mcp-memory-keeper/issues/35"
     }
    ]
   }
@@ -2247,116 +358,24 @@
  {
   "cve": {
    "id": "CVE-2026-54504",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-09-17T19:16:50.517",
    "lastModified": "2026-09-30T17:51:56.193",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "MCP Documentation Server is a local-first document management and semantic search server for AI coding agents. From 1.13.0 until 1.13.1, the automatically started Web UI in src/server.ts calls startWebServer in src/web-server.ts with START_WEB_UI enabled by default and WEB_PORT set to 3080. startWebServer uses app.listen(PORT) without a host, which binds the unauthenticated document-management API to all interfaces rather than localhost. A network-reachable client can invoke GET /api/documents, GET /api/documents/:id, POST /api/documents, POST /api/search-all, DELETE /api/documents/:id, and GET /api/config without credentials to enumerate and read documents, search the corpus, insert or delete documents, and tamper with the MCP assistant's knowledge base. The service must be reachable from the attacker's LAN, VM network, container bridge, VPN, or another routed network, and the issue does not provide remote code execution. This issue is fixed in 1.13.1."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "andrea9293",
-       "product": "mcp-documentation-server",
-       "versions": [
-        {
-         "version": ">= 1.13.0, < 1.13.1",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:A/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "ADJACENT_NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-17T19:09:25.352664Z",
-       "id": "CVE-2026-54504",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-668"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/andrea9293/mcp-documentation-server/commit/37159d4e06b8ee50c3645b2496e3d3f6d32c47f9",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/andrea9293/mcp-documentation-server/commit/37159d4e06b8ee50c3645b2496e3d3f6d32c47f9"
     },
     {
-     "url": "https://github.com/andrea9293/mcp-documentation-server/pull/20",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/andrea9293/mcp-documentation-server/pull/20"
     },
     {
-     "url": "https://github.com/andrea9293/mcp-documentation-server/releases/tag/v1.13.1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/andrea9293/mcp-documentation-server/releases/tag/v1.13.1"
     },
     {
-     "url": "https://github.com/andrea9293/mcp-documentation-server/security/advisories/GHSA-6f5r-5672-72j7",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/andrea9293/mcp-documentation-server/security/advisories/GHSA-6f5r-5672-72j7"
     },
     {
-     "url": "https://github.com/andrea9293/mcp-documentation-server/security/advisories/GHSA-6f5r-5672-72j7",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/andrea9293/mcp-documentation-server/security/advisories/GHSA-6f5r-5672-72j7"
     }
    ]
   }

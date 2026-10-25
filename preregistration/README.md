@@ -10,4 +10,10 @@
   case summaries (`cases.json`), the author's labels written on 29 September 2026 (`human.json`), the raw answers of the three
   local models (three runs each) and the agreement table. Pilot inputs included date, product and title (see D4).
 
-Confirmatory files (`rq1-frame.csv`, `rq1-r0.json`, model results) are added here in that order, each in its own commit.
+- `rq1/` — the RQ1 confirmatory set (D1, D41, D44): the dated query (`query_frame.py`, raw results; the two full GitHub advisory
+  dumps are kept by the author, hashes in `raw-20261025/`), screening, grouping, eligibility ledger and first-disclosure dates,
+  `FRAME-NOTES.md` (every rule and count), the frozen frame `rq1-frame.csv` (330 cases, commit e62676b), and the sample
+  `rq1-sample.csv` with `rq1-sample-manifest.json` (120 cases, drand round 6584246). `sample_frame.py verify` (in a clone) or
+  `verify_archive.py` (in a release archive, no git history) recomputes the sample; `estimate.py` is the stratified estimator of D44 point 6.
+
+Next confirmatory files, each in its own commit and in this order: `rq1-r0.json` (the author's labels), then the model results.

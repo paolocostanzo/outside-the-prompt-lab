@@ -55,9 +55,11 @@ before it is frozen.
 ## Raw data not published
 The two full GitHub Advisory Database dumps (`ghsa-reviewed.json`, `ghsa-unreviewed.json`; 34,154 advisories) are not in the
 repository: advisory texts quote example tokens and keys from proofs of concept, and the lab never publishes anything that looks
-like a credential. Their SHA-256 hashes are recorded; the author keeps the files and provides them on request. Everything the
-frame is built from (`candidates-20261025.json`, the keyword hits, the NVD results) is published, so `build_frame.py` and
-`disclosure_dates.py` run from the repository; `build_candidates.py` needs the two dumps.
+like a credential. Their SHA-256 hashes are recorded; the author keeps the files and provides them on request. For the same reason the published `candidates-20261025.json` has no advisory description texts (`text` field) and the NVD
+files keep only id, dates, status and reference URLs; the full versions, used by the screening agents, are kept by the author
+and hashed in `SHA256SUMS-full-texts` (the frame commit e62676b in the git history still holds the full candidates file; the
+release archives from v0.4.3 on do not). `build_frame.py` and `disclosure_dates.py` run from the published files (they never
+read the texts); `build_candidates.py` needs the two dumps.
 
 ## Known limits
 - Screening and grouping by AI assistants under written rules, not by a second human (as declared in D42/D44).

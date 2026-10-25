@@ -2,170 +2,12 @@
  {
   "cve": {
    "id": "CVE-2026-46406",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-06-29T15:16:41.033",
    "lastModified": "2026-06-30T17:30:26.610",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code is an agentic coding tool.  From 2.1.59 until 2.1.128, the Claude Code /copy command wrote responses to a hardcoded, predictable path (/tmp/claude/response.md) without UID isolation, randomness, or symlink protection. The file was created world-readable (0644) in a world-traversable directory (0755), allowing any local user to read a privileged user's Claude response, which could contain secrets or credentials. Additionally, because the path was static and predictable, a local attacker could pre-create the directory and plant a symlink at the expected file path, causing the privileged process to follow the symlink and overwrite an attacker-chosen file with the response text. Exploiting this required a local unprivileged user on the same system and a privileged user to run the /copy command. This vulnerability is fixed in 2.1.128."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "anthropics",
-       "product": "claude-code",
-       "versions": [
-        {
-         "version": ">= 2.1.59, < 2.1.128",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:P/PR:L/UI:A/VC:L/VI:L/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 4.4,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "LOW",
-       "userInteraction": "ACTIVE",
-       "vulnConfidentialityImpact": "LOW",
-       "vulnIntegrityImpact": "LOW",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:L/I:L/A:H",
-       "baseScore": 6.1,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "LOW",
-       "integrityImpact": "LOW",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.3,
-      "impactScore": 4.7
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-06-29T15:25:46.123210Z",
-       "id": "CVE-2026-46406",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-59"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-200"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-377"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:anthropic:claude_code:*:*:*:*:*:node.js:*:*",
-         "versionStartIncluding": "2.1.58",
-         "versionEndExcluding": "2.1.128",
-         "matchCriteriaId": "386328D3-C55B-441F-A29C-12D2CA96CDD0"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-4vp2-6q8c-pvq2",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-4vp2-6q8c-pvq2"
     }
    ]
   }
@@ -173,170 +15,12 @@
  {
   "cve": {
    "id": "CVE-2026-55607",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-06-29T15:16:41.597",
    "lastModified": "2026-06-30T16:17:39.403",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code is an agentic coding tool.  From 2.1.38 until 2.1.163, Claude Code's worktree handling allowed creation of worktrees named \".git\" and navigation to worktrees outside the sandbox context, enabling git directory confusion attacks. By exploiting symlink manipulation and git fsmonitor execution during worktree operations, an attacker could overwrite files in the user's home directory (such as .zshenv), leading to code execution outside of seatbelt sandbox restrictions. Reliably exploiting this required the user to clone a malicious repository containing prompt injection content and run Claude Code against it. This vulnerability is fixed in 2.1.163."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "anthropics",
-       "product": "claude-code",
-       "versions": [
-        {
-         "version": ">= 2.1.38, < 2.1.163",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:N/UI:P/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 7.7,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "NONE",
-       "userInteraction": "PASSIVE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-06-29T15:51:20.888452Z",
-       "id": "CVE-2026-55607",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-59"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:anthropic:claude_code:*:*:*:*:*:node.js:*:*",
-         "versionStartIncluding": "2.1.38",
-         "versionEndExcluding": "2.1.163",
-         "matchCriteriaId": "52A3407D-AEAF-40D4-8C07-9FE2B90E51FA"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-7835-87q9-rgvv",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/anthropics/claude-code/security/advisories/GHSA-7835-87q9-rgvv"
     }
    ]
   }
@@ -344,116 +28,21 @@
  {
   "cve": {
    "id": "CVE-2026-59726",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-09T18:16:57.337",
    "lastModified": "2026-07-10T19:15:15.780",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Ruflo is an agent meta-harness for Claude Code and Codex. Prior to 3.16.3, ruflo's default docker-compose deployment exposed the MCP bridge POST /mcp and POST /mcp/:group endpoints without authentication, allowing an unauthenticated network attacker to invoke tools/call to terminal_execute, obtain a shell in the bridge container, read provider API keys, and poison AgentDB learning-store patterns. This issue is fixed in version 3.16.3."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "ruvnet",
-       "product": "ruflo",
-       "versions": [
-        {
-         "version": "< 3.16.3",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
-       "baseScore": 10.0,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 3.9,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-09T18:43:19.456381Z",
-       "id": "CVE-2026-59726",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-942"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/ruvnet/ruflo/commit/d00a0a40cd8bdbca877ac7f675f416bdc69accd1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/commit/d00a0a40cd8bdbca877ac7f675f416bdc69accd1"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/pull/2521",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/pull/2521"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/releases/tag/v3.16.3",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/releases/tag/v3.16.3"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/security/advisories/GHSA-c4hm-4h84-2cf3",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/security/advisories/GHSA-c4hm-4h84-2cf3"
     }
    ]
   }
@@ -461,138 +50,21 @@
  {
   "cve": {
    "id": "CVE-2026-47751",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-16T17:16:57.357",
    "lastModified": "2026-10-24T20:10:00.137",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code Action is a general-purpose GitHub action that runs Claude Code on GitHub pull requests and issues. Prior to 1.0.74, because the action checked out attacker-controlled pull request head branches, read .mcp.json from the working directory via default setting sources, and unconditionally enabled all project MCP servers via enableAllProjectMcpServers, an attacker who opened a pull request containing a malicious .mcp.json file could achieve arbitrary code execution on the GitHub Actions runner and exfiltrate secrets available to the workflow (such as API keys and tokens) when a privileged user or an automatic trigger invoked the Claude action on the pull request. This issue is fixed in version 1.0.74, which restores .claude/ and .mcp.json from the pull request base branch before the CLI runs."
-    },
-    {
-     "lang": "es",
-     "value": "Claude Code Action es una acción de GitHub de propósito general que ejecuta Claude Code en solicitudes de extracción y problemas de GitHub. Antes de la versión 1.0.74, debido a que la acción extraía ramas de cabecera de solicitudes de extracción controladas por el atacante, leía .mcp.json del directorio de trabajo a través de fuentes de configuración predeterminadas y habilitaba incondicionalmente todos los servidores MCP del proyecto a través de enableAllProjectMcpServers, un atacante que abriera una solicitud de extracción que contuviera un archivo .mcp.json malicioso podría lograr la ejecución de código arbitrario en el ejecutor de GitHub Actions y exfiltrar secretos disponibles para el flujo de trabajo (como claves API y tokens) cuando un usuario privilegiado o un disparador automático invocaba la acción de Claude en la solicitud de extracción. Este problema se soluciona en la versión 1.0.74, que restaura .claude/ y .mcp.json de la rama base de la solicitud de extracción antes de que se ejecute la CLI."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "anthropics",
-       "product": "claude-code-action",
-       "versions": [
-        {
-         "version": "< 1.0.74",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:P/PR:L/UI:N/VC:L/VI:L/VA:N/SC:H/SI:H/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 5.3,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "PRESENT",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "LOW",
-       "vulnIntegrityImpact": "LOW",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "HIGH",
-       "subIntegrityImpact": "HIGH",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-18T02:55:45.984671Z",
-       "id": "CVE-2026-47751",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-200"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/anthropics/claude-code-action/commit/9ddce40de8c1ab71fb6303a125fdad0968dc1312",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/anthropics/claude-code-action/commit/9ddce40de8c1ab71fb6303a125fdad0968dc1312"
     },
     {
-     "url": "https://github.com/anthropics/claude-code-action/pull/1066",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/anthropics/claude-code-action/pull/1066"
     },
     {
-     "url": "https://github.com/anthropics/claude-code-action/releases/tag/v1.0.74",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/anthropics/claude-code-action/releases/tag/v1.0.74"
     },
     {
-     "url": "https://github.com/anthropics/claude-code-action/security/advisories/GHSA-8q5r-mmjf-575q",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/anthropics/claude-code-action/security/advisories/GHSA-8q5r-mmjf-575q"
     }
    ]
   }
@@ -600,149 +72,15 @@
  {
   "cve": {
    "id": "CVE-2026-53378",
-   "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
    "published": "2026-07-19T11:16:38.953",
    "lastModified": "2026-07-29T16:58:55.143",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "In the Linux kernel, the following vulnerability has been resolved:\n\ndrm/colorop: Fix blob property reference tracking in state lifecycle\n\nThe colorop state blob property handling had memory leaks during state\nduplication, destruction, and reset operations. The implementation\nfailed to follow the established pattern from drm_crtc's handling of\nDEGAMMA/GAMMA blob properties.\n\nIssues fixed:\n- drm_colorop_atomic_destroy_state() was freeing state memory without\n  releasing the blob reference, causing a leak\n- drm_colorop_reset() was directly freeing old state with kfree()\n  instead of properly destroying it, leaking blob references\n- drm_colorop_cleanup() had duplicate blob cleanup code\n\nChanges:\n- Add __drm_atomic_helper_colorop_destroy_state() helper to properly\n  release blob references before freeing state memory\n- Update drm_colorop_atomic_destroy_state() to call the helper\n- Fix drm_colorop_reset() to use drm_colorop_atomic_destroy_state()\n  for proper cleanup of old state\n- Simplify drm_colorop_cleanup() to use the common destruction path\n\nThis matches the well-tested pattern used by drm_crtc since 2016 and\nensures proper reference counting throughout the state lifecycle.\n\nCo-developed by Claude Sonnet 4.5."
-    }
-   ],
-   "affected": [
-    {
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
-     "affectedData": [
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "unaffected",
-       "programFiles": [
-        "drivers/gpu/drm/drm_colorop.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "cfc27680ee208cdf7a61cda817b4158c4142595f",
-         "lessThan": "271059f1d9020e9ac967524e319fbbaa22d0475b",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "cfc27680ee208cdf7a61cda817b4158c4142595f",
-         "lessThan": "235b333e2878d791cee09e1e72f44611a9400114",
-         "versionType": "git",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "affected",
-       "programFiles": [
-        "drivers/gpu/drm/drm_colorop.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "6.19",
-         "status": "affected"
-        },
-        {
-         "version": "0",
-         "lessThan": "6.19",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.0.9",
-         "lessThanOrEqual": "7.0.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.1",
-         "lessThanOrEqual": "*",
-         "versionType": "original_commit_for_fix",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:H",
-       "baseScore": 5.5,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "NONE",
-       "integrityImpact": "NONE",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 3.6
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "nvd@nist.gov",
-     "type": "Primary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-401"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:o:linux:linux_kernel:*:*:*:*:*:*:*:*",
-         "versionStartIncluding": "6.19",
-         "versionEndExcluding": "7.0.9",
-         "matchCriteriaId": "33ACA10B-B260-46EA-BD50-70EBE5097672"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://git.kernel.org/stable/c/235b333e2878d791cee09e1e72f44611a9400114",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
-     "tags": [
-      "Patch"
-     ]
+     "url": "https://git.kernel.org/stable/c/235b333e2878d791cee09e1e72f44611a9400114"
     },
     {
-     "url": "https://git.kernel.org/stable/c/271059f1d9020e9ac967524e319fbbaa22d0475b",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
-     "tags": [
-      "Patch"
-     ]
+     "url": "https://git.kernel.org/stable/c/271059f1d9020e9ac967524e319fbbaa22d0475b"
     }
    ]
   }
@@ -750,166 +88,18 @@
  {
   "cve": {
    "id": "CVE-2026-46555",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-20T17:17:09.820",
    "lastModified": "2026-10-24T20:10:00.137",
    "vulnStatus": "Analyzed",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "WhatsApp MCP Server is a Model Context Protocol (MCP) server for WhatsApp, enabling Claude to read and send WhatsApp messages. Prior to version 0.2.1, the `whatsapp-bridge` HTTP API listens on `127.0.0.1:8080` without authentication and without Host header validation, and the `/api/send` endpoint accepts an absolute `media_path` parameter without confining it to a safe directory. Combined, these issues allow any local process running as the same user as the bridge to send WhatsApp messages from the paired account without authorization; the same caller to read arbitrary files readable by the user (e.g. SSH private keys, browser session data, source code, dotfiles) and exfiltrate them as WhatsApp document attachments; and/or a remote attacker to trigger the same operations via DNS rebinding from a webpage the user visits, since no Host header validation is performed. In MCP environments, \"local caller\" extends beyond processes the user explicitly launched — sibling MCP servers, IDE extensions, and tool-triggered flows running in the user's session can act as the effective caller. This issue is fixed in whatsapp-mcp v0.2.1 and corresponding Docker images / release artifacts. Users should upgrade immediately. The fix introduces bearer token authentication on the bridge HTTP API (configured via environment variable, required on all requests, validated with constant-time comparison); host header allow-list validation to prevent DNS rebinding; and confinement of `media_path` to a configured directory, with rejection of absolute paths outside the root and path traversal sequences. This is a breaking change for clients of the bridge API. For users who cannot immediately upgrade: Stop the bridge, or block loopback access to port 8080, when the bridge is not actively in use; avoid running the bridge alongside untrusted MCP servers, browser extensions, or other untrusted local processes; avoid browsing untrusted sites while the bridge is running (DNS rebinding mitigation); and/or run the bridge under a dedicated user account or in a sandbox/container with no access to sensitive files."
-    },
-    {
-     "lang": "es",
-     "value": "El Servidor MCP de WhatsApp es un servidor de Protocolo de Contexto de Modelo (MCP) para WhatsApp, que permite a Claude leer y enviar mensajes de WhatsApp. Antes de la versión 0.2.1, la API HTTP ’whatsapp-bridge’ escucha en ’127.0.0.1:8080’ sin autenticación y sin validación del encabezado Host, y el endpoint ’/api/send’ acepta un parámetro ’media_path’ absoluto sin confinarlo a un directorio seguro. Combinados, estos problemas permiten a cualquier proceso local ejecutándose como el mismo usuario que el puente enviar mensajes de WhatsApp desde la cuenta emparejada sin autorización; al mismo llamador leer archivos arbitrarios legibles por el usuario (por ejemplo, claves privadas SSH, datos de sesión del navegador, código fuente, dotfiles) y exfiltrarlos como archivos adjuntos de documentos de WhatsApp; y/o a un atacante remoto desencadenar las mismas operaciones a través de la reasignación de DNS desde una página web que el usuario visita, ya que no se realiza validación del encabezado Host. En entornos MCP, ’llamador local’ se extiende más allá de los procesos que el usuario lanzó explícitamente - servidores MCP hermanos, extensiones de IDE y flujos activados por herramientas ejecutándose en la sesión del usuario pueden actuar como el llamador efectivo. Este problema está solucionado en whatsapp-mcp v0.2.1 y las imágenes Docker / artefactos de lanzamiento correspondientes. Los usuarios deben actualizar inmediatamente. La solución introduce autenticación con token de portador en la API HTTP del puente (configurada mediante variable de entorno, requerida en todas las solicitudes, validada con comparación de tiempo constante); validación de lista de permitidos del encabezado host para prevenir la reasignación de DNS; y confinamiento de ’media_path’ a un directorio configurado, con rechazo de rutas absolutas fuera de la raíz y secuencias de salto de ruta. Esto es un cambio disruptivo para los clientes de la API del puente. Para los usuarios que no pueden actualizar inmediatamente: Detenga el puente, o bloquee el acceso de bucle invertido al puerto 8080, cuando el puente no esté en uso activo; evite ejecutar el puente junto con servidores MCP no confiables, extensiones de navegador u otros procesos locales no confiables; evite navegar por sitios no confiables mientras el puente esté en ejecución (mitigación de reasignación de DNS); y/o ejecute el puente bajo una cuenta de usuario dedicada o en un sandbox/contenedor sin acceso a archivos sensibles."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "verygoodplugins",
-       "product": "whatsapp-mcp",
-       "versions": [
-        {
-         "version": "< 0.2.1",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:N",
-       "baseScore": 7.7,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 2.5,
-      "impactScore": 5.2
-     },
-     {
-      "source": "nvd@nist.gov",
-      "type": "Primary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:N",
-       "baseScore": 7.1,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 5.2
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-20T17:35:08.494886Z",
-       "id": "CVE-2026-46555",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-346"
-      }
-     ]
-    }
-   ],
-   "configurations": [
-    {
-     "nodes": [
-      {
-       "operator": "OR",
-       "negate": false,
-       "cpeMatch": [
-        {
-         "vulnerable": true,
-         "criteria": "cpe:2.3:a:verygoodplugins:whatsapp_mcp_server:*:*:*:*:*:*:*:*",
-         "versionEndExcluding": "0.2.1",
-         "matchCriteriaId": "32AD7D53-BB8C-4DA9-BE52-E6A9AC5C0985"
-        }
-       ]
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/verygoodplugins/whatsapp-mcp/blob/main/SECURITY.md",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Issue Tracking"
-     ]
+     "url": "https://github.com/verygoodplugins/whatsapp-mcp/blob/main/SECURITY.md"
     },
     {
-     "url": "https://github.com/verygoodplugins/whatsapp-mcp/releases/tag/v0.2.1",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Product",
-      "Release Notes"
-     ]
+     "url": "https://github.com/verygoodplugins/whatsapp-mcp/releases/tag/v0.2.1"
     },
     {
-     "url": "https://github.com/verygoodplugins/whatsapp-mcp/security/advisories/GHSA-7jj9-4qqq-4xc4",
-     "source": "security-advisories@github.com",
-     "tags": [
-      "Mitigation",
-      "Patch",
-      "Vendor Advisory"
-     ]
+     "url": "https://github.com/verygoodplugins/whatsapp-mcp/security/advisories/GHSA-7jj9-4qqq-4xc4"
     }
    ]
   }
@@ -917,148 +107,12 @@
  {
   "cve": {
    "id": "CVE-2026-57495",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-20T22:17:17.107",
    "lastModified": "2026-07-23T15:54:18.643",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "AgenticMail gives AI agents real email addresses and phone numbers. In @agenticmail/claudecode prior to version 0.2.39, @agenticmail/codex prior to version 0.1.33, @agenticmail/core prior to version 0.9.43, and @agenticmail/openclaw prior to version 0.5.71, two inbound-mail handlers act on a privileged effect without verifying that the sender is the operator, while a sibling handler in the same repo does. The higher-impact one: any external email routed to the bridge inbox causes the dispatcher to resume the operator's Claude Code session with `permissionMode: 'bypassPermissions'`, embedding the attacker-controlled `from`/`subject`/`preview` verbatim into the prompt the resumed agent reads — an indirect prompt injection into a fully-privileged agent (Bash/Write/Edit/WebFetch + the agenticmail MCP toolbelt) running as the operator's OAuth identity. The sibling operator-query email-reply hook gates the same untrusted-From provenance with `isOperatorReplySender(replyFrom, config.operatorEmail)` (fail-closed); the bridge-wake path — a strictly higher-privilege effect — has no equivalent. @agenticmail/claudecode 0.2.39, @agenticmail/codex 0.1.33, @agenticmail/core 0.9.43, and @agenticmail/openclaw 0.5.71 contain a fix."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "agenticmail",
-       "product": "@agenticmail/core",
-       "versions": [
-        {
-         "version": "< 0.9.43",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "agenticmail",
-       "product": "@agenticmail/claudecode",
-       "versions": [
-        {
-         "version": "< 0.2.39",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "agenticmail",
-       "product": "@agenticmail/codex",
-       "versions": [
-        {
-         "version": "< 0.1.33",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "agenticmail",
-       "product": "@agenticmail/openclaw",
-       "versions": [
-        {
-         "version": "< 0.5.71",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:H/AT:N/PR:N/UI:N/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 8.2,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "HIGH",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "NONE",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-22T13:53:32.879212Z",
-       "id": "CVE-2026-57495",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/agenticmail/agenticmail/security/advisories/GHSA-fq4x-789w-jg5h",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/agenticmail/agenticmail/security/advisories/GHSA-fq4x-789w-jg5h"
     }
    ]
   }
@@ -1066,108 +120,18 @@
  {
   "cve": {
    "id": "CVE-2026-48168",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-05T19:17:31.070",
    "lastModified": "2026-10-23T21:10:00.157",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "PraisonAI is a multi-agent teams system. In versions prior to 4.6.40, the bundled Claude GitHub Actions workflow is vulnerable to command injection because it embeds an attacker-controlled pull request branch name into a Bash run: block without quoting or validation. Additionally, the workflow allows any @claude comment to trigger the job regardless of whether the commenter is a trusted collaborator. An outside contributor can open a pull request from a fork whose branch name contains shell metacharacters and comment @claude, causing Bash to execute arbitrary shell code in the GitHub Actions runner. Because these commands run in a job holding a GitHub App token with write permissions, OIDC access, and gh/git access, the injection can be chained through $GITHUB_PATH to compromise later privileged steps, enabling repository writes, pull request and issue manipulation, or OIDC-token abuse. This issue has been fixed in version 4.6.40."
-    },
-    {
-     "lang": "es",
-     "value": "PraisonAI es un sistema de equipos multiagente. En versiones anteriores a la 4.6.40, el flujo de trabajo de Claude GitHub Actions incluido es vulnerable a la inyección de comandos porque incrusta un nombre de rama de solicitud de extracción controlado por el atacante en un bloque Bash run: sin comillas ni validación. Además, el flujo de trabajo permite que cualquier comentario @claude active el trabajo, independientemente de si el comentarista es un colaborador de confianza. Un colaborador externo puede abrir una solicitud de extracción desde un fork cuyo nombre de rama contenga metacaracteres de shell y comentar @claude, lo que hace que Bash ejecute código de shell arbitrario en el ejecutor de GitHub Actions. Debido a que estos comandos se ejecutan en un trabajo que posee un token de aplicación de GitHub con permisos de escritura, acceso OIDC y acceso gh/git, la inyección puede encadenarse a través de $GITHUB_PATH para comprometer pasos privilegiados posteriores, lo que permite escrituras en el repositorio, manipulación de solicitudes de extracción y problemas, o abuso de tokens OIDC. Este problema ha sido solucionado en la versión 4.6.40."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "MervinPraison",
-       "product": "PraisonAI",
-       "versions": [
-        {
-         "version": "< 4.6.40",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
-       "baseScore": 10.0,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 3.9,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-05T19:23:57.492283Z",
-       "id": "CVE-2026-48168",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-862"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/MervinPraison/PraisonAI/commit/179cab02dbec0c1e9b601507a659",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/MervinPraison/PraisonAI/commit/179cab02dbec0c1e9b601507a659"
     },
     {
-     "url": "https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-xp85-6wwf-r67c",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-xp85-6wwf-r67c"
     },
     {
-     "url": "https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-xp85-6wwf-r67c",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/MervinPraison/PraisonAI/security/advisories/GHSA-xp85-6wwf-r67c"
     }
    ]
   }
@@ -1175,120 +139,21 @@
  {
   "cve": {
    "id": "CVE-2026-73222",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-11T19:18:51.720",
    "lastModified": "2026-10-24T15:10:00.190",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Claude Code Templates is a CLI tool for configuring and monitoring Claude Code. Prior to 1.29.4, the Claude Code Studio server launched by the --studio option in cli-tool/src/sandbox-server.js binds to all interfaces on port 3444, permits cross-origin requests, and requires no authentication. The POST /api/execute endpoint passes the prompt request-body field to executeLocalTask(), and POST /api/install-agent passes the agentName request-body field to a child process. The same unsafe agent field path is reachable from /api/execute through checkAndInstallAgent(). These attacker-controlled values reach child_process.spawn() with shell execution enabled, causing Node.js to construct a shell command in which metacharacters are interpreted. An attacker who can reach the port directly, or who convinces a developer running Studio to visit a malicious website, can execute arbitrary operating-system commands with the developer's privileges and compromise source code, credentials, and local data. This issue is fixed in version 1.29.4."
-    },
-    {
-     "lang": "es",
-     "value": "Claude Code Templates es una herramienta de CLI para configurar y monitorear Claude Code. Antes de la versión 1.29.4, el servidor de Claude Code Studio lanzado por la opción --studio en cli-tool/src/sandbox-server.js se enlaza a todas las interfaces en el puerto 3444, permite solicitudes de origen cruzado y no requiere autenticación. El endpoint POST /api/execute pasa el campo prompt del cuerpo de la solicitud a executeLocalTask(), y POST /api/install-agent pasa el campo agentName del cuerpo de la solicitud a un proceso hijo. La misma ruta de campo de agente insegura es accesible desde /api/execute a través de checkAndInstallAgent(). Estos valores controlados por el atacante llegan a child_process.spawn() con la ejecución de shell habilitada, haciendo que Node.js construya un comando de shell en el que se interpretan los metacaracteres. Un atacante que puede alcanzar el puerto directamente, o que convence a un desarrollador que ejecuta Studio para visitar un sitio web malicioso, puede ejecutar comandos arbitrarios del sistema operativo con los privilegios del desarrollador y comprometer el código fuente, las credenciales y los datos locales. Este problema está solucionado en la versión 1.29.4."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "davila7",
-       "product": "claude-code-templates",
-       "versions": [
-        {
-         "version": "< 1.29.4",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-13T13:54:20.643368Z",
-       "id": "CVE-2026-73222",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-352"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/davila7/claude-code-templates/blob/main/CHANGELOG.md",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/davila7/claude-code-templates/blob/main/CHANGELOG.md"
     },
     {
-     "url": "https://github.com/davila7/claude-code-templates/commit/bc4618b07232633c1c0aac12a43e436268d31783",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/davila7/claude-code-templates/commit/bc4618b07232633c1c0aac12a43e436268d31783"
     },
     {
-     "url": "https://github.com/davila7/claude-code-templates/security/advisories/GHSA-79wm-x847-7cvg",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/davila7/claude-code-templates/security/advisories/GHSA-79wm-x847-7cvg"
     },
     {
-     "url": "https://github.com/davila7/claude-code-templates/security/advisories/GHSA-79wm-x847-7cvg",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/davila7/claude-code-templates/security/advisories/GHSA-79wm-x847-7cvg"
     }
    ]
   }
@@ -1296,161 +161,18 @@
  {
   "cve": {
    "id": "CVE-2026-73614",
-   "sourceIdentifier": "disclosure@vulncheck.com",
    "published": "2026-08-13T12:17:26.197",
    "lastModified": "2026-10-24T15:10:00.190",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Network-AI ClaudeHookBridge before 5.15.1 truncates the target string to 500 characters before evaluating denyPatterns, while Claude Code executes the full untruncated command. Attackers can position dangerous content past byte 500 in a Bash command field to bypass the operator's hard-deny list and execute arbitrary commands."
-    },
-    {
-     "lang": "es",
-     "value": "Network-AI ClaudeHookBridge antes de 5.15.1 trunca la cadena objetivo a 500 caracteres antes de evaluar los patrones de denegación, mientras que Claude Code ejecuta el comando completo sin truncar. Los atacantes pueden colocar contenido peligroso más allá del byte 500 en un campo de comando Bash para eludir la lista de denegación estricta del operador y ejecutar comandos arbitrarios."
-    }
-   ],
-   "affected": [
-    {
-     "source": "disclosure@vulncheck.com",
-     "affectedData": [
-      {
-       "vendor": "Jovancoding",
-       "product": "Network-AI",
-       "defaultStatus": "unaffected",
-       "packageURL": "pkg:npm/network-ai",
-       "versions": [
-        {
-         "version": "0",
-         "lessThan": "5.15.1",
-         "versionType": "semver",
-         "status": "affected"
-        },
-        {
-         "version": "5.15.1",
-         "versionType": "semver",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 8.7,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-13T12:54:00.463202Z",
-       "id": "CVE-2026-73614",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "disclosure@vulncheck.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-436"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-743h-jr5x-mpcr",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-743h-jr5x-mpcr"
     },
     {
-     "url": "https://www.vulncheck.com/advisories/network-ai-claudehookbridge-deny-pattern-bypass-via-truncation",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://www.vulncheck.com/advisories/network-ai-claudehookbridge-deny-pattern-bypass-via-truncation"
     },
     {
-     "url": "https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-743h-jr5x-mpcr",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/Jovancoding/Network-AI/security/advisories/GHSA-743h-jr5x-mpcr"
     }
    ]
   }
@@ -1458,130 +180,21 @@
  {
   "cve": {
    "id": "CVE-2026-49986",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-08-14T17:18:27.147",
    "lastModified": "2026-09-18T20:09:01.757",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "The Cortex MCP server (`neuro-cortex-memory`), a cross-platform persistent memory MCP, prior to version 3.17.1 treats the `CLAUDE_PROJECT_DIR` environment variable — automatically set by Claude Code to the currently open project directory — as a trusted Cortex developer checkout. When the `open_visualization` tool is invoked, `_find_dev_source()` resolves the user's active project directory as a candidate Cortex source root. The only validation performed by `_is_cortex_root()` is a check for the presence of an `mcp_server/` subdirectory and a `ui/unified-viz.html` file. An attacker who places these two marker files in a malicious repository can cause Cortex to execute an arbitrary `mcp_server/server/visualize_bootstrap.py` from that directory via `subprocess.run([sys.executable, ...])`, achieving code execution with the privileges of the victim's local user process. Version 3.17.1 fixes the issue."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "cdeust",
-       "product": "Cortex",
-       "versions": [
-        {
-         "version": "< 3.17.1",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:H/VI:H/VA:H/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 7.1,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "HIGH",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "HIGH",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "PROOF_OF_CONCEPT",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-17T19:35:41.212124Z",
-       "id": "CVE-2026-49986",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-829"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/cdeust/Cortex/releases/tag/v3.17.1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/cdeust/Cortex/releases/tag/v3.17.1"
     },
     {
-     "url": "https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g"
     },
     {
-     "url": "https://github.com/pypa/advisory-database/tree/main/vulns/neuro-cortex-memory/PYSEC-2026-2676.yaml",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/pypa/advisory-database/tree/main/vulns/neuro-cortex-memory/PYSEC-2026-2676.yaml"
     },
     {
-     "url": "https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/cdeust/Cortex/security/advisories/GHSA-gvpp-v77h-5w8g"
     }
    ]
   }
@@ -1589,185 +202,33 @@
  {
   "cve": {
    "id": "CVE-2026-68456",
-   "sourceIdentifier": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
    "published": "2026-08-15T06:17:32.713",
    "lastModified": "2026-08-17T06:17:54.763",
    "vulnStatus": "Received",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "In the Linux kernel, the following vulnerability has been resolved:\n\nusb: atm: ueagle-atm: wait for pre-firmware load in .disconnect()\n\nueagle-atm uses the asynchronous request_firmware_nowait() in .probe(),\nbut does not wait for its completion, not even in .disconnect(); so, if the\ndevice is unplugged meanwhile, its teardown runs concurrently with that.\n\nEven though this inconsistency is worth addressing on its own, it has also\ntriggered several bug reports in syzbot over the years (some auto-closed)\nwhere the firmware sysfs fallback mechanism (CONFIG_FW_LOADER_USER_HELPER)\ncreates a firmware subdirectory in the device directory during its removal,\nwhich might hit unexpected conditions in kernfs, apparently, depending at\nwhich point the add and remove operations raced. (See links.)\n\nThe pattern is:\n\nusb ?-?: Direct firmware load for ueagle-atm/eagle?.fw failed with error -2\nusb ?-?: Falling back to sysfs fallback for: ueagle-atm/eagle?.fw\n<ERROR>\nCall trace:\n ...\n kernfs_create_dir_ns\n sysfs_create_dir_ns\n create_dir\n kobject_add_internal\n kobject_add_varg\n kobject_add\n class_dir_create_and_add\n get_device_parent\n device_add\n fw_load_sysfs_fallback\n fw_load_from_user_helper\n firmware_fallback_sysfs\n _request_firmware\n request_firmware_work_func\n ...\n\n(Some variations are observed, after fw_load_sysfs_fallback(), e.g., [1].)\n\nWhile the kernfs side is being looked at, the ueagle-atm side can be fixed\nby waiting for the pre-firmware load in the .disconnect() handler.\n\nThis change has a similar approach to previous work by Andrey Tsygunka [2]\n(wait_for_completion() in .disconnect()), but it is relatively different in\ndesign/implementation; using the Originally-by tag for credit assignment.\n\nThis has been tested with:\n- synthetic reproducer to check the error path;\n- USB gadget (virtual device) to check the firmware upload path;\n- QEMU device emulator to check the device ID re-enumeration path;\n(The latter two were written by Claude; no other code/text in this commit.)\n\nLinks (year first reported):\n 2025 https://syzbot.org/bug?extid=ce1e5a1b4e086b43e56d\n 2025 https://syzbot.org/bug?extid=9af8471255ac36e34fd4\n 2024 https://syzbot.org/bug?extid=306212936b13e520679d\n 2023 https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2\n 2022 https://syzbot.org/bug?extid=782984d6f1701b526edb\n 2021 https://syzbot.org/bug?id=f3f221579f4ef7e9691281f3c6f56c05f83e8490\n 2021 https://syzbot.org/bug?id=84d86f0d71394829df6fc53daf6642c045983881\n 2021 https://syzbot.org/bug?id=3302dc1c0e2b9c94f2e8edb404eabc9267bc6f90\n\n[1] https://syzkaller.appspot.com/bug?extid=457452d30bcdda75ead2\n[2] https://lore.kernel.org/lkml/20250410093146.3776801-2-aitsygunka@yandex.ru/"
-    }
-   ],
-   "affected": [
-    {
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67",
-     "affectedData": [
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "unaffected",
-       "programFiles": [
-        "drivers/usb/atm/ueagle-atm.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "d85f19aaef42a03e3e4765d659c761c8750a7f23",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "76861031b43a18065d13f9ffb8595d25c7576005",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "bbfedc84714064ea4845e6b76f96316eb5bb65d8",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "f2a6abc670104fc3e383ee3b1cf35c070485e3df",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "c581e30ae5b332d8acef64475a211b3f82099941",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "509b51327320bdeaef1969248177a446ded073ab",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "ddcdac47e1f2651c7be60e299f98faf981522797",
-         "versionType": "git",
-         "status": "affected"
-        },
-        {
-         "version": "b72458a80c75cab832248f536412f386e20a93a0",
-         "lessThan": "e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf",
-         "versionType": "git",
-         "status": "affected"
-        }
-       ]
-      },
-      {
-       "vendor": "Linux",
-       "product": "Linux",
-       "defaultStatus": "affected",
-       "programFiles": [
-        "drivers/usb/atm/ueagle-atm.c"
-       ],
-       "repo": "https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git",
-       "versions": [
-        {
-         "version": "2.6.16",
-         "status": "affected"
-        },
-        {
-         "version": "0",
-         "lessThan": "2.6.16",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "5.10.261",
-         "lessThanOrEqual": "5.10.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "5.15.212",
-         "lessThanOrEqual": "5.15.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.1.178",
-         "lessThanOrEqual": "6.1.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.6.145",
-         "lessThanOrEqual": "6.6.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.12.97",
-         "lessThanOrEqual": "6.12.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "6.18.40",
-         "lessThanOrEqual": "6.18.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.1.5",
-         "lessThanOrEqual": "7.1.*",
-         "versionType": "semver",
-         "status": "unaffected"
-        },
-        {
-         "version": "7.2",
-         "lessThanOrEqual": "*",
-         "versionType": "original_commit_for_fix",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {},
    "references": [
     {
-     "url": "https://git.kernel.org/stable/c/509b51327320bdeaef1969248177a446ded073ab",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/509b51327320bdeaef1969248177a446ded073ab"
     },
     {
-     "url": "https://git.kernel.org/stable/c/76861031b43a18065d13f9ffb8595d25c7576005",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/76861031b43a18065d13f9ffb8595d25c7576005"
     },
     {
-     "url": "https://git.kernel.org/stable/c/bbfedc84714064ea4845e6b76f96316eb5bb65d8",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/bbfedc84714064ea4845e6b76f96316eb5bb65d8"
     },
     {
-     "url": "https://git.kernel.org/stable/c/c581e30ae5b332d8acef64475a211b3f82099941",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/c581e30ae5b332d8acef64475a211b3f82099941"
     },
     {
-     "url": "https://git.kernel.org/stable/c/d85f19aaef42a03e3e4765d659c761c8750a7f23",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/d85f19aaef42a03e3e4765d659c761c8750a7f23"
     },
     {
-     "url": "https://git.kernel.org/stable/c/ddcdac47e1f2651c7be60e299f98faf981522797",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/ddcdac47e1f2651c7be60e299f98faf981522797"
     },
     {
-     "url": "https://git.kernel.org/stable/c/e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/e2674dfbed8a30d57e2bc872c4bfa6c3eec918bf"
     },
     {
-     "url": "https://git.kernel.org/stable/c/f2a6abc670104fc3e383ee3b1cf35c070485e3df",
-     "source": "416baaa9-dc9f-4396-8d5f-8c081fb06d67"
+     "url": "https://git.kernel.org/stable/c/f2a6abc670104fc3e383ee3b1cf35c070485e3df"
     }
    ]
   }
@@ -1775,164 +236,27 @@
  {
   "cve": {
    "id": "CVE-2026-84810",
-   "sourceIdentifier": "disclosure@vulncheck.com",
    "published": "2026-09-02T17:18:05.297",
    "lastModified": "2026-09-23T17:17:43.933",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "claude-skill-antivirus fails to analyze executable files when scanning local skill directories, reading only SKILL.md while ignoring Python source, bytecode, and other artifacts in the scripts directory. Attackers can distribute skills with malicious code in non-manifest files that receive a SAFE verdict with 100/100 trust score despite containing unanalyzed executable payloads."
-    }
-   ],
-   "affected": [
-    {
-     "source": "disclosure@vulncheck.com",
-     "affectedData": [
-      {
-       "vendor": "claude-world",
-       "product": "claude-skill-antivirus",
-       "defaultStatus": "unaffected",
-       "packageURL": "pkg:npm/claude-skill-antivirus",
-       "versions": [
-        {
-         "version": "0",
-         "lessThanOrEqual": "2.1.3",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:N/VI:H/VA:N/SC:N/SI:N/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 7.1,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "NONE",
-       "userInteraction": "PASSIVE",
-       "vulnConfidentialityImpact": "NONE",
-       "vulnIntegrityImpact": "HIGH",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "disclosure@vulncheck.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:N/I:H/A:N",
-       "baseScore": 6.5,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "NONE",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 3.6
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-02T18:02:03.730786Z",
-       "id": "CVE-2026-84810",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "disclosure@vulncheck.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-693"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/claude-world/claude-skill-antivirus",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://github.com/claude-world/claude-skill-antivirus"
     },
     {
-     "url": "https://github.com/claude-world/claude-skill-antivirus/blob/v2.1.3/src/scanner/index.js",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://github.com/claude-world/claude-skill-antivirus/blob/v2.1.3/src/scanner/index.js"
     },
     {
-     "url": "https://github.com/claude-world/claude-skill-antivirus/blob/v2.1.3/src/utils/downloader.js",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://github.com/claude-world/claude-skill-antivirus/blob/v2.1.3/src/utils/downloader.js"
     },
     {
-     "url": "https://github.com/claude-world/claude-skill-antivirus/issues/33",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://github.com/claude-world/claude-skill-antivirus/issues/33"
     },
     {
-     "url": "https://www.vulncheck.com/advisories/claude-skill-antivirus-analysis-bypass-via-manifest-only-local-directory-scan",
-     "source": "disclosure@vulncheck.com"
+     "url": "https://www.vulncheck.com/advisories/claude-skill-antivirus-analysis-bypass-via-manifest-only-local-directory-scan"
     },
     {
-     "url": "https://github.com/nedlir/skills-scanner-bypass",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/nedlir/skills-scanner-bypass"
     }
    ]
   }
@@ -1940,105 +264,15 @@
  {
   "cve": {
    "id": "CVE-2026-82439",
-   "sourceIdentifier": "security@apache.org",
    "published": "2026-09-14T14:17:12.470",
    "lastModified": "2026-09-14T20:58:48.430",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Description\n\nThe DRPC server kept a map from function name to request queue and created an entry the first time a\nfunction name was seen. No code path ever removed an entry: request cleanup removed the request from its\nqueue, and the shutdown path drained queues, but the queue object and its map entry remained for the life of\nthe process.\n\nFunction names come from the client and are not constrained to functions any topology has registered, so the\nnumber of retained entries is bounded only by the number of distinct names an attacker chooses to send, and\neach retained entry holds the name itself. `drpc.authorizer` is unset by default, so no credentials are\nrequired to reach the endpoint.\n\nThe retained state is permanent rather than a transient load spike, so the effect accumulates until the DRPC\nserver exhausts its heap.\n\nMitigation\n\nUpgrade to 3.1.0, where a function's queue is removed once nothing is waiting in it.\n\nUsers who cannot upgrade immediately should configure `drpc.authorizer` so that only trusted principals can\nreach the DRPC endpoints, and should ensure the DRPC ports are not reachable from untrusted networks.\n\nCredit\n\nThe ASF -- found using Claude agents to study the security of open-source projects, validated and reported by Apache Storm."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security@apache.org",
-     "affectedData": [
-      {
-       "vendor": "Apache Software Foundation",
-       "product": "Apache Storm DRPC",
-       "defaultStatus": "unaffected",
-       "collectionURL": "https://repo.maven.apache.org/maven2",
-       "packageName": "org.apache.storm:storm-server",
-       "versions": [
-        {
-         "version": "3.0.0",
-         "lessThan": "3.1.0",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 9.8,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 3.9,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-14T19:51:03.619338Z",
-       "id": "CVE-2026-82439",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security@apache.org",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-770"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://lists.apache.org/thread/7sgzvv5lzz93jn6vy74qfk105bhmkrzs",
-     "source": "security@apache.org"
+     "url": "https://lists.apache.org/thread/7sgzvv5lzz93jn6vy74qfk105bhmkrzs"
     },
     {
-     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/18",
-     "source": "af854a3a-2127-422b-91ae-364da2661108"
+     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/18"
     }
    ]
   }
@@ -2046,105 +280,15 @@
  {
   "cve": {
    "id": "CVE-2026-82427",
-   "sourceIdentifier": "security@apache.org",
    "published": "2026-09-14T15:17:09.553",
    "lastModified": "2026-09-14T20:58:48.430",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Description\n\nA topology's `topology.blobstore.map` lets the submitter choose a local name for each blob that the\nsupervisor localises. That name was used to build a path under the topology's working directory without\nnormalisation, in both `AsyncLocalizer` and `Container.createBlobstoreLinks`, and the symlink helper\nforce-deletes whatever already exists at the target before creating the link.\n\nA submitter could therefore use `../` segments to direct that delete-and-symlink operation at an arbitrary\npath, as the supervisor user, on every node the topology is scheduled onto. The consequences include\nrecursive deletion of supervisor-owned content and planting a symlink that causes a subsequent worker\nlaunch to execute attacker-chosen code as another tenant's operating-system user, which defeats the\nisolation that `supervisor.run.worker.as.user` is intended to provide.\n\nMitigation\n\nUpgrade to 3.1.0, where the resolved target must lie inside the expected root at both call sites.\n\nUsers who cannot upgrade immediately should restrict topology submission to trusted principals, and may\nreject submissions whose `topology.blobstore.map` entries contain path separators or `..` segments before\nthey reach Nimbus.\n\nCredit\n\nThe ASF -- found using Claude agents to study the security of open-source projects, validated and reported by Apache Storm."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security@apache.org",
-     "affectedData": [
-      {
-       "vendor": "Apache Software Foundation",
-       "product": "Apache Storm Nimbus",
-       "defaultStatus": "unaffected",
-       "collectionURL": "https://repo.maven.apache.org/maven2",
-       "packageName": "org.apache.storm:storm-server",
-       "versions": [
-        {
-         "version": "3.0.0",
-         "lessThan": "3.1.0",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 7.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-14T19:56:14.837455Z",
-       "id": "CVE-2026-82427",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security@apache.org",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://lists.apache.org/thread/o0j51w6m0qdmwypvzfnd8w97s7ysnmyj",
-     "source": "security@apache.org"
+     "url": "https://lists.apache.org/thread/o0j51w6m0qdmwypvzfnd8w97s7ysnmyj"
     },
     {
-     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/7",
-     "source": "af854a3a-2127-422b-91ae-364da2661108"
+     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/7"
     }
    ]
   }
@@ -2152,105 +296,15 @@
  {
   "cve": {
    "id": "CVE-2026-82428",
-   "sourceIdentifier": "security@apache.org",
    "published": "2026-09-14T15:17:09.673",
    "lastModified": "2026-09-14T20:58:48.430",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Description\n\nDependency artifacts uploaded with `storm jar --artifacts` were stored under a blob key derived only from\nthe Maven coordinate, for example `dep---.jar`. The key was therefore identical\nfor every user of the cluster and predictable in advance. When the blob already existed, the uploader\ncaught `KeyAlreadyExistsException` and silently reused it, with no check that the existing blob's content\nor owner matched the artifact the submitter had resolved.\n\nA user who uploaded a blob under such a key first therefore controlled the bytes that every later submitter\nof the same coordinate would receive on the worker classpath, resulting in code execution inside another\ntenant's topology.\n\nThis affects deployments where more than one principal may create blobs and where the `--artifacts`\ndependency feature is used.\n\nMitigation\n\nUpgrade to 3.1.0, where each uploaded artifact receives a key carrying a freshly generated UUID and a\npre-existing blob is no longer silently reused.\n\nNote that the corrected key generation is on the SUBMITTING CLIENT, so upgrading the cluster alone does not\nclose this; every client that runs `storm jar --artifacts` must also be upgraded. Operators should audit\nexisting `dep-` blobs for unexpected owners before upgrading. Users who cannot upgrade immediately should\navoid the `--artifacts` mechanism in multi-tenant clusters and distribute dependencies inside the topology\njar instead.\n\nCredit\n\nThe ASF -- found using Claude agents to study the security of open-source projects, validated and reported by Apache Storm."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security@apache.org",
-     "affectedData": [
-      {
-       "vendor": "Apache Software Foundation",
-       "product": "Apache Storm Client",
-       "defaultStatus": "unaffected",
-       "collectionURL": "https://repo.maven.apache.org/maven2",
-       "packageName": "org.apache.storm:storm-client",
-       "versions": [
-        {
-         "version": "3.0.0",
-         "lessThan": "3.1.0",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-14T19:58:03.203886Z",
-       "id": "CVE-2026-82428",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security@apache.org",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-22"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://lists.apache.org/thread/pj3fspp4l10fgk2jkvrnqsmxycmjv622",
-     "source": "security@apache.org"
+     "url": "https://lists.apache.org/thread/pj3fspp4l10fgk2jkvrnqsmxycmjv622"
     },
     {
-     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/8",
-     "source": "af854a3a-2127-422b-91ae-364da2661108"
+     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/8"
     }
    ]
   }
@@ -2258,105 +312,15 @@
  {
   "cve": {
    "id": "CVE-2026-82429",
-   "sourceIdentifier": "security@apache.org",
    "published": "2026-09-14T15:17:09.807",
    "lastModified": "2026-09-14T20:58:48.430",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Description\n\nThe setuid-root `worker-launcher` binary adjusts ownership and permissions of worker directories by walking\nthe tree with FTS and calling `lchown` and `chmod` on each entry's full pathname while running with an\neffective uid of 0. Both syscalls re-resolve the path at the time of the call, after FTS has classified the\nentry, and the trees being walked are owned and writable by the untrusted topology user.\n\nA tenant running code on a supervisor node could therefore replace an intermediate directory component with\na symbolic link between classification and the privileged operation, redirecting the root-owned `lchown` or\n`chmod` at an arbitrary file on the host. The operation is repeatable at will, since crashing a worker\nforces a relaunch and blob updates re-run the walk, so a failed attempt costs the attacker nothing.\n\nThis crosses the boundary that `supervisor.run.worker.as.user` and container isolation are intended to\nenforce. It is the same defect class as the Hadoop container-executor issues from which this code derives.\n\nMitigation\n\nUpgrade to 3.1.0, where the privileged walk operates on file descriptors it has already stat'd rather than\non pathnames re-resolved at call time.\n\nUsers who cannot upgrade immediately should not run untrusted topology code on supervisors configured with\n`supervisor.run.worker.as.user`, since the launcher is the boundary being crossed. Note that the launcher\nmust be rebuilt and reinstalled after upgrading; replacing the Java artifacts alone is not sufficient.\n\nCredit\n\nThe ASF -- found using Claude agents to study the security of open-source projects, validated and reported by Apache Storm."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security@apache.org",
-     "affectedData": [
-      {
-       "vendor": "Apache Software Foundation",
-       "product": "Apache Storm Worker Launcher",
-       "defaultStatus": "unaffected",
-       "collectionURL": "https://repo.maven.apache.org/maven2",
-       "packageName": "org.apache.storm:storm-core",
-       "versions": [
-        {
-         "version": "3.0.0",
-         "lessThan": "3.1.0",
-         "versionType": "semver",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 7.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-14T19:59:35.240189Z",
-       "id": "CVE-2026-82429",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security@apache.org",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-367"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://lists.apache.org/thread/9vjqrt28g0mxg304vw6pw46cx72v4rvq",
-     "source": "security@apache.org"
+     "url": "https://lists.apache.org/thread/9vjqrt28g0mxg304vw6pw46cx72v4rvq"
     },
     {
-     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/9",
-     "source": "af854a3a-2127-422b-91ae-364da2661108"
+     "url": "http://www.openwall.com/lists/oss-security/2026/09/13/9"
     }
    ]
   }

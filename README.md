@@ -8,7 +8,9 @@ Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
 **Safety boundary.** Every component here is a harmless canary or a read-only check: the canary MCP server only logs that it
 started and answers a minimal handshake with one no-op tool; the generators write configuration that points at the canary; the
 runners drive the clients and record screens and logs. There are no attack payloads and nothing that exfiltrates, modifies or
-reaches the network. The matrix runners edit the clients' trust stores in `$HOME`: run them only in a disposable VM.
+reaches the network. The matrix runners edit the clients' trust stores in `$HOME`: run them only in a disposable VM. The RQ1
+data in `preregistration/rq1/` keep advisory identifiers, titles, dates, references and short factual notes; full advisory texts,
+which can describe exploitation, are not included (hashes only).
 
 | Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
@@ -40,6 +42,7 @@ node scripts/check-approvals.mjs          # which MCP tools have I approved perm
 ```bash
 python3 -m unittest discover -s telemetry/test          # 221 tests, Python >= 3.11, no dependencies
 python3 -m unittest discover -s defence-coverage/test   # 28 tests
+python3 -m unittest discover -s preregistration/test    # 76 tests: RQ1 classifier, sampler, estimator
 python3 telemetry/scripts/vm_logs.py inventory telemetry/inventory/candidates.json   # read-only: which agent logs are on this machine?
 ```
 The event and baseline orchestrators run on the host and drive the disposable VM; the scripts that stop or reset clients refuse to
@@ -47,12 +50,12 @@ run outside it.
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
-Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. Version v0.4.2 (24 Oct 2026, the D39 orchestrator takes the shared VM lock and refuses a mismatched resume; the analysis follows the plan): https://doi.org/10.5281/zenodo.23623381. See also `CITATION.cff`.
+Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. Version v0.4.2 (24 Oct 2026, the D39 orchestrator takes the shared VM lock and refuses a mismatched resume; the analysis follows the plan): https://doi.org/10.5281/zenodo.23623381. Version v0.4.3 (25 Oct 2026, RQ1: deviations D40–D44, hardened classifier, frozen frame of 330 disclosures and the 120-case sample drawn with a public beacon): DOI added after the release. See also `CITATION.cff`.
 
 The study design (research questions, hypotheses, criteria, analysis plan, Q3 and Q4 protocols) was preregistered on
 11 October 2026: https://doi.org/10.5281/zenodo.23300369
 
-> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.2) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
+> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
 MIT.

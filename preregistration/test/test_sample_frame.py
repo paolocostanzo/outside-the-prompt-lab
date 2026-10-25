@@ -264,6 +264,28 @@ class History(unittest.TestCase):
         self.assertEqual(sf.frame_commits(M), [self.F])
 
 
+class Archive(unittest.TestCase):
+    """verify_archive.py works on a folder without git history and refuses a changed frame or sample."""
+    def test_verify_from_folder(self):
+        import contextlib, csv as _csv, hashlib, json, tempfile
+        import verify_archive as va
+        with tempfile.TemporaryDirectory() as d:
+            d = pathlib.Path(d); raw = frame(REAL); (d / "rq1-frame.csv").write_bytes(raw)
+            F = hashlib.sha256(raw).hexdigest(); B = "beef" * 16; seed = sf.seed_of(F, B)
+            push = "2026-10-20T12:00:00Z"; rnd = sf.first_round_after(sf.ts(push))
+            _, _, out = sf.sample(sf.read_frame(raw), seed)
+            with open(d / "rq1-sample.csv", "w", newline="") as f:
+                w = _csv.DictWriter(f, fieldnames=sf.SAMPLE_COLUMNS); w.writeheader(); w.writerows(out)
+            (d / "rq1-sample-manifest.json").write_text(json.dumps({"frame_sha256": F, "drand_randomness": B, "seed": seed,
+                "push_event": {"created_at": push}, "drand_chain": sf.DRAND_CHAIN, "drand_round": rnd,
+                "capture": {"utc": None, "within_30_min_after_push": True, "events_page_utc": None}}))
+            with contextlib.redirect_stdout(io.StringIO()): va.main(folder=d)
+            (d / "rq1-sample.csv").write_text((d / "rq1-sample.csv").read_text().replace(",yes", ",no", 1))
+            with self.assertRaises(SystemExit): va.main(folder=d)
+            (d / "rq1-frame.csv").write_bytes(raw.replace(b"Q0001", b"Q9999"))
+            with self.assertRaises(SystemExit): va.main(folder=d)
+
+
 class Relays(unittest.TestCase):
     def setUp(self): self.saved = sf.urllib.request.urlopen
     def tearDown(self): sf.urllib.request.urlopen = self.saved

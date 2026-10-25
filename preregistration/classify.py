@@ -78,17 +78,27 @@ def validate_cases(cases):
 
 
 def load_r0(path, case_ids=None):
-    """R0 labels: {"classes": {id: 1..4}}, every class an integer 1-4, ids exactly the case set when given."""
+    """R0 labels: {"classes": {id: 1..4 or null}}. A labelled class is an integer 1-4; null marks a sampled case without a
+    label (non-response, D44 points 5-6: no summary could be written, so it is not in the case set given to the models).
+    Returns the labelled cases, whose ids must be exactly the case set when given; null ids must lie outside it."""
     d = json.loads(pathlib.Path(path).read_text())
     cl = d.get("classes") if isinstance(d, dict) else None
     if not isinstance(cl, dict) or not cl:
         sys.exit(f"{path}: no R0 classes")
-    if bad := sorted(k for k, v in cl.items() if type(v) is not int or not 1 <= v <= 4):
-        sys.exit(f"{path}: R0 classes must be integers 1-4: {bad[:10]}")
-    if case_ids is not None and set(cl) != set(case_ids):
-        sys.exit(f"{path}: R0 cases differ from the case set (missing {sorted(set(case_ids) - set(cl))[:10]}, "
-                 f"extra {sorted(set(cl) - set(case_ids))[:10]})")
-    return cl
+    if bad := sorted(k for k, v in cl.items() if v is not None and (type(v) is not int or not 1 <= v <= 4)):
+        sys.exit(f"{path}: R0 classes must be integers 1-4 (or null for non-response): {bad[:10]}")
+    labelled = {k: v for k, v in cl.items() if v is not None}
+    if not labelled:
+        sys.exit(f"{path}: no labelled R0 case")
+    if case_ids is not None and set(labelled) != set(case_ids):
+        sys.exit(f"{path}: labelled R0 cases differ from the case set (missing {sorted(set(case_ids) - set(labelled))[:10]}, "
+                 f"extra {sorted(set(labelled) - set(case_ids))[:10]})")
+    return labelled
+
+
+def r0_nonresponse(path):
+    """Sampled cases R0 recorded without a label (null): reported, and counted as unlabelled by rq1/estimate.py."""
+    return sorted(k for k, v in json.loads(pathlib.Path(path).read_text())["classes"].items() if v is None)
 
 
 def committed(path):
@@ -352,7 +362,9 @@ def agree(results=PILOT / "results", human_file=PILOT / "human.json", allow_miss
         sys.exit("case sets differ or modal class missing (tie/invalid); rerun or pass --allow-missing:\n"
                  + "\n".join(f"  {k}: missing {v['missing']} extra {v['extra']}" for k, v in gaps.items()))
     title = f"# Agreement on {len(human)} cases" + (f" (excluding {', '.join(exclude)})" if exclude else "")
+    nonresp = r0_nonresponse(human_file)
     lines = [title, "", f"Raters: {len(raters)} (human + {len(raters)-1} models). Generated {datetime.date.today()}.", "",
+             f"R0 non-response (sampled, no label; outside the case set): {len(nonresp)}" + (f" {nonresp}" if nonresp else ""), "",
              "| Rater | Cohen's kappa vs human | n | Share in classes 1-3 |", "|---|---|---|---|"]
     kappas = {}
     for name, cl in raters.items():
@@ -378,7 +390,7 @@ def agree(results=PILOT / "results", human_file=PILOT / "human.json", allow_miss
         name = "agreement.md" if not exclude else "agreement-without-" + "-".join(e.split(":")[0] for e in exclude) + ".md"
         (results / name).write_text("\n".join(lines) + "\n")
     print("\n".join(lines))
-    return {"cohen": kappas, "fleiss": fk, "n_common": len(common), "gaps": gaps}
+    return {"cohen": kappas, "fleiss": fk, "n_common": len(common), "gaps": gaps, "r0_nonresponse": nonresp}
 
 
 if __name__ == "__main__":

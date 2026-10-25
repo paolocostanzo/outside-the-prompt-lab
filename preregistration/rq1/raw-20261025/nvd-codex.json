@@ -2,107 +2,12 @@
  {
   "cve": {
    "id": "CVE-2026-57720",
-   "sourceIdentifier": "audit@patchstack.com",
    "published": "2026-07-01T17:16:37.630",
    "lastModified": "2026-07-01T19:16:56.230",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Missing Authorization vulnerability in Codexpert Inc ThumbPress allows Exploiting Incorrectly Configured Access Control Security Levels.\n\nThis issue affects ThumbPress: from n/a through 6.3.2."
-    }
-   ],
-   "affected": [
-    {
-     "source": "audit@patchstack.com",
-     "affectedData": [
-      {
-       "vendor": "Codexpert Inc",
-       "product": "ThumbPress",
-       "defaultStatus": "unaffected",
-       "collectionURL": "https://wordpress.org/plugins",
-       "packageName": "image-sizes",
-       "versions": [
-        {
-         "version": "n/a",
-         "lessThanOrEqual": "6.3.2",
-         "versionType": "custom",
-         "status": "affected",
-         "changes": [
-          {
-           "at": "6.3.3",
-           "status": "unaffected"
-          }
-         ]
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "audit@patchstack.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:N/S:U/C:N/I:N/A:L",
-       "baseScore": 4.3,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "NONE",
-       "integrityImpact": "NONE",
-       "availabilityImpact": "LOW"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 1.4
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-01T18:09:35.388725Z",
-       "id": "CVE-2026-57720",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "audit@patchstack.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-862"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://patchstack.com/database/wordpress/plugin/image-sizes/vulnerability/wordpress-thumbpress-plugin-6-3-2-broken-access-control-vulnerability?_s_id=cve",
-     "source": "audit@patchstack.com"
+     "url": "https://patchstack.com/database/wordpress/plugin/image-sizes/vulnerability/wordpress-thumbpress-plugin-6-3-2-broken-access-control-vulnerability?_s_id=cve"
     }
    ]
   }
@@ -110,98 +15,12 @@
  {
   "cve": {
    "id": "CVE-2026-14898",
-   "sourceIdentifier": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
    "published": "2026-07-06T20:16:30.580",
    "lastModified": "2026-07-07T16:16:37.877",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "The OpenAI Codex desktop app for macOS rendered remote images from Markdown in model responses. An attacker who could place an indirect prompt injection in content processed by Codex, such as a connected-tool result or another untrusted source, could induce the model to construct a remote image URL containing sensitive data. The app automatically fetched that URL when rendering the response, sending the embedded data to an attacker-controlled server without a separate user click. Successful exploitation could exfiltrate secrets and other information accessible in the Codex session, including API keys, source code, and data returned by connected tools. No direct integrity or availability impact was demonstrated, and there is no known exploitation in the wild."
-    }
-   ],
-   "affected": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "affectedData": [
-      {
-       "vendor": "OpenAI",
-       "product": "Codex desktop app for macOS",
-       "versions": [
-        {
-         "version": "0",
-         "lessThan": "26.527.31326",
-         "versionType": "custom",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N",
-       "baseScore": 6.5,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "NONE",
-       "availabilityImpact": "NONE"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 3.6
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-07T15:35:10.010319Z",
-       "id": "CVE-2026-14898",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-200"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://openai.com/codex/",
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7"
+     "url": "https://openai.com/codex/"
     }
    ]
   }
@@ -209,116 +28,21 @@
  {
   "cve": {
    "id": "CVE-2026-59726",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-09T18:16:57.337",
    "lastModified": "2026-07-10T19:15:15.780",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Ruflo is an agent meta-harness for Claude Code and Codex. Prior to 3.16.3, ruflo's default docker-compose deployment exposed the MCP bridge POST /mcp and POST /mcp/:group endpoints without authentication, allowing an unauthenticated network attacker to invoke tools/call to terminal_execute, obtain a shell in the bridge container, read provider API keys, and poison AgentDB learning-store patterns. This issue is fixed in version 3.16.3."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "ruvnet",
-       "product": "ruflo",
-       "versions": [
-        {
-         "version": "< 3.16.3",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:C/C:H/I:H/A:H",
-       "baseScore": 10.0,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "CHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 3.9,
-      "impactScore": 6.0
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-09T18:43:19.456381Z",
-       "id": "CVE-2026-59726",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-78"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-306"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-942"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/ruvnet/ruflo/commit/d00a0a40cd8bdbca877ac7f675f416bdc69accd1",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/commit/d00a0a40cd8bdbca877ac7f675f416bdc69accd1"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/pull/2521",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/pull/2521"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/releases/tag/v3.16.3",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/releases/tag/v3.16.3"
     },
     {
-     "url": "https://github.com/ruvnet/ruflo/security/advisories/GHSA-c4hm-4h84-2cf3",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/ruvnet/ruflo/security/advisories/GHSA-c4hm-4h84-2cf3"
     }
    ]
   }
@@ -326,109 +50,12 @@
  {
   "cve": {
    "id": "CVE-2026-57804",
-   "sourceIdentifier": "audit@patchstack.com",
    "published": "2026-07-13T10:16:44.687",
    "lastModified": "2026-10-24T22:10:00.210",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Improper Control of Filename for Include/Require Statement in PHP Program ('PHP Remote File Inclusion') vulnerability in CodexThemes TheGem Theme Elements (for Elementor) allows PHP Local File Inclusion.\n\nThis issue affects TheGem Theme Elements (for Elementor): from n/a before 5.12.1.1."
-    },
-    {
-     "lang": "es",
-     "value": "Control inadecuado del nombre de fichero para la declaración Include/Require en un programa PHP, una vulnerabilidad de ’inclusión remota de ficheros PHP’, en CodexThemes TheGem Theme Elements (for Elementor) thegem-elements-elementor permite la inclusión local de ficheros PHP. Este problema afecta a TheGem Theme Elements (for Elementor): desde n/a hasta menor o igual que 5.11.1."
-    }
-   ],
-   "affected": [
-    {
-     "source": "audit@patchstack.com",
-     "affectedData": [
-      {
-       "vendor": "CodexThemes",
-       "product": "TheGem Theme Elements (for Elementor)",
-       "defaultStatus": "unaffected",
-       "versions": [
-        {
-         "version": "n/a",
-         "lessThan": "5.12.1.1",
-         "versionType": "custom",
-         "status": "affected",
-         "changes": [
-          {
-           "at": "5.12.1.1",
-           "status": "unaffected"
-          }
-         ]
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "audit@patchstack.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:H/PR:L/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 7.5,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "HIGH",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.6,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-13T14:17:06.365480Z",
-       "id": "CVE-2026-57804",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "audit@patchstack.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-98"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://patchstack.com/database/wordpress/plugin/thegem-elements-elementor/vulnerability/wordpress-thegem-theme-elements-for-elementor-plugin-5-11-1-local-file-inclusion-vulnerability?_s_id=cve",
-     "source": "audit@patchstack.com"
+     "url": "https://patchstack.com/database/wordpress/plugin/thegem-elements-elementor/vulnerability/wordpress-thegem-theme-elements-for-elementor-plugin-5-11-1-local-file-inclusion-vulnerability?_s_id=cve"
     }
    ]
   }
@@ -436,126 +63,15 @@
  {
   "cve": {
    "id": "CVE-2026-64650",
-   "sourceIdentifier": "security-advisories@github.com",
    "published": "2026-07-20T21:16:50.520",
    "lastModified": "2026-10-24T20:10:00.137",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "The `@ai-sdk/harness-opencode` tool is an HarnessV1 adapter backed by @openai/codex-sdk, which drives the codex command line interface. Prior to version 1.0.29, the tool relay authorizes requests from any process whose command line contains an allowed helper script path (the Codex CLI shim). This allows untrusted code executing in the sandbox to invoke arbitrary host-exposed tools, including secret lookups, deployment operations, and cloud API calls  without a corresponding model-authorized tool-call event. Exploitation requires a Linux environment (the vulnerable fallback checks `process.platform === 'linux'` and reads `/proc`); an active harness session with one or more host-provided tools; and untrusted code executing in the sandbox (e.g. a malicious dependency, build script, or lifecycle hook) The fix in version 1.0.29 removes the process-path authorization fallback entirely. Relay requests are now only accepted after exact, short-lived, one-time authorization matching the tool name and input from a bridge-observed model event. Some workarounds are available. Do not run the Codex harness on untrusted repositories or with untrusted dependencies, and/or limit host-exposed tools to non-sensitive operations when working with untrusted code."
-    },
-    {
-     "lang": "es",
-     "value": "La herramienta “@ai-sdk/harness-opencode” es un adaptador HarnessV1 respaldado por @openai/codex-sdk, que impulsa la interfaz de línea de comandos de codex. Antes de la versión 1.0.29, el relé de la herramienta autoriza solicitudes de cualquier proceso cuya línea de comandos contenga una ruta de script auxiliar permitida (el shim de la CLI de Codex). Esto permite que código no confiable ejecutándose en el sandbox invoque herramientas arbitrarias expuestas por el host, incluyendo búsquedas de secretos, operaciones de despliegue y llamadas a la API en la nube sin un evento de llamada a herramienta autorizado por el modelo correspondiente. La explotación requiere un entorno Linux (la comprobación de reserva vulnerable verifica “process.platform === ’linux’” y lee “/proc”); una sesión de harness activa con una o más herramientas proporcionadas por el host; y código no confiable ejecutándose en el sandbox (por ejemplo, una dependencia maliciosa, un script de compilación o un hook de ciclo de vida). La corrección en la versión 1.0.29 elimina por completo la reserva de autorización por ruta de proceso. Las solicitudes de relé ahora solo se aceptan después de una autorización exacta, de corta duración y de un solo uso que coincida con el nombre de la herramienta y la entrada de un evento de modelo observado por el puente. Algunas soluciones alternativas están disponibles. No ejecute el harness de Codex en repositorios no confiables o con dependencias no confiables, y/o limite las herramientas expuestas por el host a operaciones no sensibles cuando trabaje con código no confiable."
-    }
-   ],
-   "affected": [
-    {
-     "source": "security-advisories@github.com",
-     "affectedData": [
-      {
-       "vendor": "vercel",
-       "product": "@ai-sdk/harness-codex",
-       "versions": [
-        {
-         "version": "< 1.0.29",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "security-advisories@github.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:N/UI:N/VC:N/VI:L/VA:N/SC:H/SI:H/SA:N/E:X/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 6.3,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "NONE",
-       "vulnIntegrityImpact": "LOW",
-       "vulnAvailabilityImpact": "NONE",
-       "subConfidentialityImpact": "HIGH",
-       "subIntegrityImpact": "HIGH",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "NOT_DEFINED",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-20T21:45:38.151412Z",
-       "id": "CVE-2026-64650",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "security-advisories@github.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-863"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/vercel/ai/pull/17105",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/vercel/ai/pull/17105"
     },
     {
-     "url": "https://github.com/vercel/ai/security/advisories/GHSA-qw9h-448j-6rph",
-     "source": "security-advisories@github.com"
+     "url": "https://github.com/vercel/ai/security/advisories/GHSA-qw9h-448j-6rph"
     }
    ]
   }
@@ -563,109 +79,12 @@
  {
   "cve": {
    "id": "CVE-2026-65480",
-   "sourceIdentifier": "audit@patchstack.com",
    "published": "2026-07-23T12:18:40.973",
    "lastModified": "2026-10-24T13:10:00.147",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "Improper Neutralization of Input During Web Page Generation ('Cross-site Scripting') vulnerability in CodexThemes TheGem allows DOM-Based XSS.\n\nThis issue affects TheGem: from n/a before 5.12.1.1."
-    },
-    {
-     "lang": "es",
-     "value": "Cross-Site Scripting (XSS) de Contribuidor en versiones TheGem menor o igual que 5.11.1."
-    }
-   ],
-   "affected": [
-    {
-     "source": "audit@patchstack.com",
-     "affectedData": [
-      {
-       "vendor": "CodexThemes",
-       "product": "TheGem",
-       "defaultStatus": "unaffected",
-       "versions": [
-        {
-         "version": "n/a",
-         "lessThan": "5.12.1.1",
-         "versionType": "custom",
-         "status": "affected",
-         "changes": [
-          {
-           "at": "5.12.1.1",
-           "status": "unaffected"
-          }
-         ]
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "audit@patchstack.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:L/UI:R/S:C/C:L/I:L/A:L",
-       "baseScore": 6.5,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "CHANGED",
-       "confidentialityImpact": "LOW",
-       "integrityImpact": "LOW",
-       "availabilityImpact": "LOW"
-      },
-      "exploitabilityScore": 2.3,
-      "impactScore": 3.7
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-07-23T15:57:15.482286Z",
-       "id": "CVE-2026-65480",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "audit@patchstack.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-79"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://patchstack.com/database/wordpress/theme/thegem/vulnerability/wordpress-thegem-theme-5-11-1-cross-site-scripting-xss-vulnerability?_s_id=cve",
-     "source": "audit@patchstack.com"
+     "url": "https://patchstack.com/database/wordpress/theme/thegem/vulnerability/wordpress-thegem-theme-5-11-1-cross-site-scripting-xss-vulnerability?_s_id=cve"
     }
    ]
   }
@@ -673,203 +92,30 @@
  {
   "cve": {
    "id": "CVE-2026-19329",
-   "sourceIdentifier": "cna@vuldb.com",
    "published": "2026-08-09T04:17:37.780",
    "lastModified": "2026-10-23T20:10:00.160",
    "vulnStatus": "Deferred",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "A vulnerability was found in andreahaku codex_mcp up to 1ff521cc6cc57cfe56ddef946c644b8534771390. The affected element is an unknown function of the file src/codex-process-simple.ts of the component ask MCP Tool. The manipulation of the argument model results in command injection. The attack requires a local approach. This product does not use versioning. This is why information about affected and unaffected releases are unavailable. The project was informed of the problem early through an issue report but has not responded yet."
-    },
-    {
-     "lang": "es",
-     "value": "Se encontró una vulnerabilidad en andreahaku codex_mcp hasta 1ff521cc6cc57cfe56ddef946c644b8534771390. El elemento afectado es una función desconocida del archivo src/codex-process-simple.ts del componente ask MCP Tool. La manipulación del argumento model resulta en inyección de comandos. El ataque requiere un enfoque local. Este producto no utiliza versionado. Por esta razón, la información sobre las versiones afectadas y no afectadas no está disponible. Se informó al proyecto del problema con antelación a través de un informe de incidencias, pero aún no ha respondido."
-    }
-   ],
-   "affected": [
-    {
-     "source": "cna@vuldb.com",
-     "affectedData": [
-      {
-       "vendor": "andreahaku",
-       "product": "codex_mcp",
-       "cpes": [
-        "cpe:2.3:a:andreahaku:codex_mcp:*:*:*:*:*:*:*:*"
-       ],
-       "modules": [
-        "ask MCP Tool"
-       ],
-       "versions": [
-        {
-         "version": "1ff521cc6cc57cfe56ddef946c644b8534771390",
-         "status": "affected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV40": [
-     {
-      "source": "cna@vuldb.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "4.0",
-       "vectorString": "CVSS:4.0/AV:L/AC:L/AT:N/PR:L/UI:N/VC:L/VI:L/VA:L/SC:N/SI:N/SA:N/E:P/CR:X/IR:X/AR:X/MAV:X/MAC:X/MAT:X/MPR:X/MUI:X/MVC:X/MVI:X/MVA:X/MSC:X/MSI:X/MSA:X/S:X/AU:X/R:X/V:X/RE:X/U:X",
-       "baseScore": 1.9,
-       "baseSeverity": "LOW",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "attackRequirements": "NONE",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "vulnConfidentialityImpact": "LOW",
-       "vulnIntegrityImpact": "LOW",
-       "vulnAvailabilityImpact": "LOW",
-       "subConfidentialityImpact": "NONE",
-       "subIntegrityImpact": "NONE",
-       "subAvailabilityImpact": "NONE",
-       "exploitMaturity": "PROOF_OF_CONCEPT",
-       "confidentialityRequirement": "NOT_DEFINED",
-       "integrityRequirement": "NOT_DEFINED",
-       "availabilityRequirement": "NOT_DEFINED",
-       "modifiedAttackVector": "NOT_DEFINED",
-       "modifiedAttackComplexity": "NOT_DEFINED",
-       "modifiedAttackRequirements": "NOT_DEFINED",
-       "modifiedPrivilegesRequired": "NOT_DEFINED",
-       "modifiedUserInteraction": "NOT_DEFINED",
-       "modifiedVulnConfidentialityImpact": "NOT_DEFINED",
-       "modifiedVulnIntegrityImpact": "NOT_DEFINED",
-       "modifiedVulnAvailabilityImpact": "NOT_DEFINED",
-       "modifiedSubConfidentialityImpact": "NOT_DEFINED",
-       "modifiedSubIntegrityImpact": "NOT_DEFINED",
-       "modifiedSubAvailabilityImpact": "NOT_DEFINED",
-       "Safety": "NOT_DEFINED",
-       "Automatable": "NOT_DEFINED",
-       "Recovery": "NOT_DEFINED",
-       "valueDensity": "NOT_DEFINED",
-       "vulnerabilityResponseEffort": "NOT_DEFINED",
-       "providerUrgency": "NOT_DEFINED"
-      }
-     }
-    ],
-    "cvssMetricV31": [
-     {
-      "source": "cna@vuldb.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:N/S:U/C:L/I:L/A:L",
-       "baseScore": 5.3,
-       "baseSeverity": "MEDIUM",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "LOW",
-       "integrityImpact": "LOW",
-       "availabilityImpact": "LOW"
-      },
-      "exploitabilityScore": 1.8,
-      "impactScore": 3.4
-     }
-    ],
-    "cvssMetricV2": [
-     {
-      "source": "cna@vuldb.com",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "2.0",
-       "vectorString": "AV:L/AC:L/Au:S/C:P/I:P/A:P",
-       "baseScore": 4.3,
-       "accessVector": "LOCAL",
-       "accessComplexity": "LOW",
-       "authentication": "SINGLE",
-       "confidentialityImpact": "PARTIAL",
-       "integrityImpact": "PARTIAL",
-       "availabilityImpact": "PARTIAL"
-      },
-      "baseSeverity": "MEDIUM",
-      "exploitabilityScore": 3.1,
-      "impactScore": 6.4,
-      "acInsufInfo": false,
-      "obtainAllPrivilege": false,
-      "obtainUserPrivilege": false,
-      "obtainOtherPrivilege": false,
-      "userInteractionRequired": false
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-08-10T13:37:38.794385Z",
-       "id": "CVE-2026-19329",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "partial"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "cna@vuldb.com",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-74"
-      },
-      {
-       "lang": "en",
-       "value": "CWE-77"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/andreahaku/codex_mcp/",
-     "source": "cna@vuldb.com"
+     "url": "https://github.com/andreahaku/codex_mcp/"
     },
     {
-     "url": "https://github.com/andreahaku/codex_mcp/issues/1",
-     "source": "cna@vuldb.com"
+     "url": "https://github.com/andreahaku/codex_mcp/issues/1"
     },
     {
-     "url": "https://vuldb.com/cve/CVE-2026-19329",
-     "source": "cna@vuldb.com"
+     "url": "https://vuldb.com/cve/CVE-2026-19329"
     },
     {
-     "url": "https://vuldb.com/submit/865246",
-     "source": "cna@vuldb.com"
+     "url": "https://vuldb.com/submit/865246"
     },
     {
-     "url": "https://vuldb.com/vuln/387163",
-     "source": "cna@vuldb.com"
+     "url": "https://vuldb.com/vuln/387163"
     },
     {
-     "url": "https://vuldb.com/vuln/387163/cti",
-     "source": "cna@vuldb.com"
+     "url": "https://vuldb.com/vuln/387163/cti"
     },
     {
-     "url": "https://github.com/andreahaku/codex_mcp/issues/1",
-     "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0"
+     "url": "https://github.com/andreahaku/codex_mcp/issues/1"
     }
    ]
   }
@@ -877,143 +123,12 @@
  {
   "cve": {
    "id": "CVE-2026-19590",
-   "sourceIdentifier": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
    "published": "2026-09-01T18:17:40.140",
    "lastModified": "2026-09-03T15:17:19.780",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "OpenAI Codex Desktop for Windows and macOS could execute attacker-controlled Git hooks because automated Git operations trusted the repository's local core.hooksPath setting. If a user opens an attacker-prepared repository whose preserved .git/config points core.hooksPath to an attacker-controlled directory, Codex can run a malicious hook while processing the repository. The hook executes outside Codex's command sandbox, without user approval, and with the user's privileges, allowing it to read, change, or delete the user's files and access other resources available to the user's account. An ordinary Git clone does not preserve the attacker-controlled repository-local configuration required for exploitation."
-    }
-   ],
-   "affected": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "affectedData": [
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "macOS"
-       ],
-       "versions": [
-        {
-         "version": "260202.0859",
-         "lessThanOrEqual": "26.513.31313",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.22136",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38",
-         "lessThanOrEqual": "26.513.40821",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.21041",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop (Microsoft Store package)",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38.0",
-         "lessThanOrEqual": "26.513.4821.0",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.2081.0",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 7.3,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.3,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-03T14:29:12.027630Z",
-       "id": "CVE-2026-19590",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-427"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/openai/codex/pull/22843",
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7"
+     "url": "https://github.com/openai/codex/pull/22843"
     }
    ]
   }
@@ -1021,164 +136,12 @@
  {
   "cve": {
    "id": "CVE-2026-19591",
-   "sourceIdentifier": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
    "published": "2026-09-01T18:17:40.260",
    "lastModified": "2026-09-02T19:17:16.760",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "OpenAI Codex CLI for Windows, macOS, and Linux and Codex Desktop for Windows and macOS misclassified certain PowerShell commands as safe because their command-safety parser interpreted PowerShell's stop-parsing token (--%) differently than PowerShell itself. If a user opens an attacker-prepared repository and Codex follows its instructions, Codex can run a file-writing Git command without requesting user approval. On macOS and Linux, exploitation additionally requires separately installed PowerShell Core (pwsh) to be invoked. If filesystem protections permit the write, the command can modify Codex's configuration. If Codex later loads the modified configuration, it can launch an attacker-controlled MCP server and execute code with the user's privileges, allowing it to read, change, or delete files accessible to that account. The approval bypass does not disable filesystem sandboxing; the default filesystem sandbox on macOS and Linux can prevent writes outside permitted locations."
-    }
-   ],
-   "affected": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "affectedData": [
-      {
-       "vendor": "OpenAI",
-       "product": "Codex CLI",
-       "platforms": [
-        "Windows",
-        "macOS",
-        "Linux"
-       ],
-       "versions": [
-        {
-         "version": "0.72.0",
-         "lessThanOrEqual": "0.130.0",
-         "versionType": "semver",
-         "status": "affected"
-        },
-        {
-         "version": "0.131.0",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "macOS"
-       ],
-       "versions": [
-        {
-         "version": "260202.0859",
-         "lessThanOrEqual": "26.513.31313",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.22136",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38",
-         "lessThanOrEqual": "26.513.40821",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.21041",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop (Microsoft Store package)",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38.0",
-         "lessThanOrEqual": "26.513.4821.0",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.2081.0",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 8.8,
-       "baseSeverity": "HIGH",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 2.8,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-02T18:34:17.952844Z",
-       "id": "CVE-2026-19591",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-150"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/openai/codex/pull/22643",
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7"
+     "url": "https://github.com/openai/codex/pull/22643"
     }
    ]
   }
@@ -1186,164 +149,12 @@
  {
   "cve": {
    "id": "CVE-2026-19592",
-   "sourceIdentifier": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
    "published": "2026-09-01T18:17:40.370",
    "lastModified": "2026-09-02T16:17:15.233",
    "vulnStatus": "Awaiting Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "OpenAI Codex CLI for Windows, macOS, and Linux and Codex Desktop for Windows and macOS automatically collected Git repository metadata without disabling the repository-local core.fsmonitor setting. If a user opens or uses an attacker-prepared repository whose preserved .git/config sets core.fsmonitor to an attacker-controlled filesystem-monitor helper, Git can execute that helper while Codex collects repository metadata. The helper runs outside Codex's command sandbox and without a user-approval prompt, allowing attacker-controlled code to run with the user's privileges. The code can read, change, or delete the user's files and access other resources available to the user's account. An ordinary Git clone does not preserve the source repository's local .git/config; exploitation requires a repository delivered or copied with that configuration intact."
-    }
-   ],
-   "affected": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "affectedData": [
-      {
-       "vendor": "OpenAI",
-       "product": "Codex CLI",
-       "platforms": [
-        "Windows",
-        "macOS",
-        "Linux"
-       ],
-       "versions": [
-        {
-         "version": "0.102.0",
-         "lessThanOrEqual": "0.130.0",
-         "versionType": "semver",
-         "status": "affected"
-        },
-        {
-         "version": "0.131.0",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "macOS"
-       ],
-       "versions": [
-        {
-         "version": "260202.0859",
-         "lessThanOrEqual": "26.513.31313",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.22136",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38",
-         "lessThanOrEqual": "26.513.40821",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.21041",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop (Microsoft Store package)",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38.0",
-         "lessThanOrEqual": "26.513.4821.0",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.2081.0",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:L/AC:L/PR:L/UI:R/S:U/C:H/I:H/A:H",
-       "baseScore": 7.3,
-       "baseSeverity": "HIGH",
-       "attackVector": "LOCAL",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "LOW",
-       "userInteraction": "REQUIRED",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 1.3,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-02T15:34:59.378504Z",
-       "id": "CVE-2026-19592",
-       "options": [
-        {
-         "exploitation": "poc"
-        },
-        {
-         "automatable": "no"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-15"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://github.com/openai/codex/pull/22652",
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7"
+     "url": "https://github.com/openai/codex/pull/22652"
     }
    ]
   }
@@ -1351,143 +162,12 @@
  {
   "cve": {
    "id": "CVE-2026-19593",
-   "sourceIdentifier": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
    "published": "2026-09-01T18:17:40.480",
    "lastModified": "2026-10-15T17:17:21.530",
    "vulnStatus": "Undergoing Analysis",
-   "cveTags": [],
-   "descriptions": [
-    {
-     "lang": "en",
-     "value": "OpenAI Codex Desktop for Windows and macOS automatically inspected Git metadata and working-tree status when a user opened a workspace. If the workspace contains a repository with preserved attacker-controlled .git/config, the attr.tree setting and a configured clean or process filter can cause Git to run an attacker-controlled program. The program runs outside Codex's command sandbox with the signed-in user's privileges, without a workspace-trust prompt, command approval, or interaction with a model. The attacker can read, modify, or delete files and access credentials available to that user. Exploitation requires Git to be available on PATH and the user to open the attacker-prepared repository with its local Git configuration intact. An ordinary Git clone does not copy the source repository's .git/config and is not sufficient by itself."
-    }
-   ],
-   "affected": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "affectedData": [
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "macOS"
-       ],
-       "versions": [
-        {
-         "version": "260202.0859",
-         "lessThanOrEqual": "26.513.31313",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.22136",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38",
-         "lessThanOrEqual": "26.513.40821",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.21041",
-         "status": "unaffected"
-        }
-       ]
-      },
-      {
-       "vendor": "OpenAI",
-       "product": "Codex Desktop (Microsoft Store package)",
-       "platforms": [
-        "Windows"
-       ],
-       "versions": [
-        {
-         "version": "26.304.38.0",
-         "lessThanOrEqual": "26.513.4821.0",
-         "versionType": "custom",
-         "status": "affected"
-        },
-        {
-         "version": "26.519.2081.0",
-         "status": "unaffected"
-        }
-       ]
-      }
-     ]
-    }
-   ],
-   "metrics": {
-    "cvssMetricV31": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "type": "Secondary",
-      "cvssData": {
-       "version": "3.1",
-       "vectorString": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:H/A:H",
-       "baseScore": 9.8,
-       "baseSeverity": "CRITICAL",
-       "attackVector": "NETWORK",
-       "attackComplexity": "LOW",
-       "privilegesRequired": "NONE",
-       "userInteraction": "NONE",
-       "scope": "UNCHANGED",
-       "confidentialityImpact": "HIGH",
-       "integrityImpact": "HIGH",
-       "availabilityImpact": "HIGH"
-      },
-      "exploitabilityScore": 3.9,
-      "impactScore": 5.9
-     }
-    ],
-    "ssvcV203": [
-     {
-      "source": "134c704f-9b21-4f2e-91b3-4a467353bcc0",
-      "ssvcData": {
-       "timestamp": "2026-09-02T17:19:21.924083Z",
-       "id": "CVE-2026-19593",
-       "options": [
-        {
-         "exploitation": "none"
-        },
-        {
-         "automatable": "yes"
-        },
-        {
-         "technicalImpact": "total"
-        }
-       ],
-       "role": "CISA Coordinator",
-       "version": "2.0.3"
-      }
-     }
-    ]
-   },
-   "weaknesses": [
-    {
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7",
-     "type": "Secondary",
-     "description": [
-      {
-       "lang": "en",
-       "value": "CWE-15"
-      }
-     ]
-    }
-   ],
    "references": [
     {
-     "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-651/",
-     "source": "8f4f43ab-ba69-4d92-aa1d-d772184d6fb7"
+     "url": "https://www.zerodayinitiative.com/advisories/ZDI-26-651/"
     }
    ]
   }

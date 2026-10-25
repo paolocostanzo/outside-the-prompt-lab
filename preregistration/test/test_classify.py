@@ -339,6 +339,19 @@ class Manifest(unittest.TestCase):
             self.assertFalse((t / "out" / "a_1.json").exists())
             self.assertFalse(json.loads((t / "out" / "manifest.json").read_text())["complete"])
 
+    def test_r0_nonresponse_null_outside_the_case_set(self):
+        with tempfile.TemporaryDirectory() as t, confirmatory_env():
+            t = pathlib.Path(t)
+            out, human = make_run(t, (['{"class": 1}'] * 3 + ['{"class": 3}'] * 3) * 2, r0={"X1": 1, "X2": 3, "X9": None})
+            r = self.quiet(out, human, write=False)
+            self.assertEqual(r["r0_nonresponse"], ["X9"]); self.assertEqual(set(r["cohen"]), {"R0 human", "a:1", "b:1"})
+            (t / "r2.json").write_text(json.dumps({"classes": {"X1": 1, "X2": None}}))
+            with self.assertRaises(SystemExit): classify.load_r0(t / "r2.json", ["X1", "X2"])  # null inside the case set
+            (t / "r3.json").write_text(json.dumps({"classes": {"X1": "1"}}))
+            with self.assertRaises(SystemExit): classify.load_r0(t / "r3.json")  # non-null labels still integers 1-4
+            (t / "r4.json").write_text(json.dumps({"classes": {"X1": None}}))
+            with self.assertRaises(SystemExit): classify.load_r0(t / "r4.json")  # nothing labelled
+
     def test_frozen_roster(self):
         self.assertEqual(set(classify.ROSTER), set(classify.DEFAULT_MODELS))
         self.assertTrue(classify.ROSTER["gemma4:26b-a4b-it-q8_0"].startswith("7473a33e49f1"))  # D43

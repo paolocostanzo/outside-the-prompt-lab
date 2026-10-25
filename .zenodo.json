@@ -14,11 +14,13 @@
     "MCP",
     "audit logs",
     "detection",
+    "preregistration",
     "reproducible lab",
     "security measurement",
     "telemetry",
     "tool approval",
+    "vulnerability disclosures",
     "workspace trust"
   ],
-  "description": "Harmless canaries, MCP lab servers, test-repository generators, matrix runners, coders, read-only checks, a telemetry exporter and frozen detection rules used in the 'Outside the Prompt' series to measure trust boundaries of AI coding agents: which project-declared MCP servers start and under which decision (part 2), whether a client notices when an approved MCP tool's definition changes (part 3), with the open-weight cells promised in part 2 (which definition four clients send to a self-hosted model before and after the change), and what default client logs and host telemetry show of those events, with the coverage of output-side defences in official MCP servers (part 4); with the per-run evidence, SHA-256 manifests and the preregistration deviations. No attack payloads: every component only records that it ran or what it served."
+  "description": "Harmless canaries, MCP lab servers, test-repository generators, matrix runners, coders, read-only checks, a telemetry exporter and frozen detection rules used in the 'Outside the Prompt' series to measure trust boundaries of AI coding agents: which project-declared MCP servers start and under which decision (part 2), whether a client notices when an approved MCP tool's definition changes (part 3), with the open-weight cells promised in part 2 (which definition four clients send to a self-hosted model before and after the change), and what default client logs and host telemetry show of those events, with the coverage of output-side defences in official MCP servers (part 4); the RQ1 classification pipeline (frozen frame of disclosures, a stratified random sample of 120 cases seeded by a public drand beacon, the model-rater script and the estimator); with the per-run evidence, SHA-256 manifests and the preregistration deviations. No attack payloads: every component only records that it ran or what it served. The RQ1 data keep advisory identifiers, titles, dates, references and short factual notes; full advisory texts, which can describe exploitation, are not included (the author keeps them, their SHA-256 hashes are published)."
 }
