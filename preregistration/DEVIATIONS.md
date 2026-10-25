@@ -1418,3 +1418,118 @@ statistics and the model-majority used for H1 are reported with all three model 
 **Why.** Decided by the author before any RQ1 confirmatory run; the alternative (dropping R2) would lose one model vendor.
 **Effect.** R2 is not the preregistered build; H1 and H1a are reported with and without it.
 
+
+### D44 · 25 Oct 2026 · §0, §3 dataset, §5 RQ1 analysis, D1, D2, D3, D7, D14, D41, D42 point 4, D43 — a stratified random sample of 120 cases from the frozen frame
+**Problem.** The dated query of D1 (run 25 Oct 2026 from 15:57 UTC) returned 695 unique candidates. Screening against §3 kept 502 records outside the pilot (534 after the second reading of 43 uncertain decisions), grouped by D41 point 1 into 461 cases; the eligibility check and the first-disclosure dates of points 1 and 5 left 330:
+100 agent client, 210 MCP server or connector, 20 SDK (allocation 37/76/7). Screening was
+done by AI assistants (four Claude agents, one batch each, started after `rq1/SCREENING-RULES.md` was committed at 16:13 UTC, as the
+session log shows; the rules were written after the query had run and before any candidate was read); the frame is checked by Codex before it is frozen. §0 and §3 ask for the complete list, every
+case summarised (D42), labelled by the author (R0) and rated by three models three times. That is several weeks of work for one
+human rater. No summary, label or confirmatory model run exists. The final text of this entry was revised after `rq1-frame.csv` was built
+(composition known, classes not) and is committed before the frame commit.
+**Change.**
+1. *Population and schema.* The population is the frozen `rq1/rq1-frame.csv`, one row per case: `case_id, records` (all GHSA and
+   CVE ids and aliases, `;`-separated), `date` (earliest public disclosure), `product`, `product_type` (D41 point 3), `source`
+   ("timeline" / "query only", D41 point 3), `primary_source`, `decision` ("include" / "exclude"), `reason`, `note`. Cases are
+   grouped by D41 point 1; pilot components and aliases are excluded (D3). Uncertain screening decisions are resolved before
+   freezing by a second reading of the primary sources (a Claude agent, one recorded reason and source per record; checked by
+   Codex with the frame); a case still in doubt after that reading is included and flagged
+   (`reason` = `I?`), and a sensitivity analysis drops the flagged cases. The paper reports how many uncertain records went in and
+   out. `rq1-frame.csv` is committed with `-text` in `.gitattributes`, pushed, and published in full with the paper. This entry,
+   `.gitattributes`, `rq1/sample_frame.py`, `rq1/estimate.py` and their tests are committed and pushed before the frame commit.
+   Pilot cases without a GHSA or CVE id are checked against the frame by product and date during the frame review.
+   *Disclosure date and reason E6.* A case's date is its first public disclosure (D14 point 2: first public advisory or researcher write-up — the earliest of the repository advisory, the global GHSA, the
+   CVE record and any vendor page; a public issue or pull request is neither and does not date the case). Criterion (iii) of §3 is therefore checked on the
+   case, not on the record: a case disclosed before the window is excluded with reason E6, added to the screening reasons here.
+   Before the eligibility check it was applied to one research write-up published before the window (OX Security, 15 Apr 2026:
+   four records) and to nine cases whose records are follow-ups ("incomplete fix", "bypass") of advisories published before the window, which they join under
+   D41 point 1 (parents CVE-2025-8943, CVE-2026-25580, CVE-2026-27825, CVE-2026-27826, CVE-2026-31829, CVE-2026-33060,
+   CVE-2026-39885, CVE-2026-44336, CVE-2026-45311; NVD dates 14 Aug 2025 – 28 May 2026, all at least four weeks before the window,
+   so an earlier advisory date would not change the decision); the first-disclosure table `rq1/disclosure-dates.csv` (built by `rq1/disclosure_dates.py` from the GitHub advisory API —
+   global and repository advisories — NVD, and the dated pages of `rq1/disclosure-manual.csv`) found 131 more cases whose
+   repository advisory was published before the window although their GHSA or CVE record falls inside it, and one more
+   follow-up. The table decides (iii); the eligibility ledger is its cross-check, and the cases where they disagree are listed
+   in `rq1/date-vs-ledger.csv`. All E6 cases are listed in the
+   frame with their date source and their number is reported; they are outside the sampled population.
+2. *Size.* n = 120, chosen from the time the single human rater needs (the publication plan of 25 Oct 2026, not public); if the
+   frame has 120 cases or fewer, all are taken.
+3. *Strata and allocation.* Sampling strata are the three product types of D41 point 3 (agent client / MCP server or connector /
+   SDK); timeline cases sit in the stratum of their product type and have no special status. The 120 places are allocated in
+   proportion to stratum size by largest remainder, at least one per non-empty stratum. Proportional allocation was chosen because
+   the target is the share in the frame as it is, before any class is known; the dependence on the frame's MCP majority is shown by
+   the secondary analyses of point 6.
+4. *Seed from a public beacon.* The seed is SHA-256(`F` + ":" + `B`), where `F` is the SHA-256 of `rq1-frame.csv` as stored in the
+   pushed commit (`git show <commit>:preregistration/rq1/rq1-frame.csv`) and `B` is the randomness of the drand mainnet round
+   (League of Entropy, chain `8990e7a9aaed2ffed73dbd7092123d6f289930540d7651336225dc172e51b2ce`, period 30 s, genesis 1595431050)
+   whose time is the first 20:00:00 UTC at least one hour after the frame commit is public; the round number is
+   (t − 1595431050) / 30 + 1. "Public" is the `created_at` of the GitHub PushEvent whose head is the frame commit, stored in the
+   manifest. Because GitHub keeps events for about 90 days, the commit's page (`https://github.com/<repo>/commit/<sha>`) is
+   saved to the Internet Archive at push time: a capture within 30 minutes after the push shows durably that the push time was
+   not moved later; a missing or late capture is reported and never changes the round.
+   The events page (`https://api.github.com/repos/<repo>/events`) is saved to the Internet Archive at the same time, giving a
+   durable third-party copy of the PushEvent. The paper states whether the round is independently verifiable (a timely capture
+   of the commit page or of the event) or rests on the stored event only. The frame commit is pushed alone, as the head of its
+   push, to `master`, and it is the only commit that adds or changes `rq1-frame.csv` in the history of any head pushed up to the round time,
+   intermediate commits of a push included: the script refuses if the full history (`git log --full-history <head> -- rq1-frame.csv`, every merge parent) of the frame
+   commit or of any head pushed up to the round time holds another commit touching the frame, if the frame at such a head is
+   present and different, if such a head cannot be checked, if the commit is not an ancestor of the remote `master`, or if the script itself differs from the copy in the frame
+   commit. A second version of the frame pushed before the round time voids the draw and requires a new
+   deviation; versions pushed after it are ignored. Once a valid frame push exists and the round time has passed, the draw is
+   binding: a tooling failure is fixed in the tooling and the same round is used, and nothing after the round can void or redo
+   it. The script accepts only the round that follows from the push; no later round. The relays' values are compared, not the BLS signature. There is no fallback beacon: if the
+   mainnet round cannot be read, the draw waits until it can. The value does not exist when the frame is frozen, so no edit of the frame can select a sample.
+   Within each stratum, cases are ordered by SHA-256(seed + ":" + case id) and the first ones are sampled. The R0 sheet order of D42 point 4 is SHA-256(seed + ":r0:" + case id). `rq1/sample_frame.py` takes the
+   commit, finds its push event and capture and derives the round, refuses a frame that is not committed or differs from that commit, refuses any decision other
+   than include/exclude, any unknown product type or source, duplicate ids and pilot ids, and writes `rq1-sample.csv`
+   (`case_id, product_type, source, rank, sampled`) with a manifest (commit, F, push event, capture, round, B, seed, allocation,
+   script hash). Both are committed and pushed at once; `verify` in the same script recomputes them from the frame in the frame commit, the manifest
+   and B (offline it trusts B; `verify online` reads B from drand again).
+5. *Eligibility settled before the draw.* Every case of the frame is checked once against §3 (inclusion criteria i–iii) and D3 (pilot component or alias) from its
+   primary source before the frame is frozen, by Claude agents recording a short quote per case in `rq1/eligibility-ledger.csv`;
+   criterion (iii) is decided by the first-disclosure table of point 1. Codex checks the ledger and the table with the frame. The frozen frame holds only cases found
+   eligible, so the stratum sizes N_h are the eligible sizes, known before the draw, and M_h = N_h in point 6. After the draw:
+   - nothing is excluded for eligibility: a sampled case later found ineligible stays in the primary analysis, is flagged, and is
+     dropped in a sensitivity analysis;
+   - nothing is replaced: the sample stays the probability sample as drawn. A sampled case whose primary source can no longer be
+     reached (all 461 sources were reached in the eligibility check, whose ledger keeps a quote per case) keeps its place with
+     its label missing (non-response) and is treated as in point 6;
+   - grouping is closed when the frame is frozen. A grouping error found later (two frame rows that are one disclosure, or one row
+     that holds two) is listed in the erratum but changes neither the sample nor the primary analysis, which keep the frame rows
+     as drawn; a secondary analysis counts the corrected disclosures (two sampled rows of one disclosure once, by their R0 label
+     if equal, otherwise as contested);
+   - product types are never reassigned after sampling.
+   Errata never edit `rq1-frame.csv`: they are listed in `rq1/rq1-frame-erratum.csv`.
+6. *Analysis.* For R0 and for the model majority (D7), the share in classes 1–3 is estimated by the stratified estimator
+   Σ_h W_h p_h (W_h = M_h / Σ M_h), computed in exact fractions, with every sampled case without a label (non-response, or no
+   model majority as in D7) counted as outside classes 1–3. Its 95% interval is conservative and exact: for each sampled
+   stratum, exact hypergeometric bounds on the number of cases in classes 1–3 among its M_h, each tail at 2.5% divided by the
+   number of sampled strata (Bonferroni), combined with the weights; the lower bound counts unlabelled sampled cases as outside classes 1–3 and the upper bound as
+   inside, so the interval holds whatever their classes are; a stratum taken whole contributes its exact count, and if
+   every stratum is taken whole the share is exact and has no interval. The interval is wide (about ±14 percentage points for
+   this design) and its coverage is at least 95% by construction. The computation, including the verdict below, is `rq1/estimate.py`, tested before the frame is frozen; the analysis runs only
+   with the copy of `estimate.py` in the frame commit and records its SHA-256. The secondary estimate with equal weights uses
+   the true M_h for the bounds. **H1 holds when this point estimate is at
+   least 60% for both R0 and the model majority**, as §5 states it for a share; the paper also says whether the lower bound of the
+   interval is at least 60% ("supported, interval above 60%") or not ("supported on the point estimate only"). The same rule applies
+   to every variant, each computed alone against the primary and never combined: D41 point 1 (mixed bundles as class 4), D41
+   point 6 (contested cases for and against), D41 point 7 (corrected summaries), D43 (without R2), the flagged-case sensitivity
+   of point 1, the late-ineligible sensitivity of point 5, the share computed on labelled cases only, the corrected-disclosure count of point 5 (two sampled rows of one disclosure with different labels count against H1), and the number of unlabelled sampled cases. The
+   unweighted share is reported as a check. H1a: Fleiss' κ and the Cohen's κ of §5 on the sampled cases (D41 point 5),
+   unweighted, read as agreement on the sample. D41 point 3: the share by product type and for the frame without each type uses the stratified estimator over the
+   remaining strata, with its interval; the "depends on a stratum" rule is applied to these point estimates and reported as
+   low-powered. Strata with fewer than 10 sampled cases and the source split (few timeline cases) are reported with
+   their counts and intervals and are not interpreted; if no timeline case is sampled, the source analysis of D41 point 3 is
+   reported as not available and the frame's timeline cases are listed by id. A secondary estimate weights the three product types equally, to show how
+   much H1 rests on the frame's MCP majority.
+7. *Reporting.* A flow figure: 695 candidates → screened → uncertain resolved → grouped → pilot removed → frame N_h → eligibility ledger → frame N_h → sampled n_h → non-response → labelled by R0 → complete model ratings (D41 point 5).
+8. *Unsampled cases* are not summarised or labelled for this paper and never replace or join sampled cases in any confirmatory
+   figure; any later classification of them is exploratory and reported apart.
+**Why.** To keep RQ1 confirmatory, with R0 committed before the models, within the time available, instead of dropping it or
+classifying a subset chosen by hand. The seed comes from a public beacon drawn after the frame is published, and only one round
+qualifies, so neither the frame nor the sample can be tuned. Eligibility is settled for the whole frame before the draw, so it cannot depend on which cases are drawn, and nothing is
+replaced after it: unlabelled cases count against H1 and widen the interval.
+With 330 cases and n = 120, the conservative 95% interval is about ±14 percentage points; the H1 verdict rests on the point
+estimate, as §5 states H1, and the paper says whether the interval also clears 60%.
+**Effect.** The confirmatory population is now the D1 query frame (in which timeline cases are about 1%), not the timeline of §3,
+and H1 and H1a are tested on a probability sample of it rather than on every case; the result is an estimate for the frame with
+its interval, reported as confirmatory under D1, D41 and D44 with this caveat stated first. For the confirmatory share, the exact interval of point 6 replaces D2's Wilson interval.
