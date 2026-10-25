@@ -35,3 +35,13 @@ telling them.
    remains uncertain in the source, or the writer and the checker disagree on them. A flag is never removed by a later
    correction. Flagged case ids are written to `rq1-flags.json`, committed with the summaries before R0 starts; the analysis
    treats them as contested cases (D41 point 4) in the sensitivity analyses of D41 point 6.
+
+## Clarification (25 Oct 2026, after the first drafts and before any check or label)
+The first drafts showed two readings of rule 1. To make every summary use the same sources:
+- **Source set of a case**: every advisory of its records (repository advisory, global GitHub advisory, CVE record, vendor
+  bulletin) and every write-up by the reporter that an advisory links to (blog post, report, gist, document, or an issue opened
+  by the reporter to describe the flaw). Other issues, pull requests and third-party pages are not used. The date of the case
+  is unchanged (frame, D14 point 2): this concerns only what the summary may draw on.
+- **Record metrics** (e.g. CVSS "privileges required", "user interaction", "attack vector") are part of the advisory and may be
+  stated as preconditions, phrased as such ("the record lists user interaction as required"); severity scores stay out.
+- All 120 drafts are revised under this clarification before the Codex check; the record of each case lists every source opened.
