@@ -1560,3 +1560,20 @@ Italian speaker and asked to label from Italian text. Written before any R0 labe
 4. Translations (`rq1-cases-it.json`, the Italian criteria) and the checks are committed before R0 starts.
 **Why.** To let the single human rater read in his own language, so that misreadings of English do not enter R0.
 **Effect.** R0's input is a checked translation of the models' input, not the same text; reported in threats to validity.
+
+### D47 · 26 Oct 2026 · D42 point 4, §2 decision rule, §4 R0 — guided questions on the R0 sheet
+**Problem.** The author (R0) found it hard to apply the decision rule from the criteria alone and asked for a more guided sheet.
+An AI-proposed class is excluded (D3, D42 point 4). Written before any R0 label or model run.
+**Change.** For each case the sheet asks the decision rule of §2 as yes/no questions about the facts in the summary, in its order:
+(1) does the attack work only because the model follows instructions it should not have trusted? — for a case with several
+findings: does at least one finding work without the model following such instructions? (the counting rule of D41 point 1);
+(2) does it fail at startup or before the user's trust decision, in the agent's own startup and execution machinery, without any
+user or model decision? (3) does it fail in what the user is shown or asked to confirm? (4) is it an authentication,
+authorization or origin flaw in the services around the agent? The class follows from the first decisive answer exactly as the
+rule states (4 if (1) says only through the model; otherwise 1, 2 or 3 at the first yes). Each question has a hint on where to
+look in the summary, never on the answer. "Don't know" or "no" to all of (2)-(4) lets the author choose the class directly; the
+resulting class is always shown and can be changed. The answers, whether the class came from them or was set directly, are
+exported with the labels. The model raters keep the criteria text only.
+**Why.** To help the single human rater apply the preregistered rule step by step without any suggestion about the case.
+**Effect.** R0 applied the rule through a questionnaire, the models through the criteria text: reported in threats to validity,
+with the share of classes set directly rather than from the answers.
