@@ -46,7 +46,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 24rem;gap:1rem;max-width:7
 #grid button{padding:.25rem 0;font-size:.8rem} #grid button.done{background:var(--done);color:#fff;border-color:var(--done)}
 #grid button.part{background:var(--part);color:#111;border-color:var(--part)} #grid button.cur{outline:2px solid var(--accent)}
 pre{white-space:pre-wrap;font-size:.82rem;background:var(--bg);padding:.6rem;border-radius:6px;margin:.3rem 0}
-#finish,#countrule{display:none} a{color:var(--accent)} #nextbtn{font-weight:600}
+#finish,#countrule{display:none} #summary_en{display:none;border-left:3px solid var(--line);padding-left:.8rem;color:var(--muted)} a{color:var(--accent)} #nextbtn{font-weight:600}
 </style></head><body>
 <div id="banners"><div id="warn"></div><div id="note"></div></div>
 <header><div class="top"><div><b id="count"></b> <span class="muted" id="last"></span></div>
@@ -56,7 +56,9 @@ pre{white-space:pre-wrap;font-size:.82rem;background:var(--bg);padding:.6rem;bor
 <div id="grid"></div>
 <main><section class="card">
 <div class="top"><div class="muted" id="pos"></div><div><button id="prev">← Prec.</button> <button id="next">Succ. →</button> <button id="lastbtn">Ultimo (U)</button></div></div>
-<p id="summary"></p>
+<p id="summary"></p><p class="muted" id="langline"><button id="btn-lang">Mostra l'originale inglese (T)</button>
+<span>Testo in italiano: traduzione controllata (D46); il riferimento è l'originale inglese, lo stesso dato ai modelli.</span></p>
+<p id="summary_en" lang="en"></p>
 <p><a id="src" href="#" target="_blank" rel="noopener noreferrer">Apri la fonte primaria (O)</a> · <label><input type="checkbox" id="opened"> fonte aperta</label></p>
 <div class="classes" id="classes"></div>
 <div id="bundle"><p><b>Più rilievi nello stesso caso (D45).</b> Almeno uno dei rilievi, preso da solo, funziona solo perché il modello
@@ -67,25 +69,19 @@ follows instructions it should not have trusted?)</span></p><div class="yn"><but
 <p><label><input type="checkbox" id="decl"> I labelled these cases myself, without AI assistance (D42 point 4).</label></p>
 <p><button id="export">Esporta rq1-r0.json</button></p></div>
 </section>
-<aside class="card rule"><h3>Criteria (the same text the models get)</h3><pre>__CRITERIA__</pre>
-<div id="countrule"><h3>Questo caso ha più rilievi: regola di conteggio</h3>
-<p class="muted">Traduzione di servizio (vale l'inglese qui sopra): una divulgazione è un caso, qualunque sia il numero di rilievi. Se ne
-raggruppa più d'uno, applica la regola di decisione su tutti: se almeno un rilievo funziona senza che il modello segua istruzioni di cui
-non avrebbe dovuto fidarsi, dai la più bassa tra le classi 1–3 di quei rilievi; dai 4 solo se ogni rilievo richiede che il modello
-segua tali istruzioni.</p></div>
-<p class="muted"><b>Regola di decisione</b>, traduzione di servizio (vale l'inglese): se l'attacco funziona solo perché il modello segue
-istruzioni di cui non avrebbe dovuto fidarsi, il caso è di classe 4, qualunque sia il canale di consegna. Altrimenti il caso va al primo
-passo che fallisce senza nessuna decisione del modello: prima della decisione di fiducia (1), in ciò che all'utente viene mostrato o
-chiesto di approvare (2), nell'autenticazione e autorizzazione dei servizi intorno all'agente (3).</p>
+<aside class="card rule"><h3>Criteri (traduzione controllata, D46)</h3><pre lang="it">__CRITERIA_IT__</pre>
+<p><button id="btn-crit-en">Criteri originali in inglese (E)</button></p><pre id="crit_en" lang="en" style="display:none">__CRITERIA__</pre>
+<div id="countrule"><h3>Questo caso ha più rilievi</h3><p class="muted">Applica la regola di conteggio qui sopra.</p></div>
 <p class="muted">Tasti: <kbd>1</kbd>–<kbd>4</kbd> sceglie la classe · <kbd>S</kbd>/<kbd>N</kbd> domanda D45 · <kbd>Invio</kbd> prossimo
-da fare · <kbd>←</kbd> <kbd>→</kbd> sposta · <kbd>U</kbd> ultimo risposto · <kbd>O</kbd> fonte · <kbd>B</kbd> salva copia. Un tasto
-sceglie e non fa avanzare: si avanza solo con Invio. Nessuna classe è proposta in questa pagina.</p></aside></main>
+da fare · <kbd>←</kbd> <kbd>→</kbd> sposta · <kbd>U</kbd> ultimo risposto · <kbd>T</kbd> riassunto inglese · <kbd>E</kbd> criteri inglesi ·
+<kbd>O</kbd> fonte · <kbd>B</kbd> salva copia. Un tasto sceglie e non fa avanzare: si avanza solo con Invio. Nessuna classe è
+proposta in questa pagina.</p></aside></main>
 <script>
 const CASES = __DATA__; const NONRESP = __NONRESP__; const KEY = "rq1-r0-" + __SEEDKEY__; const NAMES = __NAMES__;
 const SEED = __SEED__; const CRIT_SHA = __CRITSHA__;
 const ids = CASES.map(c => c.id); const bids = CASES.filter(c => c.bundle).map(c => c.id);
 const OWNER = KEY + "-owner"; const BKEY = KEY + "-since-backup"; const ME = String(Date.now()) + Math.random(); let blocked = false;
-let state = {c: {}, o: {}, a: {}, b: {}, decl: false}; let cur = 0; let lastIdx = null;
+let state = {c: {}, o: {}, a: {}, b: {}, decl: false}; let cur = 0; let lastIdx = null; let showEn = false;
 const $ = id => document.getElementById(id);
 function warn(msg) { $("warn").textContent = msg; $("warn").style.display = "block"; }
 function note(msg) { $("note").textContent = msg; $("note").style.display = msg ? "block" : "none"; }
@@ -107,7 +103,9 @@ function render() {
   $("count").textContent = done + " / " + ids.length + " fatti";
   $("barfill").style.width = (100 * done / ids.length) + "%";
   $("pos").textContent = "Caso " + (cur + 1) + " / " + ids.length + " · " + id;
-  $("summary").textContent = c.summary; $("src").href = c.src; $("opened").checked = !!(state.o[id] || state.a[id]);
+  $("summary").textContent = c.summary_it; $("summary_en").textContent = c.summary;
+  $("summary_en").style.display = showEn ? "block" : "none";
+  $("btn-lang").textContent = showEn ? "Nascondi l'originale inglese (T)" : "Mostra l'originale inglese (T)"; $("src").href = c.src; $("opened").checked = !!(state.o[id] || state.a[id]);
   $("opened").disabled = !!state.a[id] || blocked;
   document.querySelectorAll("#classes button").forEach(b => { b.classList.toggle("on", state.c[id] === +b.dataset.k); b.disabled = blocked; });
   $("bundle").style.display = c.bundle && state.c[id] !== undefined ? "block" : "none";  // D45: asked after the class
@@ -167,6 +165,7 @@ document.addEventListener("keydown", e => {
   else if (k === "enter") nextTodo(); else if (k === "arrowright") go(cur + 1); else if (k === "arrowleft") go(cur - 1);
   else if (k === "u") { if (lastIdx !== null) go(lastIdx); }
   else if (k === "o") openSource(); else if (k === "b") $("btn-backup").click();
+  else if (k === "t") { showEn = !showEn; render(); } else if (k === "e") $("btn-crit-en").click();
   else return; e.preventDefault(); });
 function btn(el, fn) { el.addEventListener("click", e => { fn(e); el.blur(); }); }
 NAMES.forEach((n, i) => { const b = document.createElement("button"); b.dataset.k = i + 1;
@@ -174,6 +173,8 @@ NAMES.forEach((n, i) => { const b = document.createElement("button"); b.dataset.
 document.querySelectorAll("#bundle button").forEach(b => btn(b, () => setBundle(b.dataset.b)));
 btn($("prev"), () => go(cur - 1)); btn($("next"), () => go(cur + 1)); btn($("nextbtn"), nextTodo);
 btn($("lastbtn"), () => { if (lastIdx !== null) go(lastIdx); });
+btn($("btn-lang"), () => { showEn = !showEn; render(); });
+btn($("btn-crit-en"), () => { const p = $("crit_en"); p.style.display = p.style.display === "block" ? "none" : "block"; });
 const src = $("src"); src.addEventListener("click", e => { e.preventDefault(); openSource(); });
 src.addEventListener("auxclick", markOpened); src.addEventListener("contextmenu", markOpened);
 $("opened").addEventListener("change", e => { if (!blocked) { state.o[ids[cur]] = e.target.checked; save(); } e.target.blur(); render(); });
@@ -222,15 +223,20 @@ def main(out):
     bundles = {r["case_id"] for r in json.loads((HERE / "rq1-summary-records.json").read_text()) if len(r["findings"]) > 1}
     src = {r["case_id"]: r["primary_source"] for r in csv.DictReader(open(HERE / "rq1-frame.csv", newline=""))}
     order = sorted(cases, key=lambda c: hashlib.sha256(f"{seed}:r0:{c['id']}".encode()).hexdigest())
-    labelled = [{"id": c["id"], "summary": c["summary"], "src": src[c["id"]], "bundle": c["id"] in bundles}
+    it = {c["id"]: c["summary_it"] for c in json.loads((HERE / "rq1-cases-it.json").read_text())}
+    labelled = [{"id": c["id"], "summary": c["summary"], "summary_it": it[c["id"]], "src": src[c["id"]], "bundle": c["id"] in bundles}
                 for c in order if c["summary"] is not None]
+    criteria_it = (HERE / "criteria-it.txt").read_text().strip()
     nonresponse = [c["id"] for c in order if c["summary"] is None]
     criteria = CRITERIA.rsplit("\nAnswer with", 1)[0].replace("You are classifying", "Classify")
-    names = [line.split(". ", 1)[1].split(" - ")[0] for line in criteria.splitlines() if line[:2] in ("1.", "2.", "3.", "4.")]
+    names = [line.split(". ", 1)[1].split(" - ")[0] for line in criteria_it.splitlines() if line[:2] in ("1.", "2.", "3.", "4.")]
     assert len(names) == 4, names
     esc = lambda t: t.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+    unwrap = lambda t: "\n".join(l if not l.startswith("   ") else "\0" + l.strip() for l in t.splitlines()).replace("\n\0", " ")
+    # display only: continuation lines (indented) join their item, so the narrow column wraps naturally; words unchanged
     js = lambda v: json.dumps(v, ensure_ascii=False).replace("</", "<\\/")
-    page = (TEMPLATE.replace("__CRITERIA__", esc(criteria)).replace("__DATA__", js(labelled))
+    assert unwrap(criteria).split() == criteria.split() and unwrap(criteria_it).split() == criteria_it.split()
+    page = (TEMPLATE.replace("__CRITERIA_IT__", esc(unwrap(criteria_it))).replace("__CRITERIA__", esc(unwrap(criteria))).replace("__DATA__", js(labelled))
             .replace("__NONRESP__", js(nonresponse)).replace("__SEEDKEY__", js(seed[:16])).replace("__NAMES__", js(names))
             .replace("__SEED__", js(seed)).replace("__CRITSHA__", js(CRITERIA_SHA256)))
     assert "__" not in page.replace("__proto__", ""), "unfilled placeholder"
