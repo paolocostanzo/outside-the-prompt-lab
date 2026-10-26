@@ -1533,3 +1533,15 @@ estimate, as §5 states H1, and the paper says whether the interval also clears 
 **Effect.** The confirmatory population is now the D1 query frame (in which timeline cases are about 1%), not the timeline of §3,
 and H1 and H1a are tested on a probability sample of it rather than on every case; the result is an estimate for the frame with
 its interval, reported as confirmatory under D1, D41 and D44 with this caveat stated first. For the confirmatory share, the exact interval of point 6 replaces D2's Wilson interval.
+
+### D45 · 26 Oct 2026 · D41 point 1 (secondary analysis of mixed bundles), D42 point 4 — how a mixed bundle is recognised
+**Problem.** D41 point 1 counts, as a conservative secondary analysis, every case whose findings mix class 4 with classes 1–3 as
+class 4. The raters give one class per case, so nothing recorded so far says which bundles are mixed. Eight sampled cases bundle
+several findings (`rq1-summary-records.json`). Written before any R0 label or model run.
+**Change.** For each sampled case whose summary lists more than one finding, the R0 sheet asks one more question after the class:
+"Does at least one finding, taken alone, work only because the model follows instructions it should not have trusted?" (yes /
+no). The answer is exported in `rq1-r0.json` as `bundle_model_finding`. A case is mixed when R0 answers yes and gives class 1, 2
+or 3. In the secondary analysis of D41 point 1, mixed cases count as class 4 for R0 and for the model majority alike (the models
+give no per-finding answer). The question is asked only for the eight bundles and shows no class or suggestion.
+**Why.** To make the preregistered secondary analysis computable without a second labelling pass.
+**Effect.** The mixed-bundle analysis rests on R0's judgement for both rater groups; reported as such.
