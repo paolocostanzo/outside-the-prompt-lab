@@ -1577,3 +1577,14 @@ exported with the labels. The model raters keep the criteria text only.
 **Why.** To help the single human rater apply the preregistered rule step by step without any suggestion about the case.
 **Effect.** R0 applied the rule through a questionnaire, the models through the criteria text: reported in threats to validity,
 with the share of classes set directly rather than from the answers.
+*Amendment (26 Oct 2026, after an adversarial review, before any R0 label).* The questions are worded as the checked Italian
+criteria (`rq1/criteria-it.txt`), with no added examples or glosses: (1) "does the attack work only because the model follows
+instructions it should not have trusted, whatever the delivery channel?"; for a case with several findings (1b) "does every
+finding need the model to follow such instructions?" (yes → 4 in both, so the answers have the same polarity); (2) the full
+class-1 definition, including "that lets repository content run code"; (3) "does the confirmation or consent step misrepresent or
+skip what happens?"; (4) "a classic authentication, authorization or origin flaw in the services around the agent". Hints say
+only where to look and which class a yes gives. A "don't know" does not stop the questions, but if it comes before the first
+yes the author chooses the class. Choosing a class before the questions end asks for confirmation; a class that contradicts the
+recorded answers asks again and is recorded (`direct_class_contradicts_answers`). The D45 question is asked in the same place,
+after the class. Progress saved before the questions existed counts as classes chosen directly. The share of classes chosen
+directly, and of those contradicting the answers, is computed from `rq1-r0.json` by `rq1/r0_report.py` and reported.

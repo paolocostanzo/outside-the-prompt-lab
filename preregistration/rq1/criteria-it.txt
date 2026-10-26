@@ -1,19 +1,19 @@
 Classifica una divulgazione pubblica di sicurezza su un agente AI o su uno dei suoi connettori.
 Assegna esattamente una classe in base al punto in cui il difetto scatta:
-1. Before trust (prima della decisione di fiducia) - viene eseguito all'avvio o prima della decisione di fiducia dell'utente.
+1. Before trust - viene eseguito all'avvio o prima della decisione di fiducia dell'utente.
    Comprende i difetti nei meccanismi di avvio ed esecuzione dell'agente stesso (confini della sandbox, invocazioni di tool in
    background, risoluzione dei percorsi) che permettono al contenuto del repository di eseguire codice senza alcuna decisione
    dell'utente o del modello.
-2. Interaction layer (livello di interazione) - il passaggio di conferma o di consenso rappresenta in modo falso o salta ciò che
+2. Interaction layer - il passaggio di conferma o di consenso rappresenta in modo falso o salta ciò che
    accade.
-3. Plumbing (infrastruttura intorno all'agente) - difetti classici di autenticazione, autorizzazione o origine nei servizi intorno
+3. Plumbing - difetti classici di autenticazione, autorizzazione o origine nei servizi intorno
    all'agente: server MCP, SDK, connettori, bridge.
-4. Authority (privilegi del modello) - il modello viene manipolato; l'impatto è determinato dai privilegi che possiede.
+4. Authority - il modello viene manipolato; l'impatto è determinato dai privilegi che possiede.
 Regola di decisione: se l'attacco funziona solo perché il modello segue istruzioni di cui non avrebbe dovuto fidarsi, il caso è
 di classe 4, qualunque sia il canale di consegna. Altrimenti il caso va al primo passo che fallisce senza nessuna decisione del
 modello: prima della decisione di fiducia (1), in ciò che all'utente viene mostrato o chiesto di confermare (2), oppure
 nell'autenticazione e autorizzazione dei servizi intorno all'agente (3).
 Regola di conteggio: una divulgazione è un caso, qualunque sia il numero di rilievi che raggruppa. Se la divulgazione raggruppa
 più rilievi, applica la regola di decisione su tutti: se almeno un rilievo funziona senza che il modello segua istruzioni di cui
-non avrebbe dovuto fidarsi, dai la più bassa tra le classi 1-3 di quei rilievi; dai la classe 4 solo se ogni rilievo richiede che
+non avrebbe dovuto fidarsi, dai la prima tra le classi 1-3 di quei rilievi; dai la classe 4 solo se ogni rilievo richiede che
 il modello segua tali istruzioni.

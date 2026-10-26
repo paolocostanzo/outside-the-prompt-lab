@@ -9,8 +9,8 @@
    "confermare" or "consentire" only if the English has "authorize", "confirm" or "permit"; otherwise keep the English verb's
    meaning with a neutral word), "iniezione", "autorità", "classe", "plumbing", "prima della fiducia". No product, vendor or
    project names, ids, dates or scores (the English has none).
-5. The criteria text is translated in the same way; the class names stay in English next to the Italian
-   ("1. Before trust (prima della decisione di fiducia)") because they are the names the models see.
+5. The criteria text is translated in the same way; the class names stay in English only ("1. Before trust"), because they are the
+   names the models see (an Italian gloss next to them was removed before any label: it explained rather than translated).
 6. Output keeps the case id; nothing else changes.
 7. (added before any translation was checked) In the criteria the word "classe" is unavoidable, since the criteria define the
    classes; rule 4's ban applies to the summaries. "Approve" in the criteria ("asked to approve") is rendered "confermare" to keep

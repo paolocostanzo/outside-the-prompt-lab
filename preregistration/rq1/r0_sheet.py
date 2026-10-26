@@ -38,7 +38,7 @@ main{display:grid;grid-template-columns:minmax(0,1fr) 24rem;gap:1rem;max-width:7
 .classes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.6rem;margin:.8rem 0}
 .classes button,.yn button{padding:.8rem;text-align:left;font-size:1rem} .classes b,.yn b{font-size:1.15rem;margin-right:.4rem}
 .classes button.on,.yn button.on{background:var(--sel);color:var(--selfg);border-color:var(--sel)}
-.yn{display:flex;gap:.6rem;margin:.5rem 0} #bundle{border-top:1px dashed var(--line);margin-top:.8rem;padding-top:.6rem}
+.yn{display:flex;gap:.6rem;margin:.5rem 0;flex-wrap:wrap} #bundle{border-top:1px dashed var(--line);margin-top:.8rem;padding-top:.6rem}
 .rule{font-size:.9rem} .rule h3{font-size:1rem;margin:.2rem 0 .4rem} kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:4px;padding:0 .3rem;font-size:.85em}
 #warn{display:none;background:var(--warn);color:#fff;padding:.5rem 16px;font-weight:600}
 #note{display:none;background:var(--notebg);color:var(--note);padding:.5rem 16px;font-weight:600}
@@ -60,6 +60,13 @@ pre{white-space:pre-wrap;font-size:.82rem;background:var(--bg);padding:.6rem;bor
 <span>Testo in italiano: traduzione controllata (D46); il riferimento è l'originale inglese, lo stesso dato ai modelli.</span></p>
 <p id="summary_en" lang="en"></p>
 <p><a id="src" href="#" target="_blank" rel="noopener noreferrer">Apri la fonte primaria (O)</a> · <label><input type="checkbox" id="opened"> fonte aperta</label></p>
+<div id="guide" class="card" style="margin:.4rem 0 .8rem">
+<div id="qhist" class="muted"></div>
+<p id="qtext" style="font-weight:600;margin:.4rem 0"></p><p id="qhint" class="muted" style="margin:.2rem 0 .6rem"></p>
+<div class="yn" id="qbtns"><button data-q="yes"><b>S</b>sì</button><button data-q="no"><b>N</b>no</button><button data-q="unk"><b>?</b>non so</button></div>
+<p id="qresult" style="font-weight:600;margin:.5rem 0 0"></p>
+<p class="muted" style="margin:.3rem 0 0"><button id="qreset">Ricomincia le domande (R)</button></p></div>
+<p class="muted" id="manualhint" style="margin:.2rem 0">Oppure scegli o cambia tu la classe:</p>
 <div class="classes" id="classes"></div>
 <div id="bundle"><p><b>Più rilievi nello stesso caso (D45).</b> Almeno uno dei rilievi, preso da solo, funziona solo perché il modello
 segue istruzioni di cui non avrebbe dovuto fidarsi? <span class="muted">(Does at least one finding, taken alone, work only because the model
@@ -72,7 +79,7 @@ follows instructions it should not have trusted?)</span></p><div class="yn"><but
 <aside class="card rule"><h3>Criteri (traduzione controllata, D46)</h3><pre lang="it">__CRITERIA_IT__</pre>
 <p><button id="btn-crit-en">Criteri originali in inglese (E)</button></p><pre id="crit_en" lang="en" style="display:none">__CRITERIA__</pre>
 <div id="countrule"><h3>Questo caso ha più rilievi</h3><p class="muted">Applica la regola di conteggio qui sopra.</p></div>
-<p class="muted">Tasti: <kbd>1</kbd>–<kbd>4</kbd> sceglie la classe · <kbd>S</kbd>/<kbd>N</kbd> domanda D45 · <kbd>Invio</kbd> prossimo
+<p class="muted">Tasti: <kbd>1</kbd>–<kbd>4</kbd> sceglie la classe · <kbd>S</kbd>/<kbd>N</kbd>/<kbd>?</kbd> rispondono alle domande (poi alla D45) · <kbd>R</kbd> ricomincia le domande · <kbd>Invio</kbd> prossimo
 da fare · <kbd>←</kbd> <kbd>→</kbd> sposta · <kbd>U</kbd> ultimo risposto · <kbd>T</kbd> riassunto inglese · <kbd>E</kbd> criteri inglesi ·
 <kbd>O</kbd> fonte · <kbd>B</kbd> salva copia. Un tasto sceglie e non fa avanzare: si avanza solo con Invio. Nessuna classe è
 proposta in questa pagina.</p></aside></main>
@@ -81,7 +88,7 @@ const CASES = __DATA__; const NONRESP = __NONRESP__; const KEY = "rq1-r0-" + __S
 const SEED = __SEED__; const CRIT_SHA = __CRITSHA__;
 const ids = CASES.map(c => c.id); const bids = CASES.filter(c => c.bundle).map(c => c.id);
 const OWNER = KEY + "-owner"; const BKEY = KEY + "-since-backup"; const ME = String(Date.now()) + Math.random(); let blocked = false;
-let state = {c: {}, o: {}, a: {}, b: {}, decl: false}; let cur = 0; let lastIdx = null; let showEn = false;
+let state = {c: {}, o: {}, a: {}, b: {}, q: {}, m: {}, x: {}, decl: false}; let cur = 0; let lastIdx = null; let showEn = false;
 const $ = id => document.getElementById(id);
 function warn(msg) { $("warn").textContent = msg; $("warn").style.display = "block"; }
 function note(msg) { $("note").textContent = msg; $("note").style.display = msg ? "block" : "none"; }
@@ -93,6 +100,53 @@ try { localStorage.setItem(OWNER, ME); } catch (e) { memoryOnly = true;
 window.addEventListener("storage", e => { if (e.key === OWNER && e.newValue !== ME) block(OTHER); });
 let memBackup = 0;
 function sinceBackup() { if (memoryOnly) return memBackup; try { return +(localStorage.getItem(BKEY) || 0); } catch (e) { return memBackup; } }
+// D47: the decision rule and counting rule of the criteria as yes/no questions, in the rule's order, worded as the checked
+// Italian criteria (criteria-it.txt); hints say only where to look. The first decisive answer gives the class.
+const Q = {
+  q1: {text: "L'attacco funziona solo perché il modello segue istruzioni di cui non avrebbe dovuto fidarsi, qualunque sia il canale di consegna?",
+       hint: "Dove guardare: chi o che cosa fornisce l'input che fa scattare il difetto. Sì = classe 4."},
+  q1b: {text: "Questo caso ha più rilievi. Ogni rilievo richiede che il modello segua istruzioni di cui non avrebbe dovuto fidarsi?",
+       hint: "Dove guardare: per ogni rilievo, chi o che cosa fornisce l'input che lo fa scattare. Sì = classe 4 (regola di conteggio)."},
+  q2: {text: "Il difetto viene eseguito all'avvio o prima della decisione di fiducia dell'utente, oppure è un difetto nei meccanismi di avvio ed esecuzione dell'agente stesso (confini della sandbox, invocazioni di tool in background, risoluzione dei percorsi) che permette al contenuto del repository di eseguire codice senza alcuna decisione dell'utente o del modello?",
+       hint: "Dove guardare: quando scatta il difetto e se qualcuno (utente o modello) deve decidere qualcosa prima. Sì = classe 1."},
+  q3: {text: "Il passaggio di conferma o di consenso rappresenta in modo falso o salta ciò che accade?",
+       hint: "Dove guardare: che cosa vede o conferma l'utente e che cosa accade davvero. Sì = classe 2."},
+  q4: {text: "È un difetto classico di autenticazione, autorizzazione o origine nei servizi intorno all'agente (server MCP, SDK, connettori, bridge)?",
+       hint: "Dove guardare: chi può chiamare o usare il servizio e con quali controlli. Sì = classe 3."},
+  d45: {text: "Domanda D45: almeno uno dei rilievi, preso da solo, funziona solo perché il modello segue istruzioni di cui non avrebbe dovuto fidarsi?",
+       hint: "Serve solo per un'analisi secondaria (rilievi misti). Non cambia la classe."}};
+const BUNDLE_NOTE = " Considera solo i rilievi che funzionano senza che il modello segua tali istruzioni: vale il primo sì (la prima tra le classi 1-3).";
+function flow(id) {  // -> {next, cls, manual, unk}
+  const a = state.q[id] || {}; const first = bids.includes(id) ? "q1b" : "q1";
+  if (a[first] === undefined) return {next: first};
+  if (a[first] === "yes") return {cls: 4};
+  let unk = a[first] === "unk";  // a "don't know" never stops the questions; before the first yes, the author chooses
+  for (const [k, cls] of [["q2", 1], ["q3", 2], ["q4", 3]]) {
+    if (a[k] === undefined) return {next: k, unk};
+    if (a[k] === "unk") { unk = true; continue; }  // keep asking, but an earlier unknown step means the author chooses
+    if (a[k] === "yes") return unk ? {manual: true, unk} : {cls};
+  }
+  return {manual: true, unk}; }
+function slot(id) {  // what the question slot asks now: a rule question, then D45 for bundles
+  if (state.m[id] && state.c[id] !== undefined) return bids.includes(id) && state.b[id] === undefined ? "d45" : null;
+  const f = flow(id); if (f.next) return f.next;
+  if (state.c[id] !== undefined && bids.includes(id) && state.b[id] === undefined) return "d45";
+  return null; }
+let guardUntil = 0;  // a fast extra S/N right after the slot changes never answers the new question
+function answerSlot(v) { const id = ids[cur]; const k = slot(id); if (blocked || !k || Date.now() < guardUntil) return;
+  if (k === "d45") { if (v === "unk") return; setBundle(v); guardUntil = Date.now() + 500; return; }
+  answer(id => { state.q[id] = {...(state.q[id] || {}), [k]: v}; const g = flow(id);
+    if (g.cls) { state.c[id] = g.cls; state.m[id] = false; } });
+  guardUntil = Date.now() + 500; }
+function resetQ() { if (blocked) return; answer(id => { delete state.q[id]; delete state.c[id]; delete state.m[id]; delete state.b[id]; delete state.x[id]; }); }
+function contradicts(id, k) {  // does class k go against any recorded answer? (D47 amendment)
+  const a = state.q[id] || {}; const f = flow(id);
+  if (f.cls !== undefined) return f.cls !== k;
+  const first = bids.includes(id) ? "q1b" : "q1"; const step = {1: "q2", 2: "q3", 3: "q4"};
+  if (a[first] === "yes") return k !== 4;
+  if (a[first] === "no" && k === 4) return true;
+  if (k <= 3) return a[step[k]] === "no" || [1, 2, 3].some(j => j < k && a[step[j]] === "yes");
+  return false; }
 function answered(id) { return state.c[id] !== undefined && (!bids.includes(id) || state.b[id] !== undefined); }
 function save() { if (blocked) return false; if (memoryOnly) return true;
   try { if (localStorage.getItem(OWNER) !== ME) { block(OTHER); return false; }
@@ -108,9 +162,19 @@ function render() {
   $("btn-lang").textContent = showEn ? "Nascondi l'originale inglese (T)" : "Mostra l'originale inglese (T)"; $("src").href = c.src; $("opened").checked = !!(state.o[id] || state.a[id]);
   $("opened").disabled = !!state.a[id] || blocked;
   document.querySelectorAll("#classes button").forEach(b => { b.classList.toggle("on", state.c[id] === +b.dataset.k); b.disabled = blocked; });
-  $("bundle").style.display = c.bundle && state.c[id] !== undefined ? "block" : "none";  // D45: asked after the class
+  const f = flow(id); const qa = state.q[id] || {}; const k = slot(id);
+  $("qhist").textContent = Object.entries(qa).map(([q, v]) => (q === "q1b" ? "Q1 (più rilievi)" : q.toUpperCase()) + ": " + {yes: "sì", no: "no", unk: "non so"}[v]).join(" · ")
+    + (state.b[id] ? " · D45: " + (state.b[id] === "yes" ? "sì" : "no") : "");
+  if (k) { $("qtext").textContent = Q[k].text;
+    $("qhint").textContent = Q[k].hint + (bids.includes(id) && ["q2", "q3", "q4"].includes(k) ? BUNDLE_NOTE : "");
+    $("qbtns").style.display = "flex"; document.querySelector('#qbtns [data-q="unk"]').style.display = k === "d45" ? "none" : ""; }
+  else { $("qtext").textContent = ""; $("qhint").textContent = ""; $("qbtns").style.display = "none"; }
+  document.querySelectorAll("#qbtns button").forEach(b => b.disabled = blocked);
+  $("qresult").textContent = state.c[id] !== undefined
+    ? "Classe: " + state.c[id] + " — " + NAMES[state.c[id] - 1] + (state.m[id] ? (state.x[id] ? " (scelta da te, diversa dalle risposte)" : " (scelta da te)") : " (dalle tue risposte)")
+    : (f.manual ? (f.unk ? "Hai risposto \u201cnon so\u201d a un passaggio: scegli tu la classe con 1–4 qui sotto." : "Nessuna risposta sì: scegli tu la classe con 1–4 qui sotto.") : "");
+  $("bundle").style.display = "none";  // D45 is asked in the question slot (D47)
   $("countrule").style.display = c.bundle ? "block" : "none";
-  document.querySelectorAll("#bundle button").forEach(b => { b.classList.toggle("on", state.b[id] === b.dataset.b); b.disabled = blocked; });
   $("prev").disabled = cur === 0; $("next").disabled = cur === ids.length - 1; $("lastbtn").disabled = lastIdx === null;
   $("finish").style.display = done === ids.length ? "block" : "none"; $("decl").checked = !!state.decl;
   $("decl").disabled = blocked; $("export").disabled = blocked;
@@ -127,7 +191,12 @@ function answer(fn) { if (blocked) return; const id = ids[cur]; const was = answ
   if (!was && answered(id)) { memBackup = sinceBackup() + 1; if (!memoryOnly) try { localStorage.setItem(BKEY, String(memBackup)); } catch (e) {}
     if (sinceBackup() >= 20) note("Promemoria: salva una copia su file ora (tasto B)."); }
   render(); }
-function setClass(k) { answer(id => state.c[id] = k); }
+function setClass(k) { const id = ids[cur]; if (blocked) return; const f = flow(id);
+  if (f.cls === k) { answer(id => { state.c[id] = k; state.m[id] = false; delete state.x[id]; }); return; }
+  if (f.next && !confirm("Non hai finito le domande. Scegliere comunque la classe " + k + "?")) return;
+  const contra = contradicts(id, k);
+  if (contra && !confirm("La classe " + k + " non segue dalle risposte che hai dato. Sceglierla comunque? (viene registrato)")) return;
+  answer(id => { state.c[id] = k; state.m[id] = true; if (contra) state.x[id] = true; else delete state.x[id]; }); }
 function setBundle(v) { const id = ids[cur]; if (!bids.includes(id) || state.c[id] === undefined) return; answer(id => state.b[id] = v); }
 function markOpened() { if (blocked) return; state.a[ids[cur]] = true; save(); render(); }
 function openSource() { markOpened(); window.open(CASES[cur].src, "_blank", "noopener,noreferrer"); }
@@ -140,9 +209,20 @@ function validBackup(j) {  // the whole structure is checked before anything cha
   for (const [id, v] of Object.entries(d.b || {})) if (!bids.includes(id) || !["yes", "no"].includes(v)) return "risposta D45 non valida: " + id;
   for (const part of ["o", "a"]) for (const [id, v] of Object.entries(d[part] || {}))
     if (!ids.includes(id) || typeof v !== "boolean") return "valore 'fonte aperta' non valido: " + id;
+  for (const [id, a] of Object.entries(d.q || {})) { if (!ids.includes(id) || !a || typeof a !== "object") return "risposte guidate non valide: " + id;
+    for (const [k, v] of Object.entries(a)) if (!["q1", "q1b", "q2", "q3", "q4"].includes(k) || !["yes", "no", "unk"].includes(v)) return "risposta guidata non valida: " + id; }
+  for (const part of ["m", "x"]) for (const [id, v] of Object.entries(d[part] || {}))
+    if (!ids.includes(id) || typeof v !== "boolean") return "valore 'scelta da te' non valido: " + id;
+  for (const [id, a] of Object.entries(d.q || {})) {
+    if ((a.q1 !== undefined && bids.includes(id)) || (a.q1b !== undefined && !bids.includes(id))) return "domanda 1 incoerente: " + id; }
   if (typeof d.decl !== "boolean") return "dichiarazione non valida";
   return null; }
-function adopt(d) { return {c: {...d.c}, o: {...d.o}, a: {...(d.a || {})}, b: {...(d.b || {})}, decl: d.decl}; }
+function adopt(d) { const q = {}; Object.entries(d.q || {}).forEach(([k, v]) => q[k] = {...v});
+  const st = {c: {...d.c}, o: {...d.o}, a: {...(d.a || {})}, b: {...(d.b || {})}, q, m: {...(d.m || {})}, x: {...(d.x || {})}, decl: d.decl};
+  const saved = state; state = st;  // flow() reads state
+  for (const id of Object.keys(st.c)) {  // a class not produced by the recorded answers counts as chosen directly (e.g. older progress)
+    if (!st.m[id] && flow(id).cls !== st.c[id]) st.m[id] = true; }
+  state = saved; return st; }
 function load() { if (memoryOnly) return; let raw = null;
   try { raw = localStorage.getItem(KEY); } catch (e) { memoryOnly = true;
     warn("Questo browser non conserva i progressi (" + e.name + "): lavori in memoria. Salva una copia su file spesso (tasto B)."); return; }
@@ -156,12 +236,13 @@ document.addEventListener("keydown", e => {
   if (e.ctrlKey || e.metaKey || e.altKey || e.repeat) { if (e.repeat) e.preventDefault(); return; }
   const t = e.target.tagName; if (t === "INPUT" && e.target.type === "file") return;
   const k = e.key.toLowerCase();
-  const answerBtn = t === "BUTTON" && (e.target.closest("#classes") || e.target.closest("#bundle"));
+  const answerBtn = t === "BUTTON" && (e.target.closest("#classes") || e.target.closest("#bundle") || e.target.closest("#qbtns"));
   if ((k === " " || k === "enter") && answerBtn) { e.preventDefault(); return; }  // a focused answer button is never re-pressed
   if ((k === " " || k === "enter") && (t === "INPUT" || t === "BUTTON" || t === "A")) return;  // native activation elsewhere
   if (k === " ") return;
   if (["1", "2", "3", "4"].includes(k)) setClass(+k);
-  else if (k === "s" || k === "y") setBundle("yes"); else if (k === "n") setBundle("no");
+  else if (k === "s" || k === "y") answerSlot("yes"); else if (k === "n") answerSlot("no");
+  else if (k === "?") answerSlot("unk"); else if (k === "r") resetQ();
   else if (k === "enter") nextTodo(); else if (k === "arrowright") go(cur + 1); else if (k === "arrowleft") go(cur - 1);
   else if (k === "u") { if (lastIdx !== null) go(lastIdx); }
   else if (k === "o") openSource(); else if (k === "b") $("btn-backup").click();
@@ -171,6 +252,8 @@ function btn(el, fn) { el.addEventListener("click", e => { fn(e); el.blur(); });
 NAMES.forEach((n, i) => { const b = document.createElement("button"); b.dataset.k = i + 1;
   b.innerHTML = "<b>" + (i + 1) + "</b>"; b.append(document.createTextNode(n)); btn(b, () => setClass(i + 1)); $("classes").append(b); });
 document.querySelectorAll("#bundle button").forEach(b => btn(b, () => setBundle(b.dataset.b)));
+document.querySelectorAll("#qbtns button").forEach(b => btn(b, () => answerSlot(b.dataset.q)));
+btn($("qreset"), resetQ);
 btn($("prev"), () => go(cur - 1)); btn($("next"), () => go(cur + 1)); btn($("nextbtn"), nextTodo);
 btn($("lastbtn"), () => { if (lastIdx !== null) go(lastIdx); });
 btn($("btn-lang"), () => { showEn = !showEn; render(); });
@@ -202,15 +285,17 @@ btn($("export"), () => {
   const missing = ids.filter(id => !answered(id));
   if (missing.length) { alert("Mancano risposte: " + missing.join(", ")); return; }
   if (!state.decl) { alert("Spunta prima la dichiarazione."); return; }
-  const odd = bids.filter(id => state.c[id] === 4 && state.b[id] === "no");
+  const odd = bids.filter(id => (state.c[id] === 4 && state.b[id] === "no") || ((state.q[id] || {}).q1b === "yes" && state.b[id] === "no"));
   if (odd.length && !confirm("Ricontrolla questi casi con più rilievi (classe e risposta D45 da rileggere insieme alla regola di conteggio): "
                              + odd.join(", ") + ". Esportare comunque?")) return;
   const classes = {}; ids.forEach(id => classes[id] = state.c[id]); NONRESP.forEach(id => classes[id] = null);
   const bundle = {}; bids.forEach(id => bundle[id] = state.b[id] === "yes");
   const auto = {}, manual = {}, opened = {}; ids.forEach(id => { auto[id] = !!state.a[id]; manual[id] = !!state.o[id]; opened[id] = auto[id] || manual[id]; });
-  const blob = new Blob([JSON.stringify({classes, bundle_model_finding: bundle, source_opened: opened, source_opened_auto: auto,
+  const guided = {}, direct = {}, contra = {}; ids.forEach(id => { guided[id] = state.q[id] || {}; direct[id] = !!state.m[id]; contra[id] = !!state.x[id]; });
+  const blob = new Blob([JSON.stringify({classes, bundle_model_finding: bundle, guided_answers: guided, class_set_directly: direct, direct_class_contradicts_answers: contra,
+    source_opened: opened, source_opened_auto: auto,
     source_opened_manual: manual, declaration: "labelled by the author without AI assistance (D42 point 4)",
-    seed: SEED, criteria_sha256: CRIT_SHA, sheet: "v2", exported: new Date().toISOString()}, null, 2)], {type: "application/json"});
+    seed: SEED, criteria_sha256: CRIT_SHA, sheet: "v3-guided", exported: new Date().toISOString()}, null, 2)], {type: "application/json"});
   const a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "rq1-r0.json"; a.click(); });
 load(); { const i = firstTodo(); go(i === null ? 0 : i); }
 if (sinceBackup() >= 20) note("Promemoria: salva una copia su file ora (tasto B).");
