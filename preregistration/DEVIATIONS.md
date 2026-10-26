@@ -1545,3 +1545,18 @@ or 3. In the secondary analysis of D41 point 1, mixed cases count as class 4 for
 give no per-finding answer). The question is asked only for the eight bundles and shows no class or suggestion.
 **Why.** To make the preregistered secondary analysis computable without a second labelling pass.
 **Effect.** The mixed-bundle analysis rests on R0's judgement for both rater groups; reported as such.
+
+### D46 · 26 Oct 2026 · D42 points 1 and 3, §4 R0 input — the author reads the summaries in Italian
+**Problem.** The summaries and the criteria are in English, the language given to the model raters. The author (R0) is a native
+Italian speaker and asked to label from Italian text. Written before any R0 label or model run.
+**Change.**
+1. Each summary and the criteria text are translated into Italian by an AI assistant (Claude) under `rq1/TRANSLATION-RULES.md`:
+   faithful sentence by sentence, every precondition and the triggering input kept, nothing added or explained, technical terms
+   kept, no class words of §3 nor their Italian equivalents ("approvazione", "iniezione", "autorità", "classe"), no names.
+2. A second assistant of another family (Codex) checks every translation against its English original for meaning, completeness
+   of preconditions and neutrality; every correction is recorded in `translation-checks.csv`.
+3. The R0 sheet shows the Italian text; the English original of each summary and of the criteria is one key away and is the
+   reference text. The model raters keep the English summaries and criteria, unchanged.
+4. Translations (`rq1-cases-it.json`, the Italian criteria) and the checks are committed before R0 starts.
+**Why.** To let the single human rater read in his own language, so that misreadings of English do not enter R0.
+**Effect.** R0's input is a checked translation of the models' input, not the same text; reported in threats to validity.
