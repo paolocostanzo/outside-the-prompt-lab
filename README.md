@@ -18,7 +18,7 @@ which can describe exploitation, are not included (hashes only).
 | `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes; the open-weight cells promised in part 2 (D39, exploratory: what four clients send to an open-weight model before and after the change), 23 Python tests, evidence in `evidence/open-weight-20261024/` | *You approved the tool. Then it changed.* (20 Oct 2026); open-weight cells: *Would your logs have caught it?* (27 Oct 2026) |
 | `defence-coverage/` | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Both readings, the third reading's proposals and the author's adjudication (D22, D38), the final census and coverage tables of the published servers (`results-20261024/`), scripts, 28 tests | *Would your logs have caught it?* (27 Oct 2026) |
 | `telemetry/` | Q4 (RQ5) — what default client logs and host telemetry show for each event (D24–D37): inventory of default log locations, exporter run inside the VM, collection check, event and baseline orchestrators, quota observer, frozen detection rules of two authors, host rules, scoring and the H5 verdict, public evidence of every run and session, 221 tests | *Would your logs have caught it?* (27 Oct 2026) |
-| `preregistration/` | deviations log, RQ1 classifier, ten-case pilot | preprint (November 2026) |
+| `preregistration/` | RQ1 (confirmatory): deviations log D1–D49, frozen frame of 330 disclosures, stratified sample of 120, the author's labels (R0), canonical classifier, the confirmatory run of three open-weight model raters (`runs/rq1-confirmatory-20261027T142818Z/`) and its analysis (`…-rq1-analysis/RESULTS-RQ1.md`), ten-case pilot | preprint (November 2026) |
 
 Each folder has its own README with requirements, how to reproduce, the test matrix and the limits of interpretation.
 
@@ -42,7 +42,7 @@ node scripts/check-approvals.mjs          # which MCP tools have I approved perm
 ```bash
 python3 -m unittest discover -s telemetry/test          # 221 tests, Python >= 3.11, no dependencies
 python3 -m unittest discover -s defence-coverage/test   # 28 tests
-python3 -m unittest discover -s preregistration/test    # 76 tests: RQ1 classifier, sampler, estimator
+python3 -m unittest discover -s preregistration/test    # 99 tests: RQ1 classifier, sampler, estimator, analysis
 python3 telemetry/scripts/vm_logs.py inventory telemetry/inventory/candidates.json   # read-only: which agent logs are on this machine?
 ```
 The event and baseline orchestrators run on the host and drive the disposable VM; the scripts that stop or reset clients refuse to
