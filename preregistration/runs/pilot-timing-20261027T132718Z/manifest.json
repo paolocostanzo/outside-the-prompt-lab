@@ -1,0 +1,38 @@
+{
+  "models": [
+    {
+      "name": "qwen3.8:27b-q8_0",
+      "digest": "8f5fb6b71ea00052cbe8545738c55ce61112c4e571cb60ca4dad00b131766039",
+      "file": "qwen3.8_27b-q8_0.json"
+    },
+    {
+      "name": "gemma4:26b-a4b-it-q8_0",
+      "digest": "7473a33e49f186a27812ba7cb434b2b2b26e377714ad49f9abe9cdd7089ac4f7",
+      "file": "gemma4_26b-a4b-it-q8_0.json"
+    },
+    {
+      "name": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+      "digest": "e7a64ff15fb174c42b4f463e5c888c4f2c7b9cabf9e8d65a1c0874405426c1b2",
+      "file": "nemotron-3.5-lightning_30b-a3b-q4_K_M.json"
+    }
+  ],
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "mode": "exploratory",
+  "case_ids": [
+    "C01",
+    "C02",
+    "C03"
+  ],
+  "cases_file": "pilot3.json",
+  "cases_sha256": "623aeca7bf597c3dc5999bfa2116dcab0a96ef639704ec8e1b803826d5ae4e78",
+  "n_cases": 3,
+  "r0_file": null,
+  "r0_sha256": null,
+  "r0_commit": null,
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "started": "2026-10-27T13:38:17+00:00",
+  "complete": false
+}

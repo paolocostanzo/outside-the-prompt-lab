@@ -1,0 +1,4094 @@
+{
+  "model": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+  "digest": "e7a64ff15fb174c42b4f463e5c888c4f2c7b9cabf9e8d65a1c0874405426c1b2",
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "cases_file": "rq1-cases.json",
+  "cases_sha256": "0e9301280ce27b643d5e182984400af3c7fa95d0d2fec666250ae7429926b657",
+  "started": "2026-10-27T20:27:27+00:00",
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "cases": {
+    "RQ1-0008": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The flaw resides in the client's loopback listener opened during OAuth sign-in, accepting the first callback without binding to the pending sign-in, which is a failure in the agent's own execution machinery before any user trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4288,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The flaw resides in the client's loopback listener opened during OAuth sign-in, accepting the first callback without binding to the pending sign-in, which is a failure in the agent's own execution machinery before any user trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4288,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The flaw resides in the client's loopback listener opened during OAuth sign-in, accepting the first callback without binding to the pending sign-in, which is a failure in the agent's own execution machinery before any user trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4288,
+          "prompt_tokens": 509
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0096": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attacker exploits missing input validation in the file-upload and configuration-parsing pipeline, which are classic plumbing flaws in the services around the agent, allowing arbitrary code execution without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2279,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attacker exploits missing input validation in the file-upload and configuration-parsing pipeline, which are classic plumbing flaws in the services around the agent, allowing arbitrary code execution without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2279,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attacker exploits missing input validation in the file-upload and configuration-parsing pipeline, which are classic plumbing flaws in the services around the agent, allowing arbitrary code execution without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2279,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0260": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The core issue is a path resolution flaw in the AI file-editing tool that fails to check workspace containment, allowing model-supplied paths to escape the sandbox without any user or model containment decision—this is a pre-trust execution boundary failure classified as Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 6530,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The core issue is a path resolution flaw in the AI file-editing tool that fails to check workspace containment, allowing model-supplied paths to escape the sandbox without any user or model containment decision—this is a pre-trust execution boundary failure classified as Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 6530,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The core issue is a path resolution flaw in the AI file-editing tool that fails to check workspace containment, allowing model-supplied paths to escape the sandbox without any user or model containment decision—this is a pre-trust execution boundary failure classified as Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 6530,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0296": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly lists required user interaction as a factor, and per the decision rule, cases where the user is shown or asked to approve something (without the model being manipulated into following untrusted instructions) are classified as Class 2, the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4244,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly lists required user interaction as a factor, and per the decision rule, cases where the user is shown or asked to approve something (without the model being manipulated into following untrusted instructions) are classified as Class 2, the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4244,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly lists required user interaction as a factor, and per the decision rule, cases where the user is shown or asked to approve something (without the model being manipulated into following untrusted instructions) are classified as Class 2, the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4244,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0119": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The administrator's confirmation card hides command-line arguments and environment variables that are nevertheless saved into the agent's runtime configuration, misrepresenting what the approval step authorizes.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 6696,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The administrator's confirmation card hides command-line arguments and environment variables that are nevertheless saved into the agent's runtime configuration, misrepresenting what the approval step authorizes.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 6696,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"The administrator's confirmation card hides command-line arguments and environment variables that are nevertheless saved into the agent's runtime configuration, misrepresenting what the approval step authorizes.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 6696,
+          "prompt_tokens": 507
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0313": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw involves unneutralized special elements in command execution, representing a sanitization failure in the agent's service plumbing rather than model manipulation, user interaction, or startup machinery.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3583,
+          "prompt_tokens": 478
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw involves unneutralized special elements in command execution, representing a sanitization failure in the agent's service plumbing rather than model manipulation, user interaction, or startup machinery.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3583,
+          "prompt_tokens": 478
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw involves unneutralized special elements in command execution, representing a sanitization failure in the agent's service plumbing rather than model manipulation, user interaction, or startup machinery.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3583,
+          "prompt_tokens": 478
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0300": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw resides in the desktop agent's link-handling/execution machinery (path resolution/sandbox boundaries), enabling arbitrary code execution when a user opens a crafted link without any model trust decision or manipulation.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 8040,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw resides in the desktop agent's link-handling/execution machinery (path resolution/sandbox boundaries), enabling arbitrary code execution when a user opens a crafted link without any model trust decision or manipulation.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 8040,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw resides in the desktop agent's link-handling/execution machinery (path resolution/sandbox boundaries), enabling arbitrary code execution when a user opens a crafted link without any model trust decision or manipulation.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 8040,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0215": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"Both findings exploit authorization and deserialization flaws in the platform's connector services without requiring the AI model to follow untrusted instructions, placing them in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2935,
+          "prompt_tokens": 535
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"Both findings exploit authorization and deserialization flaws in the platform's connector services without requiring the AI model to follow untrusted instructions, placing them in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2935,
+          "prompt_tokens": 535
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"Both findings exploit authorization and deserialization flaws in the platform's connector services without requiring the AI model to follow untrusted instructions, placing them in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2935,
+          "prompt_tokens": 535
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0152": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The incomplete capability restriction is a flaw in the agent's startup/execution machinery that lets resources and prompt templates run without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4045,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The incomplete capability restriction is a flaw in the agent's startup/execution machinery that lets resources and prompt templates run without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4045,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The incomplete capability restriction is a flaw in the agent's startup/execution machinery that lets resources and prompt templates run without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4045,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0005": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a missing authorization check on the restore endpoint, enabling unauthorized access to other users' data without any model trust decision—an authentication/authorization flaw in the services around the agent (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1821,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a missing authorization check on the restore endpoint, enabling unauthorized access to other users' data without any model trust decision—an authentication/authorization flaw in the services around the agent (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1821,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a missing authorization check on the restore endpoint, enabling unauthorized access to other users' data without any model trust decision—an authentication/authorization flaw in the services around the agent (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1821,
+          "prompt_tokens": 502
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0103": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The attack exploits an authorization flaw in the MCP server's plumbing: a shared template record stores live OAuth tokens, and server-listing endpoints return those headers unmasked, letting any logged-in user read and reuse another user's token. No model trust decision or user approval step is involved; the failure is in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2457,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The attack exploits an authorization flaw in the MCP server's plumbing: a shared template record stores live OAuth tokens, and server-listing endpoints return those headers unmasked, letting any logged-in user read and reuse another user's token. No model trust decision or user approval step is involved; the failure is in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2457,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The attack exploits an authorization flaw in the MCP server's plumbing: a shared template record stores live OAuth tokens, and server-listing endpoints return those headers unmasked, letting any logged-in user read and reuse another user's token. No model trust decision or user approval step is involved; the failure is in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2457,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0131": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability exploits flaws in the agent's execution machinery (insufficient command validation and environment variable filtering) that runs automatically during node refresh, allowing configured content to execute arbitrary system commands without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3605,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability exploits flaws in the agent's execution machinery (insufficient command validation and environment variable filtering) that runs automatically during node refresh, allowing configured content to execute arbitrary system commands without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3605,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability exploits flaws in the agent's execution machinery (insufficient command validation and environment variable filtering) that runs automatically during node refresh, allowing configured content to execute arbitrary system commands without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3605,
+          "prompt_tokens": 504
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0276": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The vulnerability results from the agent framework's execution plumbing not bounding model-generated action parameters, a service design flaw rather than model manipulation or user approval bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4079,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The vulnerability results from the agent framework's execution plumbing not bounding model-generated action parameters, a service design flaw rather than model manipulation or user approval bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4079,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The vulnerability results from the agent framework's execution plumbing not bounding model-generated action parameters, a service design flaw rather than model manipulation or user approval bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4079,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0036": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The vulnerability arises from flaws in the agent's startup/execution machinery and sandbox boundaries, allowing attacker-controlled web content to connect to an unauthenticated internal endpoint without any model trust decision, which matches class 1's definition of pre-trust execution flaws.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2864,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The vulnerability arises from flaws in the agent's startup/execution machinery and sandbox boundaries, allowing attacker-controlled web content to connect to an unauthenticated internal endpoint without any model trust decision, which matches class 1's definition of pre-trust execution flaws.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2864,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.93, \"reason\": \"The vulnerability arises from flaws in the agent's startup/execution machinery and sandbox boundaries, allowing attacker-controlled web content to connect to an unauthenticated internal endpoint without any model trust decision, which matches class 1's definition of pre-trust execution flaws.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2864,
+          "prompt_tokens": 510
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0302": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"All three findings exploit authentication, authorization, or origin flaws in MCP servers, transports, and endpoints without requiring the model to follow untrusted instructions, placing them squarely in Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3868,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"All three findings exploit authentication, authorization, or origin flaws in MCP servers, transports, and endpoints without requiring the model to follow untrusted instructions, placing them squarely in Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3868,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"All three findings exploit authentication, authorization, or origin flaws in MCP servers, transports, and endpoints without requiring the model to follow untrusted instructions, placing them squarely in Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3868,
+          "prompt_tokens": 521
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0143": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"All five findings describe direct exploitation of authentication, authorization, or input validation flaws in the agent's surrounding services where attackers supply requests or configuration without the model needing to be manipulated, making the earliest failure step a plumbing issue (class 3) across the bundled disclosures, and the counting rule excludes class 4 since not all findings require model trust.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6708,
+          "prompt_tokens": 541
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"All five findings describe direct exploitation of authentication, authorization, or input validation flaws in the agent's surrounding services where attackers supply requests or configuration without the model needing to be manipulated, making the earliest failure step a plumbing issue (class 3) across the bundled disclosures, and the counting rule excludes class 4 since not all findings require model trust.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6708,
+          "prompt_tokens": 541
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"All five findings describe direct exploitation of authentication, authorization, or input validation flaws in the agent's surrounding services where attackers supply requests or configuration without the model needing to be manipulated, making the earliest failure step a plumbing issue (class 3) across the bundled disclosures, and the counting rule excludes class 4 since not all findings require model trust.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6708,
+          "prompt_tokens": 541
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0118": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The webhook's lack of sender authentication is a plumbing/authentication flaw in the connector/bridge infrastructure, exploited without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2192,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The webhook's lack of sender authentication is a plumbing/authentication flaw in the connector/bridge infrastructure, exploited without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2192,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The webhook's lack of sender authentication is a plumbing/authentication flaw in the connector/bridge infrastructure, exploited without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2192,
+          "prompt_tokens": 510
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0145": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization check omission in the MCP server's credential validation logic, classifying it as a plumbing/service-level authorization flaw without model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2067,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization check omission in the MCP server's credential validation logic, classifying it as a plumbing/service-level authorization flaw without model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2067,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization check omission in the MCP server's credential validation logic, classifying it as a plumbing/service-level authorization flaw without model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2067,
+          "prompt_tokens": 490
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0270": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The flaw is in the MCP server accepting expired API keys for tool metadata listing and tool calls, which is a classic authentication/authorization flaw in the services around the agent (plumbing), with no model manipulation or trust decision bypass involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1420,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The flaw is in the MCP server accepting expired API keys for tool metadata listing and tool calls, which is a classic authentication/authorization flaw in the services around the agent (plumbing), with no model manipulation or trust decision bypass involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1420,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The flaw is in the MCP server accepting expired API keys for tool metadata listing and tool calls, which is a classic authentication/authorization flaw in the services around the agent (plumbing), with no model manipulation or trust decision bypass involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1420,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0324": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The first finding lets attacker-supplied repository configuration execute commands at session creation without any user or model decision, which is a textbook Class 1 before-trust execution flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2668,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The first finding lets attacker-supplied repository configuration execute commands at session creation without any user or model decision, which is a textbook Class 1 before-trust execution flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2668,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The first finding lets attacker-supplied repository configuration execute commands at session creation without any user or model decision, which is a textbook Class 1 before-trust execution flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2668,
+          "prompt_tokens": 517
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0312": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The flaw's 'without privileges' and network disclosure, with vendor stating no user interaction required, identifies a plumbing/auth origin failure (class 3) as the earliest step without model decision, excluding class 4 per the counting rule.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7108,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.75, \"reason\": \"The vendor finding of no required user interaction means the attack works without the model following untrusted instructions, excluding class 4; the command-handling flaw, lacking evidence of startup machinery or user approval, aligns with authorization/origin flaws in services around the agent (class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7114,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The flaw's 'without privileges' and network disclosure, with vendor stating no user interaction required, identifies a plumbing/auth origin failure (class 3) as the earliest step without model decision, excluding class 4 per the counting rule.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7108,
+          "prompt_tokens": 485
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0025": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.6, \"reason\": \"The open redirect is an origin flaw in the service's URL handling, aligning with plumbing (class 3) as the earliest step failing without model trust or approval involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4913,
+          "prompt_tokens": 477
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.6, \"reason\": \"The open redirect is an origin flaw in the service's URL handling, aligning with plumbing (class 3) as the earliest step failing without model trust or approval involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4913,
+          "prompt_tokens": 477
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.6, \"reason\": \"The open redirect is an origin flaw in the service's URL handling, aligning with plumbing (class 3) as the earliest step failing without model trust or approval involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4913,
+          "prompt_tokens": 477
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0144": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The loader's failure to reject directory-climbing sequences is a flaw in the agent's own path resolution machinery that executes code without any model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3267,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The loader's failure to reject directory-climbing sequences is a flaw in the agent's own path resolution machinery that executes code without any model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3267,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The loader's failure to reject directory-climbing sequences is a flaw in the agent's own path resolution machinery that executes code without any model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3267,
+          "prompt_tokens": 484
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0117": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a missing authorization/ownership check in the message queue interface, enabling cross-user access and prompt injection—a plumbing/service-level authorization failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2626,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a missing authorization/ownership check in the message queue interface, enabling cross-user access and prompt injection—a plumbing/service-level authorization failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2626,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a missing authorization/ownership check in the message queue interface, enabling cross-user access and prompt injection—a plumbing/service-level authorization failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2626,
+          "prompt_tokens": 517
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0283": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits missing resource throttling for authenticated users on the AI worker pool, which is an authorization flaw in the services around the agent, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4347,
+          "prompt_tokens": 474
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits missing resource throttling for authenticated users on the AI worker pool, which is an authorization flaw in the services around the agent, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4347,
+          "prompt_tokens": 474
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits missing resource throttling for authenticated users on the AI worker pool, which is an authorization flaw in the services around the agent, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4347,
+          "prompt_tokens": 474
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0080": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability stems from a flaw in the agent's sandbox boundary and execution machinery, allowing a wrapper placed inside the sandbox to escape and run with user privileges without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3543,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability stems from a flaw in the agent's sandbox boundary and execution machinery, allowing a wrapper placed inside the sandbox to escape and run with user privileges without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3543,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability stems from a flaw in the agent's sandbox boundary and execution machinery, allowing a wrapper placed inside the sandbox to escape and run with user privileges without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3543,
+          "prompt_tokens": 507
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0297": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability describes insufficient credential protection enabling network-based token disclosure, which is a classic authentication and authorization flaw in the services around the agent (Class 3), not a model trust decision or interaction-layer bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2965,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability describes insufficient credential protection enabling network-based token disclosure, which is a classic authentication and authorization flaw in the services around the agent (Class 3), not a model trust decision or interaction-layer bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2965,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability describes insufficient credential protection enabling network-based token disclosure, which is a classic authentication and authorization flaw in the services around the agent (Class 3), not a model trust decision or interaction-layer bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2965,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0311": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.6, \"reason\": \"The disclosure emphasizes 'required user interaction' without detailing the necessary action, aligning with Class 2 (interaction layer: what the user is shown or asked to approve). No evidence the attack requires the model to follow untrusted instructions (which would be Class 4), and the ambiguity about model involvement means the earliest failing step without a model decision is the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4847,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.6, \"reason\": \"The disclosure emphasizes 'required user interaction' without detailing the necessary action, aligning with Class 2 (interaction layer: what the user is shown or asked to approve). No evidence the attack requires the model to follow untrusted instructions (which would be Class 4), and the ambiguity about model involvement means the earliest failing step without a model decision is the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4847,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.6, \"reason\": \"The disclosure emphasizes 'required user interaction' without detailing the necessary action, aligning with Class 2 (interaction layer: what the user is shown or asked to approve). No evidence the attack requires the model to follow untrusted instructions (which would be Class 4), and the ambiguity about model involvement means the earliest failing step without a model decision is the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4847,
+          "prompt_tokens": 482
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0279": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The registration endpoint executes attacker-supplied version-check commands without adequate validation, enabling arbitrary code execution on the server before any user or model trust decision, which is a flaw in the agent's own execution machinery (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2394,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The registration endpoint executes attacker-supplied version-check commands without adequate validation, enabling arbitrary code execution on the server before any user or model trust decision, which is a flaw in the agent's own execution machinery (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2394,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The registration endpoint executes attacker-supplied version-check commands without adequate validation, enabling arbitrary code execution on the server before any user or model trust decision, which is a flaw in the agent's own execution machinery (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2394,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0088": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The image analysis tool's failure to resolve symbolic links is a before-trust path resolution flaw that lets repository content (a symlink pointing outside the workspace) exfiltrate bytes to the vision model provider without any user or model decision, matching class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 11423,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The image analysis tool's failure to resolve symbolic links is a before-trust path resolution flaw that lets repository content (a symlink pointing outside the workspace) exfiltrate bytes to the vision model provider without any user or model decision, matching class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 11423,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The image analysis tool's failure to resolve symbolic links is a before-trust path resolution flaw that lets repository content (a symlink pointing outside the workspace) exfiltrate bytes to the vision model provider without any user or model decision, matching class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 11423,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0325": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The unauthenticated write endpoint is a plumbing flaw in the services around the agent, and the agent acting on retrieved runbook text is its normal operation, not a model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1928,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The unauthenticated write endpoint is a plumbing flaw in the services around the agent, and the agent acting on retrieved runbook text is its normal operation, not a model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1928,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The unauthenticated write endpoint is a plumbing flaw in the services around the agent, and the agent acting on retrieved runbook text is its normal operation, not a model trust manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1928,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0089": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool inherits the full parent environment without filtering or confinement, allowing model-written code to read and exfiltrate secrets without any user or model decision, which is a sandbox boundary flaw occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3798,
+          "prompt_tokens": 493
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool inherits the full parent environment without filtering or confinement, allowing model-written code to read and exfiltrate secrets without any user or model decision, which is a sandbox boundary flaw occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3798,
+          "prompt_tokens": 493
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool inherits the full parent environment without filtering or confinement, allowing model-written code to read and exfiltrate secrets without any user or model decision, which is a sandbox boundary flaw occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3798,
+          "prompt_tokens": 493
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0218": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw describes a service-side network authorization/routing issue where an authorized attacker can influence request destinations without user interaction or model trust, placing it in the plumbing/authentication-authorization category (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3094,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw describes a service-side network authorization/routing issue where an authorized attacker can influence request destinations without user interaction or model trust, placing it in the plumbing/authentication-authorization category (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3094,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The flaw describes a service-side network authorization/routing issue where an authorized attacker can influence request destinations without user interaction or model trust, placing it in the plumbing/authentication-authorization category (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3094,
+          "prompt_tokens": 481
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0314": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.75, \"reason\": \"The disclosure describes an authorization flaw in the assistant's permission-assignment logic, exploitable over the network without user interaction, which maps to the plumbing/services-around-the-agent category (Class 3) rather than model manipulation or startup execution.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2690,
+          "prompt_tokens": 469
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.75, \"reason\": \"The disclosure describes an authorization flaw in the assistant's permission-assignment logic, exploitable over the network without user interaction, which maps to the plumbing/services-around-the-agent category (Class 3) rather than model manipulation or startup execution.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2690,
+          "prompt_tokens": 469
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.75, \"reason\": \"The disclosure describes an authorization flaw in the assistant's permission-assignment logic, exploitable over the network without user interaction, which maps to the plumbing/services-around-the-agent category (Class 3) rather than model manipulation or startup execution.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2690,
+          "prompt_tokens": 469
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0130": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The disclosure includes at least one finding where the attack operates without the model following instructions it should not have trusted (model server response bypassing the model entirely), classifying it as plumbing (class 3), while another finding requires model instruction following (class 4); per the counting rule, the overall class is the earliest non-class-4 finding, which is class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 17092,
+          "prompt_tokens": 538
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The disclosure contains a finding where an authenticated attacker can bypass the model entirely via server response manipulation (class 3 plumbing), and because not all findings require the model to follow untrusted instructions, the counting rule selects class 3 as the earliest applicable class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 18028,
+          "prompt_tokens": 538
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The disclosure includes at least one finding where the attack operates without the model following instructions it should not have trusted (model server response bypassing the model entirely), classifying it as plumbing (class 3), while another finding requires model instruction following (class 4); per the counting rule, the overall class is the earliest non-class-4 finding, which is class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 17092,
+          "prompt_tokens": 538
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0015": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The core vulnerability is an authorization plumbing flaw where an empty tool list is treated as unrestricted, exploitable without model manipulation, placing it in class 3 per the authorization services failure mode.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2507,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The core vulnerability is an authorization plumbing flaw where an empty tool list is treated as unrestricted, exploitable without model manipulation, placing it in class 3 per the authorization services failure mode.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2507,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The core vulnerability is an authorization plumbing flaw where an empty tool list is treated as unrestricted, exploitable without model manipulation, placing it in class 3 per the authorization services failure mode.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2507,
+          "prompt_tokens": 509
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0077": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw in unrestricted file/resource name handling enables code execution at startup or before the user's trust decision without credentials or interaction, matching Class 1's before-trust execution machinery failure (e.g., path resolution) that runs without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4503,
+          "prompt_tokens": 478
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw in unrestricted file/resource name handling enables code execution at startup or before the user's trust decision without credentials or interaction, matching Class 1's before-trust execution machinery failure (e.g., path resolution) that runs without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4503,
+          "prompt_tokens": 478
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.75, \"reason\": \"The flaw in unrestricted file/resource name handling enables code execution at startup or before the user's trust decision without credentials or interaction, matching Class 1's before-trust execution machinery failure (e.g., path resolution) that runs without any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4503,
+          "prompt_tokens": 478
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0328": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a directory boundary validation failure in the gateway's admin download endpoint, representing a plumbing/authorization defect in the services around the agent with no model manipulation or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2115,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a directory boundary validation failure in the gateway's admin download endpoint, representing a plumbing/authorization defect in the services around the agent with no model manipulation or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2115,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is a directory boundary validation failure in the gateway's admin download endpoint, representing a plumbing/authorization defect in the services around the agent with no model manipulation or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2115,
+          "prompt_tokens": 494
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0180": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the tool server's failure to confine file path resolution to the workspace, which is a sandbox/boundary flaw in the agent's execution machinery that allows arbitrary local file reads before any user trust decision or model interaction.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3540,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the tool server's failure to confine file path resolution to the workspace, which is a sandbox/boundary flaw in the agent's execution machinery that allows arbitrary local file reads before any user trust decision or model interaction.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3540,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the tool server's failure to confine file path resolution to the workspace, which is a sandbox/boundary flaw in the agent's execution machinery that allows arbitrary local file reads before any user trust decision or model interaction.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3540,
+          "prompt_tokens": 490
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0225": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The tool-execution interface's global server lookup without ownership checks is an authorization flaw in the services around the agent, enabling cross-user access without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2149,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The tool-execution interface's global server lookup without ownership checks is an authorization flaw in the services around the agent, enabling cross-user access without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2149,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.98, \"reason\": \"The tool-execution interface's global server lookup without ownership checks is an authorization flaw in the services around the agent, enabling cross-user access without any model decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2149,
+          "prompt_tokens": 499
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0168": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unvalidated path trust is an authorization flaw in the agent's connector plumbing, enabling arbitrary file operations by a connected client without the model making any trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3146,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unvalidated path trust is an authorization flaw in the agent's connector plumbing, enabling arbitrary file operations by a connected client without the model making any trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3146,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unvalidated path trust is an authorization flaw in the agent's connector plumbing, enabling arbitrary file operations by a connected client without the model making any trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3146,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0127": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"Both findings expose authentication and session isolation flaws in the connector's plumbing (request header override and stateless transport mode), not model manipulation or user interaction failures.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2989,
+          "prompt_tokens": 545
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"Both findings expose authentication and session isolation flaws in the connector's plumbing (request header override and stateless transport mode), not model manipulation or user interaction failures.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2989,
+          "prompt_tokens": 545
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"Both findings expose authentication and session isolation flaws in the connector's plumbing (request header override and stateless transport mode), not model manipulation or user interaction failures.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2989,
+          "prompt_tokens": 545
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0039": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability arises from the tool's lack of path validation and authorization, which is a plumbing flaw in the SDK's execution machinery rather than a model trust or interaction-layer failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4174,
+          "prompt_tokens": 539
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability arises from the tool's lack of path validation and authorization, which is a plumbing flaw in the SDK's execution machinery rather than a model trust or interaction-layer failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4174,
+          "prompt_tokens": 539
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability arises from the tool's lack of path validation and authorization, which is a plumbing flaw in the SDK's execution machinery rather than a model trust or interaction-layer failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4174,
+          "prompt_tokens": 539
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0178": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The resource-read operation's unrestricted URL fetching is an authorization/origin flaw in the tool server/connector plumbing, enabling remote SSRF without requiring the model to follow untrusted instructions, placing it in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2904,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The resource-read operation's unrestricted URL fetching is an authorization/origin flaw in the tool server/connector plumbing, enabling remote SSRF without requiring the model to follow untrusted instructions, placing it in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2904,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The resource-read operation's unrestricted URL fetching is an authorization/origin flaw in the tool server/connector plumbing, enabling remote SSRF without requiring the model to follow untrusted instructions, placing it in class 3.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2904,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0251": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The vulnerability arises from the tool server's missing path containment check, which is a classic authorization and input-validation flaw in the service's plumbing rather than a model trust, startup, or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2798,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The vulnerability arises from the tool server's missing path containment check, which is a classic authorization and input-validation flaw in the service's plumbing rather than a model trust, startup, or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2798,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The vulnerability arises from the tool server's missing path containment check, which is a classic authorization and input-validation flaw in the service's plumbing rather than a model trust, startup, or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2798,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0124": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The default allow-all network profile and host hostname resolution constitute a sandbox boundary flaw that lets containerized agent code reach host services without any user or model trust decision, placing it squarely in class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1921,
+          "prompt_tokens": 538
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The default allow-all network profile and host hostname resolution constitute a sandbox boundary flaw that lets containerized agent code reach host services without any user or model trust decision, placing it squarely in class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1921,
+          "prompt_tokens": 538
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The default allow-all network profile and host hostname resolution constitute a sandbox boundary flaw that lets containerized agent code reach host services without any user or model trust decision, placing it squarely in class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1921,
+          "prompt_tokens": 538
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0001": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The tool server lacks URL origin validation, allowing an attacker with local access to force the platform to fetch internal network resources; this is a plumbing/origin flaw in the agent's surrounding services, not a model trust or user approval issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2981,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The tool server lacks URL origin validation, allowing an attacker with local access to force the platform to fetch internal network resources; this is a plumbing/origin flaw in the agent's surrounding services, not a model trust or user approval issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2981,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The tool server lacks URL origin validation, allowing an attacker with local access to force the platform to fetch internal network resources; this is a plumbing/origin flaw in the agent's surrounding services, not a model trust or user approval issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2981,
+          "prompt_tokens": 485
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0255": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The disclosure bundles a direct client call exploiting unconfined path resolution without model instruction following (class 1) and a prompt-injection vector requiring model trust manipulation (class 4); per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5537,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The disclosure bundles a direct client call exploiting unconfined path resolution without model instruction following (class 1) and a prompt-injection vector requiring model trust manipulation (class 4); per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5736,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The disclosure bundles a direct client call exploiting unconfined path resolution without model instruction following (class 1) and a prompt-injection vector requiring model trust manipulation (class 4); per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5736,
+          "prompt_tokens": 504
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0182": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The disclosure describes an unconfined session file-path option in the agent's tool server that requires local access and low privileges to exploit, indicating an authorization flaw in the surrounding services (class 3) rather than a model-dependent or pre-trust execution issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6851,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The disclosure describes an unconfined session file-path option in the agent's tool server that requires local access and low privileges to exploit, indicating an authorization flaw in the surrounding services (class 3) rather than a model-dependent or pre-trust execution issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6851,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The disclosure describes an unconfined session file-path option in the agent's tool server that requires local access and low privileges to exploit, indicating an authorization flaw in the surrounding services (class 3) rather than a model-dependent or pre-trust execution issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6851,
+          "prompt_tokens": 486
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0177": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The tool server's unrestricted folder and name arguments enabling writes outside the output directory constitute a classic authorization/service plumbing flaw (Class 3), functioning without requiring the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3610,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The tool server's unrestricted folder and name arguments enabling writes outside the output directory constitute a classic authorization/service plumbing flaw (Class 3), functioning without requiring the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3610,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The tool server's unrestricted folder and name arguments enabling writes outside the output directory constitute a classic authorization/service plumbing flaw (Class 3), functioning without requiring the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3610,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0288": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the tool's code generation machinery inserting unsanitized names into executable code without any user or model decision, allowing crafted data model content to inject code that runs when the generated project is evaluated—a flaw occurring before the user's trust/approval step.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5084,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the tool's code generation machinery inserting unsanitized names into executable code without any user or model decision, allowing crafted data model content to inject code that runs when the generated project is evaluated—a flaw occurring before the user's trust/approval step.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5084,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the tool's code generation machinery inserting unsanitized names into executable code without any user or model decision, allowing crafted data model content to inject code that runs when the generated project is evaluated—a flaw occurring before the user's trust/approval step.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5084,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0186": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The SSRF vulnerability stems from the proxy endpoint accepting arbitrary URLs without validation, which is a classic origin/authorization flaw in the service's plumbing rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3045,
+          "prompt_tokens": 472
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The SSRF vulnerability stems from the proxy endpoint accepting arbitrary URLs without validation, which is a classic origin/authorization flaw in the service's plumbing rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3045,
+          "prompt_tokens": 472
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The SSRF vulnerability stems from the proxy endpoint accepting arbitrary URLs without validation, which is a classic origin/authorization flaw in the service's plumbing rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3045,
+          "prompt_tokens": 472
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0317": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The core issue is a path resolution/sandbox boundary flaw in the tool's execution machinery that allows path escape without any model or user decision, directly matching Class 1's definition of flaws occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3520,
+          "prompt_tokens": 474
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The core issue is a path resolution/sandbox boundary flaw in the tool's execution machinery that allows path escape without any model or user decision, directly matching Class 1's definition of flaws occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3520,
+          "prompt_tokens": 474
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The core issue is a path resolution/sandbox boundary flaw in the tool's execution machinery that allows path escape without any model or user decision, directly matching Class 1's definition of flaws occurring before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3520,
+          "prompt_tokens": 474
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0327": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"Finding 4 describes a flaw in the user interaction/approval step that requires no model trust, making it class 2, and the decision rule selects the earliest class among findings operating without model distrust, which is 2.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 9410,
+          "prompt_tokens": 551
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"Finding 4 explicitly requires user interaction during sign-in, classifying it as interaction layer (class 2), and since at least one finding operates without the model following untrusted instructions, the earliest applicable class across all bundled findings is 2.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 9485,
+          "prompt_tokens": 551
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.95, \"reason\": \"Finding 4 explicitly requires user interaction in the sign-in flow, classifying it as class 2 (interaction layer) and it works without the model following untrusted instructions; per the decision rule, since at least one finding works without model trust, the earliest of classes 1-3 among those findings is class 2.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 10468,
+          "prompt_tokens": 551
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0321": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability arises from the tool's execution machinery downloading and redirecting to arbitrary destinations without restrictions prior to any format validation or user/model trust, constituting a before-trust flaw (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3063,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability arises from the tool's execution machinery downloading and redirecting to arbitrary destinations without restrictions prior to any format validation or user/model trust, constituting a before-trust flaw (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3063,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The vulnerability arises from the tool's execution machinery downloading and redirecting to arbitrary destinations without restrictions prior to any format validation or user/model trust, constituting a before-trust flaw (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3063,
+          "prompt_tokens": 482
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0060": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The guard's parser missing certain command forms is a flaw in the agent's own execution machinery that lets restricted commands run without policy checks, occurring before any model trust decision about the command content.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4442,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The guard's parser missing certain command forms is a flaw in the agent's own execution machinery that lets restricted commands run without policy checks, occurring before any model trust decision about the command content.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4442,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The guard's parser missing certain command forms is a flaw in the agent's own execution machinery that lets restricted commands run without policy checks, occurring before any model trust decision about the command content.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4442,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0016": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.87, \"reason\": \"The vulnerability stems from unsanitized path joining in the agent's own directory-building execution machinery, allowing path traversal without requiring the model to follow untrusted instructions, placing it before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4253,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.87, \"reason\": \"The vulnerability stems from unsanitized path joining in the agent's own directory-building execution machinery, allowing path traversal without requiring the model to follow untrusted instructions, placing it before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4253,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.87, \"reason\": \"The vulnerability stems from unsanitized path joining in the agent's own directory-building execution machinery, allowing path traversal without requiring the model to follow untrusted instructions, placing it before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4253,
+          "prompt_tokens": 481
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0156": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from unsanitized date parameters being injected into a shell command within the gateway's dashboard endpoint, constituting a plumbing-level sanitization and authorization flaw in the service infrastructure that enables remote command execution without any model involvement or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2147,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from unsanitized date parameters being injected into a shell command within the gateway's dashboard endpoint, constituting a plumbing-level sanitization and authorization flaw in the service infrastructure that enables remote command execution without any model involvement or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2147,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The vulnerability stems from unsanitized date parameters being injected into a shell command within the gateway's dashboard endpoint, constituting a plumbing-level sanitization and authorization flaw in the service infrastructure that enables remote command execution without any model involvement or trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2147,
+          "prompt_tokens": 482
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0176": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The server's lack of URL destination validation is an origin/authentication flaw in the agent's service plumbing (class 3), independent of model trust or user approval.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3768,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The server's lack of URL destination validation is an origin/authentication flaw in the agent's service plumbing (class 3), independent of model trust or user approval.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3768,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The server's lack of URL destination validation is an origin/authentication flaw in the agent's service plumbing (class 3), independent of model trust or user approval.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3768,
+          "prompt_tokens": 484
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0247": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits a missing origin/hostname authentication check in the tool server's network configuration, allowing browser-based requests to reach authenticated tools without any model decision, which is a classic plumbing/origin flaw in the service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1861,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits a missing origin/hostname authentication check in the tool server's network configuration, allowing browser-based requests to reach authenticated tools without any model decision, which is a classic plumbing/origin flaw in the service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1861,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The attack exploits a missing origin/hostname authentication check in the tool server's network configuration, allowing browser-based requests to reach authenticated tools without any model decision, which is a classic plumbing/origin flaw in the service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1861,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0306": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The vulnerability stems from authentication being off by default on the management interface, a service around the agent, enabling unauthenticated arbitrary code execution without any model decision, which maps to the plumbing/auth class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3713,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The vulnerability stems from authentication being off by default on the management interface, a service around the agent, enabling unauthenticated arbitrary code execution without any model decision, which maps to the plumbing/auth class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3713,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1, \"reason\": \"The vulnerability stems from authentication being off by default on the management interface, a service around the agent, enabling unauthenticated arbitrary code execution without any model decision, which maps to the plumbing/auth class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3713,
+          "prompt_tokens": 514
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0022": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the plugin's MCP tools after token authentication, which is a plumbing/service-level failure with no model decision or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2066,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the plugin's MCP tools after token authentication, which is a plumbing/service-level failure with no model decision or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2066,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the plugin's MCP tools after token authentication, which is a plumbing/service-level failure with no model decision or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2066,
+          "prompt_tokens": 494
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0241": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The server's HTTP transport accepts requests naming any host due to a missing host-name restriction, which is a classic origin/authentication flaw in the services around the agent (class 3), and the attack does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2450,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The server's HTTP transport accepts requests naming any host due to a missing host-name restriction, which is a classic origin/authentication flaw in the services around the agent (class 3), and the attack does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2450,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The server's HTTP transport accepts requests naming any host due to a missing host-name restriction, which is a classic origin/authentication flaw in the services around the agent (class 3), and the attack does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2450,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0101": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the application's endpoint infrastructure, allowing anonymous access to data model configuration without any model or user decision, placing it in class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1668,
+          "prompt_tokens": 493
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the application's endpoint infrastructure, allowing anonymous access to data model configuration without any model or user decision, placing it in class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1668,
+          "prompt_tokens": 493
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authorization flaw in the application's endpoint infrastructure, allowing anonymous access to data model configuration without any model or user decision, placing it in class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1668,
+          "prompt_tokens": 493
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0157": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability arises from unsanitized path construction in the tool server's execution machinery, allowing arbitrary file access without any user or model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2340,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability arises from unsanitized path construction in the tool server's execution machinery, allowing arbitrary file access without any user or model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2340,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The vulnerability arises from unsanitized path construction in the tool server's execution machinery, allowing arbitrary file access without any user or model trust decision, placing it squarely in Class 1.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2340,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0201": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.98, \"reason\": \"Both findings exploit flaws in the agent's execution and authorization machinery without requiring the model to follow untrusted instructions, making the path-resolution bypass the earliest failure point (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4302,
+          "prompt_tokens": 530
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.98, \"reason\": \"Both findings exploit flaws in the agent's execution and authorization machinery without requiring the model to follow untrusted instructions, making the path-resolution bypass the earliest failure point (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4302,
+          "prompt_tokens": 530
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.98, \"reason\": \"Both findings exploit flaws in the agent's execution and authorization machinery without requiring the model to follow untrusted instructions, making the path-resolution bypass the earliest failure point (class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 4302,
+          "prompt_tokens": 530
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0133": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The flaw is an authorization bypass in the server's legacy HTTP interface, which is a classic plumbing/service-level authorization failure without any model trust, user interaction, or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1908,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The flaw is an authorization bypass in the server's legacy HTTP interface, which is a classic plumbing/service-level authorization failure without any model trust, user interaction, or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1908,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The flaw is an authorization bypass in the server's legacy HTTP interface, which is a classic plumbing/service-level authorization failure without any model trust, user interaction, or manipulation involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1908,
+          "prompt_tokens": 499
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0243": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication flaw in the server's HTTP transport that allows unauthenticated callers to run tools and forward credentials, constituting a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3060,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication flaw in the server's HTTP transport that allows unauthenticated callers to run tools and forward credentials, constituting a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3060,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication flaw in the server's HTTP transport that allows unauthenticated callers to run tools and forward credentials, constituting a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3060,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0299": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The disclosure bundles both a plumbing/authz flaw in the tool's excessive permissions (class 3) that operates without requiring the model to follow untrusted instructions, and an instruction-planting vector (class 4) that relies on model compliance; per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is assigned.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 10534,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The disclosure bundles both a plumbing/authz flaw in the tool's excessive permissions (class 3) that operates without requiring the model to follow untrusted instructions, and an instruction-planting vector (class 4) that relies on model compliance; per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is assigned.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 10534,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The disclosure bundles both a plumbing/authz flaw in the tool's excessive permissions (class 3) that operates without requiring the model to follow untrusted instructions, and an instruction-planting vector (class 4) that relies on model compliance; per the counting rule, since at least one finding works without the model following untrusted instructions, the earliest applicable class among 1–3 is assigned.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 10534,
+          "prompt_tokens": 517
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0006": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw resides in the tool's path resolution machinery, which fails to sanitize dot segments in caller-supplied parameters, allowing path escape without any model trust decision, directly matching class 1's trigger point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3492,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw resides in the tool's path resolution machinery, which fails to sanitize dot segments in caller-supplied parameters, allowing path escape without any model trust decision, directly matching class 1's trigger point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3492,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw resides in the tool's path resolution machinery, which fails to sanitize dot segments in caller-supplied parameters, allowing path escape without any model trust decision, directly matching class 1's trigger point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3492,
+          "prompt_tokens": 521
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0034": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization/input-validation failure in the metrics service's data-retention logic, allowing an authenticated user to execute arbitrary SQL via caller-supplied table names, which is a classic plumbing flaw in the services around the agent without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2223,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization/input-validation failure in the metrics service's data-retention logic, allowing an authenticated user to execute arbitrary SQL via caller-supplied table names, which is a classic plumbing flaw in the services around the agent without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2223,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization/input-validation failure in the metrics service's data-retention logic, allowing an authenticated user to execute arbitrary SQL via caller-supplied table names, which is a classic plumbing flaw in the services around the agent without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2223,
+          "prompt_tokens": 504
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0159": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command-injection flaw in the tool server's chart-generation path, where unsanitized `output-directory` input is placed in a shell command without neutralization. This is a plumbing flaw in the service around the agent, exploiting how the server constructs and executes commands, with no model trust decision or user approval involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2903,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command-injection flaw in the tool server's chart-generation path, where unsanitized `output-directory` input is placed in a shell command without neutralization. This is a plumbing flaw in the service around the agent, exploiting how the server constructs and executes commands, with no model trust decision or user approval involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2903,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command-injection flaw in the tool server's chart-generation path, where unsanitized `output-directory` input is placed in a shell command without neutralization. This is a plumbing flaw in the service around the agent, exploiting how the server constructs and executes commands, with no model trust decision or user approval involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2903,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0303": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The bucket name derivation and missing ownership verification constitute a plumbing/origin authentication flaw in the services around the agent, where the server trusts a globally unique name without checking who owns it, allowing a third party to redirect uploaded archives via pre-registration.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1999,
+          "prompt_tokens": 532
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The bucket name derivation and missing ownership verification constitute a plumbing/origin authentication flaw in the services around the agent, where the server trusts a globally unique name without checking who owns it, allowing a third party to redirect uploaded archives via pre-registration.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1999,
+          "prompt_tokens": 532
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.96, \"reason\": \"The bucket name derivation and missing ownership verification constitute a plumbing/origin authentication flaw in the services around the agent, where the server trusts a globally unique name without checking who owns it, allowing a third party to redirect uploaded archives via pre-registration.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1999,
+          "prompt_tokens": 532
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0023": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's missing authentication and origin checks are a plumbing flaw that executes without model trust, and the counting rule assigns class 3 because at least one finding does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7191,
+          "prompt_tokens": 542
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's missing authentication and origin checks are a plumbing flaw that executes without model trust, and the counting rule assigns class 3 because at least one finding does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7191,
+          "prompt_tokens": 542
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's missing authentication and origin checks are a plumbing flaw that executes without model trust, and the counting rule assigns class 3 because at least one finding does not require the model to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 7191,
+          "prompt_tokens": 542
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0184": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw is in the tool's path resolution/validation, allowing arbitrary local file read without any model trust decision, which aligns with Class 1 (before trust) as it fails at the earliest execution machinery step without model involvement.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2729,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw is in the tool's path resolution/validation, allowing arbitrary local file read without any model trust decision, which aligns with Class 1 (before trust) as it fails at the earliest execution machinery step without model involvement.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2729,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The flaw is in the tool's path resolution/validation, allowing arbitrary local file read without any model trust decision, which aligns with Class 1 (before trust) as it fails at the earliest execution machinery step without model involvement.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2729,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0066": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The dependency-scanning tool reads caller-selected paths without confinement, exploiting sandbox and path-resolution flaws before any user or model trust decision, which is a class 1 issue; the bundled model-steering finding does not override this since not every finding requires the model to follow untrusted instructions.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3336,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The dependency-scanning tool reads caller-selected paths without confinement, exploiting sandbox and path-resolution flaws before any user or model trust decision, which is a class 1 issue; the bundled model-steering finding does not override this since not every finding requires the model to follow untrusted instructions.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3336,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The dependency-scanning tool reads caller-selected paths without confinement, exploiting sandbox and path-resolution flaws before any user or model trust decision, which is a class 1 issue; the bundled model-steering finding does not override this since not every finding requires the model to follow untrusted instructions.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3336,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0098": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the public authorization flow issuing tokens unrestricted to any site user and treating them as administrator sessions, which is an authentication and authorization flaw in the surrounding services (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2122,
+          "prompt_tokens": 496
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the public authorization flow issuing tokens unrestricted to any site user and treating them as administrator sessions, which is an authentication and authorization flaw in the surrounding services (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2122,
+          "prompt_tokens": 496
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the public authorization flow issuing tokens unrestricted to any site user and treating them as administrator sessions, which is an authentication and authorization flaw in the surrounding services (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2122,
+          "prompt_tokens": 496
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0004": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The cross-client response leakage stems from the socket's message parser dropping connection identity and broadcasting to all clients, which is a plumbing flaw in the agent's surrounding services rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2889,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The cross-client response leakage stems from the socket's message parser dropping connection identity and broadcasting to all clients, which is a plumbing flaw in the agent's surrounding services rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2889,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The cross-client response leakage stems from the socket's message parser dropping connection identity and broadcasting to all clients, which is a plumbing flaw in the agent's surrounding services rather than a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2889,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0043": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The authorization flow omits a check that the logged-in user has access to the named workflow, allowing a member-level user to obtain a valid token for another user's workflow—a classic plumbing flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 526
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The authorization flow omits a check that the logged-in user has access to the named workflow, allowing a member-level user to obtain a valid token for another user's workflow—a classic plumbing flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 526
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The authorization flow omits a check that the logged-in user has access to the named workflow, allowing a member-level user to obtain a valid token for another user's workflow—a classic plumbing flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 526
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0155": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The shell injection stems from unsanitized HTTP route parameters in a connector tool, representing a plumbing/authorization flaw in the service around the agent without any model decision being required for the attack.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2495,
+          "prompt_tokens": 475
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The shell injection stems from unsanitized HTTP route parameters in a connector tool, representing a plumbing/authorization flaw in the service around the agent without any model decision being required for the attack.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2495,
+          "prompt_tokens": 475
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The shell injection stems from unsanitized HTTP route parameters in a connector tool, representing a plumbing/authorization flaw in the service around the agent without any model decision being required for the attack.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2495,
+          "prompt_tokens": 475
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0307": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The filter plugins' limited inspection scope (top-level keys only) is a plumbing/authorization flaw in the services around the agent, allowing an authenticated client to bypass content screening without manipulating the model or requiring user interaction.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2826,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The filter plugins' limited inspection scope (top-level keys only) is a plumbing/authorization flaw in the services around the agent, allowing an authenticated client to bypass content screening without manipulating the model or requiring user interaction.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2826,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The filter plugins' limited inspection scope (top-level keys only) is a plumbing/authorization flaw in the services around the agent, allowing an authenticated client to bypass content screening without manipulating the model or requiring user interaction.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2826,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0196": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The shared loader's unrestricted forwarding of caller-supplied headers and source addresses constitutes a classic authentication/origin plumbing flaw, exploitable without model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4005,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The shared loader's unrestricted forwarding of caller-supplied headers and source addresses constitutes a classic authentication/origin plumbing flaw, exploitable without model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4005,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The shared loader's unrestricted forwarding of caller-supplied headers and source addresses constitutes a classic authentication/origin plumbing flaw, exploitable without model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4005,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0137": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes a classic authentication/authorization flaw in the tool server's identity-provider token validation, which is a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1657,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes a classic authentication/authorization flaw in the tool server's identity-provider token validation, which is a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1657,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes a classic authentication/authorization flaw in the tool server's identity-provider token validation, which is a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1657,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0062": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization failure in the tool's access control, allowing any scoped token to read all trip data regardless of granted scopes, which falls under classic plumbing/authentication-or-authorization flaws (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2832,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization failure in the tool's access control, allowing any scoped token to read all trip data regardless of granted scopes, which falls under classic plumbing/authentication-or-authorization flaws (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2832,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw is an authorization failure in the tool's access control, allowing any scoped token to read all trip data regardless of granted scopes, which falls under classic plumbing/authentication-or-authorization flaws (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2832,
+          "prompt_tokens": 513
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0244": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The missing host-name restriction in the server's HTTP transport is a classic origin/authentication plumbing flaw in the services around the agent, with no model instruction following involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2843,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The missing host-name restriction in the server's HTTP transport is a classic origin/authentication plumbing flaw in the services around the agent, with no model instruction following involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2843,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The missing host-name restriction in the server's HTTP transport is a classic origin/authentication plumbing flaw in the services around the agent, with no model instruction following involved.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2843,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0222": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The hub's missing authorization (any logged-in user can register a server) and absent loopback/private IP filtering constitute a plumbing/origin flaw in the services around the agent, enabling arbitrary outbound connections without the model's trust decision being the enabling factor.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2152,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The hub's missing authorization (any logged-in user can register a server) and absent loopback/private IP filtering constitute a plumbing/origin flaw in the services around the agent, enabling arbitrary outbound connections without the model's trust decision being the enabling factor.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2152,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The hub's missing authorization (any logged-in user can register a server) and absent loopback/private IP filtering constitute a plumbing/origin flaw in the services around the agent, enabling arbitrary outbound connections without the model's trust decision being the enabling factor.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2152,
+          "prompt_tokens": 510
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0175": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability is a path-resolution flaw in the review-request tool's execution machinery that escapes the storage folder via unsanitized category-name input, occurring before any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3316,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability is a path-resolution flaw in the review-request tool's execution machinery that escapes the storage folder via unsanitized category-name input, occurring before any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3316,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.88, \"reason\": \"The vulnerability is a path-resolution flaw in the review-request tool's execution machinery that escapes the storage folder via unsanitized category-name input, occurring before any user or model trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3316,
+          "prompt_tokens": 486
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0285": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool accepts local file paths without containment checking, enabling arbitrary file reads during execution without any user or model trust decision, which is a flaw in the agent's execution machinery before the trust point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2866,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool accepts local file paths without containment checking, enabling arbitrary file reads during execution without any user or model trust decision, which is a flaw in the agent's execution machinery before the trust point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2866,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The tool accepts local file paths without containment checking, enabling arbitrary file reads during execution without any user or model trust decision, which is a flaw in the agent's execution machinery before the trust point.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2866,
+          "prompt_tokens": 505
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0187": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The tool server's article-fetching component blindly trusts the address argument without validating its destination, enabling SSRF from its network position, which is a plumbing/origin-validation flaw in the connector rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4528,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The tool server's article-fetching component blindly trusts the address argument without validating its destination, enabling SSRF from its network position, which is a plumbing/origin-validation flaw in the connector rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4528,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The tool server's article-fetching component blindly trusts the address argument without validating its destination, enabling SSRF from its network position, which is a plumbing/origin-validation flaw in the connector rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4528,
+          "prompt_tokens": 485
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0122": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core flaw is the tool server unconditionally attaching authenticated tokens to any requested destination without destination validation, which is an authentication and authorization (plumbing) failure in the services around the agent, independent of model trust or user decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core flaw is the tool server unconditionally attaching authenticated tokens to any requested destination without destination validation, which is an authentication and authorization (plumbing) failure in the services around the agent, independent of model trust or user decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core flaw is the tool server unconditionally attaching authenticated tokens to any requested destination without destination validation, which is an authentication and authorization (plumbing) failure in the services around the agent, independent of model trust or user decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2521,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0277": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"A missing permission check in a CMS plugin connecting to AI agents via an MCP server is a classic authorization flaw in the services around the agent (plumbing), allowing actions beyond the requesting account's permitted access without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2504,
+          "prompt_tokens": 468
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"A missing permission check in a CMS plugin connecting to AI agents via an MCP server is a classic authorization flaw in the services around the agent (plumbing), allowing actions beyond the requesting account's permitted access without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2504,
+          "prompt_tokens": 468
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"A missing permission check in a CMS plugin connecting to AI agents via an MCP server is a classic authorization flaw in the services around the agent (plumbing), allowing actions beyond the requesting account's permitted access without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2504,
+          "prompt_tokens": 468
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0309": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the MCP server accepting any registered application's credentials globally without organization scoping, a classic authentication/authorization flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1369,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the MCP server accepting any registered application's credentials globally without organization scoping, a classic authentication/authorization flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1369,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability stems from the MCP server accepting any registered application's credentials globally without organization scoping, a classic authentication/authorization flaw in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1369,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0217": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the MCP server's file tools inserting caller-supplied paths into shell commands after project containment checks, representing a plumbing/authorization flaw in the services around the agent rather than the model following untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 13756,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the MCP server's file tools inserting caller-supplied paths into shell commands after project containment checks, representing a plumbing/authorization flaw in the services around the agent rather than the model following untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 13756,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.85, \"reason\": \"The vulnerability stems from the MCP server's file tools inserting caller-supplied paths into shell commands after project containment checks, representing a plumbing/authorization flaw in the services around the agent rather than the model following untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 13756,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0163": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly states that read-only requests skip the confirmation screen that other request methods show, which directly maps to class 2 (interaction layer: the approval or confirmation step misrepresents or skips what happens); this failure occurs without any model decision and is earlier in the flow than the plumbing/origin flaw of the internal-network guard not blocking public destinations (class 3), and the attack does not depend on the model following untrusted instructions (excluding class 4).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 10278,
+          "prompt_tokens": 522
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly states that read-only requests skip the confirmation screen that other request methods show, which directly maps to class 2 (interaction layer: the approval or confirmation step misrepresents or skips what happens); this failure occurs without any model decision and is earlier in the flow than the plumbing/origin flaw of the internal-network guard not blocking public destinations (class 3), and the attack does not depend on the model following untrusted instructions (excluding class 4).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 10278,
+          "prompt_tokens": 522
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The disclosure explicitly states that read-only requests skip the confirmation screen that other request methods show, which directly maps to class 2 (interaction layer: the approval or confirmation step misrepresents or skips what happens); this failure occurs without any model decision and is earlier in the flow than the plumbing/origin flaw of the internal-network guard not blocking public destinations (class 3), and the attack does not depend on the model following untrusted instructions (excluding class 4).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 10278,
+          "prompt_tokens": 522
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0067": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The flaw resides in the MCP server's path validation, where path-taking tools do not use the helper, enabling path traversal via direct tool path supply without requiring the model to follow untrusted instructions, which is a plumbing (class 3) issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 5598,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The flaw resides in the MCP server's path validation, where path-taking tools do not use the helper, enabling path traversal via direct tool path supply without requiring the model to follow untrusted instructions, which is a plumbing (class 3) issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 5598,
+          "prompt_tokens": 509
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The flaw resides in the MCP server's path validation, where path-taking tools do not use the helper, enabling path traversal via direct tool path supply without requiring the model to follow untrusted instructions, which is a plumbing (class 3) issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 5598,
+          "prompt_tokens": 509
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0139": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The MCP server's connection tools accept any hostname and forward broker credentials without verification, constituting a plumbing flaw in the agent's service infrastructure that enables credential disclosure regardless of model trust decisions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6007,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The MCP server's connection tools accept any hostname and forward broker credentials without verification, constituting a plumbing flaw in the agent's service infrastructure that enables credential disclosure regardless of model trust decisions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6007,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The MCP server's connection tools accept any hostname and forward broker credentials without verification, constituting a plumbing flaw in the agent's service infrastructure that enables credential disclosure regardless of model trust decisions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 6007,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0017": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication/authorization bypass in the MCP server itself: the front-end does not enforce login checks on the MCP path, allowing unauthenticated remote calls that automatically attach a valid user session. This is a plumbing/service-level flaw, not a model trust or manipulation issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2037,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication/authorization bypass in the MCP server itself: the front-end does not enforce login checks on the MCP path, allowing unauthenticated remote calls that automatically attach a valid user session. This is a plumbing/service-level flaw, not a model trust or manipulation issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2037,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an authentication/authorization bypass in the MCP server itself: the front-end does not enforce login checks on the MCP path, allowing unauthenticated remote calls that automatically attach a valid user session. This is a plumbing/service-level flaw, not a model trust or manipulation issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2037,
+          "prompt_tokens": 502
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0074": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server accepts a caller-supplied root directory without enforcing project containment, which is a classic authorization/access-control flaw in the service itself, fitting Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3594,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server accepts a caller-supplied root directory without enforcing project containment, which is a classic authorization/access-control flaw in the service itself, fitting Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3594,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server accepts a caller-supplied root directory without enforcing project containment, which is a classic authorization/access-control flaw in the service itself, fitting Class 3 (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3594,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0210": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The endpoint's missing privilege check is a classic authorization flaw in the hub's service plumbing, allowing any authenticated user to rewrite security settings without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2072,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The endpoint's missing privilege check is a classic authorization flaw in the hub's service plumbing, allowing any authenticated user to rewrite security settings without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2072,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The endpoint's missing privilege check is a classic authorization flaw in the hub's service plumbing, allowing any authenticated user to rewrite security settings without model or user involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2072,
+          "prompt_tokens": 503
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0193": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core vulnerability is an MCP server's failure to restrict document destinations despite format validation, constituting a plumbing/origin flaw in the services around the agent; the attack does not require the model to follow untrusted instructions and operates at the service-layer authentication/authorization boundary.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3261,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core vulnerability is an MCP server's failure to restrict document destinations despite format validation, constituting a plumbing/origin flaw in the services around the agent; the attack does not require the model to follow untrusted instructions and operates at the service-layer authentication/authorization boundary.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3261,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The core vulnerability is an MCP server's failure to restrict document destinations despite format validation, constituting a plumbing/origin flaw in the services around the agent; the attack does not require the model to follow untrusted instructions and operates at the service-layer authentication/authorization boundary.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3261,
+          "prompt_tokens": 485
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0208": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The flaw is an origin-validation gap in the MCP server's address checking that enables network-based content retrieval from internal destinations without requiring the model's trust decision, characteristic of plumbing (Class 3) flaws around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2646,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The flaw is an origin-validation gap in the MCP server's address checking that enables network-based content retrieval from internal destinations without requiring the model's trust decision, characteristic of plumbing (Class 3) flaws around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2646,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.88, \"reason\": \"The flaw is an origin-validation gap in the MCP server's address checking that enables network-based content retrieval from internal destinations without requiring the model's trust decision, characteristic of plumbing (Class 3) flaws around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2646,
+          "prompt_tokens": 488
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0109": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The crafted search pattern exploits the agent's path resolution and sandbox boundary enforcement directly, bypassing confinement without requiring the model to follow untrusted instructions, placing it as a before-trust flaw (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2664,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The crafted search pattern exploits the agent's path resolution and sandbox boundary enforcement directly, bypassing confinement without requiring the model to follow untrusted instructions, placing it as a before-trust flaw (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2664,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.85, \"reason\": \"The crafted search pattern exploits the agent's path resolution and sandbox boundary enforcement directly, bypassing confinement without requiring the model to follow untrusted instructions, placing it as a before-trust flaw (Class 1).\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2664,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0174": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a command-injection flaw in the MCP server's argument processing: it constructs shell commands from tool inputs without escaping, which is a plumbing/implementation flaw in the service layer, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2423,
+          "prompt_tokens": 479
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a command-injection flaw in the MCP server's argument processing: it constructs shell commands from tool inputs without escaping, which is a plumbing/implementation flaw in the service layer, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2423,
+          "prompt_tokens": 479
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a command-injection flaw in the MCP server's argument processing: it constructs shell commands from tool inputs without escaping, which is a plumbing/implementation flaw in the service layer, not a model trust or interaction issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2423,
+          "prompt_tokens": 479
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0148": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The shell injection occurs because the MCP server builds local shell commands from stored host/username values without sanitization, which is a classic plumbing flaw in the service around the agent, not a model manipulation or trust bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3637,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The shell injection occurs because the MCP server builds local shell commands from stored host/username values without sanitization, which is a classic plumbing flaw in the service around the agent, not a model manipulation or trust bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3637,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.94, \"reason\": \"The shell injection occurs because the MCP server builds local shell commands from stored host/username values without sanitization, which is a classic plumbing flaw in the service around the agent, not a model manipulation or trust bypass.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3637,
+          "prompt_tokens": 504
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0068": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"Both findings exploit authentication and authorization misconfigurations in the agent's MCP server and HTTP endpoint services without requiring the model to follow untrusted instructions, placing them squarely in the plumbing class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2612,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"Both findings exploit authentication and authorization misconfigurations in the agent's MCP server and HTTP endpoint services without requiring the model to follow untrusted instructions, placing them squarely in the plumbing class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2612,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"Both findings exploit authentication and authorization misconfigurations in the agent's MCP server and HTTP endpoint services without requiring the model to follow untrusted instructions, placing them squarely in the plumbing class.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2612,
+          "prompt_tokens": 515
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0292": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The incomplete read-only filter in the MCP server is an authorization flaw in the service plumbing, exploitable without the model needing to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2944,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The incomplete read-only filter in the MCP server is an authorization flaw in the service plumbing, exploitable without the model needing to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2944,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The incomplete read-only filter in the MCP server is an authorization flaw in the service plumbing, exploitable without the model needing to follow untrusted instructions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2944,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0258": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unrestricted path input in the MCP server's image upload tool is a direct authorization and origin flaw in the service itself, exploitable without model manipulation or user decision, classifying it as plumbing (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3517,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unrestricted path input in the MCP server's image upload tool is a direct authorization and origin flaw in the service itself, exploitable without model manipulation or user decision, classifying it as plumbing (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3517,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The unrestricted path input in the MCP server's image upload tool is a direct authorization and origin flaw in the service itself, exploitable without model manipulation or user decision, classifying it as plumbing (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3517,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0316": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The command-injection flaw arises from the MCP server's re-authentication tool unsanitizing caller-supplied input before shell execution, which is a plumbing/implementation flaw in the agent's surrounding MCP service rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4025,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The command-injection flaw arises from the MCP server's re-authentication tool unsanitizing caller-supplied input before shell execution, which is a plumbing/implementation flaw in the agent's surrounding MCP service rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4025,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.93, \"reason\": \"The command-injection flaw arises from the MCP server's re-authentication tool unsanitizing caller-supplied input before shell execution, which is a plumbing/implementation flaw in the agent's surrounding MCP service rather than a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4025,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0108": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack achieves file writes and command staging by steering the AI agent through instructions planted in content it processes, meaning it only works because the model follows instructions it should not have trusted, classifying it as an authority issue per the decision rule regardless of the path-handling flaw in the MCP server delivery channel.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 4447,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack achieves file writes and command staging by steering the AI agent through instructions planted in content it processes, meaning it only works because the model follows instructions it should not have trusted, classifying it as an authority issue per the decision rule regardless of the path-handling flaw in the MCP server delivery channel.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 4447,
+          "prompt_tokens": 486
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack achieves file writes and command staging by steering the AI agent through instructions planted in content it processes, meaning it only works because the model follows instructions it should not have trusted, classifying it as an authority issue per the decision rule regardless of the path-handling flaw in the MCP server delivery channel.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 4447,
+          "prompt_tokens": 486
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0250": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes an authorization failure in the MCP server's path resolution that allows arbitrary file reading outside the project without requiring the model to follow untrusted instructions, fitting the plumbing class of services-around-the-agent flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1596,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes an authorization failure in the MCP server's path resolution that allows arbitrary file reading outside the project without requiring the model to follow untrusted instructions, fitting the plumbing class of services-around-the-agent flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1596,
+          "prompt_tokens": 482
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The disclosure describes an authorization failure in the MCP server's path resolution that allows arbitrary file reading outside the project without requiring the model to follow untrusted instructions, fitting the plumbing class of services-around-the-agent flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1596,
+          "prompt_tokens": 482
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0227": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability results from missing authentication in the sandbox server's HTTP transport, a plumbing flaw in services around the agent with no model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3012,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability results from missing authentication in the sandbox server's HTTP transport, a plumbing flaw in services around the agent with no model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3012,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability results from missing authentication in the sandbox server's HTTP transport, a plumbing flaw in services around the agent with no model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3012,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0185": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server's unrestricted acceptance and forwarding of API base addresses constitutes a network-origin and authorization bypass in the service's plumbing, not a model trust or user-approval failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2035,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server's unrestricted acceptance and forwarding of API base addresses constitutes a network-origin and authorization bypass in the service's plumbing, not a model trust or user-approval failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2035,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The MCP server's unrestricted acceptance and forwarding of API base addresses constitutes a network-origin and authorization bypass in the service's plumbing, not a model trust or user-approval failure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2035,
+          "prompt_tokens": 484
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0326": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The access control flaw in the CMS plugin's MCP server connection is a classic authorization (plumbing) failure, not a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2061,
+          "prompt_tokens": 458
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The access control flaw in the CMS plugin's MCP server connection is a classic authorization (plumbing) failure, not a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2061,
+          "prompt_tokens": 458
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The access control flaw in the CMS plugin's MCP server connection is a classic authorization (plumbing) failure, not a model trust or interaction-layer issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2061,
+          "prompt_tokens": 458
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0027": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The code generator's unvalidated path resolution in plugin manifests enables file access outside the package before any user or model trust decision, with no interaction or privileges required.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3888,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The code generator's unvalidated path resolution in plugin manifests enables file access outside the package before any user or model trust decision, with no interaction or privileges required.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3888,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.95, \"reason\": \"The code generator's unvalidated path resolution in plugin manifests enables file access outside the package before any user or model trust decision, with no interaction or privileges required.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3888,
+          "prompt_tokens": 499
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0026": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw resides in the MCP client library's HTTP redirect and credential-forwarding logic, which is a plumbing-layer authentication mechanism that sends custom headers (containing API keys/tokens) to attacker-controlled destinations without any model or user trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2264,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw resides in the MCP client library's HTTP redirect and credential-forwarding logic, which is a plumbing-layer authentication mechanism that sends custom headers (containing API keys/tokens) to attacker-controlled destinations without any model or user trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2264,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The flaw resides in the MCP client library's HTTP redirect and credential-forwarding logic, which is a plumbing-layer authentication mechanism that sends custom headers (containing API keys/tokens) to attacker-controlled destinations without any model or user trust decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2264,
+          "prompt_tokens": 492
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0198": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The unbounded memory growth from unvalidated server-sent event streaming is a flaw in the client library's transport/SDK implementation (plumbing), not a model trust, interaction, or startup execution decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2760,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The unbounded memory growth from unvalidated server-sent event streaming is a flaw in the client library's transport/SDK implementation (plumbing), not a model trust, interaction, or startup execution decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2760,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.92, \"reason\": \"The unbounded memory growth from unvalidated server-sent event streaming is a flaw in the client library's transport/SDK implementation (plumbing), not a model trust, interaction, or startup execution decision.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2760,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0046": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability is an authorization flaw in the MCP server library's session handling, classifying it as a plumbing/service-layer authentication/origin issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2140,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability is an authorization flaw in the MCP server library's session handling, classifying it as a plumbing/service-layer authentication/origin issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2140,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.99, \"reason\": \"The vulnerability is an authorization flaw in the MCP server library's session handling, classifying it as a plumbing/service-layer authentication/origin issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2140,
+          "prompt_tokens": 481
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0014": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a session management flaw in the MCP server library that allocates in-memory resources before initialization validation, enabling memory exhaustion via repeated crafted protocol requests without any model or user decision, placing it squarely in the plumbing layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3071,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a session management flaw in the MCP server library that allocates in-memory resources before initialization validation, enabling memory exhaustion via repeated crafted protocol requests without any model or user decision, placing it squarely in the plumbing layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3071,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a session management flaw in the MCP server library that allocates in-memory resources before initialization validation, enabling memory exhaustion via repeated crafted protocol requests without any model or user decision, placing it squarely in the plumbing layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3071,
+          "prompt_tokens": 499
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0323": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The token caching flaw in the client library is an authentication/authorization defect in the SDK/connectors surrounding the agent, classifying it as a plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1587,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The token caching flaw in the client library is an authentication/authorization defect in the SDK/connectors surrounding the agent, classifying it as a plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1587,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The token caching flaw in the client library is an authentication/authorization defect in the SDK/connectors surrounding the agent, classifying it as a plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1587,
+          "prompt_tokens": 515
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0102": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The relay's command-line path-based acceptance lets sandbox repository content invoke host tools without any model decision, constituting a flaw in the agent's startup/execution machinery before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1954,
+          "prompt_tokens": 520
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The relay's command-line path-based acceptance lets sandbox repository content invoke host tools without any model decision, constituting a flaw in the agent's startup/execution machinery before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1954,
+          "prompt_tokens": 520
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.96, \"reason\": \"The relay's command-line path-based acceptance lets sandbox repository content invoke host tools without any model decision, constituting a flaw in the agent's startup/execution machinery before the trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1954,
+          "prompt_tokens": 520
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    }
+  }
+}

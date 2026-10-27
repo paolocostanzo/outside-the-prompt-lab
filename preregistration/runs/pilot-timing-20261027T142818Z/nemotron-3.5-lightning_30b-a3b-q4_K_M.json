@@ -1,0 +1,116 @@
+{
+  "model": "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+  "digest": "e7a64ff15fb174c42b4f463e5c888c4f2c7b9cabf9e8d65a1c0874405426c1b2",
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "cases_file": "pilot3.json",
+  "cases_sha256": "623aeca7bf597c3dc5999bfa2116dcab0a96ef639704ec8e1b803826d5ae4e78",
+  "started": "2026-10-27T15:16:30+00:00",
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The vulnerability exploits a path resolution flaw in the tool's own sandbox boundary at execution start, requiring no user or model decision, making it a Class 1 before-trust failure.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1632,
+          "prompt_tokens": 427
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The vulnerability exploits a path resolution flaw in the tool's own sandbox boundary at execution start, requiring no user or model decision, making it a Class 1 before-trust failure.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1632,
+          "prompt_tokens": 427
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The vulnerability exploits a path resolution flaw in the tool's own sandbox boundary at execution start, requiring no user or model decision, making it a Class 1 before-trust failure.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1632,
+          "prompt_tokens": 427
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The agent executes repository git hooks/configuration during background context gathering without sanitization, allowing code execution with user privileges before any user or model trust decision, fitting the Class 1 before-trust execution machinery flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2023,
+          "prompt_tokens": 445
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The agent executes repository git hooks/configuration during background context gathering without sanitization, allowing code execution with user privileges before any user or model trust decision, fitting the Class 1 before-trust execution machinery flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2023,
+          "prompt_tokens": 445
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.99, \"reason\": \"The agent executes repository git hooks/configuration during background context gathering without sanitization, allowing code execution with user privileges before any user or model trust decision, fitting the Class 1 before-trust execution machinery flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2023,
+          "prompt_tokens": 445
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.92, \"reason\": \"The disclosure describes a bypass of the user confirmation step, where a crafted link makes the app submit a hidden prompt without the user seeing or approving it, which directly maps to the interaction layer class.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 2314,
+          "prompt_tokens": 444
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.92, \"reason\": \"The disclosure describes a bypass of the user confirmation step, where a crafted link makes the app submit a hidden prompt without the user seeing or approving it, which directly maps to the interaction layer class.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 2314,
+          "prompt_tokens": 444
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.92, \"reason\": \"The disclosure describes a bypass of the user confirmation step, where a crafted link makes the app submit a hidden prompt without the user seeing or approving it, which directly maps to the interaction layer class.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 2314,
+          "prompt_tokens": 444
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    }
+  }
+}

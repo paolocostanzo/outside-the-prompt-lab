@@ -1,0 +1,116 @@
+{
+  "model": "qwen3.8:27b-q8_0",
+  "digest": "8f5fb6b71ea00052cbe8545738c55ce61112c4e571cb60ca4dad00b131766039",
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "cases_file": "pilot3.json",
+  "cases_sha256": "623aeca7bf597c3dc5999bfa2116dcab0a96ef639704ec8e1b803826d5ae4e78",
+  "started": "2026-10-27T15:02:47+00:00",
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The sandbox escape via git worktree path confusion is a flaw in the agent's own path-resolution machinery at the sandbox boundary, allowing code to run outside the sandbox without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 280,
+          "prompt_tokens": 432
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The sandbox escape via git worktree path confusion is a flaw in the agent's own path-resolution machinery at the sandbox boundary, allowing code to run outside the sandbox without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 280,
+          "prompt_tokens": 432
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The sandbox escape via git worktree path confusion is a flaw in the agent's own path-resolution machinery at the sandbox boundary, allowing code to run outside the sandbox without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 280,
+          "prompt_tokens": 432
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The agent's own background context-gathering machinery runs git without neutralizing repository git configuration, allowing code execution outside the sandbox with no user prompt or model decision, which is a flaw in the agent's startup/execution machinery before any trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 448,
+          "prompt_tokens": 451
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The agent's own background context-gathering machinery runs git without neutralizing repository git configuration, allowing code execution outside the sandbox with no user prompt or model decision, which is a flaw in the agent's startup/execution machinery before any trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 448,
+          "prompt_tokens": 451
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.97, \"reason\": \"The agent's own background context-gathering machinery runs git without neutralizing repository git configuration, allowing code execution outside the sandbox with no user prompt or model decision, which is a flaw in the agent's startup/execution machinery before any trust decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 448,
+          "prompt_tokens": 451
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.82, \"reason\": \"The app auto-submits a crafted prompt from an app-launch link without showing it to the user or requiring confirmation, skipping the approval step; the fix is to pre-fill and wait for the user to read and press send, which is a classic interaction-layer failure.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 904,
+          "prompt_tokens": 449
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.82, \"reason\": \"The app auto-submits a crafted prompt from an app-launch link without showing it to the user or requiring confirmation, skipping the approval step; the fix is to pre-fill and wait for the user to read and press send, which is a classic interaction-layer failure.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 904,
+          "prompt_tokens": 449
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.82, \"reason\": \"The app auto-submits a crafted prompt from an app-launch link without showing it to the user or requiring confirmation, skipping the approval step; the fix is to pre-fill and wait for the user to read and press send, which is a classic interaction-layer failure.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 904,
+          "prompt_tokens": 449
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    }
+  }
+}

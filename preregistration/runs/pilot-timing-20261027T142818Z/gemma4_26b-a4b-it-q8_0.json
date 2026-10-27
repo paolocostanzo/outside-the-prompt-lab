@@ -1,0 +1,116 @@
+{
+  "model": "gemma4:26b-a4b-it-q8_0",
+  "digest": "7473a33e49f186a27812ba7cb434b2b2b26e377714ad49f9abe9cdd7089ac4f7",
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "cases_file": "pilot3.json",
+  "cases_sha256": "623aeca7bf597c3dc5999bfa2116dcab0a96ef639704ec8e1b803826d5ae4e78",
+  "started": "2026-10-27T15:07:55+00:00",
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "cases": {
+    "C01": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path resolution flaw in the sandbox machinery that allows code execution without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 368,
+          "prompt_tokens": 435
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a sandbox escape caused by path resolution flaws in the execution machinery that occur before any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 380,
+          "prompt_tokens": 435
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a sandbox escape caused by path resolution flaws in the execution machinery that occur before any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 380,
+          "prompt_tokens": 435
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C02": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows code execution through background tool invocation (git) before any user interaction or model decision occurs.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 573,
+          "prompt_tokens": 455
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows code execution through malicious git configurations during background context gathering before any user or model interaction occurs.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 563,
+          "prompt_tokens": 455
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows code execution through malicious git configurations during background context gathering before any user or model interaction occurs.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 563,
+          "prompt_tokens": 455
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "C03": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows a prompt to be submitted automatically via an app-launch link, skipping the user's opportunity to review or confirm the content.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 645,
+          "prompt_tokens": 451
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows a prompt to be submitted automatically via a crafted link, bypassing the user's confirmation and approval step.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 635,
+          "prompt_tokens": 451
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows a prompt to be submitted automatically via a crafted link, bypassing the user's confirmation and approval step.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 635,
+          "prompt_tokens": 451
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    }
+  }
+}

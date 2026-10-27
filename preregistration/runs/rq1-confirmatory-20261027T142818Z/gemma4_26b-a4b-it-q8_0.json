@@ -1,0 +1,4086 @@
+{
+  "model": "gemma4:26b-a4b-it-q8_0",
+  "digest": "7473a33e49f186a27812ba7cb434b2b2b26e377714ad49f9abe9cdd7089ac4f7",
+  "criteria": "v3 (preregistration v2 + bundle sentence of D41 point 1, 25 Oct 2026)",
+  "criteria_sha256": "1dbc3906da9a23e7b2b571c9b58214dc773ca655a997e50c159f789cab8700b8",
+  "cases_file": "rq1-cases.json",
+  "cases_sha256": "0e9301280ce27b643d5e182984400af3c7fa95d0d2fec666250ae7429926b657",
+  "started": "2026-10-27T18:50:02+00:00",
+  "runs": 3,
+  "temperature": 0,
+  "num_ctx": 16384,
+  "cases": {
+    "RQ1-0008": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the OAuth callback listener implementation, which is part of the authentication plumbing around the client.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 469,
+          "prompt_tokens": 524
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the OAuth callback listener implementation, which is part of the authentication plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 515,
+          "prompt_tokens": 524
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the OAuth callback listener implementation, which is part of the authentication plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 515,
+          "prompt_tokens": 524
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0096": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the platform's configuration parsing and startup machinery that allows arbitrary code execution without any model or user decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 818,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability allows an attacker to bypass validation via a file upload, leading to arbitrary code execution during the platform's MCP server startup/enumeration process without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5365,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability allows an attacker to bypass validation via a file upload, leading to arbitrary code execution during the platform's MCP server startup/enumeration process without any user or model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5365,
+          "prompt_tokens": 521
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0260": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the model being manipulated by attacker-influenced content to emit a malicious file path that the tool fails to validate against the workspace boundary.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 3293,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack relies on the model being manipulated by attacker-influenced content to emit malicious file paths, meaning the exploit only works because the model follows instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1936,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.95, \"reason\": \"The attack relies on the model being manipulated by attacker-influenced content to emit malicious file paths, meaning the exploit only works because the model follows instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1936,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0296": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.8, \"reason\": \"The vulnerability involves manipulating the agent's command-handling to trick the model into exfiltrating sensitive workspace data using its existing privileges.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1463,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.8, \"reason\": \"The vulnerability involves an attacker manipulating the agent's command-handling to execute instructions that exfiltrate data, which falls under the model following untrusted instructions.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1776,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.8, \"reason\": \"The vulnerability involves an attacker manipulating the agent's command-handling to execute instructions that exfiltrate data, which falls under the model following untrusted instructions.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1776,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0119": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The administrator's approval step misrepresents the actual configuration being applied by hiding command-line arguments and environment variables in the confirmation UI.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 635,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The administrator's approval step misrepresents the actual configuration being applied by hiding command-line arguments and environment variables in the confirmation card.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 643,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The administrator's approval step misrepresents the actual configuration being applied by hiding command-line arguments and environment variables in the confirmation card.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 643,
+          "prompt_tokens": 515
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0313": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is described as a service-side flaw leading to privilege escalation, which constitutes a classic authorization flaw in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 828,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is described as a service-side flaw allowing privilege escalation through unneutralized command elements, which constitutes a classic authorization flaw in the service infrastructure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 682,
+          "prompt_tokens": 485
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is described as a service-side flaw allowing privilege escalation through unneutralized command elements, which constitutes a classic authorization flaw in the service infrastructure.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 682,
+          "prompt_tokens": 485
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0300": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability is triggered by user interaction (opening a link) where the intended action is subverted to execute arbitrary code, fitting the interaction layer classification.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1857,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability is triggered by a user interaction (opening a link) that misrepresents the actual outcome (arbitrary code execution instead of simply opening a URL).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4101,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability is triggered by a user interaction (opening a link) that misrepresents the actual outcome (arbitrary code execution instead of simply opening a URL).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 4101,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0215": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"Both findings involve authorization and deserialization flaws in the service components (the add-on handler and the MCP server) rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 556,
+          "prompt_tokens": 547
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"Both findings involve authorization flaws in an add-on and insecure deserialization in an MCP server, which are classic plumbing issues.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 591,
+          "prompt_tokens": 547
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"Both findings involve authorization flaws in an add-on and insecure deserialization in an MCP server, which are classic plumbing issues.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 591,
+          "prompt_tokens": 547
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0152": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw where the capability restriction mechanism fails to filter resources and prompt templates, allowing unauthorized access to MCP server components.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 826,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw where the restriction mechanism fails to filter resources and prompt templates, allowing access to sensitive data despite restricted tool capabilities.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 843,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw where the restriction mechanism fails to filter resources and prompt templates, allowing access to sensitive data despite restricted tool capabilities.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 843,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0005": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw (IDOR) in the plugin's endpoint that allows unauthorized access to data without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 431,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw (IDOR) in the plugin's service endpoint that allows unauthorized access to data.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 375,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw (IDOR) in the plugin's service endpoint that allows unauthorized access to data.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 375,
+          "prompt_tokens": 507
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0103": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization and data leakage flaw in the service managing the MCP connectors, allowing one user to access another's OAuth token via exposed endpoints.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 588,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization and data leakage flaw in the service managing the MCP server connectors.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 586,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization and data leakage flaw in the service managing the MCP server connectors.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 586,
+          "prompt_tokens": 517
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0131": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability allows arbitrary code execution via the background refresh mechanism of the MCP connector by manipulating the execution environment, which is a flaw in the platform's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1789,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability exploits the connector's process execution machinery (environment variables and path resolution) to run arbitrary code during a background refresh without model or user intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1720,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability exploits the connector's process execution machinery (environment variables and path resolution) to run arbitrary code during a background refresh without model or user intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1720,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0276": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the model being manipulated via a prompt to generate an oversized action, meaning the vulnerability is only triggered because the model follows instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2309,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the model being manipulated via a task prompt to generate an oversized action that exploits the lack of parameter bounds in the execution engine.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2328,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the model being manipulated via a task prompt to generate an oversized action that exploits the lack of parameter bounds in the execution engine.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2328,
+          "prompt_tokens": 515
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0036": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an unauthenticated local endpoint accessible from the browser environment, which constitutes a classic authentication or authorization flaw in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1502,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an unauthenticated local endpoint that allows attacker-controlled web content to execute code, which is a classic authentication/authorization flaw in the agent's service architecture.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1501,
+          "prompt_tokens": 517
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an unauthenticated local endpoint that allows attacker-controlled web content to execute code, which is a classic authentication/authorization flaw in the agent's service architecture.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1501,
+          "prompt_tokens": 517
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0302": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The disclosure includes flaws in the execution machinery and sandbox boundaries (validator bypass and transport restriction bypass) that allow arbitrary code execution without model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1798,
+          "prompt_tokens": 530
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The disclosure includes flaws in the execution machinery and sandbox boundaries, such as a validator bypass in the command processor and a subprocess transport restriction bypass, which allow code execution without model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1594,
+          "prompt_tokens": 530
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The disclosure includes flaws in the execution machinery and sandbox boundaries, such as a validator bypass in the command processor and a subprocess transport restriction bypass, which allow code execution without model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1594,
+          "prompt_tokens": 530
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0143": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"All findings describe authentication, authorization, or access control vulnerabilities within the MCP servers and the platform's service endpoints.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 726,
+          "prompt_tokens": 552
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"All findings describe authentication, authorization, or access control vulnerabilities in the MCP servers and surrounding services rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 617,
+          "prompt_tokens": 552
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"All findings describe authentication, authorization, or access control vulnerabilities in the MCP servers and surrounding services rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 617,
+          "prompt_tokens": 552
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0118": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a lack of authentication in a webhook provided by an adapter (a connector), allowing a local process to spoof user identity.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 625,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication and authorization flaw in a connector (the adapter's webhook) that allows a local process to spoof user identity.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 630,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication and authorization flaw in a connector (the adapter's webhook) that allows a local process to spoof user identity.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 630,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0145": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool that fails to validate credential ownership during workflow creation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 553,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool that fails to verify credential ownership during workflow creation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 600,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool that fails to verify credential ownership during workflow creation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 600,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0270": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the MCP endpoint fails to enforce API key expiration, allowing access to services despite the key being expired.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 473,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authentication flaw where the MCP endpoint fails to enforce API key expiration, representing a plumbing issue in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 506,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authentication flaw where the MCP endpoint fails to enforce API key expiration, representing a plumbing issue in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 506,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0324": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The agent automatically executes MCP server commands from repository configuration at startup without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 454,
+          "prompt_tokens": 524
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The agent automatically executes MCP server commands from repository configuration at startup without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 454,
+          "prompt_tokens": 524
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The agent automatically executes MCP server commands from repository configuration at startup without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 454,
+          "prompt_tokens": 524
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0312": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.5, \"reason\": \"The vulnerability is described as a service-side command-handling flaw that allows an unprivileged attacker to disclose information, which falls under classic authorization or plumbing flaws in the service layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3017,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes a command-handling flaw in a cloud service that allows unauthorized information disclosure, which points to an authorization or access control issue in the service's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2610,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes a command-handling flaw in a cloud service that allows unauthorized information disclosure, which points to an authorization or access control issue in the service's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2610,
+          "prompt_tokens": 492
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0025": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The open redirect is a classic service-side vulnerability in the infrastructure hosting the assistant, falling under plumbing/origin flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1390,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is an open redirect, which is a classic origin flaw in the service hosting the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 707,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is an open redirect, which is a classic origin flaw in the service hosting the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 707,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0144": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the platform's path resolution logic used to load MCP node schemas, allowing code execution without model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 573,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path resolution flaw in the platform's loading mechanism that allows code execution without any model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 647,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path resolution flaw in the platform's loading mechanism that allows code execution without any model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 647,
+          "prompt_tokens": 490
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0117": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the message queue service that allows unauthorized access and injection of prompts into other users' sessions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 749,
+          "prompt_tokens": 534
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the message queue service (plumbing) that allows an authenticated user to access and manipulate other users' prompts without proper account separation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 689,
+          "prompt_tokens": 534
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the message queue service (plumbing) that allows an authenticated user to access and manipulate other users' prompts without proper account separation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 689,
+          "prompt_tokens": 534
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0283": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a resource exhaustion flaw in the backend service infrastructure (the worker pool) that manages the agent, which falls under the plumbing/service layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1330,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a resource exhaustion (DoS) flaw in the service infrastructure managing the AI agent's worker pool, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1371,
+          "prompt_tokens": 483
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a resource exhaustion (DoS) flaw in the service infrastructure managing the AI agent's worker pool, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1371,
+          "prompt_tokens": 483
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0080": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a sandbox boundary flaw where the agent can influence the host system by modifying files (the Python interpreter) that are subsequently executed by a process outside the sandbox.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2153,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the agent being manipulated into performing a specific action (replacing the Python interpreter) which is then executed by the host, meaning the model must follow instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 3031,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on the agent being manipulated into performing a specific action (replacing the Python interpreter) which is then executed by the host, meaning the model must follow instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 3031,
+          "prompt_tokens": 514
+        }
+      ],
+      "classes": [
+        1,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0297": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes an insufficient protection of credentials, which points to a flaw in the authentication or authorization plumbing of the system rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1886,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.7, \"reason\": \"The requirement for user interaction and the ambiguity regarding the model's role suggest the attack relies on manipulating the model to disclose credentials.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2764,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.7, \"reason\": \"The requirement for user interaction and the ambiguity regarding the model's role suggest the attack relies on manipulating the model to disclose credentials.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2764,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        3,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0311": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.6, \"reason\": \"The description of a flaw in 'commands in its AI features' requiring 'user interaction' suggests the model is being manipulated to follow instructions it should not have trusted.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 3382,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.7, \"reason\": \"The mention of 'commands in its AI features' and 'required user interaction' suggests the vulnerability involves the model being manipulated to follow instructions, which falls under class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2658,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.7, \"reason\": \"The mention of 'commands in its AI features' and 'required user interaction' suggests the vulnerability involves the model being manipulated to follow instructions, which falls under class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2658,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0279": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows arbitrary code execution during the agent registration process via a command injection in the version-check mechanism, occurring before any model or user decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 899,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows arbitrary code execution during the agent registration process via a command injection in the version-check mechanism, occurring before any model or user decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 820,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows arbitrary code execution during the agent registration process via a command injection in the version-check mechanism, occurring before any model or user decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 820,
+          "prompt_tokens": 503
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0088": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack requires the model to follow instructions planted in the workspace to call the tool, which falls under the decision rule for class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1780,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack requires the model to be manipulated via prompt injection to call the tool, which falls under the decision rule for Class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1186,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack requires the model to be manipulated via prompt injection to call the tool, which falls under the decision rule for Class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1186,
+          "prompt_tokens": 523
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0325": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The root cause is an unauthenticated endpoint in the service providing data to the agent, which constitutes a classic authorization flaw in the surrounding plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 735,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an unauthenticated endpoint in a service (the runbook management system) that provides data to the agent, which is a classic authorization flaw in the plumbing around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 718,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an unauthenticated endpoint in a service (the runbook management system) that provides data to the agent, which is a classic authorization flaw in the plumbing around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 718,
+          "prompt_tokens": 494
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0089": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack relies on the model being manipulated via indirect prompt injection to invoke a tool that possesses excessive environment privileges.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 688,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack relies on the model being manipulated via indirect prompt injection to call a tool that has excessive access to the local environment.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 943,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 1.0, \"reason\": \"The attack relies on the model being manipulated via indirect prompt injection to call a tool that has excessive access to the local environment.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 943,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0218": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes a service-side request forgery (SSRF) vulnerability in the assistant's infrastructure, which falls under plumbing/connector flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1641,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes a service-side request forgery (SSRF) vulnerability, which is a classic origin/plumbing flaw in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2538,
+          "prompt_tokens": 491
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.7, \"reason\": \"The disclosure describes a service-side request forgery (SSRF) vulnerability, which is a classic origin/plumbing flaw in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2538,
+          "prompt_tokens": 491
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0314": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The disclosure describes an authorization flaw where incorrect permissions are assigned to a resource, which is a classic plumbing issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 664,
+          "prompt_tokens": 476
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is described as an authorization flaw where incorrect permissions are assigned to a resource, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1085,
+          "prompt_tokens": 476
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The vulnerability is described as an authorization flaw where incorrect permissions are assigned to a resource, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1085,
+          "prompt_tokens": 476
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0130": {
+      "answers": [
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15837,
+          "prompt_tokens": 547
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The disclosure includes an attack where an authenticated user can configure a malicious model server to bypass the model entirely, which is a plumbing/service configuration flaw (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4353,
+          "prompt_tokens": 547
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The disclosure includes an attack where an authenticated user can configure a malicious model server to bypass the model entirely, which is a plumbing/service configuration flaw (Class 3).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4353,
+          "prompt_tokens": 547
+        }
+      ],
+      "classes": [
+        3,
+        3
+      ],
+      "n_invalid": 1,
+      "modal": 3,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0015": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the platform's permission check mechanism that incorrectly treats an empty tool list as unrestricted access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 601,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the permission check incorrectly treats an empty tool list as unrestricted access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 626,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the permission check incorrectly treats an empty tool list as unrestricted access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 626,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0077": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The vulnerability involves improper restriction of file and resource names, which is a path resolution flaw in the agent's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1026,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The vulnerability involves improper restriction of file and resource names, which is a path resolution flaw in the agent's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 784,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.8, \"reason\": \"The vulnerability involves improper restriction of file and resource names, which is a path resolution flaw in the agent's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 784,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0328": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the gateway service's administrative interface, which is a classic authorization/access control issue in the plumbing surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 880,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the gateway service, which acts as a connector/bridge for the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 696,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the gateway service, which acts as a connector/bridge for the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 696,
+          "prompt_tokens": 502
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0180": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal/authorization flaw in a tool server (a service/connector) that fails to restrict file access to a designated workspace.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1819,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in an MCP server (tool server) that fails to restrict file access to a designated workspace.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1959,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in an MCP server (tool server) that fails to restrict file access to a designated workspace.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1959,
+          "prompt_tokens": 497
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0225": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the hub's tool-execution interface, allowing users to access tools on servers they do not own.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 571,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the hub's tool-execution interface, allowing users to access tools they do not own.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 557,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the hub's tool-execution interface, allowing users to access tools they do not own.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 557,
+          "prompt_tokens": 502
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0168": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization and path validation flaw in a tool server, which is a service/connector surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1318,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in a tool server (a service/connector) that fails to validate the workspace path, allowing arbitrary file access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1367,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in a tool server (a service/connector) that fails to validate the workspace path, allowing arbitrary file access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1367,
+          "prompt_tokens": 494
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0127": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The findings describe classic authentication, authorization, and request routing flaws within the tool server connector itself.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 535,
+          "prompt_tokens": 556
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The findings describe flaws in the connector's request routing and session isolation, which are classic plumbing issues regarding authentication and origin.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 650,
+          "prompt_tokens": 556
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The findings describe flaws in the connector's request routing and session isolation, which are classic plumbing issues regarding authentication and origin.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 650,
+          "prompt_tokens": 556
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0039": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path validation flaw in a tool/connector that allows arbitrary file writes, which can be triggered by a remote client independently of model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1578,
+          "prompt_tokens": 545
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path validation flaw in a connector module that can be exploited by a remote client or the model.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2089,
+          "prompt_tokens": 545
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path validation flaw in a connector module that can be exploited by a remote client or the model.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2089,
+          "prompt_tokens": 545
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0178": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a classic SSRF (origin/authorization flaw) in a tool server (connector) that allows unauthorized access to internal resources.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1073,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a classic SSRF (origin/authorization flaw) within a tool server/connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 957,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a classic SSRF (origin/authorization flaw) within a tool server/connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 957,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0251": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the tool server's path resolution logic, which falls under the plumbing/connector layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 818,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (an MCP server), which falls under the plumbing category of services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1221,
+          "prompt_tokens": 502
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (an MCP server), which falls under the plumbing category of services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1221,
+          "prompt_tokens": 502
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0124": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure in the sandbox boundary (container network isolation) that allows code running in the container to access the host without model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1027,
+          "prompt_tokens": 546
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure of the container's network isolation, which constitutes a flaw in the sandbox boundaries of the tool's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1169,
+          "prompt_tokens": 546
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure of the container's network isolation, which constitutes a flaw in the sandbox boundaries of the tool's execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1169,
+          "prompt_tokens": 546
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0001": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in a tool server, which constitutes a classic origin flaw in a service/connector surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 795,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an SSRF in the tool server (a connector) due to improper URL validation, which is a classic origin flaw in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 691,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an SSRF in the tool server (a connector) due to improper URL validation, which is a classic origin flaw in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 691,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0255": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an unconfined file path in an MCP server tool, which constitutes a classic authorization and input validation flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 878,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an unconfined file path in an MCP server, which is a classic authorization and input validation flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1804,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an unconfined file path in an MCP server, which is a classic authorization and input validation flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1804,
+          "prompt_tokens": 513
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0182": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (a connector/service), which is a classic authorization and input validation issue in the plumbing around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4632,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service around the agent, resulting from improper file access confinement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1097,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service around the agent, resulting from improper file access confinement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1097,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0177": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (a connector), which constitutes a plumbing issue in the services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1309,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service/connector around the agent, falling under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2086,
+          "prompt_tokens": 498
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service/connector around the agent, falling under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2086,
+          "prompt_tokens": 498
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0288": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a code injection flaw in a tool server, which is a service/connector (plumbing) surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 5259,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15876,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15876,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        3
+      ],
+      "n_invalid": 2,
+      "modal": 3,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0186": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic SSRF in a proxy endpoint within the tool-server infrastructure, which constitutes an origin and authorization flaw in the plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 804,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic SSRF in a tool-server proxy endpoint, which constitutes a flaw in the plumbing/connectors surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 706,
+          "prompt_tokens": 481
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic SSRF in a tool-server proxy endpoint, which constitutes a flaw in the plumbing/connectors surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 706,
+          "prompt_tokens": 481
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0317": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which falls under classic flaws in the services/connectors around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 649,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service (plumbing) providing functionality to the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 972,
+          "prompt_tokens": 484
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service (plumbing) providing functionality to the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 972,
+          "prompt_tokens": 484
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0327": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"Finding 4 describes a flaw where a malicious server can manipulate the sign-in process in the user's browser, which falls under the interaction layer (misrepresenting what the user is approving).\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 3727,
+          "prompt_tokens": 562
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15822,
+          "prompt_tokens": 562
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15822,
+          "prompt_tokens": 562
+        }
+      ],
+      "classes": [
+        2
+      ],
+      "n_invalid": 2,
+      "modal": 2,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0321": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an SSRF in a tool server, which constitutes a classic origin/request flaw in the plumbing (connectors/services) surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1065,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an SSRF in a tool server, which constitutes a classic origin and service boundary flaw in a connector (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1487,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an SSRF in a tool server, which constitutes a classic origin and service boundary flaw in a connector (plumbing).\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1487,
+          "prompt_tokens": 492
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0060": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The vulnerability allows certain commands to bypass the expected permission and approval step due to a flaw in the safety tool's parser.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 987,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The parser flaw in the safety tool allows commands to bypass the intended permission and approval step.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1193,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 0.9, \"reason\": \"The parser flaw in the safety tool allows commands to bypass the intended permission and approval step.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1193,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0016": {
+      "answers": [
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15895,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the application's path resolution logic when handling tool arguments, which is explicitly mentioned as a Class 1 flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3417,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the application's path resolution logic when handling tool arguments, which is explicitly mentioned as a Class 1 flaw.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 3417,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        1,
+        1
+      ],
+      "n_invalid": 1,
+      "modal": 1,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0156": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a gateway service that aggregates tool servers, which falls under the plumbing/services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4556,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15896,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "",
+          "class": null,
+          "valid": false,
+          "eval_count": 15896,
+          "prompt_tokens": 488
+        }
+      ],
+      "classes": [
+        3
+      ],
+      "n_invalid": 2,
+      "modal": 3,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0176": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a classic SSRF (origin/access control flaw) within a tool server, which is a connector service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 803,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in a tool server, which constitutes a classic origin and authorization flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 903,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in a tool server, which constitutes a classic origin and authorization flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 903,
+          "prompt_tokens": 492
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0247": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin validation flaw in a local tool server (connector) that allows a web page to call tools directly without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 737,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin validation flaw in a local tool server (a connector) that allows a web page to make unauthorized requests to it without model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 640,
+          "prompt_tokens": 514
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin validation flaw in a local tool server (a connector) that allows a web page to make unauthorized requests to it without model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 640,
+          "prompt_tokens": 514
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0306": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in the management interface, which is a service surrounding the agent, allowing unauthenticated remote code execution.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 826,
+          "prompt_tokens": 522
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The gateway's execution machinery automatically runs a registered client without any user or model decision, which can be triggered via an unauthenticated management interface.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1639,
+          "prompt_tokens": 522
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The gateway's execution machinery automatically runs a registered client without any user or model decision, which can be triggered via an unauthenticated management interface.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1639,
+          "prompt_tokens": 522
+        }
+      ],
+      "classes": [
+        3,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0022": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw within the MCP server (the CMS plugin) that fails to verify user permissions for the tools it exposes.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 493,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server (the CMS plugin) where it fails to verify user permissions after token authentication.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 593,
+          "prompt_tokens": 500
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server (the CMS plugin) where it fails to verify user permissions after token authentication.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 593,
+          "prompt_tokens": 500
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0241": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin/host-name validation flaw in the tool server's HTTP transport, which constitutes a plumbing issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 636,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin/host-name validation flaw in the tool server's HTTP transport, which constitutes a plumbing issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 634,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin/host-name validation flaw in the tool server's HTTP transport, which constitutes a plumbing issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 634,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0101": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where an endpoint lacks permission checks, allowing anonymous access to sensitive configuration data.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 443,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in a service endpoint that allows anonymous access to sensitive configuration data without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 448,
+          "prompt_tokens": 501
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in a service endpoint that allows anonymous access to sensitive configuration data without any model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 448,
+          "prompt_tokens": 501
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0157": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service/connector around the agent, representing a classic authorization and input validation failure in the plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1800,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the tool server, which is a service/connector providing tools to the agent, falling under classic plumbing issues.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1624,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the tool server, which is a service/connector providing tools to the agent, falling under classic plumbing issues.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1624,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0201": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities are path traversal and authorization flaws within a tool server, which is a service/connector surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 972,
+          "prompt_tokens": 536
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities are path traversal and authorization flaws within a tool server, which is a service/connector around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 976,
+          "prompt_tokens": 536
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities are path traversal and authorization flaws within a tool server, which is a service/connector around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 976,
+          "prompt_tokens": 536
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0133": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization bypass in the tool server's legacy HTTP interface, which is a service/connector around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 585,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization bypass in the tool server's legacy HTTP interface, which is a service/connector around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 562,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization bypass in the tool server's legacy HTTP interface, which is a service/connector around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 562,
+          "prompt_tokens": 505
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0243": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication bypass in the tool server (a connector/service) that allows unauthenticated network access.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 571,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication bypass in the tool server (a connector) that allows unauthenticated network access to sensitive credentials.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 569,
+          "prompt_tokens": 521
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication bypass in the tool server (a connector) that allows unauthenticated network access to sensitive credentials.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 569,
+          "prompt_tokens": 521
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0299": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in an MCP tool server that allows unauthorized file access, which can be exploited by a direct caller or via model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3037,
+          "prompt_tokens": 528
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in an MCP tool server, which constitutes an authorization/boundary flaw in a service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4301,
+          "prompt_tokens": 528
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in an MCP tool server, which constitutes an authorization/boundary flaw in a service around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4301,
+          "prompt_tokens": 528
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0006": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (a connector/MCP server) that allows bypassing intended path restrictions, which constitutes an authorization/origin flaw in the plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1952,
+          "prompt_tokens": 527
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the tool server's path resolution logic, which constitutes a plumbing issue in a connector/MCP server.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1520,
+          "prompt_tokens": 527
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a path traversal flaw in the tool server's path resolution logic, which constitutes a plumbing issue in a connector/MCP server.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1520,
+          "prompt_tokens": 527
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0034": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a SQL injection in the metrics service of the gateway/registry, which is a component of the infrastructure surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 580,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic SQL injection in a supporting service (the gateway/registry) that provides infrastructure for the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 574,
+          "prompt_tokens": 511
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic SQL injection in a supporting service (the gateway/registry) that provides infrastructure for the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 574,
+          "prompt_tokens": 511
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0159": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a tool server, which is a service/connector around the agent, and it can be triggered directly by a caller without model involvement.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 4727,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a tool server, which is a service/connector (like an MCP server) surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3536,
+          "prompt_tokens": 499
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a tool server, which is a service/connector (like an MCP server) surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3536,
+          "prompt_tokens": 499
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0303": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the tool server where it fails to verify ownership of the destination storage bucket.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 663,
+          "prompt_tokens": 540
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the tool server's logic where it fails to verify the ownership of the destination storage bucket.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 612,
+          "prompt_tokens": 540
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the tool server's logic where it fails to verify the ownership of the destination storage bucket.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 612,
+          "prompt_tokens": 540
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0023": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's lack of authentication and origin protection allows an attacker to manipulate the agent's state via DNS rebinding without model intervention.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 815,
+          "prompt_tokens": 553
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's lack of authentication and protection against DNS rebinding constitutes a plumbing flaw in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 623,
+          "prompt_tokens": 553
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The dashboard's lack of authentication and protection against DNS rebinding constitutes a plumbing flaw in the service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 623,
+          "prompt_tokens": 553
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0184": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is an arbitrary file read flaw in a tool server (a connector) caused by improper path validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1351,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an arbitrary file read due to missing path validation in a tool server, which constitutes a classic authorization flaw in a connector/MCP server.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1883,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an arbitrary file read due to missing path validation in a tool server, which constitutes a classic authorization flaw in a connector/MCP server.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1883,
+          "prompt_tokens": 490
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0066": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an arbitrary file read in a tool server (a connector) caused by lack of path confinement and missing authentication/authorization.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1057,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability consists of authentication and authorization flaws (lack of credentials and path confinement) within a tool server service.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1522,
+          "prompt_tokens": 516
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability consists of authentication and authorization flaws (lack of credentials and path confinement) within a tool server service.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1522,
+          "prompt_tokens": 516
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0098": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the connector (the CMS plugin) where tokens are not properly tied to users, allowing unauthorized access to administrative tools.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 626,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the plugin's token validation mechanism, which acts as the connector for the tools.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 604,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the plugin's token validation mechanism, which acts as the connector for the tools.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 604,
+          "prompt_tokens": 507
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0004": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure in the isolation and routing of data within the network control socket service, which is a plumbing component.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 615,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a session management and data isolation flaw in the tool server's communication socket, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 727,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a session management and data isolation flaw in the tool server's communication socket, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 727,
+          "prompt_tokens": 523
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0043": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the platform's service that allows a user to access resources they are not permitted to use.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 671,
+          "prompt_tokens": 542
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw (BOLA) in the platform's service that manages access to workflow resources.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 678,
+          "prompt_tokens": 542
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw (BOLA) in the platform's service that manages access to workflow resources.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 678,
+          "prompt_tokens": 542
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0155": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection in a service/connector (the code-context engine) that provides tools to the agent, which falls under the plumbing category.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2234,
+          "prompt_tokens": 487
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a service (the code-context engine) that provides tools to the agent, which falls under the plumbing category of flaws in services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1935,
+          "prompt_tokens": 487
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection in a service (the code-context engine) that provides tools to the agent, which falls under the plumbing category of flaws in services around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1935,
+          "prompt_tokens": 487
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0307": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the security filter implementation within the proxy (the connector/plumbing) that allows bypassing content checks via nested arguments.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 685,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure in the security filtering logic of the proxy (a connector/bridge) that allows bypassing content restrictions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 647,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a failure in the security filtering logic of the proxy (a connector/bridge) that allows bypassing content restrictions.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 647,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0196": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a server-side request forgery (SSRF) in the tool server's loader, which constitutes a flaw in the plumbing/services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 968,
+          "prompt_tokens": 518
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the tool server's loader, which is a plumbing/connector component.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 916,
+          "prompt_tokens": 518
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the tool server's loader, which is a plumbing/connector component.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 916,
+          "prompt_tokens": 518
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0137": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw where the tool server fails to properly validate the audience of an identity provider token.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 462,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in a connector/tool server where the audience check is skipped during token validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 458,
+          "prompt_tokens": 515
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in a connector/tool server where the audience check is skipped during token validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 458,
+          "prompt_tokens": 515
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0062": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the tool fails to enforce the scopes associated with the provided access token.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 570,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the tool fails to enforce the scopes associated with the provided access token.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 699,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw where the tool fails to enforce the scopes associated with the provided access token.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 699,
+          "prompt_tokens": 523
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0244": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a lack of host-name restriction in the tool server's HTTP transport, which is a classic origin/authorization flaw in the service's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 548,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin/host-name restriction flaw in the tool server's HTTP transport, which is a classic plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 568,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an origin/host-name restriction flaw in the tool server's HTTP transport, which is a classic plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 568,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0222": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the hub's server registration mechanism, representing a failure in origin and network boundary validation within the service's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 707,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) caused by a lack of origin validation in the hub's server registration mechanism, which is a plumbing flaw in the service managing the tool connections.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 759,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) caused by a lack of origin validation in the hub's server registration mechanism, which is a plumbing flaw in the service managing the tool connections.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 759,
+          "prompt_tokens": 519
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0175": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server, which is a service/connector providing functionality to the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 3524,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the tool server (a connector/service), which is a classic authorization/access control issue in the plumbing surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2927,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in the tool server (a connector/service), which is a classic authorization/access control issue in the plumbing surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2927,
+          "prompt_tokens": 497
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0285": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The tool server's failure to validate file paths allows for arbitrary file reads via path traversal, which is a flaw in the execution machinery's path resolution.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1026,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (a connector), which constitutes a classic authorization/access control issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1985,
+          "prompt_tokens": 513
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path traversal flaw in a tool server (a connector), which constitutes a classic authorization/access control issue in the services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1985,
+          "prompt_tokens": 513
+        }
+      ],
+      "classes": [
+        1,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": false
+    },
+    "RQ1-0187": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the tool server, which constitutes an origin/authorization flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 857,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the tool server, which constitutes a classic origin/authorization flaw in a connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 781,
+          "prompt_tokens": 489
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the tool server, which constitutes a classic origin/authorization flaw in a connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 781,
+          "prompt_tokens": 489
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0122": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a plumbing flaw where the connector/client incorrectly attaches an authentication token to an arbitrary destination provided in a tool call.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 699,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin/authentication flaw in the connector/client, which attaches a token to an arbitrary destination provided in a tool call.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 663,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic origin/authentication flaw in the connector/client, which attaches a token to an arbitrary destination provided in a tool call.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 663,
+          "prompt_tokens": 510
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0277": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a missing permission check in the MCP server, which constitutes a classic authorization flaw in the plumbing/connector services.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 573,
+          "prompt_tokens": 479
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw within the MCP server, which serves as the plumbing connecting the CMS to the AI agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 658,
+          "prompt_tokens": 479
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw within the MCP server, which serves as the plumbing connecting the CMS to the AI agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 658,
+          "prompt_tokens": 479
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0309": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server/IAM service that allows cross-tenant access using valid credentials.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 571,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in an MCP endpoint where credentials from one application grant global access across all organizations.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 530,
+          "prompt_tokens": 507
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in an MCP endpoint where credentials from one application grant global access across all organizations.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 530,
+          "prompt_tokens": 507
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0217": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on indirect prompt injection to manipulate the model into passing a malicious path to a tool, as the attacker lacks direct access to the MCP server.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 4051,
+          "prompt_tokens": 525
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack is triggered by the model being manipulated through malicious content in a file to invoke a tool with an unsafe argument.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1356,
+          "prompt_tokens": 525
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack is triggered by the model being manipulated through malicious content in a file to invoke a tool with an unsafe argument.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1356,
+          "prompt_tokens": 525
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0163": {
+      "answers": [
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows secret leakage because the system skips the user confirmation step for read-only requests, which are used to exfiltrate data via the URL.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1381,
+          "prompt_tokens": 526
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows read-only requests to bypass the user confirmation step, which is a failure in the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1277,
+          "prompt_tokens": 526
+        },
+        {
+          "raw": "{\"class\": 2, \"confidence\": 1.0, \"reason\": \"The vulnerability allows read-only requests to bypass the user confirmation step, which is a failure in the interaction layer.\"}",
+          "class": 2,
+          "valid": true,
+          "eval_count": 1277,
+          "prompt_tokens": 526
+        }
+      ],
+      "classes": [
+        2,
+        2,
+        2
+      ],
+      "n_invalid": 0,
+      "modal": 2,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0067": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool implementation that allows unauthorized filesystem access via improper path validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 799,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool implementation that allows path traversal and file probing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1059,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization flaw in the MCP server's tool implementation that allows path traversal and file probing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1059,
+          "prompt_tokens": 519
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0139": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack is triggered by manipulating the model through prompt injection to call a tool with a malicious hostname, which falls under the rule that if the attack only works because the model follows untrusted instructions, it is class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 3398,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on manipulating the model via its input to steer a tool call to an attacker-controlled host, which fits the definition of Class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 5180,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack relies on manipulating the model via its input to steer a tool call to an attacker-controlled host, which fits the definition of Class 4.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 5180,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0017": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication and authorization flaw in the MCP server's endpoint, allowing unauthenticated access to tools.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 518,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication bypass where the web server fails to enforce login checks on the MCP server endpoint.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 605,
+          "prompt_tokens": 510
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication bypass where the web server fails to enforce login checks on the MCP server endpoint.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 605,
+          "prompt_tokens": 510
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0074": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a lack of path containment and authorization in the MCP server, which is a service/connector surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1470,
+          "prompt_tokens": 518
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a lack of directory containment in the MCP server, which constitutes an authorization and boundary flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 897,
+          "prompt_tokens": 518
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a lack of directory containment in the MCP server, which constitutes an authorization and boundary flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 897,
+          "prompt_tokens": 518
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0210": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the dashboard service that manages the MCP servers.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 450,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the management service (the hub's dashboard) that controls the MCP environment.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 492,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the management service (the hub's dashboard) that controls the MCP environment.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 492,
+          "prompt_tokens": 505
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0193": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The MCP server has an authorization flaw (SSRF) by failing to restrict destination addresses, which can be exploited via direct client calls without model intervention.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1279,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an SSRF in the MCP server caused by a lack of destination validation, which can be triggered via direct client calls without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1314,
+          "prompt_tokens": 492
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an SSRF in the MCP server caused by a lack of destination validation, which can be triggered via direct client calls without requiring model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1314,
+          "prompt_tokens": 492
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0208": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.95, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in the MCP server due to insufficient destination validation, which is a plumbing flaw in a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1096,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The MCP server fails to validate destination addresses, allowing for SSRF, which is a flaw in the connector's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1427,
+          "prompt_tokens": 497
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.8, \"reason\": \"The MCP server fails to validate destination addresses, allowing for SSRF, which is a flaw in the connector's plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1427,
+          "prompt_tokens": 497
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0109": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a confinement bypass in the file search tool's path resolution, which constitutes a flaw in the agent's sandbox boundaries.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 873,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a confinement bypass in the file search tool's path resolution, which constitutes a failure in the agent's sandbox/execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 789,
+          "prompt_tokens": 504
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a confinement bypass in the file search tool's path resolution, which constitutes a failure in the agent's sandbox/execution machinery.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 789,
+          "prompt_tokens": 504
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0174": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw within an MCP server, which is a component of the agent's plumbing/connectors.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 918,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw in an MCP server, which is a service/connector around the agent, and the attack is triggered by a malicious client rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2640,
+          "prompt_tokens": 488
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw in an MCP server, which is a service/connector around the agent, and the attack is triggered by a malicious client rather than model manipulation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 2640,
+          "prompt_tokens": 488
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0148": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection flaw in an MCP server, which is explicitly categorized as a plumbing issue in the connector/service layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1922,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection flaw within the MCP server, which is a service/connector surrounding the agent, making it a plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1131,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a command injection flaw within the MCP server, which is a service/connector surrounding the agent, making it a plumbing issue.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1131,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0068": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities consist of a lack of authentication on the MCP server and an authorization bypass on a tool endpoint, which are classic plumbing flaws.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 646,
+          "prompt_tokens": 527
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities are authentication and authorization flaws in the MCP server and its associated HTTP endpoints.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 624,
+          "prompt_tokens": 527
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerabilities are authentication and authorization flaws in the MCP server and its associated HTTP endpoints.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 624,
+          "prompt_tokens": 527
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0292": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a failure in the authorization/restriction logic (the read-only filter) of the MCP server, which is a service surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 737,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization bypass in the MCP server's implementation of a read-only filter.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 668,
+          "prompt_tokens": 512
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is an authorization bypass in the MCP server's implementation of a read-only filter.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 668,
+          "prompt_tokens": 512
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0258": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an arbitrary file read flaw in an MCP server tool due to lack of path validation, which is a classic authorization/access control issue in a connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 923,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an arbitrary file read flaw in the MCP server tool, which is a connector service providing functionality to the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 817,
+          "prompt_tokens": 505
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an arbitrary file read flaw in the MCP server tool, which is a connector service providing functionality to the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 817,
+          "prompt_tokens": 505
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0316": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw in an MCP server tool, which falls under the plumbing/services surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 873,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw within an MCP server tool, which is a component of the plumbing around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 902,
+          "prompt_tokens": 494
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a command injection flaw within an MCP server tool, which is a component of the plumbing around the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 902,
+          "prompt_tokens": 494
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0108": {
+      "answers": [
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack requires the model to be manipulated by instructions within processed content to trigger the path traversal flaw in the MCP server tool.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 2125,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack requires the model to be manipulated via instructions in processed content to exploit the path traversal flaw in the MCP server.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1369,
+          "prompt_tokens": 495
+        },
+        {
+          "raw": "{\"class\": 4, \"confidence\": 0.9, \"reason\": \"The attack requires the model to be manipulated via instructions in processed content to exploit the path traversal flaw in the MCP server.\"}",
+          "class": 4,
+          "valid": true,
+          "eval_count": 1369,
+          "prompt_tokens": 495
+        }
+      ],
+      "classes": [
+        4,
+        4,
+        4
+      ],
+      "n_invalid": 0,
+      "modal": 4,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0250": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization/access control flaw in an MCP server's tool implementation that allows reading files outside the intended directory.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 919,
+          "prompt_tokens": 487
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in an MCP server (a service around the agent) that fails to restrict file access to the intended directory via improper path validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 650,
+          "prompt_tokens": 487
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in an MCP server (a service around the agent) that fails to restrict file access to the intended directory via improper path validation.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 650,
+          "prompt_tokens": 487
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0227": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a sandbox escape caused by flawed execution machinery (incomplete validation of attribute access) allowing code to run outside its intended restrictions.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 694,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a sandbox escape caused by incomplete validation in the execution machinery, allowing code to run outside its intended boundaries.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 730,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability is a sandbox escape caused by incomplete validation in the execution machinery, allowing code to run outside its intended boundaries.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 730,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0185": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a Server-Side Request Forgery (SSRF) in an MCP server caused by improper validation of the destination address provided in tool arguments.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1441,
+          "prompt_tokens": 496
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The MCP server, acting as a connector, has an SSRF vulnerability due to its failure to validate or restrict the destination addresses provided in tool arguments.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1107,
+          "prompt_tokens": 496
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The MCP server, acting as a connector, has an SSRF vulnerability due to its failure to validate or restrict the destination addresses provided in tool arguments.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1107,
+          "prompt_tokens": 496
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0326": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server/plugin that connects the CMS to the AI agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 518,
+          "prompt_tokens": 467
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server/plugin that manages access control for the CMS.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 510,
+          "prompt_tokens": 467
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in the MCP server/plugin that manages access control for the CMS.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 510,
+          "prompt_tokens": 467
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0027": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability allows an attacker to exploit path resolution in the assistant host's execution machinery via a maliciously crafted plugin manifest.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2327,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path resolution flaw in the generated manifest that allows the host to access files outside the plugin package without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2009,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a path resolution flaw in the generated manifest that allows the host to access files outside the plugin package without user or model intervention.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 2009,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0026": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the MCP client library's handling of credentials during cross-origin redirects, which is a plumbing issue in the SDK/connector.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 666,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the MCP client library (an SDK) that mishandles authentication credentials during cross-origin redirects.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 619,
+          "prompt_tokens": 503
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a flaw in the MCP client library (an SDK) that mishandles authentication credentials during cross-origin redirects.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 619,
+          "prompt_tokens": 503
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0198": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a resource exhaustion flaw in the MCP client library (SDK/connector) during the handling of the transport layer.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 858,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a resource exhaustion flaw in the MCP client library (an SDK/connector) during the handling of server-sent events.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 728,
+          "prompt_tokens": 506
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a resource exhaustion flaw in the MCP client library (an SDK/connector) during the handling of server-sent events.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 728,
+          "prompt_tokens": 506
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0046": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is an authorization flaw in the MCP server library's session management, allowing unauthorized tool calls via session ID hijacking.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 475,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in an MCP server library where session identifiers are not validated against the requester's origin.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 490,
+          "prompt_tokens": 490
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authorization flaw in an MCP server library where session identifiers are not validated against the requester's origin.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 490,
+          "prompt_tokens": 490
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0014": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 0.9, \"reason\": \"The vulnerability is a resource management flaw in an MCP server library, which falls under the plumbing of the services and connectors surrounding the agent.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 1474,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a resource management flaw in the MCP server library's session handling logic, which falls under plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 537,
+          "prompt_tokens": 508
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a resource management flaw in the MCP server library's session handling logic, which falls under plumbing.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 537,
+          "prompt_tokens": 508
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0323": {
+      "answers": [
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in a client library (SDK/connector) where identity tokens are improperly cached and reused across different audiences.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 476,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in a client library (SDK) where identity tokens are improperly cached and reused across different audiences.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 450,
+          "prompt_tokens": 519
+        },
+        {
+          "raw": "{\"class\": 3, \"confidence\": 1.0, \"reason\": \"The vulnerability is a classic authentication flaw in a client library (SDK) where identity tokens are improperly cached and reused across different audiences.\"}",
+          "class": 3,
+          "valid": true,
+          "eval_count": 450,
+          "prompt_tokens": 519
+        }
+      ],
+      "classes": [
+        3,
+        3,
+        3
+      ],
+      "n_invalid": 0,
+      "modal": 3,
+      "tie": false,
+      "stable": true
+    },
+    "RQ1-0102": {
+      "answers": [
+        {
+          "raw": "{\"class\": 1, \"confidence\": 1.0, \"reason\": \"The vulnerability allows untrusted code within the sandbox to bypass the model and call host tools by exploiting a flaw in the relay's authorization mechanism, which constitutes a failure of the sandbox boundary.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 1036,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a flaw in the sandbox boundary (the relay) that uses improper path-based authorization, allowing untrusted code to execute host tools without a model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5498,
+          "prompt_tokens": 523
+        },
+        {
+          "raw": "{\"class\": 1, \"confidence\": 0.9, \"reason\": \"The vulnerability is a flaw in the sandbox boundary (the relay) that uses improper path-based authorization, allowing untrusted code to execute host tools without a model decision.\"}",
+          "class": 1,
+          "valid": true,
+          "eval_count": 5498,
+          "prompt_tokens": 523
+        }
+      ],
+      "classes": [
+        1,
+        1,
+        1
+      ],
+      "n_invalid": 0,
+      "modal": 1,
+      "tie": false,
+      "stable": true
+    }
+  }
+}

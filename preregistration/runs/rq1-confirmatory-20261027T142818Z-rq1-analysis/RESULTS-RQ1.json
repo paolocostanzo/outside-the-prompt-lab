@@ -1,0 +1,1469 @@
+{
+ "n_sampled": 120,
+ "frame_sizes": {
+  "agent client": 100,
+  "MCP server or connector": 210,
+  "SDK": 20
+ },
+ "unlabelled": {
+  "R0": [],
+  "model majority": [
+   "RQ1-0276",
+   "RQ1-0296",
+   "RQ1-0311"
+  ]
+ },
+ "primary": {
+  "R0": {
+   "share": 0.9006207164101901,
+   "share_exact": "13929/15466",
+   "unweighted": 0.9,
+   "observed": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+   },
+   "interval": [
+    0.7787878787878788,
+    0.9575757575757575
+   ],
+   "exact": false,
+   "strata": {
+    "agent client": [
+     100,
+     37,
+     31,
+     0
+    ],
+    "MCP server or connector": [
+     210,
+     76,
+     70,
+     0
+    ],
+    "SDK": [
+     20,
+     7,
+     7,
+     0
+    ]
+   }
+  },
+  "model majority": {
+   "share": 0.9257403336350705,
+   "share_exact": "28635/30932",
+   "unweighted": 0.925,
+   "observed": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+   },
+   "interval": [
+    0.8121212121212121,
+    0.9818181818181818
+   ],
+   "exact": false,
+   "strata": {
+    "agent client": [
+     100,
+     37,
+     31,
+     3
+    ],
+    "MCP server or connector": [
+     210,
+     76,
+     73,
+     0
+    ],
+    "SDK": [
+     20,
+     7,
+     7,
+     0
+    ]
+   }
+  },
+  "verdict": "supported, interval above 60%"
+ },
+ "H1a": {
+  "fleiss_all_raters": 0.4578425873995138,
+  "n_complete": 120,
+  "left_out": 0,
+  "holds": false,
+  "fleiss_without_R2": 0.4077665699813848,
+  "n_complete_without_R2": 120,
+  "cohen_vs_R0": {
+   "qwen3.8:27b-q8_0": {
+    "kappa": 0.6536796536796537,
+    "n": 120,
+    "left_out": 0
+   },
+   "gemma4:26b-a4b-it-q8_0": {
+    "kappa": 0.5129493621955932,
+    "n": 120,
+    "left_out": 0
+   },
+   "nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+    "kappa": 0.32790224032586557,
+    "n": 120,
+    "left_out": 0
+   }
+  }
+ },
+ "variants": {
+  "D45/D41 p1: mixed bundles as class 4": {
+   "R0": {
+    "share": 0.8840575024785551,
+    "share_exact": "82037/92796",
+    "unweighted": 0.8833333333333333,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7606060606060606,
+     0.9454545454545454
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      30,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      69,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9091771197034355,
+    "share_exact": "21092/23199",
+    "unweighted": 0.9083333333333333,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7909090909090909,
+     0.9757575757575757
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      30,
+      3
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      72,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  },
+  "D41 p6: contested cases against H1": {
+   "R0": {
+    "share": 0.32584224689487845,
+    "share_exact": "105829/324786",
+    "unweighted": 0.325,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.21818181818181817,
+     0.4666666666666667
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      7,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      30,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      2,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.32584224689487845,
+    "share_exact": "105829/324786",
+    "unweighted": 0.325,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.21818181818181817,
+     0.4666666666666667
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      7,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      30,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      2,
+      0
+     ]
+    }
+   },
+   "verdict": "not supported"
+  },
+  "D41 p6: contested cases in favour of H1": {
+   "R0": {
+    "share": 0.9750635803267382,
+    "share_exact": "45241/46398",
+    "unweighted": 0.975,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.8757575757575757,
+     0.990909090909091
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      36,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      74,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9750635803267382,
+    "share_exact": "45241/46398",
+    "unweighted": 0.975,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.8757575757575757,
+     0.990909090909091
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      36,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      74,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  },
+  "D43: model majority without R2": {
+   "R0": {
+    "share": 0.9006207164101901,
+    "share_exact": "13929/15466",
+    "unweighted": 0.9,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7787878787878788,
+     0.9575757575757575
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      70,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.7337877864193654,
+    "share_exact": "119162/162393",
+    "unweighted": 0.7333333333333333,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.5909090909090909,
+     0.996969696969697
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      26,
+      11
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      56,
+      19
+     ],
+     "SDK": [
+      20,
+      7,
+      6,
+      1
+     ]
+    }
+   },
+   "verdict": "supported on the point estimate only"
+  },
+  "D44 p1: without the flagged (I?) cases": {
+   "R0": {
+    "share": 0.8998899203154522,
+    "share_exact": "273859/304325",
+    "unweighted": 0.8991596638655462,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 75,
+     "SDK": 7
+    },
+    "interval": [
+     0.7781155015197568,
+     0.9574468085106383
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      209,
+      75,
+      69,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9253002546619568,
+    "share_exact": "281592/304325",
+    "unweighted": 0.9243697478991597,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 75,
+     "SDK": 7
+    },
+    "interval": [
+     0.8115501519756839,
+     0.9817629179331308
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      3
+     ],
+     "MCP server or connector": [
+      209,
+      75,
+      72,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  },
+  "D44 p5: without late-ineligible cases": {
+   "R0": {
+    "share": 0.8998899203154522,
+    "share_exact": "273859/304325",
+    "unweighted": 0.8991596638655462,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 75,
+     "SDK": 7
+    },
+    "interval": [
+     0.7781155015197568,
+     0.9574468085106383
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      209,
+      75,
+      69,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9253002546619568,
+    "share_exact": "281592/304325",
+    "unweighted": 0.9243697478991597,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 75,
+     "SDK": 7
+    },
+    "interval": [
+     0.8115501519756839,
+     0.9817629179331308
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      3
+     ],
+     "MCP server or connector": [
+      209,
+      75,
+      72,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  },
+  "D44 p6: labelled cases only": {
+   "R0": {
+    "share": 0.9006207164101901,
+    "share_exact": "13929/15466",
+    "unweighted": 0.9,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7787878787878788,
+     0.9575757575757575
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      70,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9484761553100236,
+    "share_exact": "33393/35207",
+    "unweighted": 0.9487179487179487,
+    "observed": {
+     "agent client": 34,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.8348623853211009,
+     0.981651376146789
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      97,
+      34,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      73,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  },
+  "D44 p6: equal weights for the three product types": {
+   "R0": {
+    "share": 0.9196301564722618,
+    "share_exact": "1293/1406",
+    "unweighted": 0.9,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7093650793650793,
+     0.9655555555555555
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      0
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      70,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "model majority": {
+    "share": 0.9327880512091038,
+    "share_exact": "2623/2812",
+    "unweighted": 0.925,
+    "observed": {
+     "agent client": 37,
+     "MCP server or connector": 76,
+     "SDK": 7
+    },
+    "interval": [
+     0.7268253968253968,
+     0.9852380952380952
+    ],
+    "exact": false,
+    "strata": {
+     "agent client": [
+      100,
+      37,
+      31,
+      3
+     ],
+     "MCP server or connector": [
+      210,
+      76,
+      73,
+      0
+     ],
+     "SDK": [
+      20,
+      7,
+      7,
+      0
+     ]
+    }
+   },
+   "verdict": "supported, interval above 60%"
+  }
+ },
+ "not_applicable": {
+  "D41 p7: corrected summaries": "no summary was corrected after the runs (no rq1-summary-corrections.json)",
+  "D44 p5: corrected-disclosure count": "no grouping error in rq1-frame-erratum.csv"
+ },
+ "contested": [
+  "RQ1-0005",
+  "RQ1-0006",
+  "RQ1-0008",
+  "RQ1-0014",
+  "RQ1-0016",
+  "RQ1-0022",
+  "RQ1-0025",
+  "RQ1-0026",
+  "RQ1-0027",
+  "RQ1-0036",
+  "RQ1-0060",
+  "RQ1-0066",
+  "RQ1-0067",
+  "RQ1-0068",
+  "RQ1-0074",
+  "RQ1-0077",
+  "RQ1-0080",
+  "RQ1-0089",
+  "RQ1-0096",
+  "RQ1-0098",
+  "RQ1-0109",
+  "RQ1-0118",
+  "RQ1-0119",
+  "RQ1-0122",
+  "RQ1-0124",
+  "RQ1-0127",
+  "RQ1-0130",
+  "RQ1-0131",
+  "RQ1-0137",
+  "RQ1-0139",
+  "RQ1-0143",
+  "RQ1-0144",
+  "RQ1-0148",
+  "RQ1-0152",
+  "RQ1-0156",
+  "RQ1-0168",
+  "RQ1-0175",
+  "RQ1-0176",
+  "RQ1-0177",
+  "RQ1-0178",
+  "RQ1-0180",
+  "RQ1-0182",
+  "RQ1-0186",
+  "RQ1-0193",
+  "RQ1-0196",
+  "RQ1-0198",
+  "RQ1-0201",
+  "RQ1-0208",
+  "RQ1-0218",
+  "RQ1-0227",
+  "RQ1-0241",
+  "RQ1-0244",
+  "RQ1-0250",
+  "RQ1-0251",
+  "RQ1-0260",
+  "RQ1-0276",
+  "RQ1-0277",
+  "RQ1-0279",
+  "RQ1-0285",
+  "RQ1-0288",
+  "RQ1-0292",
+  "RQ1-0296",
+  "RQ1-0297",
+  "RQ1-0299",
+  "RQ1-0300",
+  "RQ1-0302",
+  "RQ1-0311",
+  "RQ1-0312",
+  "RQ1-0313",
+  "RQ1-0314",
+  "RQ1-0316",
+  "RQ1-0317",
+  "RQ1-0321",
+  "RQ1-0323",
+  "RQ1-0324",
+  "RQ1-0325",
+  "RQ1-0326",
+  "RQ1-0327"
+ ],
+ "mixed_bundles": [
+  "RQ1-0023",
+  "RQ1-0130"
+ ],
+ "late_ineligible": [
+  "RQ1-0022"
+ ],
+ "flagged_I?": [
+  "RQ1-0186"
+ ],
+ "by_product_type": {
+  "agent client": {
+   "sampled": 37,
+   "interpreted": true,
+   "stratum": {
+    "R0": {
+     "share": 0.8378378378378378,
+     "share_exact": "31/37",
+     "unweighted": 0.8378378378378378,
+     "observed": {
+      "agent client": 37
+     },
+     "interval": [
+      0.72,
+      0.92
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.8378378378378378,
+     "share_exact": "31/37",
+     "unweighted": 0.8378378378378378,
+     "observed": {
+      "agent client": 37
+     },
+     "interval": [
+      0.72,
+      0.97
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       3
+      ]
+     }
+    }
+   },
+   "frame without it": {
+    "R0": {
+     "share": 0.9279176201372997,
+     "share_exact": "811/874",
+     "unweighted": 0.927710843373494,
+     "observed": {
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.8260869565217391,
+      0.9652173913043478
+     ],
+     "exact": false,
+     "strata": {
+      "MCP server or connector": [
+       210,
+       76,
+       70,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.9639588100686499,
+     "share_exact": "1685/1748",
+     "unweighted": 0.963855421686747,
+     "observed": {
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.8739130434782608,
+      0.9869565217391304
+     ],
+     "exact": false,
+     "strata": {
+      "MCP server or connector": [
+       210,
+       76,
+       73,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    }
+   },
+   "H1 depends on it": false
+  },
+  "MCP server or connector": {
+   "sampled": 76,
+   "interpreted": true,
+   "stratum": {
+    "R0": {
+     "share": 0.9210526315789473,
+     "share_exact": "35/38",
+     "unweighted": 0.9210526315789473,
+     "observed": {
+      "MCP server or connector": 76
+     },
+     "interval": [
+      0.8571428571428571,
+      0.9619047619047619
+     ],
+     "exact": false,
+     "strata": {
+      "MCP server or connector": [
+       210,
+       76,
+       70,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.9605263157894737,
+     "share_exact": "73/76",
+     "unweighted": 0.9605263157894737,
+     "observed": {
+      "MCP server or connector": 76
+     },
+     "interval": [
+      0.9047619047619048,
+      0.9857142857142858
+     ],
+     "exact": false,
+     "strata": {
+      "MCP server or connector": [
+       210,
+       76,
+       73,
+       0
+      ]
+     }
+    }
+   },
+   "frame without it": {
+    "R0": {
+     "share": 0.8648648648648649,
+     "share_exact": "32/37",
+     "unweighted": 0.8636363636363636,
+     "observed": {
+      "agent client": 37,
+      "SDK": 7
+     },
+     "interval": [
+      0.6916666666666667,
+      0.9333333333333333
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.8648648648648649,
+     "share_exact": "32/37",
+     "unweighted": 0.8636363636363636,
+     "observed": {
+      "agent client": 37,
+      "SDK": 7
+     },
+     "interval": [
+      0.6916666666666667,
+      0.975
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       3
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    }
+   },
+   "H1 depends on it": false
+  },
+  "SDK": {
+   "sampled": 7,
+   "interpreted": false,
+   "stratum": {
+    "R0": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "SDK": 7
+     },
+     "interval": [
+      0.7,
+      1.0
+     ],
+     "exact": false,
+     "strata": {
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "SDK": 7
+     },
+     "interval": [
+      0.7,
+      1.0
+     ],
+     "exact": false,
+     "strata": {
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    }
+   },
+   "frame without it": {
+    "R0": {
+     "share": 0.8942091497269765,
+     "share_exact": "38975/43586",
+     "unweighted": 0.8938053097345132,
+     "observed": {
+      "agent client": 37,
+      "MCP server or connector": 76
+     },
+     "interval": [
+      0.7967741935483871,
+      0.9483870967741935
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       0
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       70,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.9209493874179783,
+     "share_exact": "80281/87172",
+     "unweighted": 0.9203539823008849,
+     "observed": {
+      "agent client": 37,
+      "MCP server or connector": 76
+     },
+     "interval": [
+      0.832258064516129,
+      0.9806451612903225
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       100,
+       37,
+       31,
+       3
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       73,
+       0
+      ]
+     }
+    }
+   },
+   "H1 depends on it": false
+  }
+ },
+ "source_split": {
+  "timeline_in_frame": [
+   "RQ1-0215"
+  ],
+  "interpreted": false,
+  "timeline": {
+   "sampled": 1,
+   "domain": {
+    "R0": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "agent client": 1
+     },
+     "interval": null,
+     "exact": true,
+     "strata": {
+      "agent client": [
+       1,
+       1,
+       1,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "agent client": 1
+     },
+     "interval": null,
+     "exact": true,
+     "strata": {
+      "agent client": [
+       1,
+       1,
+       1,
+       0
+      ]
+     }
+    }
+   },
+   "frame without it": {
+    "R0": {
+     "share": 0.8994560870260758,
+     "share_exact": "11245/12502",
+     "unweighted": 0.8991596638655462,
+     "observed": {
+      "agent client": 36,
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.7750759878419453,
+      0.9574468085106383
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       99,
+       36,
+       30,
+       0
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       70,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.9246520556710927,
+     "share_exact": "5780/6251",
+     "unweighted": 0.9243697478991597,
+     "observed": {
+      "agent client": 36,
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.8085106382978723,
+      0.9817629179331308
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       99,
+       36,
+       30,
+       3
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       73,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    }
+   }
+  },
+  "query only": {
+   "sampled": 119,
+   "domain": {
+    "R0": {
+     "share": 0.8994560870260758,
+     "share_exact": "11245/12502",
+     "unweighted": 0.8991596638655462,
+     "observed": {
+      "agent client": 36,
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.7750759878419453,
+      0.9574468085106383
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       99,
+       36,
+       30,
+       0
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       70,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 0.9246520556710927,
+     "share_exact": "5780/6251",
+     "unweighted": 0.9243697478991597,
+     "observed": {
+      "agent client": 36,
+      "MCP server or connector": 76,
+      "SDK": 7
+     },
+     "interval": [
+      0.8085106382978723,
+      0.9817629179331308
+     ],
+     "exact": false,
+     "strata": {
+      "agent client": [
+       99,
+       36,
+       30,
+       3
+      ],
+      "MCP server or connector": [
+       210,
+       76,
+       73,
+       0
+      ],
+      "SDK": [
+       20,
+       7,
+       7,
+       0
+      ]
+     }
+    }
+   },
+   "frame without it": {
+    "R0": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "agent client": 1
+     },
+     "interval": null,
+     "exact": true,
+     "strata": {
+      "agent client": [
+       1,
+       1,
+       1,
+       0
+      ]
+     }
+    },
+    "model majority": {
+     "share": 1.0,
+     "share_exact": "1",
+     "unweighted": 1.0,
+     "observed": {
+      "agent client": 1
+     },
+     "interval": null,
+     "exact": true,
+     "strata": {
+      "agent client": [
+       1,
+       1,
+       1,
+       0
+      ]
+     }
+    }
+   }
+  }
+ },
+ "per_model": {
+  "qwen3.8:27b-q8_0": {
+   "share": 0.950310358205095,
+   "share_exact": "29395/30932",
+   "unweighted": 0.95,
+   "observed": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+   },
+   "interval": [
+    0.8424242424242424,
+    0.9818181818181818
+   ],
+   "exact": false,
+   "strata": {
+    "agent client": [
+     100,
+     37,
+     34,
+     0
+    ],
+    "MCP server or connector": [
+     210,
+     76,
+     73,
+     0
+    ],
+    "SDK": [
+     20,
+     7,
+     7,
+     0
+    ]
+   },
+   "unlabelled": [],
+   "invalid_answer_rate": 0.0,
+   "over_10_percent_invalid": false
+  },
+  "gemma4:26b-a4b-it-q8_0": {
+   "share": 0.9093603172550541,
+   "share_exact": "84385/92796",
+   "unweighted": 0.9083333333333333,
+   "observed": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+   },
+   "interval": [
+    0.793939393939394,
+    0.9575757575757575
+   ],
+   "exact": false,
+   "strata": {
+    "agent client": [
+     100,
+     37,
+     29,
+     0
+    ],
+    "MCP server or connector": [
+     210,
+     76,
+     73,
+     0
+    ],
+    "SDK": [
+     20,
+     7,
+     7,
+     0
+    ]
+   },
+   "unlabelled": [],
+   "invalid_answer_rate": 0.022222222222222223,
+   "over_10_percent_invalid": false
+  },
+  "nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "share": 0.9916267942583732,
+   "share_exact": "829/836",
+   "unweighted": 0.9916666666666667,
+   "observed": {
+    "agent client": 37,
+    "MCP server or connector": 76,
+    "SDK": 7
+   },
+   "interval": [
+    0.9030303030303031,
+    0.996969696969697
+   ],
+   "exact": false,
+   "strata": {
+    "agent client": [
+     100,
+     37,
+     37,
+     0
+    ],
+    "MCP server or connector": [
+     210,
+     76,
+     75,
+     0
+    ],
+    "SDK": [
+     20,
+     7,
+     7,
+     0
+    ]
+   },
+   "unlabelled": [],
+   "invalid_answer_rate": 0.0,
+   "over_10_percent_invalid": false
+  }
+ },
+ "estimate_sha256": "e95b5a83c96d98cae52556336670b7ce3677d62fc9ed893d1924c40007110143",
+ "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
+ "run_dir": "/home/brainonion/Desktop/redazione/otp-lab-q4/preregistration/runs/rq1-confirmatory-20261027T142818Z",
+ "r0_sha256": "06ef87a02908090a9e0a0aea53b5222eeb0d54908c7b7faa4e2666991debdd8d"
+}
