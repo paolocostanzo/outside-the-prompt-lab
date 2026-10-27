@@ -146,8 +146,24 @@ def analyse(frame_rows, sample_rows, r0_doc, models, flags_doc, erratum_rows, qu
     for m in names:
         k, n = classify.cohen({c: r0[c] for c in sample if r0[c]}, {c: models[m].get(c) for c in sample})
         cohen[m] = {"kappa": k, "n": n, "left_out": len(sample) - n}
+    # D41 point 6: H1 is "not robust" when either contested-case variant changes the primary verdict.
+    contested_verdicts = {k: variants[k]["verdict"] for k in ("D41 p6: contested cases against H1",
+                                                             "D41 p6: contested cases in favour of H1")}
+    robust = all(v == primary["verdict"] for v in contested_verdicts.values())
+    # Preregistration section 4: run-to-run instability, per model: cases whose valid answers differ, and cases with an
+    # invalid answer, reported separately.
+    def classes(q):
+        return [a.get("class") for a in q.get("answers", []) if isinstance(a, dict) and a.get("class") is not None]
+    instability = {m: {"differing_valid_classes": sorted(c for c, q in quality.get(m, {}).items()
+                                                         if c in sample and len(set(classes(q))) > 1),
+                       "with_invalid_answer": sorted(c for c, q in quality.get(m, {}).items()
+                                                     if c in sample and q.get("n_invalid"))}
+                   for m in names}
     return {
         "n_sampled": len(sample), "frame_sizes": sizes,
+        "h1_robust": {"robust": robust, "rule": "D41 point 6", "primary_verdict": primary["verdict"],
+                      "contested_variants": contested_verdicts},
+        "instability": instability,
         "unlabelled": {"R0": sorted(c for c in sample if r0[c] is None),
                        "model majority": sorted(c for c in sample if maj[c] is None)},
         "primary": primary,
@@ -191,6 +207,9 @@ def markdown(res):
     out = ["# RQ1 results (D44 sample)", "", f"Sampled cases: {res['n_sampled']}; frame sizes {res['frame_sizes']}.", "",
            "| Rater | Share in classes 1–3 (stratified) | 95% interval (exact, conservative) | Unweighted |", "|---|---|---|---|",
            line("R0", p["R0"]), line("Model majority", p["model majority"]), "", f"**H1: {p['verdict']}.**", "",
+           ("**Robustness (D41 point 6): robust** — both contested-case variants keep the primary verdict." if res["h1_robust"]["robust"]
+            else "**Robustness (D41 point 6): NOT robust** — a contested-case variant changes the verdict ("
+            + "; ".join(f"{k}: {v}" for k, v in res["h1_robust"]["contested_variants"].items()) + ")."), "",
            f"H1a: Fleiss' κ (all raters) = {res['H1a']['fleiss_all_raters']} on {res['H1a']['n_complete']} cases "
            f"({res['H1a']['left_out']} left out); holds: {res['H1a']['holds']}. Without R2: {res['H1a']['fleiss_without_R2']}.", "",
            "## Variants (each alone against the primary)", "", "| Variant | R0 | Model majority | Verdict |", "|---|---|---|---|"]
@@ -206,6 +225,11 @@ def markdown(res):
         out.append(f"| {m} | {v['share']:.1%} | " + ("exact" if iv is None else f"{iv[0]:.1%}–{iv[1]:.1%}")
                    + f" | {len(v['unlabelled'])} | {v['invalid_answer_rate']:.1%}{' (>10%)' if v['over_10_percent_invalid'] else ''} | "
                    f"{ck['kappa']} ({ck['n']}, {ck['left_out']}) |")
+    out += ["", "## Run-to-run instability (preregistration section 4)", "",
+            "| Model | Cases whose valid answers differ | Cases with an invalid answer |", "|---|---|---|"]
+    for m, v in res["instability"].items():
+        d, i = v["differing_valid_classes"], v["with_invalid_answer"]
+        out.append(f"| {m} | {len(d)}{' (' + ', '.join(d) + ')' if d else ''} | {len(i)}{' (' + ', '.join(i) + ')' if i else ''} |")
     out += ["", "## By product type", "", "| Type | Sampled | R0 in stratum | Majority in stratum | Frame without it: R0 / majority | H1 depends on it |",
             "|---|---|---|---|---|---|"]
     for t, s in res["by_product_type"].items():

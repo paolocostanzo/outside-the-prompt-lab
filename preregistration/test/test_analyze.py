@@ -147,3 +147,20 @@ class Analyze(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+    def test_robustness_and_instability(self):
+        # all agree on class 2, two flagged cases: contested against H1 still supported → robust
+        w = world(lambda c: 2, lambda m, c: 2, flagged=("C001",))
+        self.assertTrue(an.analyse(*w[:6])["h1_robust"]["robust"])
+        # half the cases flagged: counting them against H1 flips the verdict → not robust (D41 point 6)
+        w = world(lambda c: 2, lambda m, c: 2, flagged=tuple(f"C{k:03d}" for k in range(1, 99, 2)))
+        r = an.analyse(*w[:6])
+        self.assertFalse(r["h1_robust"]["robust"])
+        # instability: differing valid classes and invalid answers are listed separately, per model
+        ans = lambda *k: [{"class": x} for x in k]
+        quality = {m: {c: {"n_invalid": 0, "tie": False, "answers": ans(3, 3, 3)} for c in w[6]} for m in M}
+        quality[M[1]]["C002"] = {"n_invalid": 0, "tie": False, "answers": ans(1, 3, 3)}
+        quality[M[1]]["C003"] = {"n_invalid": 1, "tie": False, "answers": ans(3, 3, None)}
+        inst = an.analyse(*w[:6], quality)["instability"]
+        self.assertEqual(inst[M[1]], {"differing_valid_classes": ["C002"], "with_invalid_answer": ["C003"]})
+        self.assertEqual(inst[M[0]], {"differing_valid_classes": [], "with_invalid_answer": []})

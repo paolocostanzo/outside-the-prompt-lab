@@ -9,6 +9,8 @@ Sampled cases: 120; frame sizes {'agent client': 100, 'MCP server or connector':
 
 **H1: supported, interval above 60%.**
 
+**Robustness (D41 point 6): NOT robust** — a contested-case variant changes the verdict (D41 p6: contested cases against H1: not supported; D41 p6: contested cases in favour of H1: supported, interval above 60%).
+
 H1a: Fleiss' κ (all raters) = 0.4578425873995138 on 120 cases (0 left out); holds: False. Without R2: 0.4077665699813848.
 
 ## Variants (each alone against the primary)
@@ -33,6 +35,14 @@ H1a: Fleiss' κ (all raters) = 0.4578425873995138 on 120 cases (0 left out); hol
 | qwen3.8:27b-q8_0 | 95.0% | 84.2%–98.2% | 0 | 0.0% | 0.6536796536796537 (120, 0) |
 | gemma4:26b-a4b-it-q8_0 | 90.9% | 79.4%–95.8% | 0 | 2.2% | 0.5129493621955932 (120, 0) |
 | nemotron-3.5-lightning:30b-a3b-q4_K_M | 99.2% | 90.3%–99.7% | 0 | 0.0% | 0.32790224032586557 (120, 0) |
+
+## Run-to-run instability (preregistration section 4)
+
+| Model | Cases whose valid answers differ | Cases with an invalid answer |
+|---|---|---|
+| qwen3.8:27b-q8_0 | 0 | 0 |
+| gemma4:26b-a4b-it-q8_0 | 4 (RQ1-0080, RQ1-0285, RQ1-0297, RQ1-0306) | 5 (RQ1-0016, RQ1-0130, RQ1-0156, RQ1-0288, RQ1-0327) |
+| nemotron-3.5-lightning:30b-a3b-q4_K_M | 0 | 0 |
 
 ## By product type
 

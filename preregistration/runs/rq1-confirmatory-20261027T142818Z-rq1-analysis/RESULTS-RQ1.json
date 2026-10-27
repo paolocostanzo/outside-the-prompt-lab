@@ -5,6 +5,40 @@
   "MCP server or connector": 210,
   "SDK": 20
  },
+ "h1_robust": {
+  "robust": false,
+  "rule": "D41 point 6",
+  "primary_verdict": "supported, interval above 60%",
+  "contested_variants": {
+   "D41 p6: contested cases against H1": "not supported",
+   "D41 p6: contested cases in favour of H1": "supported, interval above 60%"
+  }
+ },
+ "instability": {
+  "qwen3.8:27b-q8_0": {
+   "differing_valid_classes": [],
+   "with_invalid_answer": []
+  },
+  "gemma4:26b-a4b-it-q8_0": {
+   "differing_valid_classes": [
+    "RQ1-0080",
+    "RQ1-0285",
+    "RQ1-0297",
+    "RQ1-0306"
+   ],
+   "with_invalid_answer": [
+    "RQ1-0016",
+    "RQ1-0130",
+    "RQ1-0156",
+    "RQ1-0288",
+    "RQ1-0327"
+   ]
+  },
+  "nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "differing_valid_classes": [],
+   "with_invalid_answer": []
+  }
+ },
  "unlabelled": {
   "R0": [],
   "model majority": [
