@@ -1598,3 +1598,13 @@ temperature 0 and context size) after HTTP 5xx, a refused or dropped connection,
 returns with HTTP 200 goes back unchanged, valid or not, and HTTP 4xx is not retried. Nothing that is measured changes. A failed
 confirmatory run is still never rerun automatically. The runner (`infra/rq1-gpu-run.sh`, outside the lab) also reopens a dropped
 SSH tunnel and retries the exploratory timing pilot once.
+
+### D49 · 27 Oct 2026 · §4 model raters, run logistics — time limit of the confirmatory run extended during the run
+The runner bounds every GPU run with a time limit fixed when the machine starts (7 hours, then an in-machine halt). During the
+RQ1 confirmatory run the projected end passed that limit (the confirmatory summaries are longer than the pilot's, so each model
+took longer per case than the timing pilot predicted). With the author's approval, given during the run, the in-machine halt was
+moved from 23:06 to 00:30 CET, and the runner's own timeout process was paused (SIGSTOP) and resumed by a small service as soon as
+the classifier ended; the classifier itself, its requests and its outputs were untouched. The run ended at 23:10:05 CET with all
+360 answers per model written and the manifest complete; the runner then exited with the timeout's code 124 (the paused timer
+firing on resume), stopped and deleted the temporary machine, and the analysis was run locally. This changes only how long the
+machine stayed on, never what was measured.
