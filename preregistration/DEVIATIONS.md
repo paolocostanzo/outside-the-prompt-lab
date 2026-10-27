@@ -1608,3 +1608,16 @@ the classifier ended; the classifier itself, its requests and its outputs were u
 360 answers per model written and the manifest complete; the runner then exited with the timeout's code 124 (the paused timer
 firing on resume), stopped and deleted the temporary machine, and the analysis was run locally. This changes only how long the
 machine stayed on, never what was measured.
+
+### D50 · 28 Oct 2026 · recorded after the fact — four facts not logged before (found by the pre-submission checks)
+Written after all confirmatory data and analyses, to make explicit four facts that the manuscript reports and the log did not.
+1. *Worked examples before R0 (RQ1).* Before labelling, on 26 Oct, the author was shown worked examples drawn only from the ten
+   pilot cases and their already published labels, with the questions of the decision rule (D47). No sampled case and no model
+   output was shown. The model raters received no examples, so the human and the model raters were not calibrated alike.
+2. *Positive control per client (RQ3, D12 point 5).* Not run. Only a conformance check of the lab server against the protocol
+   library was made before the matrix. The H3 outcomes rest on the server logs and screens of the 60 primary repetitions.
+3. *Cursor CLI in RQ5.* The H5 verdict is on the five clients of D24; Cursor CLI was added later (D29) and its data do not enter
+   the verdict (D29, D40 point 5).
+4. *Analysis output after the results (RQ1).* On 27 Oct, after the results were known, `rq1/analyze.py` was extended to state the
+   D41 point 6 robustness conclusion and the run-to-run instability required by §4 of the preregistration (commit 7421a8f, asked
+   by the independent reproduction). No figure changed; the change adds reporting only.
