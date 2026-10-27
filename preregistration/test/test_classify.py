@@ -365,3 +365,43 @@ class Manifest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main(verbosity=2)
+
+
+class TransientRetry(unittest.TestCase):
+    """D48: transport and server failures are retried with the identical request; answers and HTTP 4xx never are."""
+    REAL_HTTP = classify.http_json          # captured at import, before other tests replace the module attribute
+
+    def setUp(self):
+        self.sent = []; self.urlopen, self.sleep = classify.urllib.request.urlopen, classify.time.sleep
+        classify.time.sleep = lambda s: None
+
+    def tearDown(self):
+        classify.urllib.request.urlopen, classify.time.sleep = self.urlopen, self.sleep
+
+    def script(self, *outcomes):
+        it = iter(outcomes)
+        class Body(io.BytesIO):
+            def __enter__(s): return s
+            def __exit__(s, *a): return False
+        def fake(req, timeout):
+            self.sent.append(req.data); x = next(it)
+            if isinstance(x, BaseException): raise x
+            return Body(json.dumps(x).encode())
+        classify.urllib.request.urlopen = fake
+
+    def test_server_error_then_answer(self):
+        self.script(classify.urllib.error.HTTPError("u", 500, "e", {}, None), ConnectionResetError(), {"message": "x"})
+        with contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(TransientRetry.REAL_HTTP("/api/chat", {"seed": 1}), {"message": "x"})
+        self.assertEqual(len(self.sent), 3); self.assertEqual(len(set(self.sent)), 1)   # the identical request each time
+
+    def test_client_error_not_retried(self):
+        self.script(classify.urllib.error.HTTPError("u", 404, "e", {}, None))
+        with self.assertRaises(classify.urllib.error.HTTPError): TransientRetry.REAL_HTTP("/api/tags")
+        self.assertEqual(len(self.sent), 1)
+
+    def test_gives_up_after_all_waits(self):
+        self.script(*[TimeoutError()] * (len(classify.RETRY_WAITS) + 1))
+        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(TimeoutError):
+            TransientRetry.REAL_HTTP("/api/chat", {})
+        self.assertEqual(len(self.sent), len(classify.RETRY_WAITS) + 1)

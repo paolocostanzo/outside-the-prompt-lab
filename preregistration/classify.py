@@ -12,7 +12,7 @@ modal class, prompt size). A confirmatory run (`--r0`) refuses to start unless t
 digest, cases and criteria; without a manifest (the pilot of 10 Oct 2026, run before manifests existed) it reads the files present.
 No dependencies beyond the standard library.
 """
-import argparse, json, re, subprocess, sys, urllib.request, collections, datetime, pathlib, hashlib
+import argparse, json, re, subprocess, sys, time, urllib.error, urllib.request, collections, datetime, pathlib, hashlib
 
 HERE = pathlib.Path(__file__).resolve().parent
 PILOT = HERE / "pilot"
@@ -123,12 +123,31 @@ def leak_check(cases):
         sys.exit(f"class-word leak in summaries: {bad}")
 
 
+RETRY_WAITS = (15, 30, 60, 60, 60)  # seconds between attempts: about 4 minutes in all (D48)
+
+
 def http_json(path, body=None, timeout=60):
-    """The only network call: GET (body None) or POST JSON to the local Ollama. Tests monkeypatch this."""
+    """The only network call: GET (body None) or POST JSON to the local Ollama. Tests monkeypatch this.
+
+    Transient failures of the transport or of the server (HTTP 5xx, refused or dropped connection, timeout) are retried with
+    the identical request (D48: on 27 Oct 2026 one HTTP 500 while a model was loading ended a run). A model's answer is never
+    retried: whatever the server returns with HTTP 200 goes back to the caller unchanged, and HTTP 4xx is not retried."""
     data = json.dumps(body).encode() if body is not None else None
-    req = urllib.request.Request(OLLAMA + path, data=data, headers={"Content-Type": "application/json"})
-    with urllib.request.urlopen(req, timeout=timeout) as r:
-        return json.load(r)
+    for attempt, wait in enumerate((*RETRY_WAITS, None), 1):
+        req = urllib.request.Request(OLLAMA + path, data=data, headers={"Content-Type": "application/json"})
+        try:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
+                return json.load(r)
+        except urllib.error.HTTPError as e:
+            if e.code < 500 or wait is None:
+                raise
+            err = f"HTTP {e.code}"
+        except (urllib.error.URLError, ConnectionError, TimeoutError, OSError) as e:
+            if wait is None:
+                raise
+            err = repr(e)
+        print(f"transient error on {path} (attempt {attempt}): {err}; retrying in {wait} s", file=sys.stderr, flush=True)
+        time.sleep(wait)
 
 
 def parse_answer(text):
