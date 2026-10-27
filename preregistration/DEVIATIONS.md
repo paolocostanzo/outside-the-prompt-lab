@@ -1593,7 +1593,7 @@ directly, and of those contradicting the answers, is computed from `rq1-r0.json`
 On 27 Oct 2026 the first machine obtained after hours without GPU capacity was lost to one HTTP 500 from Ollama while a model was
 loading: `classify.py` had no retry, so one failure of the transport or of the server ended the whole run, and the answers already
 collected for the model in progress were discarded. `http_json` now retries the identical request (same prompt, model, seed,
-temperature 0 and context size) after HTTP 5xx, a refused or dropped connection, or a timeout, waiting 15, 30, 60, 60 and 60 s
+temperature 0 and context size) after HTTP 5xx, a refused or dropped connection, a response cut off while being read, or a timeout, waiting 15, 30, 60, 60 and 60 s
 (six attempts, about four minutes); then the error is raised as before. A model's answer is never retried: whatever the server
 returns with HTTP 200 goes back unchanged, valid or not, and HTTP 4xx is not retried. Nothing that is measured changes. A failed
 confirmatory run is still never rerun automatically. The runner (`infra/rq1-gpu-run.sh`, outside the lab) also reopens a dropped

@@ -12,7 +12,7 @@ modal class, prompt size). A confirmatory run (`--r0`) refuses to start unless t
 digest, cases and criteria; without a manifest (the pilot of 10 Oct 2026, run before manifests existed) it reads the files present.
 No dependencies beyond the standard library.
 """
-import argparse, json, re, subprocess, sys, time, urllib.error, urllib.request, collections, datetime, pathlib, hashlib
+import argparse, json, re, subprocess, sys, time, http.client, urllib.error, urllib.request, collections, datetime, pathlib, hashlib
 
 HERE = pathlib.Path(__file__).resolve().parent
 PILOT = HERE / "pilot"
@@ -142,7 +142,7 @@ def http_json(path, body=None, timeout=60):
             if e.code < 500 or wait is None:
                 raise
             err = f"HTTP {e.code}"
-        except (urllib.error.URLError, ConnectionError, TimeoutError, OSError) as e:
+        except (urllib.error.URLError, ConnectionError, TimeoutError, OSError, http.client.HTTPException) as e:   # incl. IncompleteRead
             if wait is None:
                 raise
             err = repr(e)

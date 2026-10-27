@@ -405,3 +405,9 @@ class TransientRetry(unittest.TestCase):
         with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(TimeoutError):
             TransientRetry.REAL_HTTP("/api/chat", {})
         self.assertEqual(len(self.sent), len(classify.RETRY_WAITS) + 1)
+
+    def test_truncated_body_retried(self):
+        self.script(classify.http.client.IncompleteRead(b"{"), {"message": "y"})
+        with contextlib.redirect_stderr(io.StringIO()):
+            self.assertEqual(TransientRetry.REAL_HTTP("/api/chat", {}), {"message": "y"})
+        self.assertEqual(len(self.sent), 2)
