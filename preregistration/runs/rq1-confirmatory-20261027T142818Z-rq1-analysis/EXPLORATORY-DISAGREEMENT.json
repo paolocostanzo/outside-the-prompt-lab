@@ -1,0 +1,322 @@
+{
+ "exploratory": true,
+ "n_sampled": 120,
+ "confusion": {
+  "R0 vs gemma4:26b-a4b-it-q8_0": {
+   "1": {
+    "1": 3,
+    "2": 1,
+    "3": 1,
+    "4": 1
+   },
+   "2": {
+    "1": 0,
+    "2": 2,
+    "3": 0,
+    "4": 0
+   },
+   "3": {
+    "1": 11,
+    "2": 1,
+    "3": 86,
+    "4": 2
+   },
+   "4": {
+    "1": 0,
+    "2": 1,
+    "3": 3,
+    "4": 8
+   }
+  },
+  "R0 vs nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "1": {
+    "1": 6,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "2": {
+    "1": 0,
+    "2": 2,
+    "3": 0,
+    "4": 0
+   },
+   "3": {
+    "1": 20,
+    "2": 2,
+    "3": 78,
+    "4": 0
+   },
+   "4": {
+    "1": 5,
+    "2": 1,
+    "3": 5,
+    "4": 1
+   }
+  },
+  "R0 vs qwen3.8:27b-q8_0": {
+   "1": {
+    "1": 5,
+    "2": 0,
+    "3": 1,
+    "4": 0
+   },
+   "2": {
+    "1": 0,
+    "2": 1,
+    "3": 1,
+    "4": 0
+   },
+   "3": {
+    "1": 4,
+    "2": 0,
+    "3": 96,
+    "4": 0
+   },
+   "4": {
+    "1": 2,
+    "2": 1,
+    "3": 3,
+    "4": 6
+   }
+  },
+  "R0 vs model majority": {
+   "1": {
+    "1": 6,
+    "2": 0,
+    "3": 0,
+    "4": 0
+   },
+   "2": {
+    "1": 0,
+    "2": 2,
+    "3": 0,
+    "4": 0
+   },
+   "3": {
+    "1": 8,
+    "2": 1,
+    "3": 90,
+    "4": 0
+   },
+   "4": {
+    "1": 0,
+    "2": 1,
+    "3": 3,
+    "4": 6
+   }
+  }
+ },
+ "disagreement_pairs": {
+  "R0 vs gemma4:26b-a4b-it-q8_0": {
+   "1-3": 12,
+   "3-4": 5,
+   "1-2": 1,
+   "1-4": 1,
+   "2-3": 1,
+   "2-4": 1
+  },
+  "R0 vs nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "1-3": 20,
+   "1-4": 5,
+   "3-4": 5,
+   "2-3": 2,
+   "2-4": 1
+  },
+  "R0 vs qwen3.8:27b-q8_0": {
+   "1-3": 5,
+   "3-4": 3,
+   "1-4": 2,
+   "2-4": 1,
+   "2-3": 1
+  },
+  "R0 vs model majority": {
+   "1-3": 8,
+   "3-4": 3,
+   "2-3": 1,
+   "2-4": 1
+  }
+ },
+ "binary": {
+  "R0 vs gemma4:26b-a4b-it-q8_0": {
+   "percent_agreement": 0.9416666666666667,
+   "cohen_kappa": 0.6634615384615384,
+   "kappa_95": {
+    "low": 0.38095238095238143,
+    "high": 0.8748261474269818,
+    "undefined_resamples": 0
+   },
+   "n": 120,
+   "pabak": 0.8833333333333333
+  },
+  "R0 vs nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "percent_agreement": 0.9083333333333333,
+   "cohen_kappa": 0.1406250000000001,
+   "kappa_95": {
+    "low": 0.0,
+    "high": 0.43999999999999967,
+    "undefined_resamples": 0
+   },
+   "n": 120,
+   "pabak": 0.8166666666666667
+  },
+  "R0 vs qwen3.8:27b-q8_0": {
+   "percent_agreement": 0.95,
+   "cohen_kappa": 0.6428571428571426,
+   "kappa_95": {
+    "low": 0.3251533742331289,
+    "high": 0.884615384615385,
+    "undefined_resamples": 0
+   },
+   "n": 120,
+   "pabak": 0.8999999999999999
+  },
+  "R0 vs model majority": {
+   "percent_agreement": 0.9658119658119658,
+   "cohen_kappa": 0.7328767123287672,
+   "kappa_95": {
+    "low": 0.3831282952548323,
+    "high": 0.9427312775330399,
+    "undefined_resamples": 0
+   },
+   "n": 117,
+   "pabak": 0.9316239316239316
+  },
+  "Fleiss, R0 + three models": {
+   "kappa": 0.47851851851851845,
+   "kappa_95": {
+    "low": 0.26675094816687744,
+    "high": 0.6404494382022474,
+    "undefined_resamples": 0
+   },
+   "n": 120
+  },
+  "prevalence": {
+   "R0": 0.9,
+   "qwen3.8:27b-q8_0": 0.95,
+   "gemma4:26b-a4b-it-q8_0": 0.9083333333333333,
+   "nemotron-3.5-lightning:30b-a3b-q4_K_M": 0.9916666666666667
+  }
+ },
+ "four_class": {
+  "R0 vs gemma4:26b-a4b-it-q8_0": {
+   "percent_agreement": 0.825,
+   "cohen_kappa": 0.5129493621955932,
+   "kappa_95": {
+    "low": 0.3265993265993264,
+    "high": 0.673913043478261,
+    "undefined_resamples": 0
+   },
+   "n": 120
+  },
+  "R0 vs nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "percent_agreement": 0.725,
+   "cohen_kappa": 0.32790224032586557,
+   "kappa_95": {
+    "low": 0.1861552853133769,
+    "high": 0.46740638002773915,
+    "undefined_resamples": 0
+   },
+   "n": 120
+  },
+  "R0 vs qwen3.8:27b-q8_0": {
+   "percent_agreement": 0.9,
+   "cohen_kappa": 0.6536796536796537,
+   "kappa_95": {
+    "low": 0.469666532744074,
+    "high": 0.8046398046398047,
+    "undefined_resamples": 0
+   },
+   "n": 120
+  },
+  "R0 vs model majority": {
+   "percent_agreement": 0.8888888888888888,
+   "cohen_kappa": 0.6487297921478058,
+   "kappa_95": {
+    "low": 0.4675767918088738,
+    "high": 0.8050541516245486,
+    "undefined_resamples": 0
+   },
+   "n": 117
+  },
+  "Fleiss, R0 + three models": {
+   "kappa": 0.4578425873995138,
+   "kappa_95": {
+    "low": 0.3457965154578288,
+    "high": 0.5541444919028803,
+    "undefined_resamples": 0
+   },
+   "n": 120
+  }
+ },
+ "specific_agreement": {
+  "R0 vs gemma4:26b-a4b-it-q8_0": {
+   "1": 0.3,
+   "2": 0.5714285714285714,
+   "3": 0.9052631578947369,
+   "4": 0.6956521739130435
+  },
+  "R0 vs nemotron-3.5-lightning:30b-a3b-q4_K_M": {
+   "1": 0.32432432432432434,
+   "2": 0.5714285714285714,
+   "3": 0.8524590163934426,
+   "4": 0.15384615384615385
+  },
+  "R0 vs qwen3.8:27b-q8_0": {
+   "1": 0.5882352941176471,
+   "2": 0.5,
+   "3": 0.9552238805970149,
+   "4": 0.6666666666666666
+  },
+  "R0 vs model majority": {
+   "1": 0.6,
+   "2": 0.6666666666666666,
+   "3": 0.9375,
+   "4": 0.75
+  }
+ },
+ "by_flag": {
+  "flagged (D41)": {
+   "cases": 74,
+   "R0 vs majority disagree (4 classes)": 10,
+   "R0 vs majority disagree (binary)": 3,
+   "no model majority": 3
+  },
+  "not flagged": {
+   "cases": 46,
+   "R0 vs majority disagree (4 classes)": 3,
+   "R0 vs majority disagree (binary)": 1,
+   "no model majority": 0
+  }
+ },
+ "by_product_type": {
+  "MCP server or connector": {
+   "cases": 76,
+   "R0 vs majority disagree (4 classes)": 8,
+   "R0 vs majority disagree (binary)": 3,
+   "no model majority": 0
+  },
+  "SDK": {
+   "cases": 7,
+   "R0 vs majority disagree (4 classes)": 1,
+   "R0 vs majority disagree (binary)": 0,
+   "no model majority": 0
+  },
+  "agent client": {
+   "cases": 37,
+   "R0 vs majority disagree (4 classes)": 4,
+   "R0 vs majority disagree (binary)": 1,
+   "no model majority": 3
+  }
+ },
+ "binary_disagreement_cases": [
+  "RQ1-0060",
+  "RQ1-0175",
+  "RQ1-0193",
+  "RQ1-0325"
+ ],
+ "run_dir": "/home/brainonion/Desktop/redazione/otp-lab-q4/preregistration/runs/rq1-confirmatory-20261027T142818Z",
+ "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
+ "frame_sha256": "5fe33295abf0a529dd202a4357ec60c40fff9b0f8480015f20199471b81b5887",
+ "estimate_sha256": "e95b5a83c96d98cae52556336670b7ce3677d62fc9ed893d1924c40007110143"
+}

@@ -58,7 +58,7 @@ async function repetition({ signal = 'none', change = 'description', after = [],
     client: 'scripted', signal, change, rep: 1, t_start, flip_at, p2_end_at, t_end,
     p1_approvals: 1, p2_approvals: 0, p2_notice_seen: false, ...row,
   }));
-  const out = execFileSync('python3', ['-I', CODER, dir], { encoding: 'utf8' });
+  const out = execFileSync('python3', ['-I', '-B', CODER, dir], { encoding: 'utf8' });
   return JSON.parse(out.trim().split('\n')[0]);
 }
 

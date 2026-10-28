@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/analyze_q3.py');
-const analyze = (rows) => JSON.parse(execFileSync('python3', ['-I', '-c',
+const analyze = (rows) => JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
   'import importlib.util,json,sys; s=importlib.util.spec_from_file_location("a",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); ' +
   'print(json.dumps(m.analyze(json.loads(sys.argv[2]))))', SCRIPT, JSON.stringify(rows)], { encoding: 'utf8' }));
 

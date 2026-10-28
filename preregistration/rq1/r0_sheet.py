@@ -302,12 +302,13 @@ if (sinceBackup() >= 20) note("Promemoria: salva una copia su file ora (tasto B)
 </script></body></html>"""
 
 
-def main(out):
+def build_page(order_tag="r0"):
+    """The page and its counts; order_tag only changes the case order (h2_sheet.py uses "h2")."""
     seed = json.loads((HERE / "rq1-sample-manifest.json").read_text())["seed"]
     cases = json.loads((HERE / "rq1-cases.json").read_text())
     bundles = {r["case_id"] for r in json.loads((HERE / "rq1-summary-records.json").read_text()) if len(r["findings"]) > 1}
     src = {r["case_id"]: r["primary_source"] for r in csv.DictReader(open(HERE / "rq1-frame.csv", newline=""))}
-    order = sorted(cases, key=lambda c: hashlib.sha256(f"{seed}:r0:{c['id']}".encode()).hexdigest())
+    order = sorted(cases, key=lambda c: hashlib.sha256(f"{seed}:{order_tag}:{c['id']}".encode()).hexdigest())
     it = {c["id"]: c["summary_it"] for c in json.loads((HERE / "rq1-cases-it.json").read_text())}
     labelled = [{"id": c["id"], "summary": c["summary"], "summary_it": it[c["id"]], "src": src[c["id"]], "bundle": c["id"] in bundles}
                 for c in order if c["summary"] is not None]
@@ -325,8 +326,13 @@ def main(out):
             .replace("__NONRESP__", js(nonresponse)).replace("__SEEDKEY__", js(seed[:16])).replace("__NAMES__", js(names))
             .replace("__SEED__", js(seed)).replace("__CRITSHA__", js(CRITERIA_SHA256)))
     assert "__" not in page.replace("__proto__", ""), "unfilled placeholder"
+    return page, f"{len(labelled)} cases, {len(nonresponse)} non-response, {len(bundles)} bundles"
+
+
+def main(out):
+    page, counts = build_page()
     pathlib.Path(out).write_text(page)
-    print(f"{len(labelled)} cases, {len(nonresponse)} non-response, {len(bundles)} bundles -> {out}")
+    print(f"{counts} -> {out}")
 
 
 if __name__ == "__main__":

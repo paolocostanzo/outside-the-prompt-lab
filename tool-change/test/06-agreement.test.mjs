@@ -6,7 +6,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/agreement_q3.py');
-const call = (expr) => JSON.parse(execFileSync('python3', ['-I', '-c',
+const call = (expr) => JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
   'import importlib.util,json,sys; s=importlib.util.spec_from_file_location("g",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); ' +
   `print(json.dumps(${expr}))`, SCRIPT], { encoding: 'utf8' }));
 

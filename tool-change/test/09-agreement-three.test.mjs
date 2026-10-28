@@ -9,7 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/agreement_q3_three.py');
-const call = (expr) => JSON.parse(execFileSync('python3', ['-I', '-c',
+const call = (expr) => JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
   'import importlib.util,json,sys,collections; s=importlib.util.spec_from_file_location("g",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); ' +
   `print(json.dumps(${expr}))`, SCRIPT], { encoding: 'utf8' }));
 
@@ -28,7 +28,7 @@ test('end to end: preregistered first, invalid Codex sessions excluded, earlier 
   const dis = w('d.csv', 'id,repetition,author,local_model,resolved,evidence\nP1,r,stale,silent-accept,stale,e\n');
   const key = w('k.csv', 'id,repetition\nP1,r\nP2,r\nP3,r\nP4,r\nP5,r\n');
   const out = path.join(dir, 'o.json');
-  execFileSync('python3', ['-I', SCRIPT, '--key', key, '--author', author, '--local', local, '--codex', codex, '--disagreements', dis, '--out', out]);
+  execFileSync('python3', ['-I', '-B', SCRIPT, '--key', key, '--author', author, '--local', local, '--codex', codex, '--disagreements', dis, '--out', out]);
   const r = JSON.parse(fs.readFileSync(out, 'utf8'));
   assert.deepEqual(Object.keys(r)[0], '1_preregistered_author_vs_local');
   assert.equal(r['1_preregistered_author_vs_local'].n, 4);
@@ -49,7 +49,7 @@ test('duplicate or unknown packet ids are refused', () => {
   const dis = w('d.csv', 'id,repetition,author,local_model,resolved,evidence\n');
   for (const bad of ['id,outcome,reason,valid\nP1,stale,x,True\nP1,notified,x,True\n', 'id,outcome,reason,valid\nP9,stale,x,True\n']) {
     const codex = w('c.csv', bad);
-    assert.throws(() => execFileSync('python3', ['-I', SCRIPT, '--key', key, '--author', ok, '--local', ok, '--codex', codex,
+    assert.throws(() => execFileSync('python3', ['-I', '-B', SCRIPT, '--key', key, '--author', ok, '--local', ok, '--codex', codex,
       '--disagreements', dis, '--out', path.join(dir, 'o.json')], { stdio: 'pipe' }));
   }
 });

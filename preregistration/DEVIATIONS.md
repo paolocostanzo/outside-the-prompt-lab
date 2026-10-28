@@ -1621,3 +1621,29 @@ Written after all confirmatory data and analyses, to make explicit four facts th
 4. *Analysis output after the results (RQ1).* On 27 Oct, after the results were known, `rq1/analyze.py` was extended to state the
    D41 point 6 robustness conclusion and the run-to-run instability required by §4 of the preregistration (commit 7421a8f, asked
    by the independent reproduction). No figure changed; the change adds reporting only.
+
+### D51 · 28 Oct 2026 · RQ1 (exploratory) — where the raters disagree, and a second human rater
+Written after all confirmatory data and analyses. Nothing here changes a confirmatory figure, variant or verdict.
+1. *Disagreement analysis.* `rq1/explore_disagreement.py` describes the labels already analysed: 4x4 confusion tables R0 vs each
+   model and vs the model majority, the class pairs of the disagreements, agreement on the binary question H1 asks (classes 1-3 vs
+   4: percent agreement, Cohen's and Fleiss' kappa, PABAK), per-class specific agreement, and disagreement by D41 flag and by
+   product type. Kappa intervals are percentile bootstraps over cases (2000 resamples, seed 20261028). Output:
+   `runs/rq1-confirmatory-20261027T142818Z-rq1-analysis/EXPLORATORY-DISAGREEMENT.{md,json}`.
+2. *Second human rater (H2), planned before any H2 label.* The preregistration foresaw a second human reader "where available"
+   (D14 point 3); none was available. `rq1/h2_sheet.py` builds, from the author's sheet, a sheet for an independent human rater:
+   same criteria, summaries, sources and guided questions (D47), case order SHA-256(seed + ":h2:" + id), separate storage and
+   export (`rq1-h2.json`), and the ten pilot cases with their published labels (C01 corrected, D14). Calibration is not equal:
+   R0 also saw worked walkthroughs of those cases with the D47 questions (D50 point 1), which were not saved; H2 gets the labels
+   and the same guided questions on the sheet, but not the walkthroughs. The export is accepted only with the H2 sheet version,
+   declaration, seed and criteria digest, and integer classes; the analysis recomputes the sample from the frozen frame. The rater must not have seen R0's labels, the model outputs, the results or the manuscript, and labels without
+   AI assistance. `rq1/second_rater.py` (fixed now) reports H2 vs R0, vs each model and vs the majority on four classes and on the
+   binary question, Fleiss' kappa over all five raters, H2's stratified share with the primary interval, and the R0-H2 binary
+   disagreements. If H2 labels are collected, they are reported as exploratory and never replace R0 in H1 or H1a.
+3. *Reproduction script.* `reproduce.py` (repository root) re-runs every scripted analysis behind the paper's figures from the
+   committed evidence into a temporary directory and compares each output with the committed one (declared normalisations: absolute
+   paths of the original runs; hashes of the private full RQ4 readings), and verifies the RQ1 frame, seed and sample offline. The
+   RQ5 file `telemetry/evidence/scores-20261024/agreement.json` had been produced without a committed script;
+   `telemetry/rules/agreement.py` was written now to regenerate it and reproduces it byte for byte. Figures read directly from
+   evidence tables, captures or documentation are not regenerated and are listed in the script.
+**Why.** Agreement was moderate (H1a not supported) and the single human rater is the main threat to RQ1; these analyses show
+where the disagreement lies and let an independent human test it, without touching the preregistered analysis.

@@ -20,7 +20,7 @@ function fakeHome() {
   w('.config/goose/config.yaml', 'GOOSE_PROVIDER: google\nextensions:\n  developer:\n    enabled: true\n    type: builtin\nGOOSE_MODE: smart_approve\n');
   return home;
 }
-const run = (home) => execFileSync('python3', ['-I', PREP], { env: { PATH: process.env.PATH, HOME: home }, encoding: 'utf8' });
+const run = (home) => execFileSync('python3', ['-I', '-B', PREP], { env: { PATH: process.env.PATH, HOME: home }, encoding: 'utf8' });
 const read = (home, rel) => fs.readFileSync(path.join(home, rel), 'utf8');
 
 test('adds q3-lab to the six user-level configurations and keeps existing keys', () => {
@@ -45,7 +45,7 @@ test('adds q3-lab to the six user-level configurations and keeps existing keys',
 test('codex TOML stays valid and keeps the trusted project', () => {
   const home = fakeHome();
   run(home);
-  const parsed = JSON.parse(execFileSync('python3', ['-I', '-c',
+  const parsed = JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
     'import tomllib,json,sys; print(json.dumps(tomllib.load(open(sys.argv[1],"rb"))))', path.join(home, '.codex/config.toml')], { encoding: 'utf8' }));
   assert.equal(parsed.model, 'gpt-5');
   assert.equal(parsed.projects['/home/lab/q5-repo'].trust_level, 'trusted');

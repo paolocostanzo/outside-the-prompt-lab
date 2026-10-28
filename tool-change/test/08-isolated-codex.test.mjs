@@ -9,7 +9,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const SCRIPT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/isolated_codex.py');
-const call = (expr, ...args) => JSON.parse(execFileSync('python3', ['-I', '-c',
+const call = (expr, ...args) => JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
   'import importlib.util,json,sys; from pathlib import Path; s=importlib.util.spec_from_file_location("i",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); ' +
   `print(json.dumps(${expr}))`, SCRIPT, ...args], { encoding: 'utf8' }));
 
@@ -99,7 +99,7 @@ test('a credential copied before a failed set-up is removed', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'iso-'));
   const auth = path.join(dir, 'auth.json');
   fs.writeFileSync(auth, '{"token":"test"}');
-  execFileSync('python3', ['-I', '-c',
+  execFileSync('python3', ['-I', '-B', '-c',
     'import importlib.util,sys; from pathlib import Path; s=importlib.util.spec_from_file_location("i",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m)\n' +
     'def boom(*a, **k): raise OSError("simulated")\n' +
     'm.os.chmod = boom\n' +

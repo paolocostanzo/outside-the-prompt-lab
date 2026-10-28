@@ -7,7 +7,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const HOST = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../scripts/q3_host.py');
-const plan = (seed) => JSON.parse(execFileSync('python3', ['-I', '-c',
+const plan = (seed) => JSON.parse(execFileSync('python3', ['-I', '-B', '-c',
   'import importlib.util,json,sys; s=importlib.util.spec_from_file_location("h",sys.argv[1]); m=importlib.util.module_from_spec(s); s.loader.exec_module(m); ' +
   'print(json.dumps(m.plan(5,int(sys.argv[2]),m.CLIENTS,m.SIGNALS)))', HOST, String(seed)], { encoding: 'utf8' }));
 
