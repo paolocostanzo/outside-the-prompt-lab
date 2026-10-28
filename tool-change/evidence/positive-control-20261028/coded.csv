@@ -1,0 +1,6 @@
+dir,change,client,eras,p1_approvals,p1_ok,p2_approvals,p2_channels,p2_code,p2_lists_served,p2_notice_seen,p2_ok_calls,p2_outcome,p2_servers_started,p2_signal_delivered,p3_approvals,p3_code,p3_lists_served,p3_outcome,rep,signal,version_after,version_before
+evidence/positive-control-20261028/claude-code__list_changed__name__r1,name,claude-code,modern,0,True,0,modern,4,B,False,1,silent-accept,0,yes,0,4,B,silent-accept,1,list_changed,2.1.300 (Claude Code),2.1.300 (Claude Code)
+evidence/positive-control-20261028/codex__list_changed__name__r1,name,codex,legacy,1,True,0,legacy,6,,False,0,error-no-call-timeout,0,yes,1,2,B,re-approval-required,1,list_changed,codex-cli 0.162.1,codex-cli 0.162.1
+evidence/positive-control-20261028/gemini__list_changed__name__r1,name,gemini,legacy,1,True,1,legacy,2,B,True,1,re-approval-required,0,yes,1,2,B,re-approval-required,1,list_changed,0.64.0,0.64.0
+evidence/positive-control-20261028/goose__list_changed__name__r1,name,goose,modern,0,True,0,,6,,False,0,error-no-call-timeout,0,no,0,4,B,silent-accept,1,list_changed,1.54.0,1.54.0
+evidence/positive-control-20261028/qwen__list_changed__name__r1,name,qwen,legacy,0,True,0,legacy,6,,False,0,error-no-call-timeout,0,yes,0,4,B,silent-accept,1,list_changed,0.25.1,0.25.1

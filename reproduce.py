@@ -95,6 +95,8 @@ def checks(tmp):
          lambda: sh(PY + ["tool-change/scripts/agreement_q3.py", f"{Q3}/coding/coding-sheet.csv", f"{Q3}/coding/llm/llm-coding.csv",
                           f"{Q3}/coding/key.csv", Q3]), None),
         ("RQ3", "three-coder agreement", f"{Q3}/coding/codex/agreement-three.json", lambda: (t / "agreement-three.json").read_bytes(), None),
+        ("RQ3", "positive control, exploratory D52", "tool-change/evidence/positive-control-20261028/coded.csv",
+         lambda: (t / "pc-coded.csv").read_bytes(), drop_column("dir")),
         ("RQ3", "open-weight cells, exploratory D39", "tool-change/evidence/open-weight-20261024/RESULTS.json",
          lambda: sh(PY + ["tool-change/scripts/analyze_open_weight.py", "tool-change/evidence/open-weight-20261024"]), None),
         ("RQ4", "final census", f"{Q4}/final-census.csv", q4("final-census.csv"), None),
@@ -121,6 +123,8 @@ def prepare(tmp):
     sh(PY + [str(ROOT / "tool-change/scripts/agreement_q3_three.py"), "--key", "key.csv", "--author", "coding-sheet.csv",
              "--local", "llm/llm-coding.csv", "--codex", "codex/codex-coding.csv", "--disagreements", "disagreements-resolved.csv",
              "--out", str(t / "agreement-three.json")], cwd=ROOT / Q3 / "coding")
+    pc = sorted(str(p.relative_to(ROOT)) for p in (ROOT / "tool-change/evidence/positive-control-20261028").glob("*__name__r1"))
+    sh(PY + ["tool-change/scripts/code_q3.py", *pc, "--csv", str(t / "pc-coded.csv")])
     sh(PY + ["defence-coverage/scripts/final_census.py", "--first", f"{Q4}/first-reading.csv", "--second", f"{Q4}/second-reading.csv",
              "--adjudication", f"{Q4}/adjudication.csv", "--servers",
              "azure-devops-mcp,github-mcp-server,sentry-mcp,aws-iac-mcp-server,mssql-mcp-server,oracle-mcp-server", "--out", str(t / "q4")])

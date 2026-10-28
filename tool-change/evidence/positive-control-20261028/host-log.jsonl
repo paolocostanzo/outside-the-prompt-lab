@@ -1,0 +1,40 @@
+{"ts": "2026-10-28T10:07:05+00:00", "event": "pre-revert", "cell": "gemini__list_changed__name__r1", "order6plus": 0}
+{"ts": "2026-10-28T10:07:05+00:00", "event": "revert-failed", "attempt": 1, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:08:05+00:00", "event": "revert-failed", "attempt": 2, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:09:05+00:00", "event": "revert-failed", "attempt": 3, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:10:05+00:00", "event": "revert-failed", "attempt": 4, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:11:06+00:00", "event": "revert-failed", "attempt": 5, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:12:06+00:00", "event": "abort-revert", "hint": "host memory fragmented: free RAM or reboot, then resume (done cells are skipped)"}
+{"ts": "2026-10-28T10:12:06+00:00", "event": "vm-off"}
+{"ts": "2026-10-28T10:55:11+00:00", "event": "pre-revert", "cell": "gemini__list_changed__name__r1", "order6plus": 1}
+{"ts": "2026-10-28T10:55:11+00:00", "event": "revert-failed", "attempt": 1, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 3}
+{"ts": "2026-10-28T10:56:11+00:00", "event": "revert-failed", "attempt": 2, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:57:11+00:00", "event": "revert-failed", "attempt": 3, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 0}
+{"ts": "2026-10-28T10:58:11+00:00", "event": "revert-failed", "attempt": 4, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 7}
+{"ts": "2026-10-28T10:59:12+00:00", "event": "revert-failed", "attempt": 5, "stderr": "error: Failed to revert snapshot q4-base-20261023b\nerror: internal error: cannot load AppArmor profile 'libvirt-431452b7-69a3-4f2e-8030-9470f04b8e11'", "order6plus": 3}
+{"ts": "2026-10-28T11:00:12+00:00", "event": "abort-revert", "hint": "host memory fragmented: free RAM or reboot, then resume (done cells are skipped)"}
+{"ts": "2026-10-28T11:00:12+00:00", "event": "vm-off"}
+{"ts": "2026-10-28T11:07:57+00:00", "event": "pre-revert", "cell": "gemini__list_changed__name__r1", "order6plus": 35}
+{"ts": "2026-10-28T11:08:13+00:00", "event": "cell-start", "n": 1, "of": 5, "cell": "gemini__list_changed__name__r1", "ip": "192.168.122.70", "boot_s": 0, "push_rc": 0}
+{"ts": "2026-10-28T11:09:24+00:00", "event": "secret-gate", "cell": "gemini__list_changed__name__r1", "rc": 0}
+{"ts": "2026-10-28T11:09:24+00:00", "event": "cell-end", "cell": "gemini__list_changed__name__r1", "rc": 0, "seconds": 86, "phase1_valid": true}
+{"ts": "2026-10-28T11:09:24+00:00", "event": "only-done", "cell": "gemini__list_changed__name__r1"}
+{"ts": "2026-10-28T11:11:25+00:00", "event": "vm-destroyed", "off": true}
+{"ts": "2026-10-28T11:15:11+00:00", "event": "pre-revert", "cell": "codex__list_changed__name__r1", "order6plus": 372}
+{"ts": "2026-10-28T11:15:22+00:00", "event": "cell-start", "n": 2, "of": 5, "cell": "codex__list_changed__name__r1", "ip": "192.168.122.70", "boot_s": 0, "push_rc": 0}
+{"ts": "2026-10-28T11:16:36+00:00", "event": "secret-gate", "cell": "codex__list_changed__name__r1", "rc": 0}
+{"ts": "2026-10-28T11:16:36+00:00", "event": "cell-end", "cell": "codex__list_changed__name__r1", "rc": 0, "seconds": 86, "phase1_valid": true}
+{"ts": "2026-10-28T11:16:36+00:00", "event": "pre-revert", "cell": "goose__list_changed__name__r1", "order6plus": 39}
+{"ts": "2026-10-28T11:16:51+00:00", "event": "cell-start", "n": 3, "of": 5, "cell": "goose__list_changed__name__r1", "ip": "192.168.122.70", "boot_s": 0, "push_rc": 0}
+{"ts": "2026-10-28T11:17:49+00:00", "event": "secret-gate", "cell": "goose__list_changed__name__r1", "rc": 0}
+{"ts": "2026-10-28T11:17:49+00:00", "event": "cell-end", "cell": "goose__list_changed__name__r1", "rc": 0, "seconds": 73, "phase1_valid": true}
+{"ts": "2026-10-28T11:17:49+00:00", "event": "pre-revert", "cell": "qwen__list_changed__name__r1", "order6plus": 20}
+{"ts": "2026-10-28T11:18:03+00:00", "event": "cell-start", "n": 4, "of": 5, "cell": "qwen__list_changed__name__r1", "ip": "192.168.122.70", "boot_s": 0, "push_rc": 0}
+{"ts": "2026-10-28T11:19:08+00:00", "event": "secret-gate", "cell": "qwen__list_changed__name__r1", "rc": 0}
+{"ts": "2026-10-28T11:19:08+00:00", "event": "cell-end", "cell": "qwen__list_changed__name__r1", "rc": 0, "seconds": 78, "phase1_valid": true}
+{"ts": "2026-10-28T11:19:08+00:00", "event": "pre-revert", "cell": "claude-code__list_changed__name__r1", "order6plus": 7}
+{"ts": "2026-10-28T11:19:17+00:00", "event": "cell-start", "n": 5, "of": 5, "cell": "claude-code__list_changed__name__r1", "ip": "192.168.122.70", "boot_s": 0, "push_rc": 0}
+{"ts": "2026-10-28T11:20:28+00:00", "event": "secret-gate", "cell": "claude-code__list_changed__name__r1", "rc": 0}
+{"ts": "2026-10-28T11:20:28+00:00", "event": "cell-end", "cell": "claude-code__list_changed__name__r1", "rc": 0, "seconds": 80, "phase1_valid": true}
+{"ts": "2026-10-28T11:20:28+00:00", "event": "campaign-done", "cells": 5}
+{"ts": "2026-10-28T11:22:29+00:00", "event": "vm-destroyed", "off": true}

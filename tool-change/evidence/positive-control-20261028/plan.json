@@ -1,0 +1,28 @@
+{
+  "made": "2026-10-28T10:07:05+00:00",
+  "seed": 20261028,
+  "snapshot": "q4-base-20261023b",
+  "change": "name",
+  "signal": "list_changed",
+  "rep": 1,
+  "reopen": true,
+  "order": [
+    "gemini",
+    "codex",
+    "goose",
+    "qwen",
+    "claude-code"
+  ],
+  "pilot": "gemini",
+  "clients_json": "q3-clients-positive.json",
+  "inputs_sha256": {
+    "q3-clients-positive.json": "aed93b9b1d247141ae0f1aa30548b6cf594bd8e1c7ee474e864d503b6422e9e9",
+    "run_q3_cell.py": "9c5c9c2cd4619e712a2b37648167176ee167f100964cefc1a6bd451fc838b21c",
+    "flip.mjs": "dcdb8705f1c6d4a448846434581c61e448bcc9424387e8dcb26f08e6e2d6e646",
+    "q3_host.py": "d971ad184984c9771236dd988c5addd1fadfe145101b0804180a35dcb85de281",
+    "q3_positive_host.py": "a98514149fc390123344ec8fe6d1057b405f3c8eef5d7f03c57ed8cdd62f1e9e",
+    "code_q3.py": "b835d73b3d4ca56bb76ecbd1d9530ff99734b587c5f37447c179d83b4f3ac161",
+    "open_weight_gate.py": "69e84766dd13a4035ca29e6c9099ef8172215fbb4b6b15341b7676f69b808389",
+    "../server/q3-server.mjs": "2d0c83c999d12beca70c28a6accdd011a00c18dae85422c700e30648dac966be"
+  }
+}
