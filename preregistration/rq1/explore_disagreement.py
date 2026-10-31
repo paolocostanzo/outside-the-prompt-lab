@@ -229,7 +229,7 @@ def main(run_dir, out_dir=None):
     r0 = {c: r0_doc["classes"].get(c) for c in sample}
     flagged = set(json.loads((HERE / "rq1-flags.json").read_text())["flagged"]) & set(sample)
     res = analyse(sample, r0, models, flagged)
-    res.update(run_dir=str(run_dir), **provenance)
+    res.update(run_dir=an.repo_path(run_dir), **provenance)
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "EXPLORATORY-DISAGREEMENT.json").write_text(json.dumps(res, indent=1, default=str))
     (out_dir / "EXPLORATORY-DISAGREEMENT.md").write_text(markdown(res))

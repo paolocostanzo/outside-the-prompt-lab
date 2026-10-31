@@ -1498,6 +1498,6 @@
  },
  "estimate_sha256": "e95b5a83c96d98cae52556336670b7ce3677d62fc9ed893d1924c40007110143",
  "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
- "run_dir": "/home/brainonion/Desktop/redazione/otp-lab-q4/preregistration/runs/rq1-confirmatory-20261027T142818Z",
+ "run_dir": "preregistration/runs/rq1-confirmatory-20261027T142818Z",
  "r0_sha256": "06ef87a02908090a9e0a0aea53b5222eeb0d54908c7b7faa4e2666991debdd8d"
 }

@@ -1725,7 +1725,9 @@ Written after all results, during the pre-submission strengthening. None changes
 5. *Reproduction.* `analyze.py` accepts the frozen frame from the working tree when there is no git history, only if its SHA-256
    equals the manifest's; without history the RQ1 primary and D51 analyses still stop (no recorded hash of the frame commit's
    `estimate.py`). `reproduce.py` labels each output (recomputed from public data / compared with a saved result / needs private
-   data) and no longer aborts at the first failed check (exit code still 1).
+   data) and no longer aborts at the first failed check (exit code still 1). `analyze.py` and `explore_disagreement.py` record
+   `run_dir` relative to the repository root; the saved RQ1 outputs had the absolute local path in that field only, now replaced
+   by the relative one (no other value changes; `reproduce.py` does not compare the field).
 6. *D27, wording.* "The author's rules" names the primary rule track; those rules were drafted by Claude in the author's
    sessions, as the paper states.
 7. *Reproduction scope.* `reproduce.py` reruns the scripted analyses that predate D55, exploratory ones included; the post hoc scripts of points 1–2 are run

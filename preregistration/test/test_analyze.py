@@ -215,6 +215,10 @@ class WithoutGit(unittest.TestCase):
         an.es.bound_to = lambda commit: "ab" * 32
         self.assertEqual(an.estimate_binding(self.man["frame_commit"]), "ab" * 32)
 
+    def test_repo_path_is_relative(self):
+        self.assertEqual(an.repo_path(an.ROOT / "preregistration" / "runs" / "x"), "preregistration/runs/x")
+        self.assertEqual(an.repo_path("/elsewhere/run-1"), "run-1")
+
     def test_sampler_hash(self):
         an.check_sampler(self.man)
         with self.assertRaises(SystemExit): an.check_sampler({**self.man, "script_sha256": "0" * 64})

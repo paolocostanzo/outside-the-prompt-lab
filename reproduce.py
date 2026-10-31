@@ -18,8 +18,8 @@ Every line carries one of three labels:
     python3 reproduce.py --tests    # also every test suite (stubs only)
 
 Compared byte for byte, except where a field records where or from what the original ran (each exception is named below):
-RQ1 JSONs without "run_dir" (absolute path of the original run); RQ3 matrix.csv without the "dir" column (absolute paths of the
-original lab); RQ4 coverage.json without "inputs_sha256" (hashes of the full private readings; the published CSVs are filtered
+RQ1 JSONs without "run_dir" (path of the original run, repository-relative); RQ3 matrix.csv without the "dir" column
+(absolute paths of the original lab); RQ4 coverage.json without "inputs_sha256" (hashes of the full private readings; the published CSVs are filtered
 to the six servers). RQ2's summary takes the first run without its Codex rows (evidence/q5-run/NOTES.md).
 
 Not covered: figures the paper reads directly from evidence tables rather than from an analysis script, namely the RQ2

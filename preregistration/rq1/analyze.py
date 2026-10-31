@@ -28,6 +28,12 @@ TYPES = ("agent client", "MCP server or connector", "SDK")
 R2 = "gemma4:26b-a4b-it-q8_0"  # D43
 
 
+def repo_path(p):
+    """Path as recorded in outputs: relative to the repository root, so no local home folder is written."""
+    p = pathlib.Path(p).resolve()
+    return p.relative_to(ROOT.resolve()).as_posix() if p.is_relative_to(ROOT.resolve()) else p.name
+
+
 def majority(votes):
     """Model majority (D7): the class given by more than half of the model raters; None otherwise (no majority)."""
     votes = [v for v in votes]
@@ -337,7 +343,7 @@ def main(run_dir, out_dir=None):
     res = analyse(frame_rows, [{k: str(v) for k, v in r.items()} for r in recomputed], json.loads(r0_path.read_text()),
                   models, json.loads((HERE / "rq1-flags.json").read_text()), read("rq1-frame-erratum.csv"),
                   model_quality(run_dir, manifest))
-    res.update(estimate_sha256=est_sha, frame_commit=sman["frame_commit"], run_dir=str(run_dir),
+    res.update(estimate_sha256=est_sha, frame_commit=sman["frame_commit"], run_dir=repo_path(run_dir),
                r0_sha256=manifest["r0_sha256"])
     out_dir.mkdir(parents=True, exist_ok=True)
     (out_dir / "RESULTS-RQ1.json").write_text(json.dumps(res, indent=1, default=str))
