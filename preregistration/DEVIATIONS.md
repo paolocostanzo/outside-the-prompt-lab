@@ -1728,7 +1728,7 @@ Written after all results, during the pre-submission strengthening. None changes
    data) and no longer aborts at the first failed check (exit code still 1).
 6. *D27, wording.* "The author's rules" names the primary rule track; those rules were drafted by Claude in the author's
    sessions, as the paper states.
-7. *Reproduction scope.* `reproduce.py` reruns the confirmatory and D51 analyses; the post hoc scripts of points 1–2 are run
+7. *Reproduction scope.* `reproduce.py` reruns the scripted analyses that predate D55, exploratory ones included; the post hoc scripts of points 1–2 are run
    separately from their folders (`states.py` on public evidence; `coverage.py` needs the private redacted archives, whose SHA-256
    hashes it records).
 **Effect.** Exploratory results reported as such; confirmatory results unchanged.
