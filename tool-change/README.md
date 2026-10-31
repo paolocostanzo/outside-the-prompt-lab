@@ -37,6 +37,7 @@ and D21 (`../preregistration/DEVIATIONS.md`), all written before the outcomes th
 | `scripts/agreement_q3_three.py` | Agreement with the additional coder: preregistered κ first, then Codex vs author and vs local model, Fleiss' κ, confusion tables |
 | `scripts/check-approvals.mjs` | **For readers:** lists, read-only, the MCP tools you approved permanently in each client (see below) |
 | `scripts/record_proxy.py`, `scripts/q3-clients-open-weight.json`, `scripts/q3_open_weight_host.py`, `scripts/open_weight_gate.py`, `scripts/analyze_open_weight.py` | Open-weight cells (D39, exploratory): recording proxy between client and model, client file pointing four clients at an open-weight model, host orchestration with a reverse SSH tunnel, the D26 secret gate, per-phase analysis. Evidence: `evidence/open-weight-20261024/` |
+| `scripts/q3_positive_host.py`, `scripts/q3-clients-positive.json` | Positive control (D12 point 5, run after the results; D52, exploratory): host orchestration and client file for one `list_changed` rename cell per client (Cursor CLI excluded). Evidence: `evidence/positive-control-20261028/` (see its README.md) |
 | `test/` | `node:test` suite (server, coder with the real server, configuration writer, run plan, analysis, agreement, check-approvals) |
 
 ## Check your own setup

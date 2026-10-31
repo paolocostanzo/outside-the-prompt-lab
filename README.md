@@ -9,16 +9,17 @@ Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
 started and answers a minimal handshake with one no-op tool; the generators write configuration that points at the canary; the
 runners drive the clients and record screens and logs. There are no attack payloads and nothing that exfiltrates, modifies or
 reaches the network. The matrix runners edit the clients' trust stores in `$HOME`: run them only in a disposable VM. The RQ1
-data in `preregistration/rq1/` keep advisory identifiers, titles, dates, references and short factual notes; full advisory texts,
-which can describe exploitation, are not included (hashes only).
+data in `preregistration/rq1/` keep advisory identifiers, titles, dates, references and short factual notes; full advisory description texts,
+which can describe exploitation, are not in the current tree or in the release archives; their SHA-256 hashes are published,
+and the git history keeps the texts in the frame commit e62676b, which the reproduction reads.
 
 | Folder | Measurement (preregistered RQ) | Article |
 |---|---|---|
 | `trusting-a-repo/` | Q5 (RQ2) — does a client start a repository-declared MCP server, and under which trust decision? Six terminal clients with the automated runner and two graphical clients by hand, 18 component tests, evidence with SHA-256 hashes | *Trusting a repo now means trusting its MCP servers* (13 Oct 2026) |
-| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes; the open-weight cells promised in part 2 (D39, exploratory: what four clients send to an open-weight model before and after the change), 23 Python tests, evidence in `evidence/open-weight-20261024/` | *You approved the tool. Then it changed.* (20 Oct 2026); open-weight cells: *Would your logs have caught it?* (27 Oct 2026) |
+| `tool-change/` | Q3 (RQ3) — does a client notice when an approved tool's definition changes? Dual-era MCP server (2026-07-28 and legacy), 60-repetition matrix on six terminal clients, two editors by hand, rule-based coder, preregistered and additional (D22) coders, reader script `check-approvals`, 61 tests, evidence with SHA-256 hashes; the open-weight cells promised in part 2 (D39, exploratory: what four clients send to an open-weight model before and after the change), 23 Python tests, evidence in `evidence/open-weight-20261024/`; the per-client positive control preregistered in D12 point 5 and run after the fact (D52, exploratory: one rename cell per client, Cursor CLI excluded), evidence in `evidence/positive-control-20261028/` | *You approved the tool. Then it changed.* (20 Oct 2026); open-weight cells: *Would your logs have caught it?* (27 Oct 2026) |
 | `defence-coverage/` | Q2 (RQ4) — in official MCP servers, which third-party-content tools pass through the vendor's own defence? Both readings, the third reading's proposals and the author's adjudication (D22, D38), the final census and coverage tables of the published servers (`results-20261024/`), scripts, 28 tests | *Would your logs have caught it?* (27 Oct 2026) |
 | `telemetry/` | Q4 (RQ5) — what default client logs and host telemetry show for each event (D24–D37): inventory of default log locations, exporter run inside the VM, collection check, event and baseline orchestrators, quota observer, frozen detection rules of two authors, host rules, scoring and the H5 verdict, public evidence of every run and session, 221 tests | *Would your logs have caught it?* (27 Oct 2026) |
-| `preregistration/` | RQ1 (confirmatory): deviations log D1–D51, frozen frame of 330 disclosures, stratified sample of 120, the author's labels (R0), canonical classifier, the confirmatory run of three open-weight model raters (`runs/rq1-confirmatory-20261027T142818Z/`) and its analysis (`…-rq1-analysis/RESULTS-RQ1.md`), the exploratory disagreement analysis and a sheet plus analysis for a second human rater (D51), ten-case pilot | preprint (November 2026) |
+| `preregistration/` | RQ1 (confirmatory): deviations log D1–D52, frozen frame of 330 disclosures, stratified sample of 120, the author's labels (R0), canonical classifier, the confirmatory run of three open-weight model raters (`runs/rq1-confirmatory-20261027T142818Z/`) and its analysis (`…-rq1-analysis/RESULTS-RQ1.md`), the exploratory disagreement analysis and a sheet plus analysis for a second human rater (D51), ten-case pilot | preprint (November 2026) |
 
 Each folder has its own README with requirements, how to reproduce, the test matrix and the limits of interpretation.
 
@@ -32,7 +33,9 @@ reads directly from evidence tables (RQ2 current-version re-checks, non-interact
 are not regenerated: their folders' READMEs give the counts and source files. Needs a git checkout (RQ1
 reads the frozen frame from its commit). Model answers, human labels, client captures and the private RQ5 log archives are inputs,
 not regenerated. SHA-256 manifests exist for the RQ1 advisory-query inputs (`preregistration/rq1/raw-20261025/`), the RQ2 evidence
-(`trusting-a-repo/evidence/environment.json`) and the RQ3 evidence (`tool-change/evidence/SHA256SUMS`); the private RQ5 log
+(`trusting-a-repo/evidence/environment.json`) and the RQ3 evidence (`tool-change/evidence/SHA256SUMS` for the primary, conformance, set-up and graphical-client folders; the
+exploratory folders `open-weight-20261024/` (D39) and `positive-control-20261028/` (D52) list every file's SHA-256 in the
+`manifest` key of their `secret-gate.json`); the private RQ5 log
 archives are not hashed here, except the package given to the second rule author (`telemetry/rules/second-author/package-SHA256SUMS`).
 
 ## Quick start (Q5 components, no VM needed)

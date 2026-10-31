@@ -1,7 +1,8 @@
 # Preregistration companion files
 
 - Frozen preregistration (v2, 11 October 2026): https://doi.org/10.5281/zenodo.23300369
-- `DEVIATIONS.md` — dated deviations from that document, written before any confirmatory data.
+- `DEVIATIONS.md` — dated deviations from that document. D1–D18 were written before any confirmatory data; every later entry
+  states its date and which data existed when it was written (see the D40 note at the top of the file).
 - `classify.py` — model-rater script for RQ1 (standard library only; needs a local Ollama endpoint). Changes since the pilot are
   described in deviations D4, D14 point 4, D41 and D42: strict answers, ties unresolved, undefined κ reported, a run manifest
   (models and digests, hashes of cases, criteria and R0), R0 required before a confirmatory run, a complete rater set required for
@@ -16,4 +17,6 @@
   `rq1-sample.csv` with `rq1-sample-manifest.json` (120 cases, drand round 6584246). `sample_frame.py verify` (in a clone) or
   `verify_archive.py` (in a release archive, no git history) recomputes the sample; `estimate.py` is the stratified estimator of D44 point 6.
 
-Next confirmatory files, each in its own commit and in this order: `rq1-r0.json` (the author's labels), then the model results.
+Confirmatory RQ1 files, each in its own commit and in this order: `rq1/rq1-r0.json` (the author's labels, commit 090ece7, before
+any model run), then the model-rater run and its analysis in `runs/rq1-confirmatory-20261027T142818Z/` and
+`runs/rq1-confirmatory-20261027T142818Z-rq1-analysis/` (commit 3f13bef).
