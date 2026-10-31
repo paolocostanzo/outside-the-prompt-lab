@@ -164,3 +164,68 @@ if __name__ == "__main__":
         inst = an.analyse(*w[:6], quality)["instability"]
         self.assertEqual(inst[M[1]], {"differing_valid_classes": ["C002"], "with_invalid_answer": ["C003"]})
         self.assertEqual(inst[M[0]], {"differing_valid_classes": [], "with_invalid_answer": []})
+
+
+class WithoutGit(unittest.TestCase):
+    """Frozen inputs without git history: read from the working tree only when the SHA-256 recorded in the sample manifest
+    matches; otherwise, or with no recorded hash, the analysis stops (fails closed)."""
+    def setUp(self):
+        import hashlib, json, tempfile
+        self.tmp = tempfile.TemporaryDirectory(); root = pathlib.Path(self.tmp.name)
+        self.saved = (an.HERE, an.ROOT, an.es.bound_to)
+        an.ROOT, an.HERE = root, root / "preregistration" / "rq1"; an.HERE.mkdir(parents=True)
+        self.frame = b"case_id,decision\nC001,include\n"; (root / an.sf.FRAME_IN_REPO).write_bytes(self.frame)
+        self.sampler = pathlib.Path(an.sf.__file__).resolve().read_bytes()
+        self.man = {"frame_commit": "f" * 40, "frame_sha256": hashlib.sha256(self.frame).hexdigest(),
+                    "script_sha256": hashlib.sha256(self.sampler).hexdigest()}
+        (an.HERE / "rq1-sample-manifest.json").write_text(json.dumps(self.man))
+
+    def tearDown(self):
+        an.HERE, an.ROOT, an.es.bound_to = self.saved; self.tmp.cleanup()
+
+    def no_git(self):
+        import subprocess
+        def fail(commit): raise subprocess.CalledProcessError(128, ["git"])
+        an.es.bound_to = fail
+
+    def test_frame_accepted_by_recorded_hash(self):
+        c = self.man["frame_commit"]
+        self.assertEqual(an.git_show(c, an.sf.FRAME_IN_REPO), self.frame)
+        self.assertEqual(an.git_show(c, an.sf.FRAME_IN_REPO, self.man["frame_sha256"]), self.frame)
+
+    def test_changed_frame_refused(self):
+        (an.ROOT / an.sf.FRAME_IN_REPO).write_bytes(self.frame.replace(b"C001", b"C999"))
+        with self.assertRaises(SystemExit): an.git_show(self.man["frame_commit"], an.sf.FRAME_IN_REPO)
+
+    def test_missing_file_or_other_commit_refused(self):
+        (an.ROOT / an.sf.FRAME_IN_REPO).unlink()
+        with self.assertRaises(SystemExit): an.git_show(self.man["frame_commit"], an.sf.FRAME_IN_REPO)
+        with self.assertRaises(SystemExit): an.git_show("e" * 40, an.sf.FRAME_IN_REPO)  # no hash recorded for that commit
+
+    def test_no_recorded_hash_refused(self):
+        p = an.ROOT / an.ESTIMATE_IN_REPO; p.write_bytes(b"x")
+        self.assertIsNone(an.recorded_sha256(self.man["frame_commit"], an.ESTIMATE_IN_REPO))
+        with self.assertRaises(SystemExit): an.git_show(self.man["frame_commit"], an.ESTIMATE_IN_REPO)
+
+    def test_estimate_binding_fails_closed_without_git(self):
+        self.no_git()
+        with self.assertRaises(SystemExit): an.estimate_binding(self.man["frame_commit"])
+
+    def test_estimate_binding_uses_bound_to_with_git(self):
+        an.es.bound_to = lambda commit: "ab" * 32
+        self.assertEqual(an.estimate_binding(self.man["frame_commit"]), "ab" * 32)
+
+    def test_sampler_hash(self):
+        an.check_sampler(self.man)
+        with self.assertRaises(SystemExit): an.check_sampler({**self.man, "script_sha256": "0" * 64})
+
+    def test_git_history_wins_over_working_tree(self):
+        import os, subprocess
+        root = an.ROOT
+        env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_SYSTEM": os.devnull, "GIT_AUTHOR_NAME": "t",
+               "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t"}
+        run = lambda *a: subprocess.run(["git", "-C", str(root), *a], check=True, capture_output=True, env=env).stdout
+        run("init", "-q"); run("add", an.sf.FRAME_IN_REPO); run("commit", "-q", "-m", "frame")
+        c = run("rev-parse", "HEAD").decode().strip()
+        (root / an.sf.FRAME_IN_REPO).write_bytes(b"changed\n")  # the commit is read, not the working tree
+        self.assertEqual(an.git_show(c, an.sf.FRAME_IN_REPO), self.frame)

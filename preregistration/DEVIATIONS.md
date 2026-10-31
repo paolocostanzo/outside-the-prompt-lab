@@ -1708,3 +1708,24 @@ checked from the artifact. Written after all RQ4 results were known.
 3. *D23, naming the removed server.* D23 says the server it moved to the servers without a defence is named, with file and line
    evidence, in the released census evidence. The release does not name it and reports no figure for it (D53).
 **Effect.** None on any figure; the paper follows the corrected statements.
+
+### D55 · 1 Nov 2026 · post hoc, exploratory — four analyses and two reproduction changes after all results
+Written after all results, during the pre-submission strengthening. None changes a confirmatory figure, verdict, label or census.
+1. *RQ5 log coverage* (`telemetry/coverage-posthoc/`): a pair is assessed for false positives only if at least 30 of its 60
+   held-out windows hold a record of the rule's source (threshold fixed in the script before it ran, but after the per-pair
+   coverage figures were known); false positives are counted on covered windows only.
+2. *RQ3 observable states* (`tool-change/states-posthoc/`): for each repetition, what the server log and captures show (change,
+   notification delivered, list re-requested, definition called, question), with "not observed" where there is no evidence; a
+   sensitivity analysis includes the discarded Qwen Code attempt of D19.
+3. *RQ4 partial coverage detail* (`defence-coverage/partial-posthoc/`): per tool, the fields, branches or content types outside the
+   defence and who can write them; compiled by an AI reading of the pinned sources, about two thirds of the line references re-read;
+   suggested reclassifications are listed separately and not applied.
+4. *RQ1 audit* (`preregistration/rq1/audit-posthoc/`): which class-3 clause each author label fits, the 1–3/4 boundary cases checked
+   against the source excerpts in the lab, and the split of the 74 flagged cases; coded by one AI, not checked by a second human.
+5. *Reproduction.* `analyze.py` accepts the frozen frame from the working tree when there is no git history, only if its SHA-256
+   equals the manifest's; without history the RQ1 primary and D51 analyses still stop (no recorded hash of the frame commit's
+   `estimate.py`). `reproduce.py` labels each output (recomputed from public data / compared with a saved result / needs private
+   data) and no longer aborts at the first failed check (exit code still 1).
+6. *D27, wording.* "The author's rules" names the primary rule track; those rules were drafted by Claude in the author's sessions
+   and fixed by the author, as the paper states.
+**Effect.** Exploratory results reported as such; confirmatory results unchanged.

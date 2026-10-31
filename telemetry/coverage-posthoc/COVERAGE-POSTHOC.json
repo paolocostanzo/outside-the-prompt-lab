@@ -1,0 +1,815 @@
+{
+ "status": "post hoc, exploratory; not preregistered; confirmatory verdict unchanged",
+ "min_covered_windows": 30,
+ "sensitivity_thresholds": [
+  15,
+  30,
+  45
+ ],
+ "inputs_sha256": {
+  "scores-author.json": "06a7251fe3b89258ffb3295796bf78b8921047907bcb56d470c11cbcc0ce8381",
+  "h5-author.json": "a31543e91cf4c9dc1a1447a9e92741ed95330878cb80b652fad095ecbd3b3656",
+  "input-author.json": "da825652f13e79eb4deaa95cdeadbc8c80ad5ed92857f1f128ce1dd7a381f695",
+  "rules-author.json": "1cd0d17ea7cc1772f77e661f621857bec344806788527501e8d641013fd6f9b1"
+ },
+ "private_extension": true,
+ "summary": {
+  "measurable_pairs": 13,
+  "confirmatory_told_apart": 9,
+  "told_apart_fp_assessed": 7,
+  "detected_fp_not_adequately_assessable": [
+   "goose/q3-announced",
+   "goose/q3-silent"
+  ],
+  "no_useful_evidence": [
+   "codex/q3-silent",
+   "gemini/q3-silent",
+   "gemini/q5-start",
+   "qwen/q5-start"
+  ],
+  "not_detected": [],
+  "no_event": [
+   "claude-code/q5-start",
+   "goose/q5-start"
+  ],
+  "missing_listed_in_frozen_input": [],
+  "incomplete_clients": [],
+  "confirmatory_h5_holds": true,
+  "h5_depends_on_fp_coverage": false,
+  "h5_note": "H5 holds because q3-silent (Codex CLI, Gemini CLI) and q5-start (Gemini CLI, Qwen Code) each have a measurable pair with no usable record; those pairs fail on detection, not on false positives, so coverage cannot change the verdict. The confirmatory 'q3-announced distinguishable in every client' rests for Goose on 1 covered window."
+ },
+ "pairs": {
+  "claude-code/q3-announced": {
+   "client": "claude-code",
+   "event": "q3-announced",
+   "rule_type": "match",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 46,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 46,
+    "share": 0.0,
+    "wilson95_upper": 0.07707356420776004
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 46,
+   "event_runs_records": {
+    "claude-code__q3-announced__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 47,
+     "sources_with_records": 4
+    },
+    "claude-code__q3-announced__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 47,
+     "sources_with_records": 4
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "claude-code/q3-silent": {
+   "client": "claude-code",
+   "event": "q3-silent",
+   "rule_type": "changed",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "claude-code__q3-silent__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 46,
+     "sources_with_records": 4
+    },
+    "claude-code__q3-silent__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 46,
+     "sources_with_records": 4
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "claude-code/q5-start": {
+   "client": "claude-code",
+   "event": "q5-start",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 0,
+   "events_detected": 0,
+   "no_event_runs": 2,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-event",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": false,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "claude-code__q5-start__r1": {
+     "status": "no-event"
+    },
+    "claude-code__q5-start__r2": {
+     "status": "no-event"
+    }
+   },
+   "posthoc_label": "no-event"
+  },
+  "codex/q3-announced": {
+   "client": "codex",
+   "event": "q3-announced",
+   "rule_type": "match",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "codex__q3-announced__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 611,
+     "sources_with_records": 6
+    },
+    "codex__q3-announced__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 504,
+     "sources_with_records": 6
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "codex/q3-silent": {
+   "client": "codex",
+   "event": "q3-silent",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 0,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-useful-evidence",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "codex__q3-silent__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 490,
+     "sources_with_records": 6
+    },
+    "codex__q3-silent__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 454,
+     "sources_with_records": 6
+    }
+   },
+   "posthoc_label": "no-useful-evidence"
+  },
+  "codex/q5-start": {
+   "client": "codex",
+   "event": "q5-start",
+   "rule_type": "new-name",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "codex__q5-start__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 73,
+     "sources_with_records": 3
+    },
+    "codex__q5-start__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 81,
+     "sources_with_records": 3
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "gemini/q3-announced": {
+   "client": "gemini",
+   "event": "q3-announced",
+   "rule_type": "match",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "gemini__q3-announced__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 14,
+     "sources_with_records": 3
+    },
+    "gemini__q3-announced__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 20,
+     "sources_with_records": 3
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "gemini/q3-silent": {
+   "client": "gemini",
+   "event": "q3-silent",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 0,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-useful-evidence",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "gemini__q3-silent__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 16,
+     "sources_with_records": 3
+    },
+    "gemini__q3-silent__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 13,
+     "sources_with_records": 3
+    }
+   },
+   "posthoc_label": "no-useful-evidence"
+  },
+  "gemini/q5-start": {
+   "client": "gemini",
+   "event": "q5-start",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 0,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-useful-evidence",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "gemini__q5-start__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 0,
+     "sources_with_records": 0
+    },
+    "gemini__q5-start__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 0,
+     "sources_with_records": 0
+    }
+   },
+   "posthoc_label": "no-useful-evidence"
+  },
+  "goose/q3-announced": {
+   "client": "goose",
+   "event": "q3-announced",
+   "rule_type": "changed",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 1,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 1,
+    "share": 0.0,
+    "wilson95_upper": 0.7934506882081973
+   },
+   "detection_category": "detected",
+   "fp_assessment": "not adequately assessable",
+   "fp_assessment_sensitivity": {
+    "15": "not adequately assessable",
+    "30": "not adequately assessable",
+    "45": "not adequately assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 1,
+   "event_runs_records": {
+    "goose__q3-announced__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 21,
+     "sources_with_records": 3
+    },
+    "goose__q3-announced__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 21,
+     "sources_with_records": 3
+    }
+   },
+   "posthoc_label": "detected; false positives not adequately assessable"
+  },
+  "goose/q3-silent": {
+   "client": "goose",
+   "event": "q3-silent",
+   "rule_type": "changed",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 1,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 1,
+    "share": 0.0,
+    "wilson95_upper": 0.7934506882081973
+   },
+   "detection_category": "detected",
+   "fp_assessment": "not adequately assessable",
+   "fp_assessment_sensitivity": {
+    "15": "not adequately assessable",
+    "30": "not adequately assessable",
+    "45": "not adequately assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 1,
+   "event_runs_records": {
+    "goose__q3-silent__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 20,
+     "sources_with_records": 3
+    },
+    "goose__q3-silent__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 21,
+     "sources_with_records": 3
+    }
+   },
+   "posthoc_label": "detected; false positives not adequately assessable"
+  },
+  "goose/q5-start": {
+   "client": "goose",
+   "event": "q5-start",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 0,
+   "events_detected": 0,
+   "no_event_runs": 2,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-event",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": false,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "goose__q5-start__r1": {
+     "status": "no-event"
+    },
+    "goose__q5-start__r2": {
+     "status": "no-event"
+    }
+   },
+   "posthoc_label": "no-event"
+  },
+  "qwen/q3-announced": {
+   "client": "qwen",
+   "event": "q3-announced",
+   "rule_type": "changed",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "qwen__q3-announced__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 45,
+     "sources_with_records": 5
+    },
+    "qwen__q3-announced__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 69,
+     "sources_with_records": 5
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "qwen/q3-silent": {
+   "client": "qwen",
+   "event": "q3-silent",
+   "rule_type": "changed",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 2,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": 60,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": {
+    "k": 0,
+    "n": 60,
+    "share": 0.0,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "detection_category": "detected",
+   "fp_assessment": "assessable",
+   "fp_assessment_sensitivity": {
+    "15": "assessable",
+    "30": "assessable",
+    "45": "assessable"
+   },
+   "confirmatory_tells_apart": true,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": 60,
+   "event_runs_records": {
+    "qwen__q3-silent__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 52,
+     "sources_with_records": 5
+    },
+    "qwen__q3-silent__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 73,
+     "sources_with_records": 5
+    }
+   },
+   "posthoc_label": "told apart, false positives assessed"
+  },
+  "qwen/q5-start": {
+   "client": "qwen",
+   "event": "q5-start",
+   "rule_type": "none",
+   "event_runs_planned": 2,
+   "event_runs_scored": 2,
+   "events_detected": 0,
+   "no_event_runs": 0,
+   "export_failed_runs": 0,
+   "windows_expected": 60,
+   "windows_scored": 60,
+   "windows_covered_rule_source": null,
+   "alert_windows": 0,
+   "missing_holdout_windows": 0,
+   "fp_all_windows": {
+    "k": 0,
+    "n": 60,
+    "wilson95_upper": 0.060171853034227174
+   },
+   "fp_covered_windows": null,
+   "detection_category": "no-useful-evidence",
+   "fp_assessment": "not applicable (no rule)",
+   "fp_assessment_sensitivity": {
+    "15": "not applicable (no rule)",
+    "30": "not applicable (no rule)",
+    "45": "not applicable (no rule)"
+   },
+   "confirmatory_tells_apart": false,
+   "confirmatory_measurable": true,
+   "windows_covered_any_default_source": 60,
+   "rule_coverage_recomputed": null,
+   "event_runs_records": {
+    "qwen__q5-start__r1": {
+     "status": "ok",
+     "timed_records_event_to_end": 0,
+     "sources_with_records": 0
+    },
+    "qwen__q5-start__r2": {
+     "status": "ok",
+     "timed_records_event_to_end": 0,
+     "sources_with_records": 0
+    }
+   },
+   "posthoc_label": "no-useful-evidence"
+  }
+ },
+ "private_archives_sha256": {
+  "baseline__claude-code__holdout": "4adc3bc76ffd7a46029254f693908edee5a2f50cace808e9a93c3ec059ebe6df",
+  "baseline__codex__holdout": "fb436e3c9d7198349b71d37e5f178636ec75e156f1960e29f86dfef12567ae9f",
+  "baseline__gemini__holdout": "a090d0822498a940238ba22c06fc532dfc5e30cc6510d8d4ee571eb897b4b388",
+  "baseline__goose__holdout": "94633fe6ddd3f76a0273505799373d3d3876aa5be0df7b5aa8b7786b0824c733",
+  "baseline__qwen__holdout": "57115b37dcf1756ac4625e6445fb244e730ccb03bb8108b4de63a3919d29ecf7",
+  "claude-code__q3-announced__r1": "c7071032e67e3604f8ff48eba19d91a31a7ad9ae29f3e9ebfca74ff0c3571f38",
+  "claude-code__q3-announced__r2": "5d2e819f4accc258ac3d22eaa684ae25c960d1caaaa04f302ce6f8800ea1645a",
+  "claude-code__q3-silent__r1": "e1d0e495c76dd7aef953389d773f7379ebd4f68ef7e7d67f8dd26ce57c21c107",
+  "claude-code__q3-silent__r2": "e0b5f99d718d91db7156cf96051948895599f2dae9d22653e9ca292b5b15e914",
+  "codex__q5-start__r1": "2c0003531aedf9b1e9b76362f3ae817c4525b3413b6bec514d37005ad1788b0a",
+  "codex__q5-start__r2": "02858391739417b8c5408f39ce3ea17efd2d5e828d9a7d278f52aa64a49c6f61",
+  "codex__q3-announced__r1": "a12e07a3c75c111d258c5a74d5a42af247879211b2bad05c6f0dcd033de2c4a7",
+  "codex__q3-announced__r2": "e797c026128b1020de2d513f99972e6cac61226f52e62d06e846687f8abdae35",
+  "codex__q3-silent__r1": "ecee28d2b24d8ba9f1bdae3552e81a26d2326f3122d2ed15034201abb17adefa",
+  "codex__q3-silent__r2": "6a247021492ac3a14f66f7b40d21862c5547ffad63df6965bba7369319632992",
+  "gemini__q5-start__r1": "9773731cc229ea52a96b9419c97bc396474a442d13d0b51ad1155cfcaf13d086",
+  "gemini__q5-start__r2": "1ee836c5ea35b01d9c8fc8349a1cfaff748de50c83c7a5d14c62165aad3c92ae",
+  "gemini__q3-announced__r1": "14a81af34e7a9d7b43ac726fe137691ab2985dbef66307791124f08c0117e573",
+  "gemini__q3-announced__r2": "a488675959f92e74f150f222fcf3d48a28931eefd984ff64e9d6f72a9b3345b2",
+  "gemini__q3-silent__r1": "9997ad7baae2a23fd2572e6bc6e60961e56ddfd145e0e88cfec1619705bd211f",
+  "gemini__q3-silent__r2": "c80688729a3f86cb1e0ad8d60a6a2fb117a4a2feba3bf23a680aa0e6f59c08c4",
+  "qwen__q5-start__r1": "8b54cea07107d8339d42756c42199faa18b3f70c215f20ab5268deb436206c24",
+  "qwen__q5-start__r2": "be7135ea39865291d747a33fa6e47bd448f4606c6de3880cb4af0ac93f575eab",
+  "qwen__q3-announced__r1": "5d16b2458eb7b0f517cd14dc540a5c7580893f8203703a6d841ce28d3a3ca0c4",
+  "qwen__q3-announced__r2": "89bb692e1fd7e2d8528aed9cd549c4fb856de0b632a79f848e9465d01a886457",
+  "qwen__q3-silent__r1": "ca747cf05e8929a2694eacbd37a701214056626188954764c67e7f76e34ea788",
+  "qwen__q3-silent__r2": "8a922bf6ab523e90c29fe5086193b62fbfcc76f7f5127912f3f989f01e19a7ff",
+  "goose__q3-announced__r1": "9cc3e33219c96f734e3d15205fb4077bf378046e7126d8b0d2be0776704f988f",
+  "goose__q3-announced__r2": "57aa62c80681824ddf783d58de8781df1c9add0a35f37d27bfbfa27bbbd7ae68",
+  "goose__q3-silent__r1": "4f330d75bc4bb6bf0d0318a61a31d31ed78f613bfb26fa2ef19a3733b4a8dc6f",
+  "goose__q3-silent__r2": "ebd9562b93fec48ddeabcf7347304c294260b06a91be9a3aeae480819d1abd36"
+ },
+ "client_holdout_any_source": {
+  "claude-code": {
+   "windows": 60,
+   "covered_any_default_source": 60,
+   "timed_records": 1637
+  },
+  "codex": {
+   "windows": 60,
+   "covered_any_default_source": 60,
+   "timed_records": 10918
+  },
+  "gemini": {
+   "windows": 60,
+   "covered_any_default_source": 60,
+   "timed_records": 988
+  },
+  "goose": {
+   "windows": 60,
+   "covered_any_default_source": 60,
+   "timed_records": 1139
+  },
+  "qwen": {
+   "windows": 60,
+   "covered_any_default_source": 60,
+   "timed_records": 3599
+  }
+ }
+}

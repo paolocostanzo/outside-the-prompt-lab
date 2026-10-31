@@ -30,8 +30,13 @@ python3 reproduce.py --tests    # also every test suite (stubs, a temporary HOME
 ```
 The analyses write only to a temporary directory and never start a client, a VM, a model or a network call. Counts the paper
 reads directly from evidence tables (RQ2 current-version re-checks, non-interactive and graphical cells; RQ3 graphical clients)
-are not regenerated: their folders' READMEs give the counts and source files. Needs a git checkout (RQ1
-reads the frozen frame from its commit). Model answers, human labels, client captures and the private RQ5 log archives are inputs,
+are not regenerated: their folders' READMEs give the counts and source files. Each output line is labelled *recomputed from
+public data*, *compared with a saved result* (the RQ1 sample check, which trusts the stored drand value offline) or *needs
+private data* (listed, not run). From a release archive without `.git`, RQ1 reads the frozen frame from the working tree and
+accepts it only if its SHA-256 equals the one in `rq1-sample-manifest.json` (the sample check uses `verify_archive.py`), and
+every RQ2–RQ5 check and the RQ1 sample and R0-provenance checks run unchanged; the RQ1 primary and exploratory D51 analyses
+still need a git clone, because `estimate.py` must be the copy in the frame commit (D44) and the sample manifest records no
+hash for it, so without the history they stop instead of trusting the working-tree copy. Model answers, human labels, client captures and the private RQ5 log archives are inputs,
 not regenerated. SHA-256 manifests exist for the RQ1 advisory-query inputs (`preregistration/rq1/raw-20261025/`), the RQ2 evidence
 (`trusting-a-repo/evidence/environment.json`) and the RQ3 evidence (`tool-change/evidence/SHA256SUMS` for the primary, conformance, set-up and graphical-client folders; the
 exploratory folders `open-weight-20261024/` (D39) and `positive-control-20261028/` (D52) list every file's SHA-256 in the

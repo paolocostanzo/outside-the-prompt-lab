@@ -7,14 +7,18 @@ the run directory named <run>-rq1-analysis; never inside the run directory, whic
 
 The frame is read from the frame commit named in rq1-sample-manifest.json and checked against the manifest's hash; the sample is
 recomputed from that frame and seed and must equal rq1-sample.csv; estimate.py must be the copy in the frame commit (its hash is
-recorded). Inputs otherwise: rq1-r0.json (whose hash the run manifest recorded), rq1-flags.json, rq1-frame-erratum.csv and the
+recorded). Without git history (a release archive, no .git, git missing or the commit absent) each of these files is read
+from the working tree instead and accepted only if its SHA-256 equals the hash recorded for it in rq1-sample-manifest.json;
+a file with no recorded hash stops the analysis (fails closed). The manifest records the frame (frame_sha256) and the sampler
+(script_sha256, checked in every mode) but not estimate.py, so the estimate.py binding needs the git history. Inputs otherwise: rq1-r0.json (whose hash the run manifest recorded), rq1-flags.json, rq1-frame-erratum.csv and the
 confirmatory run directory written by classify.py. Analyses that need inputs this script does not handle (a grouping erratum,
 summaries corrected after the runs) stop it with a message instead of being skipped.
 """
-import csv, io, json, pathlib, subprocess, sys
+import csv, hashlib, io, json, pathlib, subprocess, sys
 from fractions import Fraction
 
 HERE = pathlib.Path(__file__).resolve().parent
+ROOT = HERE.parents[1]  # repository root: git paths are relative to it
 sys.path.insert(0, str(HERE)); sys.path.insert(0, str(HERE.parent))
 import estimate as es  # noqa: E402
 import classify  # noqa: E402
@@ -243,8 +247,57 @@ def markdown(res):
     return "\n".join(out) + "\n"
 
 
-def git_show(commit, path):
-    return subprocess.run(["git", "-C", str(HERE), "show", f"{commit}:{path}"], capture_output=True, check=True).stdout
+ESTIMATE_IN_REPO = "preregistration/rq1/estimate.py"
+
+
+def recorded_sha256(commit, path):
+    """SHA-256 that rq1-sample-manifest.json records for `path` as it is in `commit`, or None when none is recorded."""
+    m = json.loads((HERE / "rq1-sample-manifest.json").read_text())
+    if commit != m["frame_commit"]:
+        return None
+    return {sf.FRAME_IN_REPO: m.get("frame_sha256"), sf.SCRIPT_IN_REPO: m.get("script_sha256")}.get(path)
+
+
+def git_show(commit, path, sha256=None):
+    """`path` as it is in `commit`. Without git history (no .git, git missing, commit or file absent) the working-tree file is
+    read instead and accepted only if its SHA-256 equals sha256 (default: the hash the sample manifest records for it); with no
+    recorded hash, or another hash, it fails closed."""
+    try:
+        return subprocess.run(["git", "-C", str(HERE), "show", f"{commit}:{path}"], capture_output=True, check=True).stdout
+    except (subprocess.CalledProcessError, OSError):
+        pass
+    sha256 = sha256 or recorded_sha256(commit, path)
+    if not sha256:
+        sys.exit(f"{path}: not readable from commit {commit} (no git history) and no SHA-256 is recorded for it: refused")
+    try:
+        raw = (ROOT / path).read_bytes()
+    except OSError as e:
+        sys.exit(f"{path}: not readable from commit {commit} (no git history) nor from the working tree ({e})")
+    if hashlib.sha256(raw).hexdigest() != sha256:
+        sys.exit(f"{path}: the working-tree file differs from the SHA-256 recorded for commit {commit}: refused")
+    return raw
+
+
+def estimate_binding(commit):
+    """D44: estimate.py must be the copy in the frame commit; returns its SHA-256. With git history this is estimate.bound_to,
+    unchanged; without it the copy is checked through git_show, which needs a recorded hash."""
+    try:
+        return es.bound_to(commit)
+    except (subprocess.CalledProcessError, OSError):
+        pass
+    if recorded_sha256(commit, ESTIMATE_IN_REPO) is None:
+        sys.exit("estimate.py: its copy in the frame commit cannot be read without git history, and rq1-sample-manifest.json "
+                 "records no SHA-256 for it: the binding is not verifiable here (run from a git clone)")
+    copy = git_show(commit, ESTIMATE_IN_REPO)
+    if copy != pathlib.Path(es.__file__).resolve().read_bytes():
+        sys.exit("estimate.py differs from its copy in the frame commit")
+    return hashlib.sha256(copy).hexdigest()
+
+
+def check_sampler(sman):
+    """The sampler used to recompute the sample must be the script recorded in the sample manifest (script_sha256)."""
+    if hashlib.sha256(pathlib.Path(sf.__file__).resolve().read_bytes()).hexdigest() != sman["script_sha256"]:
+        sys.exit("sample_frame.py differs from the sampler recorded in the sample manifest")
 
 
 def model_quality(run_dir, manifest):
@@ -266,14 +319,15 @@ def main(run_dir, out_dir=None):
         sys.exit("summaries were corrected after the runs: the D41 point 7 analysis is not implemented here; implement and "
                  "review it before running the analysis")
     sman = json.loads((HERE / "rq1-sample-manifest.json").read_text())
-    frame_raw = git_show(sman["frame_commit"], sf.FRAME_IN_REPO)
-    if __import__("hashlib").sha256(frame_raw).hexdigest() != sman["frame_sha256"]:
+    frame_raw = git_show(sman["frame_commit"], sf.FRAME_IN_REPO, sman["frame_sha256"])
+    if hashlib.sha256(frame_raw).hexdigest() != sman["frame_sha256"]:
         sys.exit("the frame in the frame commit differs from the sample manifest")
+    check_sampler(sman)
     _, _, recomputed = sf.sample(sf.read_frame(frame_raw), sman["seed"])
     with open(HERE / "rq1-sample.csv", newline="") as f:
         if [dict(r) for r in csv.DictReader(f)] != [{k: str(v) for k, v in r.items()} for r in recomputed]:
             sys.exit("rq1-sample.csv differs from the sample recomputed from the frozen frame and seed")
-    est_sha = es.bound_to(sman["frame_commit"])
+    est_sha = estimate_binding(sman["frame_commit"])
     models, manifest = classify.load_models(run_dir)  # confirmatory manifest, roster and digests enforced
     r0_path = HERE / "rq1-r0.json"
     if manifest.get("r0_sha256") != classify.sha256_file(r0_path):
