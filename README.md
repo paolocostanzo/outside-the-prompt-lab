@@ -31,7 +31,7 @@ The analyses write only to a temporary directory and never start a client, a VM,
 reads directly from evidence tables (RQ2 current-version re-checks, non-interactive and graphical cells; RQ3 graphical clients)
 are not regenerated: their folders' READMEs give the counts and source files. Needs a git checkout (RQ1
 reads the frozen frame from its commit). Model answers, human labels, client captures and the private RQ5 log archives are inputs,
-not regenerated. SHA-256 manifests exist for the RQ1 raw answers (`preregistration/rq1/raw-20261025/`), the RQ2 evidence
+not regenerated. SHA-256 manifests exist for the RQ1 advisory-query inputs (`preregistration/rq1/raw-20261025/`), the RQ2 evidence
 (`trusting-a-repo/evidence/environment.json`) and the RQ3 evidence (`tool-change/evidence/SHA256SUMS`); the private RQ5 log
 archives are not hashed here, except the package given to the second rule author (`telemetry/rules/second-author/package-SHA256SUMS`).
 

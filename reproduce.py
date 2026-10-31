@@ -24,7 +24,7 @@ against a temporary HOME, and the open-weight proxy tests exchange HTTP with the
 node directly (no npm, which would write logs under $HOME), on a temporary copy of the tree.
 
 Not regenerable here, by design: model-rater answers (need the models), human labels and codings, client captures (need the VM
-and the clients), RQ5 inputs (need private log archives). SHA-256 manifests exist for the RQ1 raw answers, the RQ2 evidence
+and the clients), RQ5 inputs (need private log archives). SHA-256 manifests exist for the RQ1 advisory-query inputs, the RQ2 evidence
 (environment.json) and the RQ3 evidence (SHA256SUMS); the private RQ5 archives are not hashed, except the second rule author's package.
 """
 import csv, io, json, os, pathlib, shutil, subprocess, sys, tempfile
