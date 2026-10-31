@@ -1705,4 +1705,6 @@ checked from the artifact. Written after all RQ4 results were known.
 2. *D50 point 3, Cursor CLI in RQ5.* D50 says Cursor CLI was added to RQ5 later (D29). D24 point 3 already planned the event runs
    on the six terminal clients, Cursor CLI included; D29 deferred Cursor CLI's runs because its account had no quota. The H5
    verdict is on the five clients that ran, as D50 says.
+3. *D23, naming the removed server.* D23 says the server it moved to the servers without a defence is named, with file and line
+   evidence, in the released census evidence. The release does not name it and reports no figure for it (D53).
 **Effect.** None on any figure; the paper follows the corrected statements.
