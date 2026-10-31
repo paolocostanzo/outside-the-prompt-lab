@@ -43,6 +43,10 @@ exploratory folders `open-weight-20261024/` (D39) and `positive-control-20261028
 `manifest` key of their `secret-gate.json`); the private RQ5 log
 archives are not hashed here, except the package given to the second rule author (`telemetry/rules/second-author/package-SHA256SUMS`).
 
+Post hoc analyses (D55) are not run by `reproduce.py`: run them from their folders — `python3 tool-change/states-posthoc/states.py`
+(public evidence) and `telemetry/coverage-posthoc/coverage.py` (needs the private redacted RQ5 archives, whose SHA-256 it records);
+the RQ1 audit and the RQ4 partial detail are coded readings, not scripts.
+
 ## Quick start (Q5 components, no VM needed)
 ```bash
 cd trusting-a-repo

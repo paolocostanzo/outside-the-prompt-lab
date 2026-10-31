@@ -362,14 +362,14 @@
   "primary": {
    "attempts": 60,
    "question_after_change_same_session": 0,
-   "change_triggered_question": 0,
-   "outage_triggered_question": 0
+   "change_related_question": 0,
+   "classifier_unavailable_message": 0
   },
   "including_discarded_attempt": {
    "attempts": 61,
    "question_after_change_same_session": 1,
-   "change_triggered_question": 0,
-   "outage_triggered_question": 1,
+   "change_related_question": "0 in the 60 retained; unknown for the discarded attempt (no server log)",
+   "classifier_unavailable_message": 1,
    "clients_with_any_question_after_change": [
     "qwen"
    ],

@@ -111,10 +111,10 @@ In D52 a question after the change is the first approval of a new name, not a se
 
 Evidence kept: harness-sha256.txt, qwen__none__r4__00-p1-open.txt, qwen__none__r4__01-p1-end.txt, qwen__none__r4__02-p2-after-flip.txt, qwen__none__r4__03-p2-approval.txt (no row.json, no server log). First call shown as successful: True; question at the first call: False. After the change: question shown True; cause stated by the client: classifier unavailable; message mentions a change: False. List re-requested, definition received or loaded, tool called: not observable.
 
-| Analysis | Attempts | Question after change (same session) | Change-triggered | Outage-triggered |
+| Analysis | Attempts | Question after change (same session) | Caused by the change | Client message names classifier unavailability |
 |---|---|---|---|---|
 | Primary (as preregistered + D19) | 60 | 0 | 0 | 0 |
-| Including the discarded attempt | 61 | 1 | 0 | 1 |
+| Including the discarded attempt | 61 | 1 | 0 in the 60 retained; unknown for the discarded attempt (no server log) | 1 |
 
 Counting the discarded attempt as a question would give one client (Qwen Code) one question in 6 no-signal attempts; H3's first clause (at most one client requires re-approval) would still hold. The client's own message attributes the question to its classifier being unavailable and does not mention a change; server-side states of that attempt are not observable.
 The primary result is unchanged.

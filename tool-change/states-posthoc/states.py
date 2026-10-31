@@ -243,12 +243,12 @@ def main():
     primary_q = checks["p2_questions_after_change"]
     sensitivity = {
         "primary": {"attempts": 60, "question_after_change_same_session": primary_q,
-                    "change_triggered_question": primary_q, "outage_triggered_question": 0},
+                    "change_related_question": primary_q, "classifier_unavailable_message": 0},
         "including_discarded_attempt": {
             "attempts": 61,
             "question_after_change_same_session": primary_q + int(fa["p2"]["question_shown"]),
-            "change_triggered_question": primary_q,
-            "outage_triggered_question": int(fa["p2"]["question_shown"]
+            "change_related_question": f"{primary_q} in the 60 retained; unknown for the discarded attempt (no server log)",
+            "classifier_unavailable_message": int(fa["p2"]["question_shown"]
                                              and fa["p2"]["question_cause_shown_by_client"] == "classifier unavailable"),
             "clients_with_any_question_after_change": sorted({r["client"] for r in reps if r["p2"]["question_shown"]}
                                                              | ({"qwen"} if fa["p2"]["question_shown"] else set())),
@@ -324,14 +324,14 @@ def render(data):
           f"After the change: question shown {fa['p2']['question_shown']}; cause stated by the client: "
           f"{fa['p2']['question_cause_shown_by_client']}; message mentions a change: {fa['p2']['question_mentions_change']}. "
           "List re-requested, definition received or loaded, tool called: not observable.", "",
-          "| Analysis | Attempts | Question after change (same session) | Change-triggered | Outage-triggered |",
+          "| Analysis | Attempts | Question after change (same session) | Caused by the change | Client message names classifier unavailability |",
           "|---|---|---|---|---|",
           f"| Primary (as preregistered + D19) | {s['primary']['attempts']} | {s['primary']['question_after_change_same_session']} "
-          f"| {s['primary']['change_triggered_question']} | {s['primary']['outage_triggered_question']} |",
+          f"| {s['primary']['change_related_question']} | {s['primary']['classifier_unavailable_message']} |",
           f"| Including the discarded attempt | {s['including_discarded_attempt']['attempts']} "
           f"| {s['including_discarded_attempt']['question_after_change_same_session']} "
-          f"| {s['including_discarded_attempt']['change_triggered_question']} "
-          f"| {s['including_discarded_attempt']['outage_triggered_question']} |", "",
+          f"| {s['including_discarded_attempt']['change_related_question']} "
+          f"| {s['including_discarded_attempt']['classifier_unavailable_message']} |", "",
           s["including_discarded_attempt"]["note"], "The primary result is unchanged.", ""]
     return "\n".join(L)
 

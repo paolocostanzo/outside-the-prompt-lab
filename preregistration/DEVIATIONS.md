@@ -1709,7 +1709,7 @@ checked from the artifact. Written after all RQ4 results were known.
    evidence, in the released census evidence. The release does not name it and reports no figure for it (D53).
 **Effect.** None on any figure; the paper follows the corrected statements.
 
-### D55 · 1 Nov 2026 · post hoc, exploratory — four analyses and two reproduction changes after all results
+### D55 · 31 Oct 2026 · post hoc, exploratory — four analyses and two reproduction changes after all results
 Written after all results, during the pre-submission strengthening. None changes a confirmatory figure, verdict, label or census.
 1. *RQ5 log coverage* (`telemetry/coverage-posthoc/`): a pair is assessed for false positives only if at least 30 of its 60
    held-out windows hold a record of the rule's source (threshold fixed in the script before it ran, but after the per-pair
@@ -1726,6 +1726,9 @@ Written after all results, during the pre-submission strengthening. None changes
    equals the manifest's; without history the RQ1 primary and D51 analyses still stop (no recorded hash of the frame commit's
    `estimate.py`). `reproduce.py` labels each output (recomputed from public data / compared with a saved result / needs private
    data) and no longer aborts at the first failed check (exit code still 1).
-6. *D27, wording.* "The author's rules" names the primary rule track; those rules were drafted by Claude in the author's sessions
-   and fixed by the author, as the paper states.
+6. *D27, wording.* "The author's rules" names the primary rule track; those rules were drafted by Claude in the author's
+   sessions, as the paper states.
+7. *Reproduction scope.* `reproduce.py` reruns the confirmatory and D51 analyses; the post hoc scripts of points 1–2 are run
+   separately from their folders (`states.py` on public evidence; `coverage.py` needs the private redacted archives, whose SHA-256
+   hashes it records).
 **Effect.** Exploratory results reported as such; confirmatory results unchanged.
