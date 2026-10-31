@@ -1686,3 +1686,23 @@ confirmatory figure or verdict. D50 point 2 recorded that the positive control o
    `run_q3_cell.py` as amended by D19 (609c880), which in the primary matrix ran 1 of the 60 cells (the other 59 used the D18
    version); it adds the recording of an unavailable classifier and of unexpected questions. The snapshot also differs from the
    primary one in its credentials (D26, D35), not in client versions.
+
+### D53 · 31 Oct 2026 · D23 (RQ4), reporting — agreement reported on the published servers only
+**Event.** D23 said that agreement between the two census readings (D22) would be computed on the original labels on the
+eight-server set and, filtering the same labels, on the seven-server set. The pre-submission checks of 31 October found that the
+paper reports agreement on the six servers whose figures are published (269 registered tools), not on those two sets. The two sets
+include readings of servers whose figures are not published; those readings are not in the artifact.
+**Change.** Agreement is reported on the six published servers only, from readings that are in the artifact and that the
+reproduction script recomputes. The eight- and seven-server comparisons promised by D23 are not reported, because they could not be
+checked from the artifact. Written after all RQ4 results were known.
+**Effect.** No coverage figure, label or adjudication changes; only the population over which reading agreement is reported.
+
+### D54 · 31 Oct 2026 · recorded after the fact — two statements of earlier entries corrected (found by the pre-submission checks)
+1. *D22, published first reading.* D22 says the frozen first-reading table is published with the census evidence. The published
+   files (`defence-coverage/results-20261024/first-reading.csv`, `second-reading.csv`) hold the 269 rows of the six servers whose
+   figures are published, not the full table whose SHA-256 D22 gives; the other rows belong to servers whose figures are not
+   published (D53). The SHA-256 in D22 is that of the full private table.
+2. *D50 point 3, Cursor CLI in RQ5.* D50 says Cursor CLI was added to RQ5 later (D29). D24 point 3 already planned the event runs
+   on the six terminal clients, Cursor CLI included; D29 deferred Cursor CLI's runs because its account had no quota. The H5
+   verdict is on the five clients that ran, as D50 says.
+**Effect.** None on any figure; the paper follows the corrected statements.
