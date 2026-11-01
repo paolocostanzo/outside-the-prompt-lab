@@ -1746,8 +1746,8 @@ from the distributed archive without git history.
    primary sources only, blind to every label, as A (sufficient chain without model manipulation), B (chain needs the model to
    follow untrusted instructions) or C (cannot tell); by Claude, then blind by a model of another provider (Codex). Exact
    agreement 101/120; joint outcome A 76, B 11, undetermined or disputed 33. Stratified share of A (frame weights, `estimate.py`
-   unmodified): 86.9% among cases both decided, 63.5% (49.1–74.5%) with the rest counted against. Frame check: one likely
-   grouping error and four possibly ineligible cases (`frame-check.md`); no label or frame row changes. Source excerpts stay
+   unmodified): 86.9% among cases both decided, 63.5% (49.1–74.5%) with the rest counted against. Frame check: a conditional
+   doubt on the counting unit of one cross-product bundle (permitted by D41 point 1) and four possibly ineligible cases (`frame-check.md`); no label or frame row changes. Source excerpts stay
    lab-side (`source-audit-PRIVATE.csv`, not published) because they name products.
 2. *Agreement* (`preregistration/rq1/agreement-posthoc/`): Gwet's AC1, PABAK and the R0 × model-majority confusion matrix;
    the reported Fleiss κ values are reproduced first.

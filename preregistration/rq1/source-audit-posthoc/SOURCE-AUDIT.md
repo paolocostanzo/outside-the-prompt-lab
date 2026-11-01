@@ -99,8 +99,8 @@ Reasons per case are in `source-audit.csv`.
 
 ## Frame side
 
-See `frame-check.md`: no sampled pair found to be the same flaw; one likely grouping error (RQ1-0215 groups two
-products), one pair worth checking for a shared root cause / incomplete fix (RQ1-0143 / RQ1-0302, with RQ1-0096), and
+See `frame-check.md`: no sampled pair found to be the same flaw; one conditional doubt on the counting unit (RQ1-0215 groups two
+products from one bulletin; D41 point 1 permits cross-product bundles, so this is a concern only under a per-product unit), one pair worth checking for a shared root cause / incomplete fix (RQ1-0143 / RQ1-0302, with RQ1-0096), and
 four eligibility suspicions (RQ1-0005, 0027, 0300, 0025).
 
 ## Files
