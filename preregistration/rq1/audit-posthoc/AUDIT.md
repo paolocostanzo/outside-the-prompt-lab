@@ -54,8 +54,13 @@ The 58 cases that reach class 3 only through the decision rule:
 | Sandbox escape, template code generation, a bundle of filter bypasses | 1 each |
 
 Of the 58: 45 are MCP servers or connectors, 10 agent clients and 3 SDKs. The model majority is 3 for 49 of them, 1 for 8,
-and there is no majority for 1. 38 of the 58 are flagged. All 58 labels follow the frozen decision rule. None contradicts it.
-They are not instances of the literal class-3 clause, however.
+and there is no majority for 1. 38 of the 58 are flagged. The 58 labels rest on reading the frozen decision rule as exhaustive (it offers no class beyond
+1–4); the class-3 and step-3 wording (authentication, authorisation, origin) does not cover them, and no deviation rules on
+this, so the labels are kept and flagged. The per-case violated property, a source paraphrase and the evidence reference are in
+`rq1-class3-residual-map.csv` (built by `class3_residual.py`). Of the 58, 6 are `arguable_authorisation` (the source itself frames
+the flaw as an access-control or permission bypass), 5 have a competing literal class 1 (all agent clients, of the 10), and for 4
+the violated property is "not stated in the source". The per-case property was written by an AI coder (Claude) after all
+results were known, without a second rater; it is exploratory.
 
 *Exploratory variant (not a reinterpretation):* the share of the sample whose label matches a literal class clause (classes 1
 and 2, plus class 3 only where the authentication, authorisation or origin clause fits) is 41.6% stratified (interval
