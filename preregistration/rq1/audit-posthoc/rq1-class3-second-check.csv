@@ -1,0 +1,59 @@
+case_id,r2_scope,r2_violated_property,r2_class3_wording_covers,r2_competing_literal_class,agree_all_fields,note,label_kept
+RQ1-0001,service_around_agent,Attachment requests must not expose internal network services,no,,yes,,yes
+RQ1-0004,service_around_agent,Tool responses must remain isolated to the requesting client,no,,yes,,yes
+RQ1-0006,service_around_agent,Credentialed requests must remain within the configured endpoint scope,yes,,yes,,yes
+RQ1-0014,service_around_agent,Rejected requests must not permanently exhaust server memory,no,,yes,,yes
+RQ1-0016,agent_client,Run file reads and writes must remain inside the runs directory,no,1,no,scope follows the frozen frame (service); class 1 not applied to a service,yes
+RQ1-0027,service_around_agent,Template file references must remain inside the plugin package,no,,yes,,yes
+RQ1-0034,service_around_agent,Caller supplied table names must not permit arbitrary SQL execution,no,,yes,,yes
+RQ1-0039,agent_client,File writes must remain within the configured sandbox,no,1,no,scope follows the frozen frame (service); class 1 not applied to a service,yes
+RQ1-0066,service_around_agent,Dependency scans must only read files inside the intended project,no,,yes,,yes
+RQ1-0067,service_around_agent,File operations must remain restricted to safe directories,no,,yes,,yes
+RQ1-0074,service_around_agent,Generated files must remain inside the configured project root,no,,yes,,yes
+RQ1-0096,agent_client,Uploaded server configurations must undergo validation before process spawning,no,1,yes,,yes
+RQ1-0109,service_around_agent,File searches must remain within the configured base directory,no,,yes,,yes
+RQ1-0122,service_around_agent,Access tokens must not be forwarded to attacker controlled destinations,no,,yes,,yes
+RQ1-0124,service_around_agent,Containerized servers must not access unauthenticated host control and sibling tools,yes,,yes,,yes
+RQ1-0130,agent_client,Untrusted Python must not bypass validation and access host capabilities,no,1,yes,,yes
+RQ1-0131,agent_client,Server configuration must not bypass restrictions on local command execution,no,1,yes,,yes
+RQ1-0144,service_around_agent,Node schema paths must not traverse to malicious executable files,no,,no,scope follows the frozen frame (agent client); class 1 disputed (one rater),yes
+RQ1-0148,service_around_agent,Remote command parameters must not execute local shell commands,no,,yes,,yes
+RQ1-0155,service_around_agent,Git review parameters must not execute arbitrary local shell commands,no,,yes,,yes
+RQ1-0156,service_around_agent,Query parameters must remain data rather than executable shell text,no,,yes,,yes
+RQ1-0157,service_around_agent,File operations must remain within intended storage directories,no,,yes,,yes
+RQ1-0159,service_around_agent,Output directory values must not inject shell commands,no,,yes,,yes
+RQ1-0168,service_around_agent,Filesystem operations must remain within a trusted workspace,no,,yes,,yes
+RQ1-0174,service_around_agent,Tool arguments must remain data rather than executable shell fragments,no,,yes,,yes
+RQ1-0176,service_around_agent,Web requests must exclude internal and private network destinations,no,,yes,,yes
+RQ1-0177,service_around_agent,Generated file writes must remain within the intended output directory,no,,yes,,yes
+RQ1-0178,service_around_agent,Resource requests must exclude internal network destinations,no,,yes,,yes
+RQ1-0180,service_around_agent,Local file reads and outbound submissions must respect workspace boundaries,no,,yes,,yes
+RQ1-0182,service_around_agent,Session file reads and writes must remain within trusted storage,no,,yes,,yes
+RQ1-0184,service_around_agent,Local file uploads must remain within the intended workspace,no,,yes,,yes
+RQ1-0185,service_around_agent,Server requests must target trusted API endpoints,no,,yes,,yes
+RQ1-0186,service_around_agent,Proxy requests must target trusted API origins,no,,yes,,yes
+RQ1-0187,service_around_agent,Outbound requests must respect destination and network boundaries,no,,yes,,yes
+RQ1-0196,service_around_agent,Specification requests must respect destination and network boundaries,no,,yes,,yes
+RQ1-0198,service_around_agent,Client availability must withstand delimiter-free streams without unbounded memory growth,no,,yes,,yes
+RQ1-0208,service_around_agent,Browser requests must exclude internal and metadata destinations,no,,yes,,yes
+RQ1-0218,agent_client,Information confidentiality against server-side request forgery,no,,no,first rater: no property stated in the source; second rater gives only a generic property,yes
+RQ1-0222,service_around_agent,Server requests must exclude internal and link-local destinations,no,,no,"access framing disputed (one rater): source says any logged-in user, not only administrators, may register",yes
+RQ1-0227,service_around_agent,Python sandbox confinement and authenticated tool access,yes,,no,access framing disputed (one rater): source says the tool can be exposed without authentication,yes
+RQ1-0250,service_around_agent,File reads confined to the intended workspace,no,,yes,,yes
+RQ1-0251,service_around_agent,Filesystem operations confined to project and vault boundaries,no,,yes,,yes
+RQ1-0255,service_around_agent,File operations confined to the configured storage directory,no,,yes,,yes
+RQ1-0258,service_around_agent,Local file confidentiality and upload path confinement,no,,yes,,yes
+RQ1-0279,service_around_agent,Authentication and local-only restrictions on subprocess-capable endpoints,yes,,no,scope follows the frozen frame (agent client); class 1 disputed (one rater); both raters: access framing,yes
+RQ1-0283,agent_client,Agent worker availability under concurrent expensive requests,no,,yes,,yes
+RQ1-0285,service_around_agent,Local file reads confined to an allowed directory,no,,yes,,yes
+RQ1-0288,service_around_agent,Generated application code integrity against crafted data model names,no,,yes,,yes
+RQ1-0292,service_around_agent,Read-only database scope enforcement,yes,,yes,,yes
+RQ1-0299,service_around_agent,Source file reads confined to the project root,no,,no,access framing disputed (one rater): source says the tool is available under every permission preset,yes
+RQ1-0307,service_around_agent,Security filtering of nested payload content,no,,yes,,yes
+RQ1-0311,agent_client,Information confidentiality against network disclosure,no,,no,first rater: no property stated in the source; second rater gives only a generic property,yes
+RQ1-0312,agent_client,Information confidentiality and communication restricted to intended endpoints,no,,no,first rater: no property stated in the source; second rater gives only a generic property,yes
+RQ1-0313,agent_client,Privilege boundaries against elevation through command injection,no,,no,first rater: no property stated in the source; second rater gives only a generic property,yes
+RQ1-0316,service_around_agent,OS command integrity against caller-controlled URL injection,no,,yes,,yes
+RQ1-0317,service_around_agent,Local file reads confined to the intended data directory,no,,yes,,yes
+RQ1-0321,service_around_agent,Outbound requests restricted to permitted destinations and redirect targets,no,,yes,,yes
+RQ1-0328,service_around_agent,Log downloads confined to the configured log directory,no,,yes,,yes

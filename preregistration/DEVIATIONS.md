@@ -1723,7 +1723,8 @@ Written after all results, during the pre-submission strengthening. None changes
 4. *RQ1 audit* (`preregistration/rq1/audit-posthoc/`): which class-3 clause each author label fits, the 1–3/4 boundary cases checked
    against the source excerpts in the lab, and the split of the 74 flagged cases; coded by one AI, not checked by a second human.
    Added 1 Nov 2026 after an external review: for the 58 labels outside the class-3 wording, the violated property and the
-   source evidence per case (`rq1-class3-residual-map.csv`, built by `class3_residual.py`); no label changes.
+   source evidence per case (`rq1-class3-residual-map.csv`, built by `class3_residual.py`); no label changes. A blind second
+   check by a model of another provider (`rq1-class3-second-check.csv`) agrees on all fields for 47 of 58.
 5. *Reproduction.* `analyze.py` accepts the frozen frame from the working tree when there is no git history, only if its SHA-256
    equals the manifest's; without history the RQ1 primary and D51 analyses still stop (no recorded hash of the frame commit's
    `estimate.py`). `reproduce.py` labels each output (recomputed from public data / compared with a saved result / needs private

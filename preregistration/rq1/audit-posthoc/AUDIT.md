@@ -60,7 +60,13 @@ this, so the labels are kept and flagged. The per-case violated property, a sour
 `rq1-class3-residual-map.csv` (built by `class3_residual.py`). Of the 58, 6 are `arguable_authorisation` (the source itself frames
 the flaw as an access-control or permission bypass), 5 have a competing literal class 1 (all agent clients, of the 10), and for 4
 the violated property is "not stated in the source". The per-case property was written by an AI coder (Claude) after all
-results were known, without a second rater; it is exploratory.
+results were known; it is exploratory. A second check (1 Nov 2026, `rq1-class3-second-check.csv`) was made by a model of
+another provider (Codex, gpt-6.1-sol), blind to this map, from the same saved sources and the frozen wording only. The two
+agree on all fields for 47 of the 58 cases. Both find an access or permission framing in the source for 4 cases (0006, 0124,
+0279, 0292); one rater only for 3 more (0222, 0227, 0299). Both see class 1 as a competing reading for 3 agent clients (0096,
+0130, 0131); one rater only for 2 more (0144, 0279), and the second rater also for 2 cases the frozen frame lists as services
+(0016, 0039; scope follows the frame). For the 4 cases with no property stated, the second rater gives only a generic one
+(confidentiality, privilege). Disagreements are recorded, not resolved by relabelling; no label changes.
 
 *Exploratory variant (not a reinterpretation):* the share of the sample whose label matches a literal class clause (classes 1
 and 2, plus class 3 only where the authentication, authorisation or origin clause fits) is 41.6% stratified (interval
