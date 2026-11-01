@@ -1737,3 +1737,24 @@ Written after all results, during the pre-submission strengthening. None changes
    separately from their folders (`states.py` on public evidence; `coverage.py` needs the private redacted archives, whose SHA-256
    hashes it records).
 **Effect.** Exploratory results reported as such; confirmatory results unchanged.
+
+### D56 · 1 Nov 2026 · post hoc, exploratory — RQ1 source audit, robust agreement, chronology and archive reproduction, after all results
+**Why.** External reviews of the manuscript asked whether the RQ1 share survives a reading of the primary sources with an
+explicit "cannot tell" outcome, for prevalence-robust agreement, for a verifiable chronology of decisions, and for reproduction
+from the distributed archive without git history.
+1. *RQ1 source audit* (`preregistration/rq1/source-audit-posthoc/`): each of the 120 sampled cases decided from the saved
+   primary sources only, blind to every label, as A (sufficient chain without model manipulation), B (chain needs the model to
+   follow untrusted instructions) or C (cannot tell); by Claude, then blind by a model of another provider (Codex). Exact
+   agreement 101/120; joint outcome A 76, B 11, undetermined or disputed 33. Stratified share of A (frame weights, `estimate.py`
+   unmodified): 86.9% among cases both decided, 63.5% (49.1–74.5%) with the rest counted against. Frame check: one likely
+   grouping error and four possibly ineligible cases (`frame-check.md`); no label or frame row changes. Source excerpts stay
+   lab-side (`source-audit-PRIVATE.csv`, not published) because they name products.
+2. *Agreement* (`preregistration/rq1/agreement-posthoc/`): Gwet's AC1, PABAK and the R0 × model-majority confusion matrix;
+   the reported Fleiss κ values are reproduced first.
+3. *Chronology* (`preregistration/CHRONOLOGY.md`, `chronology.csv`): one row per decision with date, commit, public timestamp,
+   data visible and effect on the verdict.
+4. *Reproduction without git*: `frame-commit-pins.json` records the SHA-256 of the frame-commit files the RQ1 analyses read;
+   without history the working-tree file is accepted only if it equals the pin, with history the commit copy must equal it.
+   The Fisher test on flagged cases is now a `reproduce.py` check (`fisher_flags.py`). `REPRODUCTION-REPORT.md` lists the outputs
+   and their state.
+**Effect.** Exploratory results reported as such; preregistered verdicts and figures unchanged.

@@ -213,7 +213,7 @@ def verified_inputs():
         if [dict(r) for r in csv.DictReader(fh)] != sample_rows:
             sys.exit("rq1-sample.csv differs from the sample recomputed from the frozen frame and seed")
     provenance = {"frame_commit": sman["frame_commit"], "frame_sha256": sman["frame_sha256"],
-                  "estimate_sha256": an.es.bound_to(sman["frame_commit"])}
+                  "estimate_sha256": an.estimate_binding(sman["frame_commit"])}
     return list(csv.DictReader(io.StringIO(frame_raw.decode()))), sample_rows, provenance
 
 

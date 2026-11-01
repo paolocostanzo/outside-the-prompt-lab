@@ -1,0 +1,229 @@
+{
+ "post_hoc": true,
+ "exploratory": true,
+ "written": "2026-11-01",
+ "h1a_unchanged": "H1a (preregistered: Fleiss' kappa >= 0.6, all four raters, four classes) is not met; nothing here changes that verdict.",
+ "bootstrap": {
+  "method": "percentile, resampling cases with replacement (explore_disagreement.boot)",
+  "resamples": 2000,
+  "seed": 20261028,
+  "rng": "fresh random.Random(seed) for each interval"
+ },
+ "n_sampled": 120,
+ "checks_against_saved": {
+  "Fleiss kappa, four classes (RESULTS-RQ1.json H1a.fleiss_all_raters)": {
+   "recomputed": 0.4578425873995138,
+   "saved": 0.4578425873995138,
+   "match": true
+  },
+  "cases used by Fleiss kappa (RESULTS-RQ1.json H1a.n_complete)": {
+   "recomputed": 120,
+   "saved": 120,
+   "match": true
+  },
+  "Fleiss kappa, binary (EXPLORATORY-DISAGREEMENT.json; paper 0.48)": {
+   "recomputed": 0.47851851851851845,
+   "saved": 0.47851851851851845,
+   "match": true
+  },
+  "Fleiss kappa, binary, bootstrap low (paper 0.27)": {
+   "recomputed": 0.26675094816687744,
+   "saved": 0.26675094816687744,
+   "match": true
+  },
+  "Fleiss kappa, binary, bootstrap high (paper 0.64)": {
+   "recomputed": 0.6404494382022474,
+   "saved": 0.6404494382022474,
+   "match": true
+  },
+  "Fleiss kappa, four classes, bootstrap low (paper 0.35)": {
+   "recomputed": 0.3457965154578288,
+   "saved": 0.3457965154578288,
+   "match": true
+  },
+  "Fleiss kappa, four classes, bootstrap high (paper 0.55)": {
+   "recomputed": 0.5541444919028803,
+   "saved": 0.5541444919028803,
+   "match": true
+  },
+  "R0 vs majority, cases with a majority (paper 117)": {
+   "recomputed": 117,
+   "saved": 117,
+   "match": true
+  },
+  "R0 vs majority, binary agreements (paper 113 of 117)": {
+   "recomputed": 113,
+   "saved": 113,
+   "match": true
+  },
+  "R0 vs majority, four-class agreements (paper 104 of 117)": {
+   "recomputed": 104,
+   "saved": 104,
+   "match": true
+  },
+  "R0 vs majority, binary raw agreement (EXPLORATORY-DISAGREEMENT.json)": {
+   "recomputed": 0.9658119658119658,
+   "saved": 0.9658119658119658,
+   "match": true
+  },
+  "R0 vs majority, binary Cohen kappa (EXPLORATORY-DISAGREEMENT.json)": {
+   "recomputed": 0.7328767123287672,
+   "saved": 0.7328767123287672,
+   "match": true
+  },
+  "R0 vs majority, binary PABAK (EXPLORATORY-DISAGREEMENT.json)": {
+   "recomputed": 0.9316239316239316,
+   "saved": 0.9316239316239316,
+   "match": true
+  }
+ },
+ "gwet_ac1_multirater": {
+  "raters": [
+   "R0",
+   "gemma4:26b-a4b-it-q8_0",
+   "nemotron-3.5-lightning:30b-a3b-q4_K_M",
+   "qwen3.8:27b-q8_0"
+  ],
+  "n": 120,
+  "four_class": {
+   "ac1": 0.7701513830546087,
+   "ac1_95": {
+    "low": 0.7115158055053772,
+    "high": 0.8301987829614607,
+    "undefined_resamples": 0
+   },
+   "fleiss_kappa": 0.4578425873995138
+  },
+  "binary": {
+   "ac1": 0.9307767944936085,
+   "ac1_95": {
+    "low": 0.8866855524079325,
+    "high": 0.9665157338000838,
+    "undefined_resamples": 0
+   },
+   "fleiss_kappa": 0.47851851851851845
+  },
+  "share_P_per_rater": {
+   "R0": 0.9,
+   "gemma4:26b-a4b-it-q8_0": 0.9083333333333333,
+   "nemotron-3.5-lightning:30b-a3b-q4_K_M": 0.9916666666666667,
+   "qwen3.8:27b-q8_0": 0.95
+  }
+ },
+ "R0_vs_model_majority": {
+  "n": 117,
+  "left_out_no_majority": 3,
+  "four_class": {
+   "raw_agreement": 0.8888888888888888,
+   "agreements": 104,
+   "cohen_kappa": 0.6487297921478058,
+   "pabak": 0.8518518518518517,
+   "pabak_95": {
+    "low": 0.7720797720797722,
+    "high": 0.9202279202279202,
+    "undefined_resamples": 0
+   },
+   "ac1": 0.8758941442054016,
+   "ac1_95": {
+    "low": 0.8082098217334882,
+    "high": 0.9351115806153439,
+    "undefined_resamples": 0
+   }
+  },
+  "binary": {
+   "raw_agreement": 0.9658119658119658,
+   "agreements": 113,
+   "cohen_kappa": 0.7328767123287672,
+   "pabak": 0.9316239316239316,
+   "pabak_95": {
+    "low": 0.8632478632478633,
+    "high": 0.982905982905983,
+    "undefined_resamples": 0
+   },
+   "ac1": 0.9608204269568857,
+   "ac1_95": {
+    "low": 0.9189540219932462,
+    "high": 0.9909263639536237,
+    "undefined_resamples": 0
+   }
+  }
+ },
+ "confusion_R0_x_majority": {
+  "1": {
+   "1": 6,
+   "2": 0,
+   "3": 0,
+   "4": 0,
+   "no majority": 0
+  },
+  "2": {
+   "1": 0,
+   "2": 2,
+   "3": 0,
+   "4": 0,
+   "no majority": 0
+  },
+  "3": {
+   "1": 8,
+   "2": 1,
+   "3": 90,
+   "4": 0,
+   "no majority": 1
+  },
+  "4": {
+   "1": 0,
+   "2": 1,
+   "3": 3,
+   "4": 6,
+   "no majority": 2
+  }
+ },
+ "per_class_agreement": {
+  "1": {
+   "R0 count": 6,
+   "R0 count with a majority": 6,
+   "majority count": 14,
+   "both": 6,
+   "specific_agreement": 0.6,
+   "share of R0's class confirmed by majority": 1.0,
+   "share of majority's class confirmed by R0": 0.42857142857142855
+  },
+  "2": {
+   "R0 count": 2,
+   "R0 count with a majority": 2,
+   "majority count": 4,
+   "both": 2,
+   "specific_agreement": 0.6666666666666666,
+   "share of R0's class confirmed by majority": 1.0,
+   "share of majority's class confirmed by R0": 0.5
+  },
+  "3": {
+   "R0 count": 100,
+   "R0 count with a majority": 99,
+   "majority count": 93,
+   "both": 90,
+   "specific_agreement": 0.9375,
+   "share of R0's class confirmed by majority": 0.9090909090909091,
+   "share of majority's class confirmed by R0": 0.967741935483871
+  },
+  "4": {
+   "R0 count": 12,
+   "R0 count with a majority": 10,
+   "majority count": 6,
+   "both": 6,
+   "specific_agreement": 0.75,
+   "share of R0's class confirmed by majority": 0.6,
+   "share of majority's class confirmed by R0": 1.0
+  }
+ },
+ "no_majority_cases": [
+  "RQ1-0276",
+  "RQ1-0296",
+  "RQ1-0311"
+ ],
+ "run_dir": "preregistration/runs/rq1-confirmatory-20261027T142818Z",
+ "r0_sha256": "06ef87a02908090a9e0a0aea53b5222eeb0d54908c7b7faa4e2666991debdd8d",
+ "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
+ "frame_sha256": "5fe33295abf0a529dd202a4357ec60c40fff9b0f8480015f20199471b81b5887",
+ "estimate_sha256": "e95b5a83c96d98cae52556336670b7ce3677d62fc9ed893d1924c40007110143"
+}

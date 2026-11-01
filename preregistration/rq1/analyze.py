@@ -7,10 +7,12 @@ the run directory named <run>-rq1-analysis; never inside the run directory, whic
 
 The frame is read from the frame commit named in rq1-sample-manifest.json and checked against the manifest's hash; the sample is
 recomputed from that frame and seed and must equal rq1-sample.csv; estimate.py must be the copy in the frame commit (its hash is
-recorded). Without git history (a release archive, no .git, git missing or the commit absent) each of these files is read
-from the working tree instead and accepted only if its SHA-256 equals the hash recorded for it in rq1-sample-manifest.json;
-a file with no recorded hash stops the analysis (fails closed). The manifest records the frame (frame_sha256) and the sampler
-(script_sha256, checked in every mode) but not estimate.py, so the estimate.py binding needs the git history. Inputs otherwise: rq1-r0.json (whose hash the run manifest recorded), rq1-flags.json, rq1-frame-erratum.csv and the
+recorded). frame-commit-pins.json records the SHA-256 of every file read from the frame commit (estimate.py, the frame, the
+sampler), computed from the git history. With git history the commit's copy is read and must equal its pin. Without git
+history (a release archive, no .git, git missing or the commit absent) each file is read from the working tree (or from the
+byte copy a pin names) and accepted only if its SHA-256 equals the hash recorded for it in rq1-sample-manifest.json or, for
+estimate.py, in the pin file; a file with no recorded hash, or a pin contradicting the manifest, stops the analysis (fails
+closed). The sampler (script_sha256) is checked in every mode. Inputs otherwise: rq1-r0.json (whose hash the run manifest recorded), rq1-flags.json, rq1-frame-erratum.csv and the
 confirmatory run directory written by classify.py. Analyses that need inputs this script does not handle (a grouping erratum,
 summaries corrected after the runs) stop it with a message instead of being skipped.
 """
@@ -256,44 +258,88 @@ def markdown(res):
 ESTIMATE_IN_REPO = "preregistration/rq1/estimate.py"
 
 
-def recorded_sha256(commit, path):
-    """SHA-256 that rq1-sample-manifest.json records for `path` as it is in `commit`, or None when none is recorded."""
+PINS = "frame-commit-pins.json"  # SHA-256 of each file read from the frame commit, computed from the git history (A13)
+
+
+def pins(commit):
+    """{path: {"sha256", optional "copy"}} that frame-commit-pins.json records for `commit` ({} when the file is absent or names
+    another commit). A pin that contradicts a hash recorded in rq1-sample-manifest.json stops the analysis."""
+    p = HERE / PINS
+    if not p.exists():
+        return {}
+    d = json.loads(p.read_text())
+    if d.get("frame_commit") != commit:
+        return {}
     m = json.loads((HERE / "rq1-sample-manifest.json").read_text())
-    if commit != m["frame_commit"]:
-        return None
-    return {sf.FRAME_IN_REPO: m.get("frame_sha256"), sf.SCRIPT_IN_REPO: m.get("script_sha256")}.get(path)
+    files = d.get("files", {})
+    for path, h in ((sf.FRAME_IN_REPO, m.get("frame_sha256")), (sf.SCRIPT_IN_REPO, m.get("script_sha256"))):
+        if commit == m["frame_commit"] and h and path in files and files[path]["sha256"] != h:
+            sys.exit(f"{PINS}: the pin for {path} differs from the SHA-256 in rq1-sample-manifest.json: refused")
+    return files
+
+
+def recorded_sha256(commit, path):
+    """SHA-256 recorded for `path` as it is in `commit`: rq1-sample-manifest.json (frame, sampler), else frame-commit-pins.json;
+    None when neither records one."""
+    m = json.loads((HERE / "rq1-sample-manifest.json").read_text())
+    if commit == m["frame_commit"]:
+        h = {sf.FRAME_IN_REPO: m.get("frame_sha256"), sf.SCRIPT_IN_REPO: m.get("script_sha256")}.get(path)
+        if h:
+            return h
+    return pins(commit).get(path, {}).get("sha256")
+
+
+def check_pin(commit, path, raw):
+    """With git history the frame-commit copy wins; a pin recorded for it must equal its SHA-256 (fails closed)."""
+    pin = pins(commit).get(path)
+    if pin and hashlib.sha256(raw).hexdigest() != pin["sha256"]:
+        sys.exit(f"{path}: its copy in commit {commit} differs from the SHA-256 pinned in {PINS}: refused")
+    return raw
 
 
 def git_show(commit, path, sha256=None):
-    """`path` as it is in `commit`. Without git history (no .git, git missing, commit or file absent) the working-tree file is
-    read instead and accepted only if its SHA-256 equals sha256 (default: the hash the sample manifest records for it); with no
-    recorded hash, or another hash, it fails closed."""
+    """`path` as it is in `commit` (checked against its pin, if any). Without git history (no .git, git missing, commit or file
+    absent) the pinned byte copy, if the pin names one, else the working-tree file, is read instead and accepted only if its
+    SHA-256 equals sha256 (default: the hash recorded for it in the sample manifest or the pin file); with no recorded hash, or
+    another hash, it fails closed."""
     try:
-        return subprocess.run(["git", "-C", str(HERE), "show", f"{commit}:{path}"], capture_output=True, check=True).stdout
+        raw = subprocess.run(["git", "-C", str(HERE), "show", f"{commit}:{path}"], capture_output=True, check=True).stdout
     except (subprocess.CalledProcessError, OSError):
         pass
+    else:
+        return check_pin(commit, path, raw)
     sha256 = sha256 or recorded_sha256(commit, path)
     if not sha256:
         sys.exit(f"{path}: not readable from commit {commit} (no git history) and no SHA-256 is recorded for it: refused")
+    pinned = pins(commit).get(path, {})
+    if pinned and pinned["sha256"] != sha256:
+        sys.exit(f"{path}: the SHA-256 pinned in {PINS} differs from the one recorded for commit {commit}: refused")
+    src = ROOT / pinned["copy"] if pinned.get("copy") else ROOT / path
     try:
-        raw = (ROOT / path).read_bytes()
+        raw = src.read_bytes()
     except OSError as e:
-        sys.exit(f"{path}: not readable from commit {commit} (no git history) nor from the working tree ({e})")
+        sys.exit(f"{path}: not readable from commit {commit} (no git history) nor from {src.relative_to(ROOT)} ({e})")
     if hashlib.sha256(raw).hexdigest() != sha256:
-        sys.exit(f"{path}: the working-tree file differs from the SHA-256 recorded for commit {commit}: refused")
+        sys.exit(f"{path}: {src.relative_to(ROOT)} differs from the SHA-256 recorded for commit {commit}: refused")
     return raw
 
 
 def estimate_binding(commit):
-    """D44: estimate.py must be the copy in the frame commit; returns its SHA-256. With git history this is estimate.bound_to,
-    unchanged; without it the copy is checked through git_show, which needs a recorded hash."""
+    """D44: estimate.py must be the copy in the frame commit; returns its SHA-256. With git history this is estimate.bound_to
+    (and the pin, if any, must equal it); without it the copy is read through git_show, accepted by its pinned SHA-256, and must
+    equal the estimate.py in use."""
     try:
-        return es.bound_to(commit)
+        h = es.bound_to(commit)
     except (subprocess.CalledProcessError, OSError):
         pass
+    else:
+        pin = pins(commit).get(ESTIMATE_IN_REPO)
+        if pin and pin["sha256"] != h:
+            sys.exit(f"estimate.py: its copy in the frame commit differs from the SHA-256 pinned in {PINS}: refused")
+        return h
     if recorded_sha256(commit, ESTIMATE_IN_REPO) is None:
-        sys.exit("estimate.py: its copy in the frame commit cannot be read without git history, and rq1-sample-manifest.json "
-                 "records no SHA-256 for it: the binding is not verifiable here (run from a git clone)")
+        sys.exit(f"estimate.py: its copy in the frame commit cannot be read without git history, and no SHA-256 is pinned for "
+                 f"it in {PINS}: the binding is not verifiable here (run from a git clone)")
     copy = git_show(commit, ESTIMATE_IN_REPO)
     if copy != pathlib.Path(es.__file__).resolve().read_bytes():
         sys.exit("estimate.py differs from its copy in the frame commit")

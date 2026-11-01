@@ -1,0 +1,121 @@
+case_id,outcome,a_basis,evidence_ref,reason
+RQ1-0001,A_no_model,tool_caller,RQ1-0001/00.json sha256:3446921af776,Direct caller of the server tool supplies internal URLs; no model step described.
+RQ1-0004,A_no_model,direct,RQ1-0004/02.json sha256:66b7e7f903ec,Any local network client connecting to the socket receives other clients' results; no model step.
+RQ1-0005,A_no_model,direct,RQ1-0005/02.json sha256:d4a5042e5bfa,Direct request to an endpoint with another user's identifier; no model step.
+RQ1-0006,A_no_model,tool_caller,RQ1-0006/00.json sha256:ffcc18c07ed4,Source frames the tool client as the actor supplying traversal parameters; no model step described.
+RQ1-0008,A_no_model,direct,RQ1-0008/02.json sha256:de8ffd37b5c7,Attacker request to a local callback endpoint; no model step.
+RQ1-0014,A_no_model,direct,RQ1-0014/00.json sha256:39b0e27daf36,Unauthenticated HTTP requests reach the flaw directly.
+RQ1-0015,A_no_model,direct,RQ1-0015/00.json sha256:6fbe56cdb1b3,Low-privilege user invokes tools directly; prompt-injection route mentioned only as an alternative.
+RQ1-0016,C_undetermined,,RQ1-0016/00.json sha256:856b0fe8bb6c,Input arrives through tool arguments; source does not say who supplies them or whether a model step is needed.
+RQ1-0017,A_no_model,direct,RQ1-0017/00.json sha256:46ce6229e113,Unauthenticated network request to the exposed endpoint invokes tools directly.
+RQ1-0022,A_no_model,direct,RQ1-0022/00.json sha256:24c97910fda7,Low-privileged authenticated caller uses tools lacking capability checks; no model step.
+RQ1-0023,B_model,,RQ1-0023/00.json sha256:79d3936d7497,Documented RCE chain needs the agent to act on injected memory and call the shell tool; the unauthenticated write alone is not the documented end-to-end chain.
+RQ1-0025,C_undetermined,,RQ1-0025/00.json sha256:95715454a58f,One-line record; no chain detail.
+RQ1-0026,A_no_model,direct,RQ1-0026/02.json sha256:e2d5f7ab2249,Malicious server response triggers header leak in transport code; no model step.
+RQ1-0027,A_no_model,direct,RQ1-0027/00.json sha256:9b4cfdc39b8a,Malicious input file processed by a generator; no model step.
+RQ1-0034,A_no_model,direct,RQ1-0034/00.json sha256:a8289efa76a4,Authenticated user sends crafted value directly; no model step.
+RQ1-0036,A_no_model,direct,RQ1-0036/01.json sha256:af1c455fc748,Web content loaded in the agent browser reaches an unauthenticated endpoint itself; no instruction-following by the model described.
+RQ1-0039,C_undetermined,,RQ1-0039/01.json sha256:707a0f5c2b3f,"Both a model route and a direct remote-client route asserted, neither worked out as the sufficient chain."
+RQ1-0043,A_no_model,direct,RQ1-0043/00.json sha256:6a2a381ab018,Logged-in member abuses the consent flow directly; no model step.
+RQ1-0046,A_no_model,direct,RQ1-0046/00.json sha256:50697f790895,Attacker sends HTTP tool calls with a session ID; no model step.
+RQ1-0060,B_model,,RQ1-0060/00.json sha256:b9a8057c7e05,Source states the chain requires the agent to follow attacker-influenced instructions.
+RQ1-0062,A_no_model,direct,RQ1-0062/01.json sha256:790b90c7ace0,A client holding a narrowly scoped token calls the tool directly; no model step.
+RQ1-0066,C_undetermined,,RQ1-0066/02.json sha256:32367bc6d0b7,"Both a model route and a direct-client route asserted for a local-only server, without detail on which is sufficient."
+RQ1-0067,A_no_model,tool_caller,RQ1-0067/03.json sha256:10ec01c36063,Source places the attacker as the direct tool caller; no model step described.
+RQ1-0068,A_no_model,direct,RQ1-0068/02.html sha256:24354fe30b55,Unauthenticated network access to a server bound on all interfaces; no model step.
+RQ1-0074,C_undetermined,,RQ1-0074/03.json sha256:01b1618bfffb,Both model and direct-client routes asserted for a stdio server; no detail on which is sufficient.
+RQ1-0077,C_undetermined,,RQ1-0077/00.json sha256:a22fbe451e58,One-line record; no chain detail.
+RQ1-0080,C_undetermined,,RQ1-0080/01.json sha256:bf3c54174cdb,The agent itself performs the harmful write; source does not say what leads the agent to do it (attacker text or otherwise).
+RQ1-0088,B_model,,RQ1-0088/01.json sha256:3008291e382b,Planted symlink is read only when the model issues the tool call; source names prompt injection as the trigger.
+RQ1-0089,B_model,,RQ1-0089/01.json sha256:bf8e01704d74,The leaking code is model-provided; the documented attack needs the model to run attacker-induced code.
+RQ1-0096,A_no_model,direct,RQ1-0096/02.html sha256:828d47bfb7eb,Authenticated user uploads a config file that the product later spawns; no model step.
+RQ1-0098,A_no_model,direct,RQ1-0098/00.json sha256:5f783b7b57e9,Attacker obtains a token via the public flow and calls tools directly.
+RQ1-0101,A_no_model,direct,RQ1-0101/01.json sha256:132f65cf3a95,Unauthenticated HTTP request to an anonymous endpoint.
+RQ1-0102,A_no_model,direct,RQ1-0102/00.json sha256:dd84fc915893,"Untrusted code (e.g. a malicious dependency) calls the relay itself, explicitly without a model tool-call event."
+RQ1-0103,A_no_model,direct,RQ1-0103/01.json sha256:0afac852009d,Authenticated user reads another user's token from an API endpoint; no model step.
+RQ1-0108,B_model,,RQ1-0108/00.json sha256:469dc87ad3f1,Source states the route is indirect prompt injection of the agent.
+RQ1-0109,C_undetermined,,RQ1-0109/00.json sha256:8d83c352ab88,Says only that an actor influencing tool input is needed; not whether that is a direct user or a model step.
+RQ1-0117,A_no_model,direct,RQ1-0117/00.json sha256:b93ff4596ea3,"Authenticated user calls queue API directly; the victim-agent effect is a downstream consequence, read/delete need no model."
+RQ1-0118,A_no_model,direct,RQ1-0118/02.json sha256:8f1e52772921,Local process posts a forged event to an unauthenticated webhook; no model step.
+RQ1-0119,C_undetermined,,RQ1-0119/02.json sha256:2c9839a2756a,The agent submits the request; source does not say how the agent comes under attacker control.
+RQ1-0122,C_undetermined,,RQ1-0122/00.json sha256:bed141ce9539,Attacker supplies a tool parameter; source does not say whether this is a direct caller or a model step.
+RQ1-0124,A_no_model,direct,RQ1-0124/00.json sha256:628e761e766b,Malicious server code reaches unauthenticated host endpoints over the network; no model step.
+RQ1-0127,A_no_model,direct,RQ1-0127/02.json sha256:362a23231bad,Connected client sets a request header directly; second CVE (session isolation) also client-side; no model step.
+RQ1-0130,B_model,,RQ1-0130/03.json sha256:36536ec4c29e,The executed code is model-generated; chain requires prompt injection to make the model emit it.
+RQ1-0131,A_no_model,direct,RQ1-0131/00.json sha256:a317477a8fe2,Authenticated user supplies a node configuration directly; no model step.
+RQ1-0133,A_no_model,direct,RQ1-0133/00.json sha256:f1db5f13d941,Unauthenticated HTTP requests invoke tools directly.
+RQ1-0137,A_no_model,direct,RQ1-0137/00.json sha256:41a34b20c64f,Unauthorized client presents an unrelated token directly; no model step.
+RQ1-0139,B_model,,RQ1-0139/00.json sha256:217ce81c8192,Parameter originates from an LLM-dispatched call; documented route is prompt injection.
+RQ1-0143,A_no_model,direct,RQ1-0143/00.json sha256:e191ea598c42,Grouped bulletin; the listed flaws are reached by (authenticated) users' crafted requests or configurations; no model step.
+RQ1-0144,A_no_model,direct,RQ1-0144/02.json sha256:954016a6fbd8,Authenticated member supplies a crafted node type directly; no model step.
+RQ1-0145,A_no_model,direct,RQ1-0145/02.json sha256:31444f574f71,Holder of an API key calls the tool directly; no model step.
+RQ1-0148,C_undetermined,,RQ1-0148/03.json sha256:e5fe2b9b5ad3,Only says a caller influencing tool fields; maintainer threat model is an agent caller; no model-step detail.
+RQ1-0152,A_no_model,direct,RQ1-0152/02.json sha256:a83dca863d2e,The user's own chat/API request reaches capabilities the allowlist should block; no manipulation of the model by third-party text (borderline).
+RQ1-0155,A_no_model,direct,RQ1-0155/02.json sha256:6ad104b4844d,Caller reaches an HTTP route with crafted ref strings directly; no model step.
+RQ1-0156,A_no_model,direct,RQ1-0156/01.json sha256:b9b23bdb9301,Crafted HTTP query to a dashboard endpoint; no model step.
+RQ1-0157,A_no_model,tool_caller,RQ1-0157/02.json sha256:129ac13c8756,Source places the attacker as the direct tool invoker; no model step described.
+RQ1-0159,A_no_model,tool_caller,RQ1-0159/02.json sha256:edf58ea6f391,Source places the attacker as the direct tool invoker; no model step described.
+RQ1-0163,C_undetermined,,RQ1-0163/00.json sha256:da5bf2149115,Both a direct client and a prompt-injected agent asserted; design notes the agent chooses the URL; not decidable.
+RQ1-0168,A_no_model,tool_caller,RQ1-0168/02.json sha256:c3d0c4fbe3ef,Source places the client as the direct invoker choosing paths; no model step described.
+RQ1-0174,A_no_model,tool_caller,RQ1-0174/03.json sha256:61b1a0831107,Malicious client as direct tool caller; no model step.
+RQ1-0175,C_undetermined,,RQ1-0175/02.json sha256:16897a171ee6,Only says the value is caller-controlled; no actor or route stated.
+RQ1-0176,A_no_model,tool_caller,RQ1-0176/02.json sha256:3302bb805f73,Source frames the client as the actor; no model step described.
+RQ1-0177,A_no_model,tool_caller,RQ1-0177/02.json sha256:5a1d266e2845,Source frames the client as the actor; no model step described.
+RQ1-0178,A_no_model,tool_caller,RQ1-0178/02.json sha256:c978886302f3,Source frames the client as the actor; no model step described.
+RQ1-0180,A_no_model,tool_caller,RQ1-0180/02.json sha256:da79533f4fc2,Source frames the caller as the actor; no model step described.
+RQ1-0182,A_no_model,tool_caller,RQ1-0182/02.json sha256:4237a89fed41,Source frames the caller as the actor; no model step described.
+RQ1-0184,A_no_model,tool_caller,RQ1-0184/02.json sha256:ebb48b3518bb,Source frames the caller as the actor; no model step described.
+RQ1-0185,A_no_model,tool_caller,RQ1-0185/03.json sha256:acb880b33015,Source frames the caller as the actor; no model step described.
+RQ1-0186,A_no_model,direct,RQ1-0186/02.json sha256:d9a6584e99e8,Crafted body to an HTTP proxy endpoint; no model step.
+RQ1-0187,C_undetermined,,RQ1-0187/02.json sha256:d01c63604e83,Says tool input is attacker-controlled; not who supplies it or whether a model step is involved.
+RQ1-0193,C_undetermined,,RQ1-0193/03.json sha256:a25a463b1351,Client invokes with an attacker-controlled value; how the attacker controls it (directly or via the model) not stated.
+RQ1-0196,C_undetermined,,RQ1-0196/02.json sha256:f27781e49518,Says tool input is attacker-controlled; not who supplies it or whether a model step is involved.
+RQ1-0198,A_no_model,direct,RQ1-0198/00.json sha256:30a7d7644b16,Malicious server or network attacker streams a response; no model step.
+RQ1-0201,C_undetermined,,RQ1-0201/01.json sha256:a9d93b556fca,Attacker supplies tool arguments; no statement on direct caller vs model step.
+RQ1-0208,C_undetermined,,RQ1-0208/03.json sha256:5833cf5b396a,Reproduction calls the tool directly but no attacker route is stated.
+RQ1-0210,A_no_model,direct,RQ1-0210/00.json sha256:ff1216910bc3,Authenticated non-admin sends one HTTP request; no model step.
+RQ1-0215,A_no_model,direct,RQ1-0215/00.json sha256:8ec15c09508d,"Grouped bulletin of two flaws, both reached by logged-in users directly; no model step."
+RQ1-0217,B_model,,RQ1-0217/00.json sha256:459f990bc50e,Source states the route is an AI agent induced to call the tool.
+RQ1-0218,C_undetermined,,RQ1-0218/00.json sha256:d0834fb173a6,One-line record; no chain detail.
+RQ1-0222,A_no_model,direct,RQ1-0222/00.json sha256:b8058a923809,Authenticated user registers a server config directly; no model step.
+RQ1-0225,A_no_model,direct,RQ1-0225/01.json sha256:20bfe8d6d360,Authenticated user calls the tool-execution API directly; no model step.
+RQ1-0227,A_no_model,direct,RQ1-0227/00.json sha256:4ea16490db87,Attacker submits code through an unauthenticated HTTP tool call; no model step.
+RQ1-0241,A_no_model,direct,RQ1-0241/00.json sha256:3a87b519d7a5,DNS rebinding from a web page drives the server directly; no model step.
+RQ1-0243,A_no_model,direct,RQ1-0243/00.json sha256:32a6981f39dd,Unauthenticated network caller dispatches tools directly.
+RQ1-0244,A_no_model,direct,RQ1-0244/00.json sha256:b1963ea0818d,DNS rebinding from a web page drives the server directly; no model step.
+RQ1-0247,A_no_model,direct,RQ1-0247/00.json sha256:60cc782f2883,DNS rebinding from a web page invokes tools directly; no model step.
+RQ1-0250,A_no_model,tool_caller,RQ1-0250/03.json sha256:c89939a86968,Source places the attacker as the direct tool invoker; no model step described.
+RQ1-0251,A_no_model,tool_caller,RQ1-0251/02.json sha256:37243b1ae289,Prerequisite places the attacker as the direct invoker; no model step described.
+RQ1-0255,C_undetermined,,RQ1-0255/02.json sha256:887842b32f35,Both a direct client and a prompt-injected model asserted; no detail on which is sufficient.
+RQ1-0258,C_undetermined,,RQ1-0258/03.json sha256:e45c0c2a60d4,Both a direct client and a prompt-injected model asserted; no detail on which is sufficient.
+RQ1-0260,B_model,,RQ1-0260/00.json sha256:bdd38df13346,Path is model-supplied; documented chain is indirect prompt injection.
+RQ1-0270,A_no_model,direct,RQ1-0270/01.json sha256:d3834e706af0,Holder of an expired key calls the endpoint directly; no model step.
+RQ1-0276,B_model,,RQ1-0276/02.html sha256:bf5ef5e743db,The harmful parameter is generated by the model from a low-trust prompt; chain needs the model to emit it.
+RQ1-0277,C_undetermined,,RQ1-0277/00.json sha256:cc16aa898b19,One-line record; no chain detail.
+RQ1-0279,A_no_model,direct,RQ1-0279/01.json sha256:82eaee014eee,Anonymous HTTP request reaches the sink directly.
+RQ1-0283,A_no_model,direct,RQ1-0283/00.json sha256:083eca8fcde2,Authenticated user floods the agent with expensive requests directly; no manipulation of the model needed.
+RQ1-0285,B_model,,RQ1-0285/02.json sha256:12ec1acfab15,The only route described for the attacker-chosen path is steering the LLM by prompt injection.
+RQ1-0288,A_no_model,direct,RQ1-0288/02.html sha256:d35dc6fa5cbf,"Crafted input file processed by a generator; workaround points to untrusted files, no model step described."
+RQ1-0292,C_undetermined,,RQ1-0292/00.json sha256:70ae15c9f66a,Attacker content reaches the server through a user's interaction; whether a model relays it is not stated.
+RQ1-0296,C_undetermined,,RQ1-0296/00.json sha256:530ec7c24771,One-line record; no chain detail.
+RQ1-0297,C_undetermined,,RQ1-0297/00.json sha256:f6bd8bc8be41,One-line record; no chain detail.
+RQ1-0299,C_undetermined,,RQ1-0299/01.json sha256:f0e4a0dea2b3,Documented trigger mixes prompt injection and a direct MCP call; which route is sufficient is not separated.
+RQ1-0300,A_no_model,direct,RQ1-0300/00.json sha256:be7c304980ef,Crafted link handled by the application; no model step described.
+RQ1-0302,A_no_model,direct,RQ1-0302/02.json sha256:48dcab7d9643,Grouped bulletin; flaws reached by authenticated users or unauthenticated public endpoints directly; no model step.
+RQ1-0303,A_no_model,direct,RQ1-0303/00.json sha256:bd4ddecb1376,Third party pre-registers a bucket; server uploads by product logic; no model step.
+RQ1-0306,A_no_model,direct,RQ1-0306/00.json sha256:a0993e16b320,Single unauthenticated HTTP request.
+RQ1-0307,A_no_model,direct,RQ1-0307/02.html sha256:c686cd776a58,Authenticated client sends nested payloads directly; no model step required.
+RQ1-0309,A_no_model,direct,RQ1-0309/00.json sha256:b55f2f57a189,Holder of application credentials calls the endpoint directly; no model step.
+RQ1-0311,C_undetermined,,RQ1-0311/00.json sha256:e5e24d3a4906,One-line record; wording hints at injection but no chain detail.
+RQ1-0312,C_undetermined,,RQ1-0312/00.json sha256:528d7b1cc257,One-line record; no chain detail.
+RQ1-0313,C_undetermined,,RQ1-0313/00.json sha256:aaf5a07908d5,One-line record; no chain detail.
+RQ1-0314,C_undetermined,,RQ1-0314/00.json sha256:5d2f7f7d9aae,One-line record; no chain detail.
+RQ1-0316,A_no_model,tool_caller,RQ1-0316/03.json sha256:831f9a06241f,Source places the attacker as the direct tool caller; no model step described.
+RQ1-0317,A_no_model,tool_caller,RQ1-0317/02.json sha256:8c00dc42a337,Source places the attacker as the direct tool caller; no model step described.
+RQ1-0321,A_no_model,tool_caller,RQ1-0321/02.json sha256:88a736636ed2,Source places the attacker as the direct tool caller; no model step described.
+RQ1-0323,A_no_model,direct,RQ1-0323/00.json sha256:b566c81eebc0,SDK sends a cached token to a second service; attacker on that service captures it; no model step.
+RQ1-0324,A_no_model,direct,RQ1-0324/00.json sha256:644fa2fd4575,Untrusted workspace config auto-spawns commands; no model step.
+RQ1-0325,B_model,,RQ1-0325/00.json sha256:0372205ca8f2,"The insert is direct, but the documented harm needs the model to act on poisoned content."
+RQ1-0326,C_undetermined,,RQ1-0326/00.json sha256:164de81c439b,One-line record; no chain detail.
+RQ1-0327,A_no_model,direct,RQ1-0327/00.json sha256:9928f989dc96,Grouped records; remote server responses drive the client's OAuth handling; no model step.
+RQ1-0328,A_no_model,direct,RQ1-0328/00.json sha256:85ef5d91d2a7,Authenticated admin request to an admin endpoint; no model step.

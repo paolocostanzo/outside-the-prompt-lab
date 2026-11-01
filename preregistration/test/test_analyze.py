@@ -233,3 +233,91 @@ class WithoutGit(unittest.TestCase):
         c = run("rev-parse", "HEAD").decode().strip()
         (root / an.sf.FRAME_IN_REPO).write_bytes(b"changed\n")  # the commit is read, not the working tree
         self.assertEqual(an.git_show(c, an.sf.FRAME_IN_REPO), self.frame)
+
+
+class WithPins(unittest.TestCase):
+    """frame-commit-pins.json (A13): without git history estimate.py (and any other file read from the frame commit) is accepted
+    only by its pinned SHA-256; with git history the commit's copy wins and must equal the pin. Stubs and temporary trees only."""
+    tearDown, no_git = WithoutGit.tearDown, WithoutGit.no_git  # same temporary tree as WithoutGit, without its tests
+
+    def setUp(self):
+        WithoutGit.setUp(self)
+        import hashlib
+        self.est = pathlib.Path(an.es.__file__).resolve().read_bytes()
+        (an.ROOT / an.ESTIMATE_IN_REPO).write_bytes(self.est)
+        self.est_sha = hashlib.sha256(self.est).hexdigest()
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": self.est_sha}, an.sf.FRAME_IN_REPO: {"sha256": self.man["frame_sha256"]}})
+
+    def pin(self, files, commit=None):
+        import json
+        (an.HERE / an.PINS).write_text(json.dumps({"frame_commit": commit or self.man["frame_commit"], "files": files}))
+
+    def test_estimate_accepted_by_pin_without_git(self):
+        self.no_git()
+        self.assertEqual(an.recorded_sha256(self.man["frame_commit"], an.ESTIMATE_IN_REPO), self.est_sha)
+        self.assertEqual(an.estimate_binding(self.man["frame_commit"]), self.est_sha)
+
+    def test_changed_estimate_refused_without_git(self):
+        self.no_git()
+        (an.ROOT / an.ESTIMATE_IN_REPO).write_bytes(self.est + b"\n# changed\n")
+        with self.assertRaises(SystemExit): an.estimate_binding(self.man["frame_commit"])
+
+    def test_pinned_copy_must_equal_estimate_in_use(self):
+        import hashlib
+        self.no_git()
+        other = b"# another estimate.py\n"
+        (an.ROOT / an.ESTIMATE_IN_REPO).write_bytes(other)
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": hashlib.sha256(other).hexdigest()}})
+        with self.assertRaises(SystemExit): an.estimate_binding(self.man["frame_commit"])
+
+    def test_byte_copy_named_by_pin_is_read(self):
+        self.no_git()
+        (an.ROOT / an.ESTIMATE_IN_REPO).write_bytes(b"# edited after the frame commit\n")
+        copy = "preregistration/rq1/frame-commit/estimate.py"
+        (an.ROOT / copy).parent.mkdir(parents=True); (an.ROOT / copy).write_bytes(self.est)
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": self.est_sha, "copy": copy}})
+        self.assertEqual(an.git_show(self.man["frame_commit"], an.ESTIMATE_IN_REPO), self.est)
+        (an.ROOT / copy).write_bytes(self.est + b"#")
+        with self.assertRaises(SystemExit): an.git_show(self.man["frame_commit"], an.ESTIMATE_IN_REPO)
+
+    def test_pin_for_another_commit_is_ignored(self):
+        self.no_git()
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": self.est_sha}}, commit="e" * 40)
+        self.assertIsNone(an.recorded_sha256(self.man["frame_commit"], an.ESTIMATE_IN_REPO))
+        with self.assertRaises(SystemExit): an.estimate_binding(self.man["frame_commit"])
+
+    def test_pin_contradicting_manifest_refused(self):
+        self.pin({an.sf.FRAME_IN_REPO: {"sha256": "0" * 64}})
+        with self.assertRaises(SystemExit): an.git_show(self.man["frame_commit"], an.sf.FRAME_IN_REPO)
+
+    def test_git_copy_must_equal_pin(self):
+        an.es.bound_to = lambda commit: self.est_sha
+        self.assertEqual(an.estimate_binding(self.man["frame_commit"]), self.est_sha)
+        an.es.bound_to = lambda commit: "ab" * 32  # the frame commit's estimate.py is not the pinned one
+        with self.assertRaises(SystemExit): an.estimate_binding(self.man["frame_commit"])
+
+    def test_git_show_with_history_checks_pin(self):
+        import os, subprocess
+        root = an.ROOT
+        env = {**os.environ, "GIT_CONFIG_GLOBAL": os.devnull, "GIT_CONFIG_SYSTEM": os.devnull, "GIT_AUTHOR_NAME": "t",
+               "GIT_AUTHOR_EMAIL": "t@t", "GIT_COMMITTER_NAME": "t", "GIT_COMMITTER_EMAIL": "t@t"}
+        run = lambda *a: subprocess.run(["git", "-C", str(root), *a], check=True, capture_output=True, env=env).stdout
+        run("init", "-q"); run("add", an.ESTIMATE_IN_REPO); run("commit", "-q", "-m", "estimate")
+        c = run("rev-parse", "HEAD").decode().strip()
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": self.est_sha}}, commit=c)
+        self.assertEqual(an.git_show(c, an.ESTIMATE_IN_REPO), self.est)
+        self.pin({an.ESTIMATE_IN_REPO: {"sha256": "0" * 64}}, commit=c)
+        with self.assertRaises(SystemExit): an.git_show(c, an.ESTIMATE_IN_REPO)
+
+
+class RepositoryPins(unittest.TestCase):
+    """The committed pin file names the frame commit of the sample manifest, pins estimate.py, and agrees with the manifest."""
+    def test_pins_consistent_with_manifest(self):
+        import json
+        here = pathlib.Path(an.__file__).resolve().parent
+        m = json.loads((here / "rq1-sample-manifest.json").read_text())
+        p = json.loads((here / an.PINS).read_text())
+        self.assertEqual(p["frame_commit"], m["frame_commit"])
+        self.assertIn(an.ESTIMATE_IN_REPO, p["files"])
+        self.assertEqual(p["files"][an.sf.FRAME_IN_REPO]["sha256"], m["frame_sha256"])
+        self.assertEqual(p["files"][an.sf.SCRIPT_IN_REPO]["sha256"], m["script_sha256"])

@@ -1,0 +1,19 @@
+{
+ "frame_commit": "e62676b31d12690365d67033aeed2fb09df9c78e",
+ "computed_with": "git show <frame_commit>:<path> | sha256sum, from the repository history",
+ "rule": "With git history the copy in the frame commit is read and must have this SHA-256 (else the analysis stops). Without git history the working-tree file (or the byte copy named in 'copy', when the working tree differs from the frame commit) is accepted only if its SHA-256 equals this value.",
+ "files": {
+  "preregistration/rq1/estimate.py": {
+   "sha256": "e95b5a83c96d98cae52556336670b7ce3677d62fc9ed893d1924c40007110143",
+   "read_by": "analyze.py and explore_disagreement.py (estimate_binding, D44)"
+  },
+  "preregistration/rq1/rq1-frame.csv": {
+   "sha256": "5fe33295abf0a529dd202a4357ec60c40fff9b0f8480015f20199471b81b5887",
+   "read_by": "analyze.py and explore_disagreement.py (git_show; also frame_sha256 in rq1-sample-manifest.json)"
+  },
+  "preregistration/rq1/sample_frame.py": {
+   "sha256": "893522be992e6fb965bcb4dca72ebe5b73d0a22d272b0a5e638df41ac42e41d0",
+   "read_by": "sample_frame.py verify (git); analyze.py checks the working-tree sampler against script_sha256"
+  }
+ }
+}

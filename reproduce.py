@@ -3,10 +3,10 @@
 output equals the committed one. The analyses are offline and read-only: outputs go to a temporary directory; no client, VM,
 model, network call or write to $HOME. Needs Python >= 3.11 and Node >= 22 (tests only). Runs from a git clone or from a release
 archive without .git. RQ1 reads its frozen inputs from the frame commit; without git history it reads them from the working
-tree and accepts each only if its SHA-256 equals the hash recorded in rq1-sample-manifest.json. That manifest records the frame
-and the sampler but not estimate.py, whose binding to the frame commit (D44) therefore needs the git history: without it the
-RQ1 primary and D51 analyses stop (fail closed): the two analyses and their four output checks are reported as
-failed. Every other check runs the same way in both settings.
+tree and accepts each only if its SHA-256 equals the hash recorded in rq1-sample-manifest.json (frame, sampler) or in
+preregistration/rq1/frame-commit-pins.json (estimate.py, computed from the git history; with history the commit's copies must
+equal these pins). A file whose hash does not match stops the analysis (fails closed). Every other check runs the same way in
+both settings.
 
 Every line carries one of three labels:
   [recomputed from public data]  the output is regenerated here from files in this tree and compared with the committed output;
@@ -113,6 +113,8 @@ def checks(tmp):
          rq1("EXPLORATORY-DISAGREEMENT.json"), drop_key("run_dir")),
         ("RQ1", "disagreement, exploratory D51 (report)", f"{RQ1_OUT}/EXPLORATORY-DISAGREEMENT.md",
          rq1("EXPLORATORY-DISAGREEMENT.md"), None),
+        ("RQ1", "flag vs disagreement, two-sided Fisher exact (paper: p = 0.24)", "preregistration/rq1/fisher-flags.json",
+         lambda: sh(PY + ["preregistration/rq1/fisher_flags.py", str(t / "rq1" / "EXPLORATORY-DISAGREEMENT.json")]), None),
         ("RQ1", "provenance of R0's labels", f"{RQ1_OUT}/R0-PROVENANCE.txt",
          lambda: sh(PY + ["preregistration/rq1/r0_report.py"]), None),
         ("RQ2", "matrix summary", "trusting-a-repo/evidence/q5-summary.md",

@@ -1,0 +1,23 @@
+{
+ "exploratory": "D51: disagreement (4 classes) by flag, cases with a model majority; two-sided Fisher exact test",
+ "rows": [
+  "flagged (D41)",
+  "not flagged"
+ ],
+ "columns": [
+  "disagree",
+  "agree"
+ ],
+ "table": [
+  [
+   10,
+   61
+  ],
+  [
+   3,
+   43
+  ]
+ ],
+ "p_two_sided": "0.243014",
+ "p_two_sided_2dp": "0.24"
+}
