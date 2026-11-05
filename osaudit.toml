@@ -1,0 +1,437 @@
+schema = "https://github.com/ASSERT-KTH/assert-research-agent/blob/main/schemas/audit-v1.json"
+
+[paper]
+pdf = "paper/main.pdf"
+
+[results]
+files = ["paper/results/numbers.json"]
+instruments = ["paper/numbers.py", "preregistration/rq1/estimate.py"]
+
+# Numbers computed from results values. The integers and two-decimal numbers below are matched by many values of
+# numbers.json (numbers/chance-match), so each names the value it reports; a derive covers every printed occurrence
+# of its value. Interval ends printed without a percent sign ("77.9-95.8%") are the stored share times 100.
+
+[[numbers.derive]]  # no client asked again; canary starts before the answer, 0/n
+value = "0"
+expr = "numbers.rq3.clients_reapproval"
+
+[[numbers.derive]]  # one frame case from the timeline (and many 1/n counts)
+value = "1"
+expr = "numbers.rq1.frame.from_timeline"
+
+[[numbers.derive]]  # R0 class 2; graphical clients; 2/2 cells
+value = "2"
+expr = "numbers.rq1.classes.R0.class2"
+
+[[numbers.derive]]  # cases without a model majority; runs per model
+value = "3"
+expr = "numbers.rq1.classes.majority.no_majority"
+
+[[numbers.derive]]  # R0/majority disagreements on the H1 question
+value = "4"
+expr = "numbers.rq1.disagreement.binary"
+
+[[numbers.derive]]  # RQ3 repetitions per cell; 5/5 cells
+value = "5"
+expr = "numbers.rq3.repetitions_per_cell"
+
+[[numbers.derive]]  # R0 class 1; servers in RQ4; terminal clients
+value = "6"
+expr = "numbers.rq1.classes.R0.class1"
+
+[[numbers.derive]]  # pilot 7/10; SDK allocation
+value = "7"
+expr = "numbers.rq1.pilot.r0_classes_1_3"
+
+[[numbers.derive]]  # 8 of 120 author labels in classes 1-2
+value = "8"
+expr = "numbers.rq1.classes.R0.classes_1_2"
+
+[[numbers.derive]]  # 9 of 13 pairs told apart
+value = "9"
+expr = "numbers.rq5.told_apart"
+
+[[numbers.derive]]  # B reached a client in 10 of 60; 10/10 after restart
+value = "10"
+expr = "numbers.rq3.states.B_received_in_session"
+
+[[numbers.derive]]  # 11 cases B in the source audit
+value = "11"
+expr = "numbers.rq1.source_audit.joint_B"
+
+[[numbers.derive]]  # author chose class 4 for twelve
+value = "12"
+expr = "numbers.rq1.classes.R0.class4"
+
+[[numbers.derive]]  # 13 measurable pairs
+value = "13"
+expr = "numbers.rq5.measurable_pairs"
+
+[[numbers.derive]]  # majority class 1; 14 of 60 identical RQ3 codes
+value = "14"
+expr = "numbers.rq1.classes.majority.class1"
+
+[[numbers.derive]]  # authentication 15; 15/15 pairs
+value = "15"
+expr = "numbers.rq1.audit.class3_authentication"
+
+[[numbers.derive]]  # Sentry partial and none
+value = "16"
+expr = "numbers.rq4.all_A.per_server.sentry.partial"
+
+[[numbers.derive]]  # in 17 of the other 18 Codex decided A
+value = "17"
+expr = "numbers.rq1.source_audit.codex_A_claude_C"
+
+[[numbers.derive]]  # 18 majority labels in classes 1-2
+value = "18"
+expr = "numbers.rq1.classes.majority.classes_1_2"
+
+[[numbers.derive]]  # 20 SDKs in the frame
+value = "20"
+expr = "numbers.rq1.frame.sdk"
+
+[[numbers.derive]]  # authorisation 21
+value = "21"
+expr = "numbers.rq1.audit.class3_authorisation"
+
+[[numbers.derive]]  # unconfined file paths 23
+value = "23"
+expr = "numbers.rq1.audit.rule_only_paths"
+
+[[numbers.derive]]  # 24 unchanged flagged summaries; 24 of 41 GitHub tools
+value = "24"
+expr = "numbers.rq1.summaries.flagged_unchanged"
+
+[[numbers.derive]]  # 25 tools with no protection; 25 of 28 in classes 1-3
+value = "25"
+expr = "numbers.rq4.all_A.pooled_none"
+
+[[numbers.derive]]  # 26 of the 31 within classes 1-3
+value = "26"
+expr = "numbers.rq1.models.qwen_vs_nemotron_differ_within_1_3"
+
+[[numbers.derive]]  # 28 cases not established by the sources
+value = "28"
+expr = "numbers.rq1.audit.not_established"
+
+[[numbers.derive]]  # second set of 29 runs
+value = "29"
+expr = "numbers.rq2.runs_second_set"
+
+[[numbers.derive]]  # 30 event runs; 30/30 stale
+value = "30"
+expr = "numbers.rq5.coverage.event_runs"
+
+[[numbers.derive]]  # Qwen and Nemotron differ on 31; Nemotron class 1
+value = "31"
+expr = "numbers.rq1.models.qwen_vs_nemotron_differ"
+
+[[numbers.derive]]  # 32 flags can change the class; 32 of 91
+value = "32"
+expr = "numbers.rq1.audit.flags_can_change_class"
+
+[[numbers.derive]]  # 33 of 120 unsettled
+value = "33"
+expr = "numbers.rq1.source_audit.joint_U"
+
+[[numbers.derive]]  # Azure DevOps tools
+value = "34"
+expr = "numbers.rq4.all_A.per_server.azure_devops.A"
+
+[[numbers.derive]]  # allocation 37
+value = "37"
+expr = "numbers.rq1.sample.agent_client"
+
+[[numbers.derive]]  # 39 flags cannot change the class
+value = "39"
+expr = "numbers.rq1.audit.flags_cannot_change_class"
+
+[[numbers.derive]]  # GitHub's 41 partial tools
+value = "41"
+expr = "numbers.rq4.github_label_only.partial_tools"
+
+[[numbers.derive]]  # 42 class-3 labels fit literally; 42 prospective decisions
+value = "42"
+expr = "numbers.rq1.audit.class3_literal"
+
+[[numbers.derive]]  # 43 uncertain records
+value = "43"
+expr = "numbers.rq1.frame.uncertain_second_reading"
+
+[[numbers.derive]]  # 45 of the 46 disagreements
+value = "45"
+expr = "numbers.rq3.coding.disagreements_packet_line"
+
+[[numbers.derive]]  # 46 boundary cases; 46 RQ3 disagreements; 0/46 windows
+value = "46"
+expr = "numbers.rq1.audit.boundary_cases"
+
+[[numbers.derive]]  # 47 of the 58
+value = "47"
+expr = "numbers.rq1.audit.second_check_agree_all_fields"
+
+[[numbers.derive]]  # pooled 49/130
+value = "49"
+expr = "numbers.rq4.without_vendor_only.pooled_full"
+
+[[numbers.derive]]  # 50 of the 51 corrected summaries
+value = "50"
+expr = "numbers.rq1.summaries.flagged_corrected"
+
+[[numbers.derive]]  # 51 corrected summaries
+value = "51"
+expr = "numbers.rq1.summaries.corrected"
+
+[[numbers.derive]]  # pooled 53/138
+value = "53"
+expr = "numbers.rq4.all_A.pooled_full"
+
+[[numbers.derive]]  # 57 of the 91
+value = "57"
+expr = "numbers.rq4.adjudication.protection_only_second"
+
+[[numbers.derive]]  # 58 of the author's 100 class-3 labels
+value = "58"
+expr = "numbers.rq1.audit.class3_rule_only"
+
+[[numbers.derive]]  # 60 repetitions; 60 held-out windows
+value = "60"
+expr = "numbers.rq3.repetitions"
+
+[[numbers.derive]]  # 61 attempts
+value = "61"
+expr = "numbers.rq3.states.attempts_with_discarded"
+
+[[numbers.derive]]  # 71 flagged cases with a majority
+value = "71"
+expr = "numbers.rq1.disagreement.fisher_flagged_with_majority"
+
+[[numbers.derive]]  # 74 flagged summaries
+value = "74"
+expr = "numbers.rq1.summaries.flagged"
+
+[[numbers.derive]]  # 75 valid automated runs
+value = "75"
+expr = "numbers.rq2.runs_valid"
+
+[[numbers.derive]]  # allocation 76; 76 cases A
+value = "76"
+expr = "numbers.rq1.sample.MCP_server_or_connector"
+
+[[numbers.derive]]  # Claude read A 77
+value = "77"
+expr = "numbers.rq1.source_audit.first_A"
+
+[[numbers.derive]]  # 78 contested cases
+value = "78"
+expr = "numbers.rq1.contested.cases"
+
+[[numbers.derive]]  # Nemotron binary kappa
+value = "0.14"
+expr = "numbers.rq1.disagreement.nemotron_binary_kappa"
+
+[[numbers.derive]]  # two-sided Fisher exact p
+value = "0.24"
+expr = "numbers.rq1.disagreement.fisher_p"
+
+[[numbers.derive]]  # bootstrap interval
+value = "0.27"
+expr = "numbers.rq1.disagreement.fleiss_binary_low"
+
+[[numbers.derive]]  # bootstrap interval
+value = "0.35"
+expr = "numbers.rq1.disagreement.fleiss_four_low"
+
+[[numbers.derive]]  # Fleiss kappa, abstract
+value = "0.46"
+expr = "numbers.rq1.H1a.fleiss_all"
+
+[[numbers.derive]]  # binary Fleiss kappa
+value = "0.48"
+expr = "numbers.rq1.disagreement.fleiss_binary"
+
+[[numbers.derive]]  # RQ4 protection kappa
+value = "0.52"
+expr = "numbers.rq4.agreement.protection.kappa"
+
+[[numbers.derive]]  # bootstrap interval
+value = "0.55"
+expr = "numbers.rq1.disagreement.fleiss_four_high"
+
+[[numbers.derive]]  # RQ4 vendor-only kappa
+value = "0.62"
+expr = "numbers.rq4.agreement.vendor_only.kappa"
+
+[[numbers.derive]]  # R0 interval, lower end
+value = "77.9"
+expr = "numbers.rq1.primary.R0.low * 100"
+
+[[numbers.derive]]  # majority interval, lower end
+value = "81.2"
+expr = "numbers.rq1.primary.majority.low * 100"
+
+[[numbers.derive]]  # Qwen interval, lower end
+value = "84.2"
+expr = "numbers.rq1.per_model.qwen.low * 100"
+
+[[numbers.derive]]  # Gemma interval, lower end
+value = "79.4"
+expr = "numbers.rq1.per_model.gemma.low * 100"
+
+[[numbers.derive]]  # Nemotron interval, lower end
+value = "90.3"
+expr = "numbers.rq1.per_model.nemotron.low * 100"
+
+[[numbers.derive]]  # agent clients interval, lower end (R0 and majority)
+value = "72"
+expr = "numbers.rq1.by_type.agent_client.R0.low * 100"
+
+[[numbers.derive]]  # post hoc variant, R0 lower end
+value = "55.2"
+expr = "numbers.rq1.audit.not_established_as_class4.R0.low * 100"
+
+[[numbers.derive]]  # post hoc variant, majority lower end
+value = "56.7"
+expr = "numbers.rq1.audit.not_established_as_class4.majority.low * 100"
+
+[[numbers.derive]]  # source audit interval, lower end
+value = "49.1"
+expr = "numbers.rq1.source_audit.share_A_against_low * 100"
+
+[[numbers.derive]]  # source audit, decided cases, lower end
+value = "70.6"
+expr = "numbers.rq1.source_audit.share_A_decided_low * 100"
+
+# Numbers the study does not produce: design parameters fixed in the preregistration, dates, years of cited works,
+# identifiers and product versions. None of them is a result of this study. A value is matched by its number, not
+# its spelling, so the ORCID parts 0005 and 0009 and the month 07 (equal to 5, 9 and 7) need and get no entry here:
+# they are covered by the derive entries of 5, 9 and 7.
+
+[[numbers.allow]]
+value = "60%"
+reason = "H1 threshold, a design parameter fixed in the preregistration (H1: share at least 60%)"
+
+[[numbers.allow]]
+value = "0.6"
+reason = "H1a threshold, a design parameter fixed in the preregistration (Fleiss' kappa >= 0.6)"
+
+[[numbers.allow]]
+value = "5%"
+reason = "RQ5 false-positive threshold, a design parameter fixed in the preregistration (below 5% per hour)"
+
+[[numbers.allow]]
+value = "10%"
+reason = "limit of invalid model answers, a design parameter fixed in the preregistration analysis plan"
+
+[[numbers.allow]]
+value = "0.4"
+reason = "band boundary of the preregistration's agreement scale (values below 0.4 'poor'), a protocol constant"
+
+[[numbers.allow]]
+value = "150"
+reason = "length rule of the RQ1 case summaries (50-150 words, rq1/SUMMARY-RULES.md), a design parameter"
+
+[[numbers.allow]]
+value = "19"
+reason = "time of day: the RQ1 model run started at 16:19 CET (manifest 'started' 15:19 UTC), a timestamp"
+
+[[numbers.allow]]
+value = "22"
+reason = "day of a date (22 October 2026)"
+
+[[numbers.allow]]
+value = "27"
+reason = "day of a date (27 October 2026)"
+
+[[numbers.allow]]
+value = "1960"
+reason = "publication year in an author-year citation (Cohen 1960)"
+
+[[numbers.allow]]
+value = "1971"
+reason = "publication year in an author-year citation (Fleiss 1971)"
+
+[[numbers.allow]]
+value = "1977"
+reason = "publication year in an author-year citation (Landis and Koch 1977)"
+
+[[numbers.allow]]
+value = "1990"
+reason = "publication year in an author-year citation (Feinstein and Cicchetti 1990; Cicchetti and Feinstein 1990)"
+
+[[numbers.allow]]
+value = "1993"
+reason = "publication year in an author-year citation (Byrt et al. 1993)"
+
+[[numbers.allow]]
+value = "2008"
+reason = "publication year in an author-year citation (Gwet 2008)"
+
+[[numbers.allow]]
+value = "2019"
+reason = "publication year in an author-year citation (Zimmermann et al. 2019)"
+
+[[numbers.allow]]
+value = "2020"
+reason = "publication year in an author-year citation (Ohm et al. 2020)"
+
+[[numbers.allow]]
+value = "2022"
+reason = "publication year in author-year citations (Zerouali et al. 2022; Anwar et al. 2022)"
+
+[[numbers.allow]]
+value = "2023"
+reason = "publication year in author-year citations (Greshake et al. 2023; Ladisa et al. 2023; Croft et al. 2023)"
+
+[[numbers.allow]]
+value = "2024"
+reason = "publication year in author-year citations (Hines et al. 2024 and others)"
+
+[[numbers.allow]]
+value = "2025"
+reason = "year: author-year citations and identifiers (CVE-2025-54136)"
+
+[[numbers.allow]]
+value = "2026"
+reason = "year: dates of the study (2026), author-year citations, identifiers (CVE-2026-...) and date-based versions (Cursor CLI 2026.09.26)"
+
+[[numbers.allow]]
+value = "54136"
+reason = "identifier: CVE-2025-54136 (MCPoison), cited from Check Point Research 2025"
+
+[[numbers.allow]]
+value = "55607"
+reason = "identifier: CVE-2026-55607 (pilot case C01)"
+
+[[numbers.allow]]
+value = "7835"
+reason = "identifier: GHSA-7835-87q9-rgvv (pilot case C01)"
+
+[[numbers.allow]]
+value = "256"
+reason = "name of the hash function SHA-256"
+
+[[numbers.allow]]
+value = "7205"
+reason = "part of the author's ORCID identifier 0009-0005-7205-5945"
+
+[[numbers.allow]]
+value = "5945"
+reason = "part of the author's ORCID identifier 0009-0005-7205-5945"
+
+[[numbers.allow]]
+value = "1.3"
+reason = "product version (Cursor 1.3), quoted from the cited Check Point Research report"
+
+[[numbers.allow]]
+value = "3.5"
+reason = "product version in a model name (Nemotron 3.5 Lightning)"
+
+[[numbers.allow]]
+value = "5.5"
+reason = "product version in a model name (Claude Opus 5.5)"
+
+[[numbers.allow]]
+value = "6.1"
+reason = "product version in a model name (gpt-6.1-sol)"
