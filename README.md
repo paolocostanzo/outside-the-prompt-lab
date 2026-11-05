@@ -5,6 +5,15 @@
 Companion code for the research series *Outside the Prompt* (https://paolocostanzo.github.io/) and its November 2026 preprint.
 Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
 
+**Paper numbers.** The preprint is `paper/main.pdf` (identical to https://doi.org/10.5281/zenodo.23867645). Every number it
+prints is traced by [`osaudit`](https://github.com/ASSERT-KTH/osaudit) (`osaudit.toml` at the root; `osaudit` exits 0):
+- `paper/results/numbers.json`: the quantities the paper cites, under readable names (`rq1.*` … `rq5.*`, `design.*`), with a
+  provenance block; shares are stored as fractions (0.901 is printed as 90.1%). It is produced by `paper/numbers.py`, which reads
+  the evidence files of the folders below (`osaudit run`; `osaudit results --rerun` reproduces it).
+- `osaudit.toml`: numbers derived from those values, and the numbers the study does not produce (preregistered thresholds,
+  years, dates, identifiers, versions), each with its reason.
+- `preregistration/CLAIMS-EVIDENCE.md`: each central claim mapped to the evidence file where it appears.
+
 **Safety boundary.** Every component here is a harmless canary or a read-only check: the canary MCP server only logs that it
 started and answers a minimal handshake with one no-op tool; the generators write configuration that points at the canary; the
 runners drive the clients and record screens and logs. There are no attack payloads and nothing that exfiltrates, modifies or
