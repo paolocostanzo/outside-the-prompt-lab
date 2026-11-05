@@ -309,6 +309,10 @@ expr = "numbers.rq1.source_audit.share_A_decided_low * 100"
 # they are covered by the derive entries of 5, 9 and 7.
 
 [[numbers.allow]]
+value = "36"
+reason = "process count, not a study result: the number of key results listed for the author's pre-submission verification check described in the Methods (p.10); the record of that check is not part of this artifact"
+
+[[numbers.allow]]
 value = "60%"
 reason = "H1 threshold, a design parameter fixed in the preregistration (H1: share at least 60%)"
 
