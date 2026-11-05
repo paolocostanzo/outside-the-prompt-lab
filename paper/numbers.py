@@ -10,7 +10,9 @@ Prints one JSON object on stdout, the results file paper/results/numbers.json wh
 not produce (dates, years, identifiers, preregistered thresholds) are listed there as [[numbers.allow]] with a reason.
 
 Every value is read from an evidence file (JSON, CSV, Markdown table or log) or computed from one; no result is typed in
-here. Names follow the paper: `rq1.*` (Section 5), `rq2.*` (Section 6), `rq3.*` (Section 7), `rq4.*` (Section 8),
+here. Two pilot counts apply the reclassification the paper documents (Section 5, pilot) to values read from a file: case
+C01 is moved from class 1 to class 4 (`r0_classes_1_3_C01_class4`) and, dated by its advisory, leaves the window
+(`cases_C01_dated_by_advisory`). Names follow the paper: `rq1.*` (Section 5), `rq2.*` (Section 6), `rq3.*` (Section 7), `rq4.*` (Section 8),
 `rq5.*` (Section 9), `design.*` (Section 4). The RQ1 shares that are not stored in a JSON file (post hoc variants of
 AUDIT.md, the bound of the flagged cases) are recomputed with the frozen estimator `preregistration/rq1/estimate.py`,
 unmodified. No clock, no file time, no network. Standard library only; run with python3 -I from the repository root.
@@ -429,7 +431,7 @@ def rq3():
         "claude_ms_min": min(ms for r in agg if r["client"] == "claude-code" for ms in r["ms_signal_to_list"]),
         "claude_ms_max": max(ms for r in agg if r["client"] == "claude-code" for ms in r["ms_signal_to_list"]),
         "cursor_primary_reps": sum(r["n"] for r in agg if r["client"] == "cursor-agent"),
-        "attempts_with_discarded": states["checks"]["primary_repetitions"] + 1,
+        "attempts_with_discarded": states["sensitivity"]["including_discarded_attempt"]["attempts"],
     }
     ag = load("tool-change/evidence/primary-20261015/coding/agreement.json")
     pre = ag["author_vs_llm (preregistered kappa)"]

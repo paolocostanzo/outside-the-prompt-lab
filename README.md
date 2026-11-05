@@ -5,8 +5,12 @@
 Companion code for the research series *Outside the Prompt* (https://paolocostanzo.github.io/) and its November 2026 preprint.
 Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
 
-**Paper numbers.** The preprint is `paper/main.pdf` (identical to https://doi.org/10.5281/zenodo.23867645). Every number it
-prints is traced by [`osaudit`](https://github.com/ASSERT-KTH/osaudit) (`osaudit.toml` at the root; `osaudit` exits 0):
+**Paper numbers.** The preprint is `paper/main.pdf` (identical to https://doi.org/10.5281/zenodo.23867645). [`osaudit`](https://github.com/ASSERT-KTH/osaudit)
+exits 0 on a full clone (`osaudit.toml` at the root): each number the paper prints matches a value of
+`paper/results/numbers.json`, directly or through `[[numbers.derive]]`, or is declared in `[[numbers.allow]]` with a reason.
+osaudit matches by value, so a small integer is checked once per value; the claim-by-claim map is
+`preregistration/CLAIMS-EVIDENCE.md`. The provenance check needs the git history: a `--depth 1` clone lacks the
+recorded commit and reports `results/stale`.
 - `paper/results/numbers.json`: the quantities the paper cites, under readable names (`rq1.*` … `rq5.*`, `design.*`), with a
   provenance block; shares are stored as fractions (0.901 is printed as 90.1%). It is produced by `paper/numbers.py`, which reads
   the evidence files of the folders below (`osaudit run`; `osaudit results --rerun` reproduces it).
@@ -90,4 +94,4 @@ The study design (research questions, hypotheses, criteria, analysis plan, Q3 an
 > Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
-MIT.
+MIT, except `paper/main.pdf`, which is CC BY 4.0 as deposited on Zenodo.

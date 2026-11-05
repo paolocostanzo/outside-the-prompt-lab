@@ -304,9 +304,7 @@ value = "70.6"
 expr = "numbers.rq1.source_audit.share_A_decided_low * 100"
 
 # Numbers the study does not produce: design parameters fixed in the preregistration, dates, years of cited works,
-# identifiers and product versions. None of them is a result of this study. A value is matched by its number, not
-# its spelling, so the ORCID parts 0005 and 0009 and the month 07 (equal to 5, 9 and 7) need and get no entry here:
-# they are covered by the derive entries of 5, 9 and 7.
+# identifiers and product versions. None of them is a result of this study.
 
 [[numbers.allow]]
 value = "36"
