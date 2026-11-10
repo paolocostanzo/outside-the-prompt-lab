@@ -3,10 +3,13 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.23300292.svg)](https://doi.org/10.5281/zenodo.23300292)
 
 Companion code for the research series *Outside the Prompt* (https://paolocostanzo.github.io/) and its November 2026 preprint.
-Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), CoDe RTD, Turin.
+Author: Paolo Costanzo (ORCID 0009-0005-7205-5945), independent researcher, CoDe RTD, Turin.
+AI assistants were part of the method: Claude (Anthropic) wrote the code of this repository and ran the lab under the author's
+direction (it is co-author of the commits), and Codex (OpenAI) reviewed and re-computed the analyses; the author designed and
+directed the study and is responsible for it. Every use is listed in the paper, Section 4 ("Use of AI assistants") and Table 2.
 
 **Paper numbers.** The preprint is `paper/main.pdf` (identical to https://doi.org/10.5281/zenodo.23867645). [`osaudit`](https://github.com/ASSERT-KTH/osaudit)
-exits 0 on a full clone (`osaudit.toml` at the root): each number the paper prints matches a value of
+exits 0 on a full or blobless (`--filter=blob:none`) clone (`osaudit.toml` at the root): each number the paper prints matches a value of
 `paper/results/numbers.json`, directly or through `[[numbers.derive]]`, or is declared in `[[numbers.allow]]` with a reason.
 osaudit matches by value, so a small integer is checked once per value; the claim-by-claim map is
 `preregistration/CLAIMS-EVIDENCE.md`. The provenance check needs the git history: a `--depth 1` clone lacks the
@@ -17,6 +20,10 @@ recorded commit and reports `results/stale`.
 - `osaudit.toml`: numbers derived from those values, and the numbers the study does not produce (preregistered thresholds,
   years, dates, identifiers, versions), each with its reason.
 - `preregistration/CLAIMS-EVIDENCE.md`: each central claim mapped to the evidence file where it appears.
+- `PAPER-NUMBERS.csv`: every value of `numbers.json` in the forms the paper prints it (percentages to one decimal, coefficients
+  to two or three decimals), written by `python3 paper/printed_numbers.py` from `numbers.json` alone.
+- `paper/online-resource-1.pdf`: Online Resource 1 cited by the paper (exact client prompts, deviations log D1–D56, protocol
+  detail), identical to `supplement.pdf` in the same Zenodo record.
 
 **Safety boundary.** Every component here is a harmless canary or a read-only check: the canary MCP server only logs that it
 started and answers a minimal handshake with one no-op tool; the generators write configuration that points at the canary; the
@@ -86,12 +93,12 @@ run outside it.
 
 ## Citing
 Cite the concept DOI, which always resolves to the latest version: **https://doi.org/10.5281/zenodo.23300292**.
-Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. Version v0.4.2 (24 Oct 2026, the D39 orchestrator takes the shared VM lock and refuses a mismatched resume; the analysis follows the plan): https://doi.org/10.5281/zenodo.23623381. Version v0.4.3 (25 Oct 2026, RQ1: deviations D40–D44, hardened classifier, frozen frame of 330 disclosures and the 120-case sample drawn with a public beacon): https://doi.org/10.5281/zenodo.23649529. See also `CITATION.cff`.
+Version v0.2.0 (Q5 harness, 11 Oct 2026): https://doi.org/10.5281/zenodo.23300293. Version v0.2.1 (13 Oct 2026, corrections after an external review — see the release notes): https://doi.org/10.5281/zenodo.23341303. Version v0.3.0 (17 Oct 2026, Q3 harness and evidence for part 3): https://doi.org/10.5281/zenodo.23438372. Version v0.4.0 (24 Oct 2026, Q4 and Q2 harness, rules, census and evidence for part 4): https://doi.org/10.5281/zenodo.23616425. Version v0.4.1 (24 Oct 2026, the open-weight cells of D39 and their evidence): https://doi.org/10.5281/zenodo.23623265. Version v0.4.2 (24 Oct 2026, the D39 orchestrator takes the shared VM lock and refuses a mismatched resume; the analysis follows the plan): https://doi.org/10.5281/zenodo.23623381. Version v0.4.3 (25 Oct 2026, RQ1: deviations D40–D44, hardened classifier, frozen frame of 330 disclosures and the 120-case sample drawn with a public beacon): https://doi.org/10.5281/zenodo.23649529. Version v0.5.0 (1 Nov 2026, the state of the repository cited by the preprint): https://doi.org/10.5281/zenodo.23861225. See also `CITATION.cff`.
 
 The study design (research questions, hypotheses, criteria, analysis plan, Q3 and Q4 protocols) was preregistered on
 11 October 2026: https://doi.org/10.5281/zenodo.23300369
 
-> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.4.3) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
+> Costanzo, P. (2026). *Outside the Prompt — reproducible lab harness* (v0.5.0) [Software]. Zenodo. https://doi.org/10.5281/zenodo.23300292
 
 ## License
-MIT, except `paper/main.pdf`, which is CC BY 4.0 as deposited on Zenodo.
+MIT, except `paper/main.pdf` and `paper/online-resource-1.pdf`, which are CC BY 4.0 as deposited on Zenodo.
