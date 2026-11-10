@@ -9,8 +9,10 @@ direction (it is co-author of the commits), and Codex (OpenAI) reviewed and re-c
 directed the study and is responsible for it. Every use is listed in the paper, Section 4 ("Use of AI assistants") and Table 2.
 
 **Paper numbers.** The preprint is `paper/main.pdf` (identical to https://doi.org/10.5281/zenodo.23867645). [`osaudit`](https://github.com/ASSERT-KTH/osaudit)
-exits 0 on a full or blobless (`--filter=blob:none`) clone (`osaudit.toml` at the root): each number the paper prints matches a value of
+checks a full or blobless (`--filter=blob:none`) clone (`osaudit.toml` at the root): each number the paper prints matches a value of
 `paper/results/numbers.json`, directly or through `[[numbers.derive]]`, or is declared in `[[numbers.allow]]` with a reason.
+The result depends on the pdftotext (poppler) version: with 24.02 and 26.08 osaudit reports one `numbers/chance-match`, the 34
+in Table 8, whose derive was removed because other versions do not extract that cell (see `osaudit.toml`).
 osaudit matches by value, so a small integer is checked once per value; the claim-by-claim map is
 `preregistration/CLAIMS-EVIDENCE.md`. The provenance check needs the git history: a `--depth 1` clone lacks the
 recorded commit and reports `results/stale`.

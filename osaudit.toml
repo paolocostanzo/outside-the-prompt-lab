@@ -135,9 +135,10 @@ expr = "numbers.rq1.audit.flags_can_change_class"
 value = "33"
 expr = "numbers.rq1.source_audit.joint_U"
 
-[[numbers.derive]]  # Azure DevOps tools
-value = "34"
-expr = "numbers.rq4.all_A.per_server.azure_devops.A"
+# The 34 in Table 8 (Azure DevOps tools, numbers.rq4.all_A.per_server.azure_devops.A) has no derive:
+# the arXiv endorsement check reported that derive as numbers/unused (its pdftotext does not extract
+# that cell as a number). With poppler 24.02 and 26.08 the cell is extracted and, without the derive,
+# reported as numbers/chance-match.
 
 [[numbers.derive]]  # allocation 37
 value = "37"
